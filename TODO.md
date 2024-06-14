@@ -7,4 +7,3 @@
 - Style the graph nodes and edges
 - Auto arrange
 - Zoom and pan
-- CTRL + Z
