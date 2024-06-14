@@ -1,0 +1,10 @@
+- Add more tools
+  - Algorithms
+  - Load from file/list
+- Customize the nodes and edges
+- Extract constants
+- Allow running algorithms on the graph
+- Style the graph nodes and edges
+- Auto arrange
+- Zoom and pan
+- CTRL + Z
