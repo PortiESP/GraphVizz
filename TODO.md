@@ -6,4 +6,10 @@
 - Allow running algorithms on the graph
 - Style the graph nodes and edges
 - Auto arrange
-- Zoom and pan
+- zoom levels array to avoid grid lines padding when zooming out
+- rename drag as pan
+- Extract function to its own file
+- Cambiar la logica del signo del canvasDragOffset
+- Crea función para los shortcuts para para un secuencia de teclas y retornar booleano si se cumple (utilizada en `shortcuts.js` y alguno mas)
+  - Shift como shorthand para LeftShift y RightShift
+- Create función para asignar los callbacks de los eventos del canvas en el componente padre. Definirla en el archivo canvas/utils/setup.js
