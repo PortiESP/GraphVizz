@@ -1,11 +1,9 @@
 - Add more tools
   - Algorithms
   - Load from file/list
-- Customize the nodes and edges
-- Extract constants
 - Allow running algorithms on the graph
 - Style the graph nodes and edges
 - Auto arrange
-- zoom levels array to avoid grid lines padding when zooming out
-- Extract function to its own file
+  - Sobre todo tras ejecutar un algoritmo o cargar un grafo
 - Create función para asignar los callbacks de los eventos del canvas en el componente padre. Definirla en el archivo canvas/utils/setup.js
+- Extract function to its own file
