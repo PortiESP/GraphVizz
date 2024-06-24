@@ -1,5 +1,5 @@
 import './App.css'
-import Graph from './components/graph-manager/GraphBoard'
+import Graph from './components/graph-manager/GraphManager'
 
 function App() {
 
