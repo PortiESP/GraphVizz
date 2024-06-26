@@ -1,0 +1,37 @@
+.wrap{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+
+    .canvas_wrap{
+        width: 100%;
+        height: 100%;
+        background: var(--canvas-bg);
+        position: relative;
+        
+        #canvas{
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .overlay{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        width: 250px;
+        height: 70%;
+
+        &.overlay_left{
+            left: 0;
+            background: var(--overlay-bg);
+        }
+
+        &.overlay_right{
+            right: 0;
+            background: var(--overlay-bg);
+        }
+    }
+}

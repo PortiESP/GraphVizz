@@ -1,17 +1,8 @@
 .wrapper{
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100vw;
     height: 100vh;
-    
-    .canvas-container{
-      width: 90%;
-      height: 90%;
-      background-color: #f1f1f1;
-    }
-
-    #canvas  {
-      box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2);
-    }
 }

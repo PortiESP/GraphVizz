@@ -1,0 +1,94 @@
+.header_wrap {
+    width: 100%;
+    height: var(--nav-height);
+    z-index: 100;
+    background-color: var(--nav-bg);
+    padding: 20px;
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+
+        // --- Logo ---
+        .menu_icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #fff4;
+            border-radius: 6px;
+            padding: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+
+            svg {
+                width: 100%;
+                height: 100%;
+                fill: #fff8;
+            }
+
+            &:hover {
+                background-color: #fff1;
+
+                svg {
+                    fill: #eee;
+                }
+            }
+        }
+
+        // --- Menu options ---
+        .menu_options {
+            ul {
+                display: flex;
+                gap: 20px;
+                list-style: none;
+                padding: 0;
+                margin: 0;
+
+                li {
+                    margin: 0 10px;
+
+                    color: var(--text-gray);
+                    text-decoration: none;
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    transition: all 0.1s;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: var(--text-white);
+                    }
+
+                }
+            }
+        }
+
+        // --- Menu info ---
+        .menu_info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+
+            .share{
+                border: none;
+                border-radius: 6px;
+                padding: 10px 14px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: 500;
+                color: #ddd;
+                background: var(--blue-bright);
+                cursor: pointer;
+            }
+
+            .zoom{
+                font-weight: 500;
+                color: var(--text-gray);
+            }
+        }
+    }
+
+}

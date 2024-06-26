@@ -1,13 +1,16 @@
 import './App.css'
 import Graph from './components/graph-manager/GraphManager'
+import Header from './components/header/Header'
+import ToolOverlay from './components/tool-overlay/ToolOverlay'
 
 function App() {
 
   return (
     <div className='wrapper'>
-      <div className="canvas-container">
+      <Header />
+      <ToolOverlay>
         <Graph />
-      </div>
+      </ToolOverlay>
     </div>
   )
 }
