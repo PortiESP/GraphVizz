@@ -6,15 +6,35 @@
 
     $fontSize: 12px;
 
+    font-family: monospace;
+    overflow-y: scroll;
+
+    // Customize scroll bar
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+
+
     .lines_nums{
-        background: #8888;
-        font-size: 12px;
-        padding: 2px;
-        padding-left: 20px;
-        padding-right: 8px;
-
-
         .line_num{
+            font-size: 12px;
+            padding-left: 20px;
+            padding-right: 8px;
+            line-height: $fontSize*1.4;
+            background: #8888;
             font-size: $fontSize;
             color: var(--text-color);
             text-align: end;
@@ -23,7 +43,6 @@
 
     textarea{
         width: 100%;
-        height: 100%;
         color: var(--text-color);
         font-size: $fontSize;
         padding-left: 4px;
@@ -31,5 +50,9 @@
         outline: none;
         resize: none;
         background: none;
+        font-family: monospace;
+        line-height: $fontSize*1.4;
+
+        overflow-y: visible;
     }
 }

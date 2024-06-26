@@ -14,14 +14,30 @@ export default function GraphEditor(props) {
     const $tArea = useRef(null)
 
     const handleTextChange = (e) => {
-        setLines(e.target.value?.split("\n").map(line => line.trim()) || [])
+        const newLines = e.target.value?.split("\n").map(line => line.trim()) || []
+        setLines(newLines)
         setTextarea(e.target.value)
-    }
+        
+        const validEdges = []
+        const invalidLines = []
+        
+        $tArea.current.style.height = "auto"
+        $tArea.current.style.height = $tArea.current.scrollHeight + "px"
+        
+        newLines.forEach((line, i) => {
+            if (line === "") return
+            
+            if (isValidEdge(line)) validEdges.push(line)
+                else invalidLines.push(i)
+        })
 
-    const handleFocus = (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        $tArea.current.focus()
+        console.log(textarea)
+        console.log("Valid", validEdges, "Invalid", invalidLines)
+        
+        loadFromEdgePlainTextList(validEdges.join("\n"))
+        circularArrange(window.graph.nodes)
+        focusOnAllNodes()
+
     }
 
     useEffect(() => {
@@ -30,32 +46,10 @@ export default function GraphEditor(props) {
         setTextarea(eList.join("\n"))
     }, [])
 
-    useEffect(() => {
-        const validEdges = []
-        const invalidLines = []
-
-        lines.forEach((line, i) => {
-            if (line === "") return
-
-            if (isValidEdge(line)) validEdges.push(line)
-            else invalidLines.push(i)
-        })
-
-        console.log(validEdges)
-        loadFromEdgePlainTextList(validEdges.join("\n"))
-        circularArrange(window.graph.nodes)
-        focusOnAllNodes()
-    }, [lines])
-
 
 
     return (
         <div className={scss.wrap}>
-            <div className={scss.lines_nums_extended}>
-                {
-                    lines.concat([null]).map((line, i) => <div key={i} className={scss.line_num}></div>)
-                }
-            </div>
             <div className={scss.lines_nums}>
                 {
                     lines.map((line, i) => <div key={i} className={scss.line_num}>{i + 1}</div>)
@@ -63,9 +57,9 @@ export default function GraphEditor(props) {
                 <div className={scss.line_num}>{lines.length + 1}</div>
             </div>
             <textarea name="live-editor" id="live-editor" autoCapitalize="off" wrap="off" autoCorrect="off" spellCheck="false" ref={$tArea} 
-                onChange={handleTextChange}
-                onClick={handleFocus}
+                onInput={handleTextChange}
                 value={textarea}
+                rows={lines.length + 1}
             ></textarea>
         </div>
     )
