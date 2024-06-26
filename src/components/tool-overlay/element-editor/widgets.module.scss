@@ -1,0 +1,46 @@
+.input_wrap{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2px;
+    width: 100%;
+
+    label{
+        font-size: 14px;
+        font-weight: 400;
+        font-style: italic;
+        color: #fff8;
+    }
+
+    input{
+        width: 100%;
+        border: 1px solid #8888;
+        border-radius: 1px;
+        padding: 2px 4px;
+        background: #ddd;
+        color: #000;
+        font-size: 14px;
+        font-family: monospace;
+        outline: none;
+
+        &[disabled]{
+            background: #888;
+            color: #fff8;
+        }
+    }
+}
+
+.section{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .title{
+        font-size: 16px;
+        font-weight: 500;
+        color: #eee;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #8888;
+    }
+}

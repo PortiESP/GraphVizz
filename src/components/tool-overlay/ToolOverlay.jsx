@@ -1,8 +1,9 @@
-import LiveEditor from "./live-overlay/OverlayLiveEditor"
+import LiveEditor from "./live-editor/OverlayLiveEditor"
 import CloseIcon from "../../assets/close"
 import ArrowLeft from "../../assets/arrow-left"
 import scss from "./toolsOverlay.module.scss"
 import { useState } from "react"
+import ElementEditor from "./element-editor/OverlayElementEditor"
 
 export default function ToolOverlay(props) {
 
@@ -15,7 +16,7 @@ export default function ToolOverlay(props) {
           <LiveEditor />
         </Overlay>
         <Overlay title="Custom style" right>
-          <div>Custom style</div>
+          <ElementEditor />
         </Overlay>
       </div>
   )
