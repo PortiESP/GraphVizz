@@ -1,4 +1,4 @@
-import LiveEditor from "./overlay-nodes/OverlayLiveEditor"
+import LiveEditor from "./live-overlay/OverlayLiveEditor"
 import CloseIcon from "../../assets/close"
 import ArrowLeft from "../../assets/arrow-left"
 import scss from "./toolsOverlay.module.scss"
@@ -11,11 +11,12 @@ export default function ToolOverlay(props) {
         <div className={scss.canvas_wrap}>
           {props.children}
         </div>
-        <Overlay className={scss.overlay_left}>
+        <Overlay title="Live Editor">
           <LiveEditor />
         </Overlay>
-        {/* <div className={[scss.overlay, scss.overlay_right].join(" ")}>
-        </div> */}
+        <Overlay title="Custom style" right>
+          <div>Custom style</div>
+        </Overlay>
       </div>
   )
 }
@@ -24,14 +25,20 @@ export default function ToolOverlay(props) {
 function Overlay(props){
   const [closed, setClosed] = useState(false)
 
-  const closedClass = props.closedRight ? scss.closed_right : scss.closed_left
+  const closedClass = props.right ? scss.closed_right : scss.closed_left
+  const className = props.right ? scss.overlay_right: scss.overlay_left
 
   return (
-    <div className={[scss.overlay, props.className, closed ? closedClass: ""].join(" ")}>
-        {props.children}
+    <div className={[scss.overlay, className, closed ? closedClass: ""].join(" ")}>
+      <div className={scss.title}>
+        {props.title}
         <div className={scss.toggle} onClick={() => setClosed(old => !old)}>
           {!closed ? <CloseIcon /> : <ArrowLeft />}
         </div>
+      </div>
+      <div className={scss.widget_wrap}>
+        {props.children}
+      </div>
     </div>
 
   )

@@ -23,3 +23,7 @@
   --text-white: var(--white);
 
 }
+
+body{
+  user-select: none;
+}
