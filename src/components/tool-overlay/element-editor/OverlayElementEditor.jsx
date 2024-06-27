@@ -1,8 +1,8 @@
-import { useState } from "react"
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import scss1 from "./elementEditor.module.scss"
 import scss2 from "./widgets.module.scss"
 import SlashCircleIcon from "../../../assets/slash-circle"
+import generateOptions from "./generateEditorOptions"
 
 const scss = {...scss1, ...scss2}
 
@@ -12,116 +12,8 @@ export default function ElementEditor(props) {
     const [menu, setMenu] = useState(null)
     
     useEffect(() => {
-
-        if (selectedElements.length === 0) {
-            setMenu(null)
-            return
-        }
-
-
-        if (selectedElements.length === 1) {
-            // Common fields
-            const sections = [
-                {
-                    title: "Data",
-                    fields: [
-                        {
-                            label: "ID",
-                            initial: selectedElements[0].id,
-                            disabled: true,
-                        }
-                    ]
-                }
-            ]
-
-            const e = selectedElements[0]
-            const type = e.constructor.name
-
-            // Node specific fields
-            if (type === "Node") {
-                sections.push({
-                    title: "Node",
-                    fields: [{
-                        label: "Label",
-                        initial: e.label,
-                        callback: data => e.label = data
-                    },
-                    {
-                        label: "X",
-                        initial: e.x,
-                        callback: data => e.x = parseFloat(data)
-                    },
-                    {
-                        label: "Y",
-                        initial: e.y,
-                        callback: data => e.y = parseFloat(data)
-                    },
-                    {
-                        label: "Radius",
-                        initial: e.r,
-                        callback: data => e.r = parseFloat(data)
-                    
-                    }]
-                })
-                sections.push({
-                    title: "Style",
-                    fields: [{
-                        label: "Background color",
-                        initial: e.backgroundColor,
-                        callback: data => e.backgroundColor = data,
-                        type: "color"
-                    },
-                    {
-                        label: "Label color",
-                        initial: e.labelColor,
-                        callback: data => e.labelColor = data
-                    },
-                    {
-                        label: "Border color",
-                        initial: e.borderColor,
-                        callback: data => e.borderColor = data
-                    },
-                    {
-                        label: "Border width",
-                        initial: e.borderWidth,
-                        callback: data => e.borderWidth = parseFloat(data)
-                    },
-                    {
-                        label: "Hover color",
-                        initial: e.hoverColor,
-                        callback: data => e.hoverColor = data
-                    },
-                    {
-                        label: "Selected color",
-                        initial: e.selectedColor,
-                        callback: data => e.selectedColor = data
-                    },
-                    {
-                        label: "Font size",
-                        initial: e.fontSize,
-                        callback: data => e.fontSize = parseFloat(data)
-                    }]
-                })
-            }
-
-
-            // Edge specific fields
-            if (type === "Edge") {
-                sections[0].fields.push({
-                    label: "Source node",
-                    initial: e.src.id,
-                    disabled: true,
-                },
-                {
-                    label: "Destination node",
-                    initial: e.dst.id,
-                    disabled: true,
-                })
-            }
-
-            setMenu(sections)
-            return
-        }
+        const sections = generateOptions(selectedElements)
+        setMenu(sections)
     }, [selectedElements])
 
     console.log(menu)
@@ -168,25 +60,36 @@ export default function ElementEditor(props) {
 
 function Input(props) {
     const [value, setValue] = useState(props.initial ?? "")
+    const [options, setOptions] = useState({})
 
     const handleChange = e => {
         const data = e.target.value ?? ""
-
+        console.log(data)
         setValue(data)
         props.callback(data)
     }
 
     useEffect(() => {
         setValue(props.initial ?? "")
+        if (props.type === "range") {
+            setOptions({
+                min: props.range[0],
+                max: props.range[1],
+                step: 0.01
+            })
+        }
     }, [props.initial])
-
-    console.log("VALUE", value)
-    console.log("PROPS", props.initial)
 
     return (
         <div className={[scss.input_wrap, scss[props.type]].join(" ")} >
             <label>{props.label}</label>
-            <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} />
+            <div className={scss.inputs}>
+                <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...options}/>
+                {
+                    props.type === "color" || props.type === "range" &&
+                    <input value={value} onChange={handleChange} disabled={props.disabled} type="number" {...options}/>
+                }
+            </div>
         </div>
     )
 }

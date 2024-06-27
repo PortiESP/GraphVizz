@@ -31,20 +31,115 @@
 
     }
 
-    &.color{
+    &.color, &.number{
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
+        gap: 5px;
 
-        input{
-            background: none;
-            border: none;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
+        .inputs{
             order: -1;
+
+            input{
+                background: none;
+                border: none;
+                padding: 0;
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+                order: -1;
+            }
         }
+
+
+        &.number{
+            margin-top: 4px;
+
+            input[type="number"]{
+                width: 40px;
+                text-align: center;
+                background: #ddde;
+                border: 1px solid #888;
+                border-radius: 6px;
+                
+                -moz-appearance:textfield;
+                appearance: textfield;
+                
+                &::-webkit-inner-spin-button,
+                &::-webkit-outer-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    &.range{
+        margin-top: 4px;
+        margin-bottom: 4px;
+
+        .inputs{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+            
+            input[type="range"]{
+                width: 100%;
+                background: none;
+                border: none;
+                outline: none;
+                -webkit-appearance: none;
+                appearance: none;
+                height: 10px;
+                border-radius: 2px;
+
+    
+                &::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    width: 10px;
+                    height: 10px;
+    
+                    // Circle
+                    border-radius: 50%;
+                    background: #fff;
+                    cursor: pointer;
+                }
+    
+                
+    
+                &::-webkit-slider-runnable-track {
+                    background: #8888;
+                    border-radius: 10px;
+                }
+                &::-moz-range-track {
+                    background: #8888;
+                    border-radius: 2px;
+                }
+                &::-ms-track {
+                    background: #8888;
+                    border-radius: 2px;
+                }
+            }
+            
+            input[type="number"]{
+                width: 40px;
+                text-align: center;
+                background: #ddde;
+                border: 1px solid #888;
+                
+                -moz-appearance:textfield;
+                appearance: textfield;
+                
+                &::-webkit-inner-spin-button,
+                &::-webkit-outer-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+            }
+        }
+
     }
 }
 
@@ -52,6 +147,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+    padding-bottom: 10px;
 
     .title{
         font-size: 16px;
