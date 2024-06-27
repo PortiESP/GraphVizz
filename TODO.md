@@ -28,3 +28,5 @@ GUI
   - Ensure btn=0 is used for all the events correctly
   - When the live editor is empty the canvas freezes
   - After creating a new node and modify the label the selection breaks
+  - Snap to grid on create new node and move
+  - Position not updated when the node is moved

@@ -9,6 +9,67 @@ export default function generateOptions(selectedElements){
 function globalOptions(){
     const sections = []
 
+    sections.push({
+        title: "Global",
+        fields: [
+            {
+                label: "Background color",
+                initial: window.graph.backgroundColor,
+                callback: data => window.cvs.$canvas.style.backgroundColor = data,
+                type: "color"
+            },
+        ]
+    })
+    sections.push({
+        title: "Grid",
+        fields: [
+            {
+            label: "Grid enabled",
+            initial: window.graph.gridEnabled,
+            callback: data => window.graph.gridEnabled = data,
+                type: "checkbox"
+            },
+            {
+                label: "Grid color",
+                initial: window.graph.gridColor,
+                callback: data => window.graph.gridColor = data,
+                type: "color"
+            },
+            {
+                label: "Grid span",
+                initial: window.graph.gridSize,
+                callback: data => window.graph.gridSize = parseFloat(data),
+                type: "number"
+            },
+            {
+                label: "Grid thickness",
+                initial: window.graph.gridThickness,
+                callback: data => window.graph.gridThickness = parseFloat(data),
+                type: "number",
+                options: {
+                    min: 0
+                }
+            },
+            {
+                label: "Grid opacity",
+                initial: window.graph.gridOpacity,
+                callback: data => window.graph.gridOpacity = parseFloat(data),
+                type: "range",
+                options:{
+                    step: 0.01,
+                    min: 0,
+                    max: 1
+                }
+            },
+            {
+                label: "Snap to grid",
+                initial: window.graph.snapToGrid,
+                callback: data => window.graph.snapToGrid = data,
+                type: "checkbox"
+            },
+        ]
+    })
+
     return sections
 }
 
@@ -82,6 +143,12 @@ function elementsOptions(selectedElements){
                     type: "color"
                 },
                 {
+                    label: "Font size",
+                    initial: nodes[0].fontSize,
+                    callback: data => nodes.forEach(e => e.fontSize = parseFloat(data)),
+                    type: "number"
+                },
+                {
                     label: "Border color",
                     initial: nodes[0].borderColor,
                     callback: data => nodes.forEach(e => e.borderColor = data),
@@ -94,24 +161,6 @@ function elementsOptions(selectedElements){
                     type: "range",
                     range: [0, 10]
                 },
-                {
-                    label: "Hover color",
-                    initial: nodes[0].hoverColor,
-                    callback: data => nodes.forEach(e => e.hoverColor = data),
-                    type: "color"
-                },
-                {
-                    label: "Selected color",
-                    initial: nodes[0].selectedColor,
-                    callback: data => nodes.forEach(e => e.selectedColor = data),
-                    type: "color"
-                },
-                {
-                    label: "Font size",
-                    initial: nodes[0].fontSize,
-                    callback: data => nodes.forEach(e => e.fontSize = parseFloat(data)),
-                    type: "number"
-                }
         )
     }
 
@@ -172,7 +221,11 @@ function elementsOptions(selectedElements){
                 initial: selectedElements[0].opacity,
                 callback: data => selectedElements.forEach(e => e.opacity = parseFloat(data)),
                 type: "range",
-                range: [0, 1]
+                options: {
+                    step: 0.01,
+                    min: 0,
+                    max: 1
+                }
             }
         ]
     })

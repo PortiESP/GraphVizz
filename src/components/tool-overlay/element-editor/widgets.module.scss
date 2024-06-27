@@ -31,7 +31,7 @@
 
     }
 
-    &.color, &.number{
+    &.color, &.number, &.checkbox{
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
@@ -39,6 +39,8 @@
 
         .inputs{
             order: -1;
+            display: flex;
+            align-items: center;
 
             input{
                 background: none;
@@ -57,10 +59,11 @@
 
             input[type="number"]{
                 width: 40px;
+                height: 25px;
                 text-align: center;
                 background: #ddde;
                 border: 1px solid #888;
-                border-radius: 6px;
+                padding: 0;
                 
                 -moz-appearance:textfield;
                 appearance: textfield;
@@ -70,6 +73,13 @@
                     -webkit-appearance: none;
                     margin: 0;
                 }
+            }
+        }
+
+        &.checkbox{
+            input[type="checkbox"]{
+                width: 15px;
+                height: 15px;
             }
         }
     }

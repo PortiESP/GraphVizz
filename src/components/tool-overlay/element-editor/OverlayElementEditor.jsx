@@ -60,10 +60,12 @@ export default function ElementEditor(props) {
 
 function Input(props) {
     const [value, setValue] = useState(props.initial ?? "")
-    const [options, setOptions] = useState({})
 
     const handleChange = e => {
-        const data = e.target.value ?? ""
+        let data = e.target.value ?? ""
+
+        if (props.type === "checkbox") data = e.target.checked
+
         console.log(data)
         setValue(data)
         props.callback(data)
@@ -71,23 +73,16 @@ function Input(props) {
 
     useEffect(() => {
         setValue(props.initial ?? "")
-        if (props.type === "range") {
-            setOptions({
-                min: props.range[0],
-                max: props.range[1],
-                step: 0.01
-            })
-        }
     }, [props.initial])
 
     return (
         <div className={[scss.input_wrap, scss[props.type]].join(" ")} >
             <label>{props.label}</label>
             <div className={scss.inputs}>
-                <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...options}/>
+                <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...props.options} checked={value}/>
                 {
-                    props.type === "color" || props.type === "range" &&
-                    <input value={value} onChange={handleChange} disabled={props.disabled} type="number" {...options}/>
+                    props.type === "range" &&
+                    <input value={value} onChange={handleChange} disabled={props.disabled} type="number" {...props.options}/>
                 }
             </div>
         </div>
