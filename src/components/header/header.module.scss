@@ -87,6 +87,8 @@
             .zoom{
                 font-weight: 500;
                 color: var(--text-gray);
+                min-width: 50px;
+                text-align: center;
             }
         }
     }
