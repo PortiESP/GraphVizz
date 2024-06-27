@@ -16,8 +16,6 @@ export default function ElementEditor(props) {
         setMenu(sections)
     }, [selectedElements])
 
-    console.log(menu)
-
     useEffect(() => {
         window.setSelectedElements = setSelectedElements
     }, [])
@@ -66,7 +64,6 @@ function Input(props) {
 
         if (props.type === "checkbox") data = e.target.checked
 
-        console.log(data)
         setValue(data)
         props.callback(data)
     }
