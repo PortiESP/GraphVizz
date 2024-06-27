@@ -39,26 +39,68 @@ export default function ElementEditor(props) {
 
             // Node specific fields
             if (type === "Node") {
-                sections[0].fields.push({
-                    label: "Label",
-                    initial: e.label,
-                    callback: data => e.label = data
-                },
-                {
-                    label: "X",
-                    initial: e.x,
-                    callback: data => e.x = parseFloat(data)
-                },
-                {
-                    label: "Y",
-                    initial: e.y,
-                    callback: data => e.y = parseFloat(data)
-                },
-                {
-                    label: "Radius",
-                    initial: e.r,
-                    callback: data => e.r = parseFloat(data)
-                
+                sections.push({
+                    title: "Node",
+                    fields: [{
+                        label: "Label",
+                        initial: e.label,
+                        callback: data => e.label = data
+                    },
+                    {
+                        label: "X",
+                        initial: e.x,
+                        callback: data => e.x = parseFloat(data)
+                    },
+                    {
+                        label: "Y",
+                        initial: e.y,
+                        callback: data => e.y = parseFloat(data)
+                    },
+                    {
+                        label: "Radius",
+                        initial: e.r,
+                        callback: data => e.r = parseFloat(data)
+                    
+                    }]
+                })
+                sections.push({
+                    title: "Style",
+                    fields: [{
+                        label: "Background color",
+                        initial: e.backgroundColor,
+                        callback: data => e.backgroundColor = data,
+                        type: "color"
+                    },
+                    {
+                        label: "Label color",
+                        initial: e.labelColor,
+                        callback: data => e.labelColor = data
+                    },
+                    {
+                        label: "Border color",
+                        initial: e.borderColor,
+                        callback: data => e.borderColor = data
+                    },
+                    {
+                        label: "Border width",
+                        initial: e.borderWidth,
+                        callback: data => e.borderWidth = parseFloat(data)
+                    },
+                    {
+                        label: "Hover color",
+                        initial: e.hoverColor,
+                        callback: data => e.hoverColor = data
+                    },
+                    {
+                        label: "Selected color",
+                        initial: e.selectedColor,
+                        callback: data => e.selectedColor = data
+                    },
+                    {
+                        label: "Font size",
+                        initial: e.fontSize,
+                        callback: data => e.fontSize = parseFloat(data)
+                    }]
                 })
             }
 
@@ -116,11 +158,7 @@ export default function ElementEditor(props) {
                         </SectionTitle>
                     ))
                 }
-
                 </>
-
-                
-
             }
         </div>
     )
@@ -129,26 +167,26 @@ export default function ElementEditor(props) {
 
 
 function Input(props) {
-    const [value, setValue] = useState(props.initial || "")
+    const [value, setValue] = useState(props.initial ?? "")
 
     const handleChange = e => {
-        const data = e.target.value
+        const data = e.target.value ?? ""
 
         setValue(data)
         props.callback(data)
     }
 
     useEffect(() => {
-        setValue(props.initial)
+        setValue(props.initial ?? "")
     }, [props.initial])
 
     console.log("VALUE", value)
     console.log("PROPS", props.initial)
 
     return (
-        <div className={scss.input_wrap}>
+        <div className={[scss.input_wrap, scss[props.type]].join(" ")} >
             <label>{props.label}</label>
-            <input value={value} onChange={handleChange} disabled={props.disabled}/>
+            <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} />
         </div>
     )
 }
