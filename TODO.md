@@ -18,6 +18,8 @@ GUI
   - Responsive
   - Language
   - Context menu
+  - Reset defaults
+  - Focus node on click in aside
 
 
 - REFACTOR 
@@ -30,3 +32,4 @@ GUI
   - After creating a new node and modify the label the selection breaks
   - Snap to grid on create new node and move
   - Position not updated when the node is moved
+  - Warnings of color when number
