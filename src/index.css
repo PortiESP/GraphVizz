@@ -8,7 +8,7 @@
 
   /* Nav */
   --nav-height: 80px;
-  --nav-bg: #222;
+  --nav-bg: #eee;
 
   /* Canvas */
   --canvas-bg: #eee;
@@ -19,7 +19,7 @@
   --white: #eee;
 
   /* Identity */
-  --text-gray: #ddd8;
+  --text-gray: #0008;
   --text-white: var(--white);
 
 }

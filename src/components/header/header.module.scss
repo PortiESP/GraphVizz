@@ -4,6 +4,8 @@
     z-index: 100;
     background-color: var(--nav-bg);
     padding: 20px;
+    // border-bottom: 2px solid #888;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     nav {
         display: flex;
@@ -12,28 +14,45 @@
         height: 100%;
 
         // --- Logo ---
-        .menu_icon {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #fff4;
-            border-radius: 6px;
-            padding: 8px;
+        .menu_logo{
             display: flex;
-            justify-content: center;
+            gap: 20px;
             align-items: center;
+            position: relative;
+            height: 100%;
 
-
-            svg {
-                width: 100%;
-                height: 100%;
-                fill: #fff8;
+            .list_icon {
+                width: 40px;
+                height: 40px;
+                border: 1px solid var(--text-gray);
+                border-radius: 6px;
+                padding: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+    
+    
+                svg {
+                    width: 100%;
+                    height: 100%;
+                    fill: var(--text-gray);
+                }
+    
+                &:hover {
+                    background-color: #333;
+    
+                    svg {
+                        fill: #eee;
+                    }
+                }
             }
 
-            &:hover {
-                background-color: #fff1;
+            .logo{
+                height: 100%;
 
-                svg {
-                    fill: #eee;
+                svg{
+                    width: 100%;
+                    height: 100%;
                 }
             }
         }
@@ -58,7 +77,7 @@
                     cursor: pointer;
 
                     &:hover {
-                        color: var(--text-white);
+                        color: #333;
                     }
 
                 }
