@@ -25,10 +25,9 @@ GUI
 - REFACTOR 
   - shortcuts as callbacks
   - Allow add nodes with live editor without modifying the current arrangement (Avoid create new nodes if those already exist)
+  - Global variable hover that calculates once at the mousemove event and the elements just check if they are inside the hover, and not calculate the hover again
 
 - FIX
-  - Ensure btn=0 is used for all the events correctly
-  - Snap to grid on create new node and move
   - Position not updated when the node is moved
   - Warnings of color when number
   - After deleting a node or edge the selection remains
