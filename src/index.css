@@ -21,6 +21,8 @@
   /* Identity */
   --text-gray: #0008;
   --text-white: var(--white);
+  --red: #ED2929;
+  --red-secondary: #0001;
 
 }
 

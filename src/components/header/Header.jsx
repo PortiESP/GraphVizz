@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import scss from "./header.module.scss"
 import ListIcon from "../../assets/list"
 import { useState } from "react"
@@ -26,16 +27,18 @@ export default function Header(props) {
                     <div className={scss.list_icon}>
                         <ListIcon />
                     </div>
-                    <div className={scss.logo}>
-                        <Logo />
-                    </div>
+                    <Link to="/">
+                        <div className={scss.logo}>
+                            <Logo />
+                        </div>
+                    </Link>
                 </div>
                 <div className={scss.menu_options}>
                     <ul>
                         <li>Load graph</li>
                         <li>Algorithms</li>
                         <li>Settings</li>
-                        <li>Help</li>
+                        <li><Link to="/help">Help</Link></li>
                     </ul>
                 </div>
                 <div className={scss.menu_info}>
