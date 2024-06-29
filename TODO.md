@@ -28,6 +28,5 @@ GUI
   - Global variable hover that calculates once at the mousemove event and the elements just check if they are inside the hover, and not calculate the hover again
 
 - FIX
-  - Position not updated when the node is moved
   - Warnings of color when number
   - After deleting a node or edge the selection remains

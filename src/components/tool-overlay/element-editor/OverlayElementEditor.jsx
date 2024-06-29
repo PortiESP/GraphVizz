@@ -9,15 +9,18 @@ const scss = {...scss1, ...scss2}
 export default function ElementEditor(props) {
 
     const [selectedElements, setSelectedElements] = useState([])
+    const [forceUpdate, setForceUpdate] = useState(0) // Force update when the selected elements change
     const [menu, setMenu] = useState(null)
     
     useEffect(() => {
+        console.log(selectedElements)
         const sections = generateOptions(selectedElements)
         setMenu(sections)
-    }, [selectedElements])
+    }, [selectedElements, forceUpdate])
 
     useEffect(() => {
         window.setSelectedElements = setSelectedElements
+        window.forceUpdateElementEditor = () => setForceUpdate(old=> old + 1)
     }, [])
 
     return (
