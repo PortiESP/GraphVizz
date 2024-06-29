@@ -61,12 +61,6 @@ function globalOptions(){
                     max: 1
                 }
             },
-            {
-                label: "Snap to grid",
-                initial: window.graph.snapToGrid,
-                callback: data => window.graph.snapToGrid = data,
-                type: "checkbox"
-            },
         ]
     })
 

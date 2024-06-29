@@ -72,11 +72,17 @@ function Input(props) {
         setValue(props.initial ?? "")
     }, [props.initial])
 
+    const id = Math.random().toString(36).substring(7)
+    const colorThumbnail = {
+        background: props.type === "color" ? value : null,
+        
+    }
+
     return (
         <div className={[scss.input_wrap, scss[props.type]].join(" ")} >
-            <label>{props.label}</label>
-            <div className={scss.inputs}>
-                <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...props.options} checked={value}/>
+            <label htmlFor={id}>{props.label}</label>
+            <div className={scss.inputs} style={colorThumbnail}>
+                <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...props.options} checked={value} id={id} />
                 {
                     props.type === "range" &&
                     <input value={value} onChange={handleChange} disabled={props.disabled} type="number" {...props.options}/>

@@ -42,6 +42,7 @@
             display: flex;
             align-items: center;
 
+
             input{
                 background: none;
                 border: none;
@@ -49,7 +50,23 @@
                 width: 30px;
                 height: 30px;
                 cursor: pointer;
-                order: -1;
+            }
+        }
+
+        &.color{
+            .inputs{
+                position: relative;
+                input{
+                    // display: none;
+                    opacity: 0;
+                }
+
+                background: #8888;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                cursor: pointer;
+                border: 2px solid #fff8;
             }
         }
 
