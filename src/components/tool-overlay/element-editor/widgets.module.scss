@@ -11,6 +11,28 @@
         font-weight: 400;
         font-style: italic;
         color: #fff8;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .error{
+            font-size: .9em;
+            background: red;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+
+            svg{
+                width: 15px;
+                height: 15px;
+                fill: #fff;
+            
+            }
+        }
     }
 
     input{

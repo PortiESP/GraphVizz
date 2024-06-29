@@ -80,7 +80,13 @@ function elementsOptions(selectedElements){
             {
                 label: "ID",
                 initial: selectedElements[0].id,
-                callback: data => selectedElements[0].id = data
+                callback: data => selectedElements[0].id = data,
+                checkError: data => {
+                    if (data === "") return "Id cannot be empty"
+                    if (window.graph.nodes.find(e => e.id === data) !== undefined || window.graph.edges.find(e => e.id === data) !== undefined) return "Id already exists"
+
+                    return null
+                },
             }
         ]
     })

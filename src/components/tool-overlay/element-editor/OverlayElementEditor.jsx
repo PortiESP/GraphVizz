@@ -3,6 +3,7 @@ import scss1 from "./elementEditor.module.scss"
 import scss2 from "./widgets.module.scss"
 import SlashCircleIcon from "../../../assets/slash-circle"
 import generateOptions from "./generateEditorOptions"
+import CloseIcon from "../../../assets/close"
 
 const scss = {...scss1, ...scss2}
 
@@ -61,14 +62,26 @@ export default function ElementEditor(props) {
 
 function Input(props) {
     const [value, setValue] = useState(props.initial ?? "")
+    const [errorMsg, setErrorMsg] = useState("")
 
     const handleChange = e => {
         let data = e.target.value ?? ""
-
         if (props.type === "checkbox") data = e.target.checked
 
-        setValue(data)
-        props.callback(data)
+        if (props.checkError) {
+            // Validate the input, return true if valid, otherwise return an error message
+            const error = props.checkError(data)
+
+            if (!error) {
+                setValue(data)
+                props.callback(data)
+                setErrorMsg("")
+            } else {
+                setValue(data)
+                setErrorMsg(error ?? "")
+            }
+        }
+
     }
 
     useEffect(() => {
@@ -83,9 +96,11 @@ function Input(props) {
 
     return (
         <div className={[scss.input_wrap, scss[props.type]].join(" ")} >
-            <label htmlFor={id}>{props.label}</label>
+            <label htmlFor={id}>{props.label} 
+            {errorMsg && <span className={scss.error} title={errorMsg}><CloseIcon /></span>}
+            </label>
             <div className={scss.inputs} style={colorThumbnail}>
-                <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...props.options} checked={value} id={id} />
+                <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...props.options} checked={value} id={id} placeholder={errorMsg}></input>
                 {
                     props.type === "range" &&
                     <input value={value} onChange={handleChange} disabled={props.disabled} type="number" {...props.options}/>
