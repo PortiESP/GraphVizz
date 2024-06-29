@@ -73,14 +73,18 @@ function Input(props) {
             const error = props.checkError(data)
 
             if (!error) {
-                setValue(data)
                 props.callback(data)
                 setErrorMsg("")
             } else {
-                setValue(data)
                 setErrorMsg(error ?? "")
             }
+
+            setValue(data)
+        } else {
+            props.callback(data)
+            setValue(data)
         }
+
 
     }
 
