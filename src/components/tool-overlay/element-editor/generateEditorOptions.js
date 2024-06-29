@@ -24,7 +24,7 @@ function globalOptions(){
         title: "Grid",
         fields: [
             {
-            label: "Grid enabled",
+            label: "Show grid",
             initial: window.graph.gridEnabled,
             callback: data => window.graph.gridEnabled = data,
                 type: "checkbox"
@@ -186,12 +186,6 @@ function elementsOptions(selectedElements){
         // One or more edges
         fields.push(
                 {
-                    label: "Weight",
-                    initial: edges[0].weight,
-                    callback: data => edges.forEach(e => e.weight = parseFloat(data)),
-                    type: "number"
-                },
-                {
                     label: "Thickness",
                     initial: edges[0].thickness,
                     callback: data => edges.forEach(e => e.thickness = parseFloat(data)),
@@ -202,7 +196,49 @@ function elementsOptions(selectedElements){
                     initial: edges[0].color,
                     callback: data => edges.forEach(e => e.color = data),
                     type: "color"
-                }                
+                },
+                {
+                    label: "Arrow size",
+                    initial: edges[0].arrowSizeFactor,
+                    callback: data => edges.forEach(e => e.arrowSizeFactor = parseFloat(data)),
+                    type: "number"
+                },
+                {
+                    label: "Weight",
+                    initial: edges[0].weight,
+                    callback: data => edges.forEach(e => e.weight = parseFloat(data)),
+                    type: "number"
+                },
+                {
+                    label: "Show weight",
+                    initial: edges[0].weightColor !== null,
+                    callback: data => edges.forEach(e => e.weightColor = data ? "#fff4": null),
+                    type: "checkbox"
+                },
+                {
+                    label: "Weight color",
+                    initial: edges[0].weightColor,
+                    callback: data => edges.forEach(e => e.weightColor = data),
+                    type: "color"
+                },
+                {
+                    label: "Weight font size",
+                    initial: edges[0].weightFontSize,
+                    callback: data => edges.forEach(e => e.weightFontSize = parseFloat(data)),
+                    type: "number"
+                },
+                {
+                    label: "Show weight background",
+                    initial: edges[0].weightBackgroundColor !== null,
+                    callback: data => edges.forEach(e => e.weightBackgroundColor = data ? "#8888": null),
+                    type: "checkbox"
+                },
+                {
+                    label: "Weight background",
+                    initial: edges[0].weightBackgroundColor,
+                    callback: data => edges.forEach(e => e.weightBackgroundColor = data),
+                    type: "color"
+                }
         )
     }
             

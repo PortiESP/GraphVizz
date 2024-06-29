@@ -1,19 +1,27 @@
 import scss from "./header.module.scss"
-{/* Import svg */ }
 import ListIcon from "../../assets/list"
 import { useState } from "react"
 import { useEffect } from "react"
 import Logo from "../../assets/logo"
+import { generateEdgeAndNodesList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
+import SharePopup from "./share-popup/SharePopup"
 
 export default function Header(props) {
 
     const [zoom, setZoom] = useState(window.cvs?.zoom)
+    const [showSharePopup, setShowSharePopup] = useState(false)
 
     useEffect(() => {
         window.setZoom = setZoom
     }, [])
 
-    return (
+    const handleShare = () => {
+        const url = new URL(window.location.href)
+        url.searchParams.set("graph", generateEdgeAndNodesList().join("_"))
+        navigator.clipboard.writeText(url.href)
+    }
+
+    return (<>
         <header className={scss.header_wrap}>
             <nav>
                 <div className={scss.menu_logo}>
@@ -33,10 +41,11 @@ export default function Header(props) {
                     </ul>
                 </div>
                 <div className={scss.menu_info}>
-                    <button className={scss.share}>Share</button>
+                    <button className={scss.share} onClick={handleShare}>Share</button>
                     <span className={scss.zoom}>{Math.round(zoom*100)}%</span>
                 </div>
             </nav>
         </header>
-    )
+        { showSharePopup && <SharePopup close={()=>setShowSharePopup(false)}/> }
+        </>)
 }

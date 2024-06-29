@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import scss from "./liveEditor.module.scss"
 import { useState } from "react"
-import { generateEdgeList } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
+import { generateEdgeAndNodesList, generateEdgeList } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import { useEffect } from "react"
 import { isSingleNodeEdge, isValidEdge, loadFromEdgePlainTextList, parseEdge } from "../../graph-manager/utils/load_graph"
 import { circularArrange } from "../../graph-manager/utils/arrangements"
@@ -42,9 +42,7 @@ export default function GraphEditor(props) {
     }
 
     useEffect(() => {
-        const eList = generateEdgeList()
-        const nList = window.graph.nodes.map(n => n.toString()).filter(n => !eList.join("").includes(n))
-        const resList = eList.concat(nList)
+        const resList = generateEdgeAndNodesList()  
         setLines(resList)
         setTextarea(resList.join("\n"))
 

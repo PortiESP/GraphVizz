@@ -101,6 +101,10 @@
                 color: #ddd;
                 background: var(--blue-bright);
                 cursor: pointer;
+
+                &:hover{
+                    filter: brightness(1.1);
+                }
             }
 
             .zoom{
