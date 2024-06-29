@@ -16,9 +16,7 @@ export default function Header(props) {
     }, [])
 
     const handleShare = () => {
-        const url = new URL(window.location.href)
-        url.searchParams.set("graph", generateEdgeAndNodesList().join("_"))
-        navigator.clipboard.writeText(url.href)
+        setShowSharePopup(true)
     }
 
     return (<>
