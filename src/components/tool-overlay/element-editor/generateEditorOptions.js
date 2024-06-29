@@ -80,7 +80,7 @@ function elementsOptions(selectedElements){
             {
                 label: "ID",
                 initial: selectedElements[0].id,
-                disabled: true,
+                callback: data => selectedElements[0].id = data
             }
         ]
     })

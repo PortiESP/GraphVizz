@@ -4,9 +4,10 @@ import { generateEdgeAndNodesList } from "../../graph-manager/utils/algorithms/a
 
 export default function SharePopup(props) {
 
+  const url = new URL(window.location.href)
+  url.searchParams.set("graph", generateEdgeAndNodesList().join("_"))
+
   const handleShare = () => {
-    const url = new URL(window.location.href)
-    url.searchParams.set("graph", generateEdgeAndNodesList().join("_"))
     navigator.clipboard.writeText(url.href)
   }
 
@@ -16,7 +17,7 @@ export default function SharePopup(props) {
         <h2 className={scss.title}>Share your graph</h2>
         <p>Copy the link below and share it with your friends</p>
         <div className={scss.link}>
-          <input type="text" value={window.location.href} readOnly />
+          <input type="text" value={url} readOnly />
           <button onClick={handleShare}>Copy</button>
         </div>
         <button onClick={props.close} className={scss.close}><CloseIcon /></button>
