@@ -11,6 +11,7 @@ export default function GraphEditor(props) {
 
     const [lines, setLines] = useState([])
     const [textarea, setTextarea] = useState("")
+    const [forceUpdate, setForceUpdate] = useState(0) // Force update when the selected elements change
     const $tArea = useRef(null)
 
     const handleTextChange = (e) => {
@@ -42,10 +43,16 @@ export default function GraphEditor(props) {
 
     useEffect(() => {
         const eList = generateEdgeList()
-        setLines(eList)
-        setTextarea(eList.join("\n"))
-    }, [])
+        const nList = window.graph.nodes.map(n => n.toString()).filter(n => !eList.join("").includes(n))
+        const resList = eList.concat(nList)
+        setLines(resList)
+        setTextarea(resList.join("\n"))
 
+    }, [forceUpdate])
+    
+    useEffect(() => {
+        window.forceUpdateLiveEditor = () => setForceUpdate(old => old + 1)
+    }, [])
 
 
     return (
