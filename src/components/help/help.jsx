@@ -1,7 +1,6 @@
 import { useState } from "react"
 import scss from "./help.module.scss"
-
-
+import GithubIcon from "../../assets/github"
 export default function Help(props) {
 
   return (
@@ -48,10 +47,12 @@ export default function Help(props) {
           <section id="support">
             <h2>Support</h2>
             <div>
-              <p>If you have any questions, suggestions or problems, please contact us at <a href="mailto:support@graphvizz.com">support@graphvizz.com</a></p>
+              <p>If you have any <em>questions, suggestions or problems</em>, please contact us at <a href="mailto:support@graphvizz.com">support@graphvizz.com</a></p>
+            </div>
+            <div>
+              <p>If you want to <strong>contribute to the project</strong>, please visit our <a href="https://github.com/PortiESP/GraphVizz"><GithubIcon /> GitHub repository</a></p>
             </div>
           </section>
-
         </main>
       </div>
   )
