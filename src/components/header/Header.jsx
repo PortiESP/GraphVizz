@@ -4,13 +4,14 @@ import ListIcon from "../../assets/list"
 import { useState } from "react"
 import { useEffect } from "react"
 import Logo from "../../assets/logo"
-import { generateEdgeAndNodesList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import SharePopup from "./share-popup/SharePopup"
+import HamburgerMenu from "./hamburger-menu/Hamburger"
 
 export default function Header(props) {
 
     const [zoom, setZoom] = useState(window.cvs?.zoom)
     const [showSharePopup, setShowSharePopup] = useState(false)
+    const [showMenu, setShowMenu] = useState(false)
 
     useEffect(() => {
         window.setZoom = setZoom
@@ -25,7 +26,7 @@ export default function Header(props) {
             <nav>
                 <div className={scss.menu_logo}>
                     <div className={scss.list_icon}>
-                        <ListIcon />
+                        <ListIcon onClick={() => setShowMenu(old => !old)}/>
                     </div>
                     <Link to="/">
                         <div className={scss.logo}>
@@ -47,6 +48,7 @@ export default function Header(props) {
                 </div>
             </nav>
         </header>
+        { showMenu && <HamburgerMenu close={()=>setShowMenu(false)}/> }
         { showSharePopup && <SharePopup close={()=>setShowSharePopup(false)}/> }
         </>)
 }
