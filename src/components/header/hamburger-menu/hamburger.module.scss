@@ -9,7 +9,7 @@
     menu{
         width: clamp(200px, 25%, 400px);
         position: relative;
-        top: calc(var(--nav-height) + 10px);
+        top: var(--nav-height);
         left: 10px;
         padding: 10px;
         

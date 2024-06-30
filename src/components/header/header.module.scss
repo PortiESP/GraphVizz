@@ -2,11 +2,9 @@
     width: 100%;
     height: var(--nav-height);
     z-index: 100;
-    background-color: var(--nav-bg);
-    padding: 20px;
-    // border-bottom: 2px solid #888;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
+    
+
+    position: fixed;
     top: 0;
 
     a{
@@ -21,46 +19,50 @@
         align-items: center;
         height: 100%;
 
-        // --- Logo ---
         .menu_logo{
             display: flex;
-            gap: 20px;
+            gap: 10px;
             align-items: center;
             position: relative;
             height: 100%;
+            padding: 10px;
 
             .list_icon {
-                width: 40px;
-                height: 40px;
-                border: 1px solid var(--text-gray);
+                width: 35px;
+                height: 35px;
                 border-radius: 6px;
                 padding: 8px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                background-color: #3332;
     
     
                 svg {
                     width: 100%;
                     height: 100%;
-                    fill: var(--text-gray);
+
+                    path{
+                        stroke: #0008;
+                    }
                 }
     
                 &:hover {
-                    background-color: #333;
-    
-                    svg {
-                        fill: #eee;
-                    }
+                    background: #aaa8;
                 }
             }
 
-            .logo{
+            a{
                 height: 100%;
-
-                svg{
-                    width: 100%;
+                display: flex;
+                align-items: center;
+                .logo{
                     height: 100%;
+    
+                    svg{
+                        width: 100%;
+                        height: 100%;
+                    }
                 }
             }
         }
@@ -95,13 +97,14 @@
         // --- Menu info ---
         .menu_info {
             display: flex;
-            gap: 20px;
+            gap: 10px;
             align-items: center;
+            padding: 10px;
 
             .share{
                 border: none;
                 border-radius: 6px;
-                padding: 10px 14px;
+                padding: 8px 12px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -120,6 +123,10 @@
                 color: var(--text-gray);
                 min-width: 50px;
                 text-align: center;
+
+                &:hover{
+                    text-decoration: line-through;
+                }
             }
         }
     }
