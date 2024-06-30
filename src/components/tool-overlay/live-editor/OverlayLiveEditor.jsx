@@ -14,8 +14,10 @@ export default function GraphEditor(props) {
     const [forceUpdate, setForceUpdate] = useState(0) // Force update when the selected elements change
     const $tArea = useRef(null)
 
+    console.log(lines, textarea)
+
     const handleTextChange = (e) => {
-        const newLines = e.target.value?.split("\n").map(line => line.trim()) || []
+        const newLines = e.target.value?.split("\n") || []
         setLines(newLines)
         setTextarea(e.target.value)
         
@@ -29,7 +31,7 @@ export default function GraphEditor(props) {
             if (line === "") return
             
             if (isValidEdge(line)) validEdges.push(line)
-                else invalidLines.push(i)
+            else invalidLines.push(i)
         })
 
         console.log(textarea)
@@ -42,6 +44,8 @@ export default function GraphEditor(props) {
     }
 
     useEffect(() => {
+        if (document.activeElement === $tArea.current) return
+
         const resList = generateEdgeAndNodesList()  
         setLines(resList)
         setTextarea(resList.join("\n"))
@@ -59,7 +63,9 @@ export default function GraphEditor(props) {
                 {
                     lines.map((line, i) => <div key={i} className={scss.line_num}>{i + 1}</div>)
                 }
-                <div className={scss.line_num}>{lines.length + 1}</div>
+                {
+                    lines.length === 0 && <div className={scss.line_num}>{1}</div>
+                }
             </div>
             <textarea name="live-editor" id="live-editor" autoCapitalize="off" wrap="off" autoCorrect="off" spellCheck="false" ref={$tArea} 
                 onInput={handleTextChange}

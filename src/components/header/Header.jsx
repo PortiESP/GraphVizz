@@ -14,7 +14,7 @@ export default function Header(props) {
 
     const [zoom, setZoom] = useState(window.cvs?.zoom)
     const [showSharePopup, setShowSharePopup] = useState(false)
-    const [showMenu, setShowMenu] = useState(true)
+    const [showMenu, setShowMenu] = useState(false)
 
     useEffect(() => {
         window.setZoom = setZoom
