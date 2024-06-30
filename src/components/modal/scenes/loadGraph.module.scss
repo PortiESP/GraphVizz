@@ -1,0 +1,137 @@
+.wrap{
+    display: flex;
+    flex-direction: column;    
+    gap: 10px;
+
+    h3{
+        color: #333;
+        font-size: 2rem;
+        display: inline-block;
+        width: fit-content;
+        padding: 4px 20px;
+        border-radius: 10px;
+        background: #0001;
+    }
+
+    & > p{
+        color: #666;
+        font-style: italic;
+        padding: 5px;
+    }
+}
+
+.tab_wrap{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .tip{
+        background: #ddd;
+        padding: 10px;
+        color: #888;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-style: normal;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        hr{
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        ul{
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            li{
+                padding-left: 10px;
+
+                &::before{
+                    content: '';
+                    display: inline-block;
+                    position: relative;
+                    background: #0002;
+                    width: 6px;
+                    height: 6px;
+                    border-radius: 50%;
+                    left: -5px;
+                }
+
+            }
+            
+        }
+
+        code{
+            padding:1px 5px;
+            background: #0001;
+            color: #e79222;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .tip_code{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            pre{
+                padding: 10px;
+                background: #222;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-family: monospace;
+                color: #ccc;
+                overflow-x: auto;
+                user-select: text;
+            }
+
+            em{
+                color: #888;
+                font-size: 0.9rem;
+            }
+        }
+    }
+
+
+    textarea{
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+        outline: none;
+        font-family: monospace;
+        color: #666;
+    }
+
+    input[type="text"]{
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        color: #666;
+    }
+
+    button{
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background: #8884;
+        color: #4448;
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: 0.1s;
+
+        &:hover{
+            background: #f22c;
+            color: #fff;
+        }
+    }
+}

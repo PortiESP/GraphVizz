@@ -24,8 +24,6 @@ GUI
 - FIX
   - console log Warnings of color when number
 
-
-
 UPDATE & CHECK regularly
   - Help page
   - Code quality (comments, JSDoc, encapsulation, consistency)

@@ -15,7 +15,7 @@ const InfoIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="non
 
 
 export default function HamburgerMenu(props) {
-  const [modal, setModal] = useState(false)
+  const [modal, setModal] = useState(null)
 
   const navigator = useNavigate()
   const visitHelp = () => {props.close(); navigator("/help")}
