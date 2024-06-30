@@ -70,7 +70,7 @@ export default function GraphEditor(props) {
             <textarea name="live-editor" id="live-editor" autoCapitalize="off" wrap="off" autoCorrect="off" spellCheck="false" ref={$tArea} 
                 onInput={handleTextChange}
                 value={textarea}
-                rows={lines.length + 1}
+                rows={lines.length}
             ></textarea>
         </div>
     )

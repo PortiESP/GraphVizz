@@ -67,6 +67,7 @@
                 background-color: var(--nav-bg);
                 color: var(--text-gray);
                 outline: none;
+                user-select: all;
 
                 &:hover{
                     background: #8881;
