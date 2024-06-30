@@ -43,7 +43,7 @@ export default function Header(props) {
                 </div>
                 <div className={scss.menu_options}>
                     <ul>
-                        <li><Link to="/graph">Graph</Link></li>
+                        <li><Link to="/">Graph</Link></li>
                         <li><Link to="/algorithms">Algorithms</Link></li>
                         <li><Link to="/examples">Examples</Link></li>
                         <li><Link to="/help">Help</Link></li>

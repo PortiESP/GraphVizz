@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import scss from "./hamburger.module.scss"
 import Modal from "../../modal/Modal"
 import { useState } from "react"
+import { redo, undo } from "../../graph-manager/utils/memento"
 
 const NoteIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 14V7C20 5.34315 18.6569 4 17 4H7C5.34315 4 4 5.34315 4 7V17C4 18.6569 5.34315 20 7 20H13.5M20 14L13.5 20M20 14H15.5C14.3954 14 13.5 14.8954 13.5 16V20" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
 const SaveIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6C4 4.89543 4.89543 4 6 4H12H14.1716C14.702 4 15.2107 4.21071 15.5858 4.58579L19.4142 8.41421C19.7893 8.78929 20 9.29799 20 9.82843V12V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 4H13V7C13 7.55228 12.5523 8 12 8H9C8.44772 8 8 7.55228 8 7V4Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 15C7 13.8954 7.89543 13 9 13H15C16.1046 13 17 13.8954 17 15V20H7V15Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -31,8 +32,8 @@ export default function HamburgerMenu(props) {
         <MenuItem label="Load from..." onClick={loadModal}><ImportIcon /></MenuItem>
         <MenuItem label="Export as..." onClick={() => console.log("btn")}><ExportIcon /></MenuItem>
         <hr />
-        <MenuItem label="Undo" shortcut="Ctrl+Z" onClick={() => console.log("btn")}><UndoIcon /></MenuItem>
-        <MenuItem label="Redo" shortcut="Ctrl+Shift+Z" onClick={() => console.log("btn")}><RedoIcon /></MenuItem>
+        <MenuItem label="Undo" shortcut="Ctrl+Z" onClick={undo}><UndoIcon /></MenuItem>
+        <MenuItem label="Redo" shortcut="Ctrl+Shift+Z" onClick={redo}><RedoIcon /></MenuItem>
         <hr />
         <MenuItem label="Settings" onClick={() => console.log("btn")}><SettingsIcon /></MenuItem>
         <MenuItem label="Help & About" onClick={visitHelp}><InfoIcon /></MenuItem>
