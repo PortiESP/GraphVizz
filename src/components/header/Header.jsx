@@ -14,7 +14,7 @@ export default function Header(props) {
 
     const [zoom, setZoom] = useState(window.cvs?.zoom)
     const [showSharePopup, setShowSharePopup] = useState(false)
-    const [showMenu, setShowMenu] = useState(false)
+    const [showMenu, setShowMenu] = useState(true)
 
     useEffect(() => {
         window.setZoom = setZoom
@@ -43,9 +43,9 @@ export default function Header(props) {
                 </div>
                 <div className={scss.menu_options}>
                     <ul>
-                        <li>Load graph</li>
-                        <li>Algorithms</li>
-                        <li>Settings</li>
+                        <li><Link to="/graph">Graph</Link></li>
+                        <li><Link to="/algorithms">Algorithms</Link></li>
+                        <li><Link to="/examples">Examples</Link></li>
                         <li><Link to="/help">Help</Link></li>
                     </ul>
                 </div>

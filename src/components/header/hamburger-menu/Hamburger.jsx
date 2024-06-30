@@ -15,19 +15,20 @@ const InfoIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="non
 
 
 export default function HamburgerMenu(props) {
-  const [modal, setModal] = useState(null)
+  const [modal, setModal] = useState("save_graph")
 
   const navigator = useNavigate()
   const visitHelp = () => {props.close(); navigator("/help")}
   const emptyGraph = () => {props.close(); window.graph.emptyGraph()}
   const loadModal = () => {setModal("load_graph")}
+  const saveModal = () => {setModal("save_graph")}
 
   return (
     <>
     <div className={scss.wrap} onClick={e => e.target.className === scss.wrap && props.close()}>
       <menu >
         <MenuItem label="New empty graph" onClick={emptyGraph}><NoteIcon /></MenuItem>
-        <MenuItem label="Save as..." shortcut="Ctrl+Shift+S" onClick={() => console.log("btn")}><SaveIcon /></MenuItem>
+        <MenuItem label="Save as..." shortcut="Ctrl+Shift+S" onClick={saveModal}><SaveIcon /></MenuItem>
         <MenuItem label="Load from..." onClick={loadModal}><ImportIcon /></MenuItem>
         <MenuItem label="Export as..." onClick={() => console.log("btn")}><ExportIcon /></MenuItem>
         <hr />

@@ -1,14 +1,13 @@
 import scss from "./sharePopup.module.scss"
 import CloseIcon from "../../../assets/close"
-import { generateEdgeAndNodesList } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
+import { generateURL } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 
 export default function SharePopup(props) {
 
-  const url = new URL(window.location.href)
-  url.searchParams.set("graph", generateEdgeAndNodesList().join("_"))
+  const url = generateURL()
 
   const handleShare = () => {
-    navigator.clipboard.writeText(url.href)
+    navigator.clipboard.writeText(url)
   }
 
   return (
