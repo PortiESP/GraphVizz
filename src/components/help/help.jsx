@@ -6,9 +6,9 @@ export default function Help(props) {
 
   return (
       <div className={scss.wrapper}>
-        <div className={scss.content}>
+        <main className={scss.content}>
           <h1>Help</h1>
-          <p className={scss.tip}>In this page you can find information about features, shortcuts and support.</p>
+          <p className={scss.tip}>In this page you can find information about <strong>features</strong>, <strong>shortcuts</strong> and <strong>support</strong>.</p>
 
           <section id="how-to">
             <h2>How to...</h2>
@@ -44,7 +44,15 @@ export default function Help(props) {
               </ul>
             </div>
           </section >
-        </div>
+
+          <section id="support">
+            <h2>Support</h2>
+            <div>
+              <p>If you have any questions, suggestions or problems, please contact us at <a href="mailto:support@graphvizz.com">support@graphvizz.com</a></p>
+            </div>
+          </section>
+
+        </main>
       </div>
   )
 }
