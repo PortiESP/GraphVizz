@@ -79,7 +79,6 @@ function FromEdgeList(props){
 
   return <div className={scss.tab_wrap}>
     <div className={scss.tip}>
-      <p>Enter the edge list of the graph</p>
       <p>Each line represents an edge in the graph, or a single node</p>
       <p>The lines must follow one of the following formats:</p>
       <ul>
@@ -89,7 +88,6 @@ function FromEdgeList(props){
         <li><code>src-dst</code> - undirected edge with no weight</li>
         <li><code>node</code> - single node</li>
       </ul>
-      <hr />
     </div>
     <textarea placeholder="Edge List" ref={$input} value={inputValue} readOnly/>
     <button onClick={handleCopy}>Copy</button>
@@ -114,7 +112,6 @@ function FromURL(props){
 
   return <div className={scss.tab_wrap}>
     <div className={scss.tip}>
-      <p>Enter the URL of the graph</p>
       <p>The URL must contain a query parameter <code>graph</code> with the graph scheme</p>
       <p>The graph scheme is generated when clicking the <em>Share</em> button, and it will generate a URL with the scheme of the current graph</p>
     </div>

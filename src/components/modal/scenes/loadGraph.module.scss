@@ -36,6 +36,24 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
+        height: clamp(100px, 50vh, 200px);
+        overflow-y: scroll;
+
+        // Replace the default scrollbar with a custom one
+        &::-webkit-scrollbar {
+            width: 14px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 10px;
+            border: 5px solid #ddd;
+        }
+
 
         hr{
             border: none;
@@ -107,6 +125,7 @@
         resize: vertical;
         outline: none;
         font-family: monospace;
+        min-height: 100px;
         color: #666;
     }
 
