@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom"
 import scss from "./hamburger.module.scss"
+import Modal from "../../modal/Modal"
+import { useState } from "react"
 
+const NoteIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 14V7C20 5.34315 18.6569 4 17 4H7C5.34315 4 4 5.34315 4 7V17C4 18.6569 5.34315 20 7 20H13.5M20 14L13.5 20M20 14H15.5C14.3954 14 13.5 14.8954 13.5 16V20" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
 const LoadIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17V7C3 5.89543 3.89543 5 5 5H9.58579C9.851 5 10.1054 5.10536 10.2929 5.29289L12 7H19C20.1046 7 21 7.89543 21 9V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
 const SaveIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6C4 4.89543 4.89543 4 6 4H12H14.1716C14.702 4 15.2107 4.21071 15.5858 4.58579L19.4142 8.41421C19.7893 8.78929 20 9.29799 20 9.82843V12V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M8 4H13V7C13 7.55228 12.5523 8 12 8H9C8.44772 8 8 7.55228 8 7V4Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 15C7 13.8954 7.89543 13 9 13H15C16.1046 13 17 13.8954 17 15V20H7V15Z" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
 const ImportIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 15V17C19 18.1046 18.1046 19 17 19H7C5.89543 19 5 18.1046 5 17V15M12 15L12 5M12 5L14 7M12 5L10 7" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -12,15 +15,20 @@ const InfoIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="non
 
 
 export default function HamburgerMenu(props) {
+  const [modal, setModal] = useState(false)
+
   const navigator = useNavigate()
   const visitHelp = () => {props.close(); navigator("/help")}
+  const emptyGraph = () => {props.close(); window.graph.emptyGraph()}
+  const loadModal = () => {setModal("load_graph")}
 
   return (
+    <>
     <div className={scss.wrap} onClick={e => e.target.className === scss.wrap && props.close()}>
       <menu >
-        <MenuItem label="Load graph" shortcut="Ctrl+O" onClick={() => console.log("btn")}><LoadIcon /></MenuItem>
-        <MenuItem label="Save to..." shortcut="Ctrl+Shift+S" onClick={() => console.log("btn")}><SaveIcon /></MenuItem>
-        <MenuItem label="Import" onClick={() => console.log("btn")}><ImportIcon /></MenuItem>
+        <MenuItem label="New empty graph" onClick={emptyGraph}><NoteIcon /></MenuItem>
+        <MenuItem label="Save as..." shortcut="Ctrl+Shift+S" onClick={() => console.log("btn")}><SaveIcon /></MenuItem>
+        <MenuItem label="Load from..." onClick={loadModal}><ImportIcon /></MenuItem>
         <MenuItem label="Export as..." onClick={() => console.log("btn")}><ExportIcon /></MenuItem>
         <hr />
         <MenuItem label="Undo" shortcut="Ctrl+Z" onClick={() => console.log("btn")}><UndoIcon /></MenuItem>
@@ -30,12 +38,15 @@ export default function HamburgerMenu(props) {
         <MenuItem label="Help & About" onClick={visitHelp}><InfoIcon /></MenuItem>
       </menu>
     </div>
+    {modal && <Modal scene={modal} close={()=> setModal(null)}/>}
+    </>
   )
 }
 
 
 
 function MenuItem(props) {
+
 
   return (
       <div className={scss.menu_item} onClick={props.onClick}>
