@@ -7,7 +7,7 @@
     z-index: 100;
 
     menu{
-        width: clamp(200px, 25%, 400px);
+        width: clamp(200px, 25%, 300px);
         position: relative;
         top: var(--nav-height);
         left: 10px;
@@ -16,9 +16,10 @@
         display: flex;
         flex-direction: column;
 
-        background: #eee;
+        background: #ebebeb;
         border: 1px solid #ccc;
         border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
 
         .menu_item:last-child{
             border-bottom: none;
@@ -57,7 +58,7 @@
     }
 
     .menu_label{
-        font-size: 1rem;
+        font-size: .9rem;
         font-weight: 400;
         display: flex;
         align-items: center;
