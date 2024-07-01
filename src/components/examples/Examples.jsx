@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import scss from "./example.module.scss"
 import Tree1SVG from "./thumbnails/tree-1.svg?react"
+import Circle1SVG from "./thumbnails/circular-1.svg?react"
 
 
 const EXAMPLES = [
@@ -17,17 +18,11 @@ const EXAMPLES = [
         thumbnail: <Tree1SVG />
     },
     {
-        id: 3,
-        title: "Example 3",
-        description: "This is an example of something",
-        thumbnail: <></>
+        id: "circular-1",
+        title: "circular-1",
+        description: "Circular graph",
+        thumbnail: <Circle1SVG />
     },
-    {
-        id: 4,
-        title: "Example 4",
-        description: "This is an example of something",
-        thumbnail: <></>
-    }
 ]
 
 
