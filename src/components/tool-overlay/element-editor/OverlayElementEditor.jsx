@@ -14,7 +14,6 @@ export default function ElementEditor(props) {
     const [menu, setMenu] = useState(null)
     
     useEffect(() => {
-        console.log(selectedElements)
         const sections = generateOptions(selectedElements)
         setMenu(sections)
     }, [selectedElements, forceUpdate])

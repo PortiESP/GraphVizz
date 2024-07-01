@@ -14,8 +14,6 @@ export default function GraphEditor(props) {
     const [forceUpdate, setForceUpdate] = useState(0) // Force update when the selected elements change
     const $tArea = useRef(null)
 
-    console.log(lines, textarea)
-
     const handleTextChange = (e) => {
         const newLines = e.target.value?.split("\n") || []
         setLines(newLines)
@@ -34,9 +32,6 @@ export default function GraphEditor(props) {
             else invalidLines.push(i)
         })
 
-        console.log(textarea)
-        console.log("Valid", validEdges, "Invalid", invalidLines)
-        
         loadFromEdgePlainTextList(validEdges.join("\n"))
         circularArrange(window.graph.nodes)
         focusOnAllNodes()
