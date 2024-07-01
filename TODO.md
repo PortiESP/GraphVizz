@@ -23,6 +23,7 @@ GUI
 
 - FIX
   - console log Warnings of color when number
+  - Reset all states when changing mode (selection box)
 
 UPDATE & CHECK regularly
   - Help page

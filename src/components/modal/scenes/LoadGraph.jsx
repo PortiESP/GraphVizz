@@ -23,6 +23,7 @@ function FromJSON(props){
   const handleLoad = () => {
     const json = eval(`[${$input.current.value}]`)[0]
     loadFromJSON(json)
+    focusOnAllNodes()
     props.closeModal()
   }
 

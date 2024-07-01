@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import scss from "./header.module.scss"
-import ListIcon from "../../assets/list"
 import { useState } from "react"
 import { useEffect } from "react"
 import Logo from "../../assets/logo"
