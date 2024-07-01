@@ -1,7 +1,7 @@
 import scss from "./loadGraph.module.scss"
 import Tabs from "../components/tabs/Tabs";
 import { useRef } from "react";
-import { generateEdgeAndNodesList, generateGraphArray, generateURL } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph";
+import { generateEdgeAndNodesList, generateGraphArray, generateGraphJSON as generateGraphObject, generateURL } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -22,7 +22,7 @@ function FromJSON(props){
   const [inputValue, setInputValue] = useState("")
 
   useEffect(() => {
-    setInputValue(JSON.stringify(generateGraphArray(), null, 2))
+    setInputValue(JSON.stringify(generateGraphObject(), null, 2))
   }, [])
 
   const handleCopy = () => {
