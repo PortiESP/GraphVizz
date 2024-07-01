@@ -55,12 +55,30 @@
     flex-direction: column;
     gap: 10px;
 
+    h4{
+        color: #333;
+        font-size: 1.2rem;
+        border-radius: 4px;
+        padding: 4px 10px;
+        background: #0001;
+        color: #0006;
+    }
+
+    hr{
+        border: 1px solid #0001;
+    }
+
     .export_result{
         width: 100%;
-        height: clamp(100px, 40vh, 400px);
+        max-height: 400px;
         &.export_png{
             // Maintain window aspect ratio
-            height: calc(100vw * 9 / 16 / 3);
+            width: 100%;
+        }
+        &.export_svg{
+            // Maintain window aspect ratio
+            width: 100%;
+            height: clamp(200px, 40vh, 400px);
         }
         position: relative;
     
@@ -68,14 +86,23 @@
             width: 100%;
             height: 100%;
             border: 1px solid #0001;
+            border-radius: 4px;
         }
-
+        
         img{
             width: 100%;
-            height: 100%;
             object-fit: contain;
             border: 1px solid #0001;
+            border-radius: 4px;
         }
+    }
+
+    .tip{
+        color: #666;
+        background: #0001;
+        border-radius: 4px;
+        padding: 15px;
+        border: 1px solid #0001;
     }
 
     button{

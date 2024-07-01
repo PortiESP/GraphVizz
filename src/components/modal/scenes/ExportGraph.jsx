@@ -43,10 +43,11 @@ function AsSVG() {
 
 
   return (<div className={scss.tab_wrap}>
-    <div className={scss.export_result}>
+    <h4>Preview</h4>
+    <div className={[scss.export_result, scss.export_svg].join(" ")}>
       <svg id="export-svg"></svg>
     </div>
-    <button onClick={() => handleExportAsSVG()}>Export as SVG</button>
+    <button onClick={() => handleExportAsSVG()}>Download SVG</button>
   </div>)
 }
 
@@ -71,10 +72,12 @@ function AsPNG() {
 
   return (
     <div className={scss.tab_wrap}>
+      <h4>Preview</h4>
       <div className={[scss.export_result, scss.export_png].join(" ")}>
         <img id="export-img" />
       </div>
-      <button onClick={() => handleExportAsPNG()}>Export as PNG</button>
+      <p className={scss.tip}>The resulting image will contain an <strong>exact copy</strong> of the canvas as it is displayed on the screen: <em>the colors, the labels, the position, the grid, etc.</em></p>
+      <button onClick={() => handleExportAsPNG()}>Download PNG</button>
     </div>
   )
 }

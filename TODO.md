@@ -29,3 +29,4 @@ UPDATE & CHECK regularly
   - Help page
   - Code quality (comments, JSDoc, encapsulation, consistency)
   - Unused code
+  - Memento events
