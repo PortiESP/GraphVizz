@@ -192,6 +192,12 @@ function elementsOptions(selectedElements){
         // One or more edges
         fields.push(
                 {
+                    label: "Directed",
+                    initial: edges[0].directed,
+                    callback: data => edges.forEach(e => e.directed = data),
+                    type: "checkbox"
+                },
+                {
                     label: "Thickness",
                     initial: edges[0].thickness,
                     callback: data => edges.forEach(e => e.thickness = parseFloat(data)),
