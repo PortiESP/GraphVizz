@@ -3,10 +3,12 @@ import scss from "./modal.module.scss"
 import LoadGraph from "./scenes/LoadGraph"
 import CloseIcon from "../../assets/close"
 import SaveGraph from "./scenes/saveGraph"
+import ExportGraph from "./scenes/ExportGraph"
 
 const SCENES = {
     load_graph: LoadGraph,
     save_graph: SaveGraph,
+    export_graph: ExportGraph
 }
 
 export default function Modal(props) {

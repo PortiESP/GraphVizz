@@ -22,6 +22,7 @@ export default function HamburgerMenu(props) {
   const emptyGraph = () => {props.close(); window.graph.emptyGraph(); navigator("/"); window.forceUpdateLiveEditor()}
   const loadModal = () => {setModal("load_graph")}
   const saveModal = () => {setModal("save_graph")}
+  const exportModal = () => {setModal("export_graph")}
 
   return (
     <>
@@ -30,7 +31,7 @@ export default function HamburgerMenu(props) {
         <MenuItem label="New empty graph" onClick={emptyGraph}><NoteIcon /></MenuItem>
         <MenuItem label="Save as..." shortcut="Ctrl+Shift+S" onClick={saveModal}><SaveIcon /></MenuItem>
         <MenuItem label="Load from..." onClick={loadModal}><ImportIcon /></MenuItem>
-        <MenuItem label="Export as..." onClick={() => console.log("btn")}><ExportIcon /></MenuItem>
+        <MenuItem label="Export as..." onClick={exportModal}><ExportIcon /></MenuItem>
         <hr />
         <MenuItem label="Undo" shortcut="Ctrl+Z" onClick={undo}><UndoIcon /></MenuItem>
         <MenuItem label="Redo" shortcut="Ctrl+Shift+Z" onClick={redo}><RedoIcon /></MenuItem>

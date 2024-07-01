@@ -1,0 +1,93 @@
+.wrap{
+    display: flex;
+    flex-direction: column;    
+    gap: 10px;
+
+    h3{
+        color: #333;
+        font-size: 2rem;
+        display: inline-block;
+        width: fit-content;
+        padding: 4px 20px;
+        border-radius: 10px;
+        background: #0001;
+    }
+
+    & > p{
+        color: #666;
+        font-style: italic;
+        padding: 5px;
+    }
+
+    .buttons{
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 10px;
+
+        button{
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--red);
+            background: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #000;
+            font-weight: bold;
+            transition: 0.1s;
+        }
+
+        button:hover{
+            background: var(--red);
+            color: #eee;
+        }
+    }
+
+    hr{
+        border: 1px solid #0001;
+    }
+
+}
+
+.tab_wrap{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .export_result{
+        width: 100%;
+        height: clamp(100px, 40vh, 400px);
+        position: relative;
+    
+        svg{
+            width: 100%;
+            height: 100%;
+            border: 1px solid #0001;
+        }
+
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border: 1px solid #0001;
+        }
+    }
+
+    button{
+        padding: 10px 20px;
+        border-radius: 4px;
+        border: 1px solid #f008;
+        background: none;
+        cursor: pointer;
+        font-size: 1rem;
+        color: #f008;
+        font-weight: bold;
+        transition: 0.1s;
+
+        &:hover{
+            background: var(--red);
+            color: #eee;
+        }
+    }
+}

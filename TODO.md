@@ -20,6 +20,7 @@ GUI
   - shortcuts as callbacks
   - Allow add nodes with live editor without modifying the current arrangement (Avoid create new nodes if those already exist)
   - Global variable hover that calculates once at the mousemove event and the elements just check if they are inside the hover, and not calculate the hover again
+  - make a listener for graph changes and allow some parts of the code to subscribe to changes
 
 - FIX
   - console log Warnings of color when number

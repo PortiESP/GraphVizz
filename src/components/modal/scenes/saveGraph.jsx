@@ -1,10 +1,7 @@
 import scss from "./loadGraph.module.scss"
 import Tabs from "../components/tabs/Tabs";
 import { useRef } from "react";
-import { loadFromEdgePlainTextList, loadFromJSON, loadFromURL } from "../../graph-manager/utils/load_graph";
-import { circularArrange } from "../../graph-manager/utils/arrangements";
-import { focusOnAllNodes } from "../../graph-manager/utils/view";
-import { generateEdgeAndNodesList, generateEdgeList, generateGraphArray, generateURL } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph";
+import { generateEdgeAndNodesList, generateGraphArray, generateURL } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph";
 import { useEffect } from "react";
 import { useState } from "react";
 
