@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import scss from "./example.module.scss"
 
 
@@ -39,7 +40,7 @@ export default function Examples(props) {
 
             <div className={scss.examples_wrap}>
                 {EXAMPLES.map((example, index) => {
-                    return <ExampleCard key={index} title={example.title} description={example.description} thumbnail={example.thumbnail} />
+                    return <ExampleCard key={index} id={example.id || "#"}title={example.title} description={example.description} thumbnail={example.thumbnail} />
                 })}
             </div>
         </div>
@@ -51,12 +52,12 @@ export default function Examples(props) {
 function ExampleCard(props) {
 
   return (
-    <div className={scss.example}>
+    <Link to={`/?example=${props.id}`} className={scss.example}>
       <div className={scss.thumbnail}>
         {props.thumbnail}
       </div>
       <h2>{props.title}</h2>
       <p>{props.description}</p>
-    </div>
+    </Link>
   )
 }
