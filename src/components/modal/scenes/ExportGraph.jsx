@@ -71,7 +71,7 @@ function AsPNG() {
 
   return (
     <div className={scss.tab_wrap}>
-      <div className={scss.export_result}>
+      <div className={[scss.export_result, scss.export_png].join(" ")}>
         <img id="export-img" />
       </div>
       <button onClick={() => handleExportAsPNG()}>Export as PNG</button>

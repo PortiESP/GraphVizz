@@ -58,6 +58,10 @@
     .export_result{
         width: 100%;
         height: clamp(100px, 40vh, 400px);
+        &.export_png{
+            // Maintain window aspect ratio
+            height: calc(100vw * 9 / 16 / 3);
+        }
         position: relative;
     
         svg{
