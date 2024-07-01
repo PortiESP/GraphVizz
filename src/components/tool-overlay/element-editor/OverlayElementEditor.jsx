@@ -107,7 +107,7 @@ function Input(props) {
                 <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...props.options} checked={value} id={id} placeholder={errorMsg}></input>
                 {
                     props.type === "range" &&
-                    <input value={value} onChange={handleChange} disabled={props.disabled} type="number" {...props.options}/>
+                    <input value={value} onChange={handleChange} disabled={props.disabled} type="number" {...props.options} tabIndex={null}/>
                 }
             </div>
         </div>

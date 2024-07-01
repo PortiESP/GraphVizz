@@ -23,7 +23,6 @@ GUI
 
 - FIX
   - console log Warnings of color when number
-  - When writing in the live editor, while having the element editor hidden, if the user presses tab, the window shows the element editor when it should not
 
 UPDATE & CHECK regularly
   - Help page

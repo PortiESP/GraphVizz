@@ -110,6 +110,11 @@
 
         &.closed_left,
         &.closed_right {
+
+            .widget_wrap{
+                animation: slideRight .1s forwards;
+            }
+
             .toggle {
                 background: #0008;
 
@@ -147,4 +152,14 @@
             }
         }
     }
+}
+
+
+@keyframes slideRight {
+    from {
+        display: flex;
+    }
+    to {
+        display: none;
+    }   
 }
