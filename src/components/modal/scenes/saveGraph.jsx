@@ -1,7 +1,7 @@
 import scss from "./loadGraph.module.scss"
 import Tabs from "../components/tabs/Tabs";
 import { useRef } from "react";
-import { generateEdgeAndNodesList, generateGraphArray, generateGraphJSON as generateGraphObject, generateURL } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph";
+import { generateEdgeAndNodesList, generateGraphObject, generateURL } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph";
 import { useEffect } from "react";
 import { useState } from "react";
 
