@@ -7,6 +7,7 @@ FEATURES
   - Study memento actions
   - Images as nodes
   - Save to cache (avoid losing the graph when reloading the page)
+  - Block nodes movement or edit style
 
 GUI
   - Responsive
