@@ -96,7 +96,7 @@ export default function Header(props) {
                 <div className={scss.menu_options}>
                     <ul>
                         <li className={location.pathname === "/" ? scss.current: undefined}><Link to="/">Graph Editor</Link></li>
-                        <li><Link to="/algorithms">Algorithms</Link>
+                        <li>Algorithms
                             <SubMenu>
                                 {
                                     location.pathname === "/" ? <>
