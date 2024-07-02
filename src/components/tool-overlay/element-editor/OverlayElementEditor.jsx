@@ -4,6 +4,7 @@ import scss2 from "./widgets.module.scss"
 import SlashCircleIcon from "../../../assets/slash-circle"
 import generateOptions from "./generateEditorOptions"
 import CloseIcon from "../../../assets/close"
+import RevertIcon from "../../../assets/revert.svg?react"
 
 const scss = {...scss1, ...scss2}
 
@@ -97,10 +98,17 @@ function Input(props) {
         
     }
 
+    const resetDefault = () => {
+        const defValue = props.default || props.initial
+        setValue(defValue)
+        props.callback(defValue)
+    }
+
     return (
         <div className={[scss.input_wrap, scss[props.type]].join(" ")} onClick={props.disabled ? props.callback: undefined}>
             <label htmlFor={id} style={props.labelStyle}>{props.label}  
             {errorMsg && <span className={scss.error} title={errorMsg}><CloseIcon /></span>}
+            <span className={scss.revert} onClick={resetDefault}><RevertIcon /></span>
             </label>
             <div className={scss.inputs} style={colorThumbnail}>
                 <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...props.options} checked={value} id={id} placeholder={errorMsg}></input>

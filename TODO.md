@@ -12,8 +12,6 @@ GUI
   - Responsive
   - Language
   - Context menu
-  - Reset defaults
-  - Focus node on click in aside
   - LiveEditor different edge list formats
 
 

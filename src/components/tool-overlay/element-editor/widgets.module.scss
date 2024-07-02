@@ -5,12 +5,18 @@
     justify-content: space-between;
     gap: 2px;
     width: 100%;
+    padding-bottom: 5px;
+    
+    &:hover .revert{
+        opacity: 1;
+    }
 
     label{
         font-size: 14px;
         font-weight: 400;
         font-style: italic;
         color: #fff8;
+        width: 100%;
 
         display: flex;
         justify-content: space-between;
@@ -31,6 +37,32 @@
                 height: 15px;
                 fill: #fff;
             
+            }
+        }
+
+        .revert{
+            opacity: 0;
+            font-size: .9em;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            // Align right
+            svg{
+                width: 15px;
+                height: 15px;
+                path{
+                    stroke: #fff4;
+                
+                }
+            }
+
+            &:hover{
+                svg path{
+                    stroke: #fff8;
+                }
             }
         }
     }
@@ -195,14 +227,13 @@
 .section{
     display: flex;
     flex-direction: column;
-    gap: 5px;
     padding-bottom: 10px;
 
     .title{
         font-size: 16px;
         font-weight: 500;
         color: #eee;
-        padding-bottom: 4px;
+        padding: 4px 0;
         border-bottom: 1px solid #8888;
     }
 }
