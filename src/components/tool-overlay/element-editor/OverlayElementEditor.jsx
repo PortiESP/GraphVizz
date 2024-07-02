@@ -98,8 +98,8 @@ function Input(props) {
     }
 
     return (
-        <div className={[scss.input_wrap, scss[props.type]].join(" ")} >
-            <label htmlFor={id}>{props.label} 
+        <div className={[scss.input_wrap, scss[props.type]].join(" ")} onClick={props.disabled ? props.callback: undefined}>
+            <label htmlFor={id} style={props.labelStyle}>{props.label}  
             {errorMsg && <span className={scss.error} title={errorMsg}><CloseIcon /></span>}
             </label>
             <div className={scss.inputs} style={colorThumbnail}>

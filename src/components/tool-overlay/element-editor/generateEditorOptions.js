@@ -1,3 +1,5 @@
+import { focusOnElement } from "../../graph-manager/utils/view"
+
 export default function generateOptions(selectedElements){
 
     
@@ -180,11 +182,15 @@ function elementsOptions(selectedElements){
                         label: "Source node",
                         initial: edges[0].src.id,
                         disabled: true,
+                        callback: () => focusOnElement(edges[0].src),
+                        labelStyle: {cursor: "pointer"}
                     },
                     {
                         label: "Destination node",
                         initial: edges[0].dst.id,
                         disabled: true,
+                        callback: () => focusOnElement(edges[0].dst),
+                        labelStyle: {cursor: "pointer"}
                     }
             )
         }
