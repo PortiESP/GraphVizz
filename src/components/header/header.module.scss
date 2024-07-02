@@ -91,7 +91,8 @@
                 padding: 0;
                 margin: 0;
                 justify-content: center;
-                background: #0001;
+                background: #eee;
+                box-shadow: 0 0 5px #0002;
                 padding: 5px;
                 border-radius: 6px;
                 width: fit-content;
@@ -105,10 +106,23 @@
                     cursor: pointer;
                     padding: 5px 10px;
                     border-radius: 6px;
+                    position: relative;
                     
                     &:hover {
                         background: #0001;
                         color: #333;
+                        
+                        & > *{
+                            display: block;
+                        }
+                    }
+
+                    &.current{
+                        pointer-events: none;
+
+                        a {
+                            color: #0003;
+                        }
                     }
 
                 }

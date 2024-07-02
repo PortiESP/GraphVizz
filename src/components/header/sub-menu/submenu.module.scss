@@ -1,0 +1,77 @@
+.submenu_wrap{
+    display: none;
+
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 10px;
+    width: 250px;
+
+    .arrow{
+        position: absolute;
+        top: 0px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #eee;
+    }
+
+    .submenu{
+        background: #eee;
+        box-shadow: 0 0 5px #0002;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #0002;
+    }
+}
+
+.submenu{
+
+    .submenu_item{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 6px;
+        border-radius: 6px;
+        transition: all 0.1s;
+        width: 100%;
+
+        --color: #0008;
+
+        &:hover{
+            background: #0001;
+            --color: #000;
+        }
+
+        .submenu_icon{
+            width: 18px;
+            height: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg{
+                width: 100%;
+                height: 100%;
+
+                path{
+                    stroke: var(--color);
+                }
+            }
+        }
+
+        .submenu_title{
+            display: flex;
+            align-items: center;
+            font-size: .9rem;
+            height: 100%;
+            line-height: 100%;
+            font-weight: 400;
+            color: var(--color);
+        }
+    }
+}
