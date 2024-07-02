@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react"
 import scss1 from "./elementEditor.module.scss"
 import scss2 from "./widgets.module.scss"
-import SlashCircleIcon from "../../../assets/slash-circle"
 import generateOptions from "./generateEditorOptions"
-import CloseIcon from "../../../assets/close"
+import CloseIcon from "../../../assets/close.svg?react"
 import RevertIcon from "../../../assets/revert.svg?react"
 
 const scss = {...scss1, ...scss2}
@@ -26,21 +25,9 @@ export default function ElementEditor(props) {
 
     return (
         <div className={scss.wrap}>
-            {
-                // No element selected
-                menu === null &&
-                <div className={scss.no_selection}>
-                    <SlashCircleIcon />
-                    Select an element to edit
-                </div>
-                || 
-
-                <>
                 <div className={scss.selected_label}>
                     Selected elements: {selectedElements.length}
-                    <div>{menu.e?.id}</div>
                 </div>
-
                 {
                     menu?.map((section, i) => (
                         <SectionTitle key={i} title={section.title}>
@@ -52,8 +39,6 @@ export default function ElementEditor(props) {
                         </SectionTitle>
                     ))
                 }
-                </>
-            }
         </div>
     )
 }

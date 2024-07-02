@@ -1,6 +1,6 @@
 import LiveEditor from "./live-editor/OverlayLiveEditor"
-import CloseIcon from "../../assets/close"
-import ArrowLeft from "../../assets/arrow-left"
+import CloseIcon from "../../assets/close.svg?react"
+import ArrowLeft from "../../assets/arrow-left.svg?react"
 import scss from "./toolsOverlay.module.scss"
 import { useState } from "react"
 import ElementEditor from "./element-editor/OverlayElementEditor"

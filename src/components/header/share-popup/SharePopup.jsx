@@ -1,5 +1,5 @@
 import scss from "./sharePopup.module.scss"
-import CloseIcon from "../../../assets/close"
+import CloseIcon from "../../../assets/close.svg?react"
 import { generateURL } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 
 export default function SharePopup(props) {

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import scss from "./modal.module.scss"
 import LoadGraph from "./scenes/LoadGraph"
-import CloseIcon from "../../assets/close"
+import CloseIcon from "../../assets/close.svg?react"
 import SaveGraph from "./scenes/saveGraph"
 import ExportGraph from "./scenes/ExportGraph"
 

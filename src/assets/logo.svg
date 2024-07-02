@@ -1,6 +1,3 @@
-export default function Logo(props) {
-
-    return (
         <svg width="217" height="58" viewBox="0 0 217 58" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg-logo">
             <g id="logo">
                 <g id="zz">
@@ -18,5 +15,3 @@ export default function Logo(props) {
                     fill="black" />
             </g>
         </svg>
-    )
-}

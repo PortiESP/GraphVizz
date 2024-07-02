@@ -1,6 +1,6 @@
 import { useState } from "react"
 import scss from "./help.module.scss"
-import GithubIcon from "../../assets/github"
+import GithubIcon from "../../assets/github.svg?react"
 export default function Help(props) {
 
   return (
