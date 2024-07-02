@@ -34,6 +34,23 @@ const algorithms = [
     }
 ]
 
+const arrangements = [
+    {
+        title: "Circular",
+        icon: () => <ExpandIcon />,
+        callback: () => {}
+    },
+    {
+        title: "Grid",
+        icon: () => <DotsIcon />,
+        callback: () => {}
+    },
+    {
+        title: "Random",
+        icon: () => <MapIcon />,
+    }
+]
+
 
 export default function Header(props) {
 
@@ -82,8 +99,12 @@ export default function Header(props) {
                         <li><Link to="/algorithms">Algorithms</Link>
                             <SubMenu>
                                 {
-                                    location.pathname === "/" ?
-                                    algorithms.map((algorithm, index) => <SubMenuItem key={index} {...algorithm}/>) :
+                                    location.pathname === "/" ? <>
+                                        <h4>Algorithms</h4>
+                                        {algorithms.map((algorithm, index) => <SubMenuItem key={index} {...algorithm}/>) }
+                                        <h4>Arrangements</h4>
+                                        {arrangements.map((arrangement, index) => <SubMenuItem key={index} {...arrangement}/>)}
+                                    </>:
                                     <SubMenuItem title="Go back to the graph" icon={BackArrow} callback={() => navigate("/")}/>
                                 }
                             </SubMenu>
