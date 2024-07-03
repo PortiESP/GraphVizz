@@ -5,7 +5,13 @@ import Tree1SVG from "./thumbnails/tree-1.svg?react"
 import Circle1SVG from "./thumbnails/circular-1.svg?react"
 
 
-const EXAMPLES = [
+// List of examples
+// Each example has an id, title, description, and thumbnail
+//  - id: unique identifier for the example (used in the URL query string and must match a file in the /public/examples folder)
+//  - title: title of the example
+//  - description: description of the example
+//  - thumbnail: A JSX component that renders the thumbnail image for the example
+const EXAMPLES = [  // <-- EDIT THIS ARRAY TO CRUD THE EXAMPLES
     {
         id: "basic-1",
         title: "Basic graph",
@@ -27,7 +33,12 @@ const EXAMPLES = [
 ]
 
 
-export default function Examples(props) {
+/**
+ * Component that renders the examples page
+ * 
+ * This component renders the examples defined in the EXAMPLES array using the ExampleCard component (defined below)
+ */
+export default function Examples() {
 
   return (
       <div className={scss.wrap}>
@@ -44,7 +55,17 @@ export default function Examples(props) {
   )
 }
 
-
+/**
+ * Component that renders an example card
+ * 
+ * This component renders a card for an example with a thumbnail, title, and description. The card is a link that navigates to the example when clicked.
+ * 
+ * @param {Object} props - The props for the component
+ * @param {string} props.id - The unique identifier for the example
+ * @param {string} props.title - The title of the example
+ * @param {string} props.description - The description of the example
+ * @param {JSX.Element} props.thumbnail - The JSX element that renders the thumbnail image for the example
+ */
 function ExampleCard(props) {
 
   return (

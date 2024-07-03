@@ -9,7 +9,7 @@ import Examples from './components/examples/Examples'
 // Define the routes for the app. 
 // - The key is the path. E.g. "/help" will render a component when the path is "/help"
 // - The value is the component to render when the path is matched
-const ROUTES = {  // <-- EDIT THIS OBJECT TO EDIT THE ROUTES
+const ROUTES = {  // <-- EDIT THIS OBJECT TO CRUD THE ROUTES
   "/": <ToolOverlay><Graph /></ToolOverlay>,
   "/help": <Help />,
   "/examples": <Examples />
