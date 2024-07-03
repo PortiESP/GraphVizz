@@ -2,6 +2,7 @@ import { useLayoutEffect } from "react"
 import { generateSVG } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import Tabs from "../components/tabs/Tabs"
 import scss from "./exportGraph.module.scss"
+import { useRef } from "react"
 
 export default function Export_graph(props) {
 
@@ -21,8 +22,12 @@ export default function Export_graph(props) {
 
 function AsSVG() {
 
+  const $svg = useRef(null)
+
   useLayoutEffect(() => {
-    generateSVG("export-svg")
+    // Generate the SVG and set it as the inner HTML of the SVG element
+    console.log("*", $svg.current)
+    $svg.current.innerHTML = generateSVG()
   }, [])
 
   // Function to export the SVG as a file
@@ -44,8 +49,7 @@ function AsSVG() {
 
   return (<div className={scss.tab_wrap}>
     <h4>Preview</h4>
-    <div className={[scss.export_result, scss.export_svg].join(" ")}>
-      <svg id="export-svg"></svg>
+    <div className={[scss.export_result, scss.export_svg].join(" ")} ref={$svg}>
     </div>
     <button onClick={() => handleExportAsSVG()}>Download SVG</button>
   </div>)
