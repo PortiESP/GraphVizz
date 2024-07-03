@@ -26,13 +26,12 @@ function AsSVG() {
 
   useLayoutEffect(() => {
     // Generate the SVG and set it as the inner HTML of the SVG element
-    console.log("*", $svg.current)
     $svg.current.innerHTML = generateSVG()
   }, [])
 
   // Function to export the SVG as a file
   const handleExportAsSVG = () => {
-    const svg = document.getElementById("export-svg")  // Get the SVG element
+    const svg = $svg.current  // Get the SVG element
     const svgData = new XMLSerializer().serializeToString(svg)  // Serialize the SVG element to a string
     const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" })  // Create a blob from the SVG string
     const url = URL.createObjectURL(blob)  // Create a URL from the blob
