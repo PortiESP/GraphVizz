@@ -1,8 +1,9 @@
 
 --- TASK QUEUE ---
-- Document the all the code
 - Allow add nodes with live editor without modifying the current arrangement (Avoid create new nodes if those already exist) (do not update the nodes already in the graph)
 - Organic arrangement (force directed)
+- Consider events onBlur and onFocus on the Canvas component to handle when the user moves out of the canvas
+- Set the header pointer events to none when the user is dragging a node
 
 FEATURES
   - Algorithms 
