@@ -76,7 +76,7 @@ function elementsOptions(selectedElements){
     const edges = selectedElements.filter(e => e.constructor.name === "Edge")
 
     // Common fields
-    sections.push({
+    if (selectedElements.length === 1) sections.push({
         title: "Data",
         fields: [
             {
