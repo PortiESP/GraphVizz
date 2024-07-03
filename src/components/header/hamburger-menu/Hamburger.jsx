@@ -20,7 +20,7 @@ export default function HamburgerMenu(props) {
 
   const navigator = useNavigate()
   const visitHelp = () => {props.close(); navigator("/help")}
-  const emptyGraph = () => {props.close(); window.graph.emptyGraph(); navigator("/"); window.graph.triggerGraphListeners()}
+  const resetGraph = () => {props.close(); window.graph.reset(); navigator("/"); window.graph.triggerGraphListeners()}
   const loadModal = () => {setModal("load_graph")}
   const saveModal = () => {setModal("save_graph")}
   const exportModal = () => {setModal("export_graph")}
@@ -30,7 +30,7 @@ export default function HamburgerMenu(props) {
     <>
     <div className={scss.wrap} onClick={e => e.target.className === scss.wrap && props.close()}>
       <menu >
-        <MenuItem label="New empty graph" onClick={emptyGraph}><NoteIcon /></MenuItem>
+        <MenuItem label="New empty graph" onClick={resetGraph}><NoteIcon /></MenuItem>
         <MenuItem label="Save as..." shortcut="Ctrl+Shift+S" onClick={saveModal}><SaveIcon /></MenuItem>
         <MenuItem label="Load from..." onClick={loadModal}><ImportIcon /></MenuItem>
         <MenuItem label="Export as..." onClick={exportModal}><ExportIcon /></MenuItem>

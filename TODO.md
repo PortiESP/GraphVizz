@@ -10,6 +10,9 @@ FEATURES
     - Custom
   - Auto arrange
     - Camino critico (CPM)
+    - Grid
+    - Organic
+    - Random
   - Study memento actions
   - Images as nodes
   - Save to cache (avoid losing the graph when reloading the page)
@@ -30,6 +33,8 @@ GUI
 
 - FIX
   - console log Warnings of color when number
+  - Id auto-incremental (sin guiones)
+  - Header pointer events
 
 UPDATE & CHECK regularly
   - Help page
