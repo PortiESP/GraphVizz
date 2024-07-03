@@ -48,7 +48,7 @@ export default function GraphEditor(props) {
     }, [forceUpdate])
     
     useEffect(() => {
-        window.forceUpdateLiveEditor = () => setForceUpdate(old => old + 1)
+        window.graph.graphListeners.push(() => setForceUpdate(old => old + 1))
     }, [])
 
 

@@ -20,7 +20,7 @@ export default function HamburgerMenu(props) {
 
   const navigator = useNavigate()
   const visitHelp = () => {props.close(); navigator("/help")}
-  const emptyGraph = () => {props.close(); window.graph.emptyGraph(); navigator("/"); window.forceUpdateLiveEditor()}
+  const emptyGraph = () => {props.close(); window.graph.emptyGraph(); navigator("/"); window.graph.triggerGraphListeners()}
   const loadModal = () => {setModal("load_graph")}
   const saveModal = () => {setModal("save_graph")}
   const exportModal = () => {setModal("export_graph")}

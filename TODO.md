@@ -4,6 +4,9 @@
 - Allow add nodes with live editor without modifying the current arrangement (Avoid create new nodes if those already exist) (do not update the nodes already in the graph)
 - Organic arrangement (force directed)
 
+- Refactor: graph updates listener - 
+In globals.js, create a listener for graph changes and allow some parts of the code to subscribe to changes
+
 
 
 FEATURES

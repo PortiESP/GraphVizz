@@ -19,8 +19,10 @@ export default function ElementEditor(props) {
     }, [selectedElements, forceUpdate])
 
     useEffect(() => {
-        window.setSelectedElements = setSelectedElements
-        window.forceUpdateElementEditor = () => setForceUpdate(old=> old + 1)
+        window.graph.allListeners.push(() => {
+            setForceUpdate(old=> old + 1)  // To update element position
+            setSelectedElements(window.graph.selected)  // To update selected elements
+        })
     }, [])
 
     return (
