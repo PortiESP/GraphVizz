@@ -35,7 +35,7 @@ export default function ElementEditor(props) {
                         <SectionTitle key={i} title={section.title}>
                             {
                                 section.fields.map((field, i) => (
-                                    <Input key={i} {...field} />
+                                    <Input key={field.label + i} {...field} />
                                 ))
                             }
                         </SectionTitle>
