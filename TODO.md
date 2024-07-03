@@ -1,6 +1,5 @@
 
 --- TASK QUEUE ---
-- Document the all the code
 - Allow add nodes with live editor without modifying the current arrangement (Avoid create new nodes if those already exist) (do not update the nodes already in the graph)
 - Organic arrangement (force directed)
 
