@@ -9,8 +9,8 @@ import { resetZoom } from "../graph-manager/canvas-component/utils/zoom"
 import { focusOnAllNodes } from "../graph-manager/utils/view"
 import { useLocation } from "react-router-dom"
 import SubMenu, { SubMenuItem } from "./sub-menu/SubMenu"
-import ExpandIcon from "../../assets/expand.svg?react"
-import DotsIcon from "../../assets/dots.svg?react"
+import BFSIcon from "../../assets/bfs.svg?react"
+import DFSIcon from "../../assets/dfs.svg?react"
 import MapIcon from "../../assets/map.svg?react"
 import BackArrow from "../../assets/bend-arrow-left.svg?react"
 import HomeIcon from "../../assets/home.svg?react"
@@ -20,12 +20,12 @@ import { useNavigate } from "react-router-dom"
 const algorithms = [
     {
         title: "Breadth First Search (BFS)",
-        icon: () => <ExpandIcon />,
+        icon: () => <BFSIcon />,
         callback: () => {}
     },
     {
         title: "Depth First Search (DFS)",
-        icon: () => <DotsIcon />,
+        icon: () => <DFSIcon />,
         callback: () => {}
     },
     {
@@ -37,12 +37,12 @@ const algorithms = [
 const arrangements = [
     {
         title: "Circular",
-        icon: () => <ExpandIcon />,
+        icon: () => <BFSIcon />,
         callback: () => {}
     },
     {
         title: "Grid",
-        icon: () => <DotsIcon />,
+        icon: () => <DFSIcon />,
         callback: () => {}
     },
     {
