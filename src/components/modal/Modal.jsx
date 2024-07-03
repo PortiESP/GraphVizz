@@ -17,7 +17,7 @@ export default function Modal(props) {
     const Scene = SCENES[sceneId]
 
     return (
-        <div className={scss.wrap} onClick={e => e.target.className === scss.wrap && props.close()}>
+        <div className={scss.wrap}>
             <div className={scss.container}>
                 <Scene setScene={setSceneId} close={props.close}/>
                 <span className={scss.close} onClick={props.close} >
