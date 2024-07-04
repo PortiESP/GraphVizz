@@ -4,6 +4,7 @@ import ArrowLeft from "../../assets/arrow-left.svg?react"
 import scss from "./toolsOverlay.module.scss"
 import { useState } from "react"
 import ElementEditor from "./element-editor/OverlayElementEditor"
+import ToolBarOverlay from "./tool-bar/ToolBar"
 
 export default function ToolOverlay(props) {
 
@@ -12,18 +13,19 @@ export default function ToolOverlay(props) {
         <div className={scss.canvas_wrap}>
           {props.children}
         </div>
-        <Overlay title="Live Editor">
+        <AsideOverlay title="Live Editor">
           <LiveEditor />
-        </Overlay>
-        <Overlay title="Custom style" right>
+        </AsideOverlay>
+        <AsideOverlay title="Custom style" right>
           <ElementEditor />
-        </Overlay>
+        </AsideOverlay>
+        <ToolBarOverlay />
       </div>
   )
 }
 
 
-function Overlay(props){
+function AsideOverlay(props){
   const [closed, setClosed] = useState(true)
 
   const closedClass = props.right ? scss.closed_right : scss.closed_left
@@ -44,3 +46,4 @@ function Overlay(props){
 
   )
 }
+
