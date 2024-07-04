@@ -1,8 +1,9 @@
 
 --- TASK QUEUE ---
-- Organic arrangement (force directed)
-- Consider events onBlur and onFocus on the Canvas component to handle when the user moves out of the canvas
-- Set the header pointer events to none when the user is dragging a node
+
+Nothing to do
+
+------------------
 
 FEATURES
   - Algorithms 
@@ -11,11 +12,9 @@ FEATURES
   - Auto arrange
     - Camino critico (CPM)
     - Grid
-    - Organic
     - Random
   - Study memento actions
   - Images as nodes
-  - Save to cache (avoid losing the graph when reloading the page)
   - Block nodes movement or edit style
   - Organic arrangement (force directed)
 
@@ -34,8 +33,6 @@ GUI
 
 - FIX
   - console log Warnings of color when number
-  - Id auto-incremental (sin guiones)
-  - Header pointer events
 
 
 UPDATE & CHECK regularly

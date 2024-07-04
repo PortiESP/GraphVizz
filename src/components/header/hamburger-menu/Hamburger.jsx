@@ -14,6 +14,9 @@ import RedoIcon from "../../../assets/redo.svg?react"
 import FocusAllIcon from "../../../assets/focus-all.svg?react"
 import SettingsIcon from "../../../assets/settings.svg?react"
 import InfoIcon from "../../../assets/info.svg?react"
+import ZoomIn from "../../../assets/zoom-in.svg?react"
+import ZoomOut from "../../../assets/zoom-out.svg?react"
+import { zoomCenterBy, zoomIn, zoomOut } from "../../graph-manager/canvas-component/utils/zoom"
 
 export default function HamburgerMenu(props) {
   const [modal, setModal] = useState(null)
@@ -37,6 +40,8 @@ export default function HamburgerMenu(props) {
         <hr />
         <MenuItem label="Undo" shortcut="Ctrl+Z" onClick={undo}><UndoIcon /></MenuItem>
         <MenuItem label="Redo" shortcut="Ctrl+Shift+Z" onClick={redo}><RedoIcon /></MenuItem>
+        <MenuItem label="Zoom In" onClick={()=>zoomCenterBy(1.1)}><ZoomIn /></MenuItem>
+        <MenuItem label="Zoom Out" onClick={()=>zoomCenterBy(0.9)}><ZoomOut /></MenuItem>
         <MenuItem label="Focus All" onClick={focusAll}><FocusAllIcon /></MenuItem>
         <hr />
         <MenuItem label="Settings" onClick={() => console.log("btn")}><SettingsIcon /></MenuItem>
