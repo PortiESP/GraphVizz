@@ -4,7 +4,7 @@ import { useState } from "react"
 import { generateEdgeAndNodesList, generateEdgeList } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import { useEffect } from "react"
 import { isSingleNodeEdge, isValidEdge, loadFromEdgePlainTextList, parseEdge } from "../../graph-manager/utils/load_graph"
-import { circularArrange } from "../../graph-manager/utils/arrangements"
+import { circularArrange, getNodeById, organicArrange } from "../../graph-manager/utils/arrangements"
 import { focusOnAllNodes } from "../../graph-manager/utils/view"
 
 export default function GraphEditor(props) {
@@ -32,8 +32,11 @@ export default function GraphEditor(props) {
             else invalidLines.push(i)
         })
 
-        loadFromEdgePlainTextList(validEdges.join("\n"))
-        circularArrange(window.graph.nodes)
+        const nodesBefore = Object.fromEntries(window.graph.nodes.map(node => [node.label, node]))
+        loadFromEdgePlainTextList(validEdges.join("\n"), nodesBefore)
+
+        // Create a object containing the old nodes to avoid repositioning them
+        organicArrange(nodesBefore)
         focusOnAllNodes()
 
     }
