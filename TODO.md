@@ -4,6 +4,8 @@
 - toolbar tools
 - Algorithms
 - Algorithm view
+- Review memento triggers
+  - Style triggers
 
 ------------------
 

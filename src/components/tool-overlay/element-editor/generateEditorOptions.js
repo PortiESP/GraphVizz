@@ -82,35 +82,35 @@ function elementsOptions(selectedElements) {
     const nodes = selectedElements.filter(e => e.constructor.name === "Node")
     const edges = selectedElements.filter(e => e.constructor.name === "Edge")
 
-    // Common fields
-    if (selectedElements.length === 1) sections.push({
-        title: "Data",
-        fields: [
-            {
-                label: "ID",
-                initial: selectedElements[0].id,
-                callback: data => selectedElements[0].id = data,
-                checkError: data => {
-                    if (data === "") return "Id cannot be empty"
-                    if (window.graph.nodes.find(e => e.id === data) !== undefined || window.graph.edges.find(e => e.id === data) !== undefined) return "Id already exists"
-
-                    return null
-                },
-            }
-        ]
-    })
+    // Common fields (disabling for now)
+    // if (selectedElements.length === 1) sections.push({
+    //     title: "Data",
+    //     fields: []
+    // })
 
     // Node specific fields
     if (nodes.length > 0) {
-        sections.push({
+        const currentSection = {
             title: "Node" + (nodes.length > 1 ? "s" : ""),
             fields: []
-        })
-        const fields = sections.slice(-1)[0].fields
+        }
+        sections.push(currentSection)
+        const fields = currentSection.fields
 
         // One node
         if (nodes.length === 1) {
             fields.push(
+                {
+                    label: "ID",
+                    initial: selectedElements[0].id,
+                    callback: data => selectedElements[0].id = data,
+                    checkError: data => {
+                        if (data === "") return "Id cannot be empty"
+                        if (window.graph.nodes.find(e => e.id === data) !== undefined || window.graph.edges.find(e => e.id === data) !== undefined) return "Id already exists"
+
+                        return null
+                    },
+                },
                 {
                     label: "Label",
                     initial: nodes[0].label,
@@ -181,15 +181,27 @@ function elementsOptions(selectedElements) {
 
     // Edge specific fields
     if (edges.length > 0) {
-        sections.push({
+        const currentSection = {
             title: "Edge" + (edges.length > 1 ? "s" : ""),
             fields: []
-        })
-        const fields = sections.slice(-1)[0].fields
+        }
+        sections.push(currentSection)
+        const fields = currentSection.fields
 
         // One edge
         if (edges.length === 1) {
-            sections[0].fields.push(
+            fields.push(
+                {
+                    label: "ID",
+                    initial: selectedElements[0].id,
+                    callback: data => selectedElements[0].id = data,
+                    checkError: data => {
+                        if (data === "") return "Id cannot be empty"
+                        if (window.graph.nodes.find(e => e.id === data) !== undefined || window.graph.edges.find(e => e.id === data) !== undefined) return "Id already exists"
+
+                        return null
+                    },
+                },
                 {
                     label: "Source node",
                     initial: edges[0].src.id,
