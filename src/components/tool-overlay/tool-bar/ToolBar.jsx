@@ -29,13 +29,13 @@ const tools = [
         action: ()=> setActivateTool("edges")
     },
     {
-        id: "add-node",
+        id: "add-nodes",
         className: scss.tool,
         title: "Add Node",
         icon: AddNodeIcon,
         tooltip: "Click anywhere to add a node",
         shortcut: "N",
-        action: ()=>{}
+        action: ()=>setActivateTool("add-nodes")
     },
     {
         id: "delete",
