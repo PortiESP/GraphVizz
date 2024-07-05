@@ -1,4 +1,4 @@
-import scss from "./toolOverlay.module.scss"
+import scss from "./toolBar.module.scss"
 import AddNodeIcon from "../../../assets/add-node.svg?react"
 import EdgeIcon from "../../../assets/edge.svg?react"
 import CursorIcon from "../../../assets/cursor.svg?react"

@@ -1,3 +1,4 @@
+import constants from "../../graph-manager/utils/constants"
 import { focusOnElement } from "../../graph-manager/utils/view"
 
 export default function generateOptions(selectedElements){
@@ -18,7 +19,8 @@ function globalOptions(){
                 label: "Background color",
                 initial: window.graph.backgroundColor,
                 callback: data => window.cvs.$canvas.style.backgroundColor = data,
-                type: "color"
+                type: "color",
+                default: "#eee"
             },
         ]
     })
@@ -26,22 +28,25 @@ function globalOptions(){
         title: "Grid",
         fields: [
             {
-            label: "Show grid",
-            initial: window.graph.gridEnabled,
-            callback: data => window.graph.gridEnabled = data,
-                type: "checkbox"
+                label: "Show grid",
+                initial: window.graph.gridEnabled,
+                callback: data => window.graph.gridEnabled = data,
+                type: "checkbox",
+                default: true
             },
             {
                 label: "Grid color",
                 initial: window.graph.gridColor,
                 callback: data => window.graph.gridColor = data,
-                type: "color"
+                type: "color",
+                default: "#ddd"
             },
             {
                 label: "Grid span",
                 initial: window.graph.gridSize,
                 callback: data => window.graph.gridSize = parseFloat(data),
-                type: "number"
+                type: "number",
+                default: 50
             },
             {
                 label: "Grid thickness",
@@ -50,7 +55,8 @@ function globalOptions(){
                 type: "number",
                 options: {
                     min: 0
-                }
+                },
+                default: 1
             },
             {
                 label: "Grid opacity",
@@ -61,7 +67,8 @@ function globalOptions(){
                     step: 0.01,
                     min: 0,
                     max: 1
-                }
+                },
+                default: 1
             },
         ]
     })
@@ -125,7 +132,8 @@ function elementsOptions(selectedElements){
                         label: "Radius",
                         initial: nodes[0].r,
                         callback: data => nodes[0].r = parseFloat(data),
-                        type: "number"
+                        type: "number",
+                        default: constants.DEFAULT_NODE_RADIUS
                     }
             )
         }
@@ -136,19 +144,22 @@ function elementsOptions(selectedElements){
                     label: "Fill color",
                     initial: nodes[0].backgroundColor,
                     callback: data => nodes.forEach(e => e.backgroundColor = data),
-                    type: "color"
+                    type: "color",
+                    default: constants.NODE_BACKGROUND_COLOR
                 },
                 {
                     label: "Label color",
                     initial: nodes[0].labelColor,
                     callback: data => nodes.forEach(e => e.labelColor = data),
-                    type: "color"
+                    type: "color",
+                    default: constants.NODE_LABEL_COLOR
                 },
                 {
                     label: "Font size",
                     initial: nodes[0].fontSize,
                     callback: data => nodes.forEach(e => e.fontSize = parseFloat(data)),
-                    type: "number"
+                    type: "number",
+                    default: constants.NODE_LABEL_FONT_SIZE
                 },
                 {
                     label: "Border color",
@@ -161,7 +172,8 @@ function elementsOptions(selectedElements){
                     initial: nodes[0].borderWidth,
                     callback: data => nodes.forEach(e => e.borderWidth = parseFloat(data)),
                     type: "range",
-                    range: [0, 10]
+                    range: [0, 10],
+                    default: 0
                 },
         )
     }
@@ -207,55 +219,64 @@ function elementsOptions(selectedElements){
                     label: "Thickness",
                     initial: edges[0].thickness,
                     callback: data => edges.forEach(e => e.thickness = parseFloat(data)),
-                    type: "number"
+                    type: "number",
+                    default: constants.EDGE_THICKNESS
                 },
                 {
                     label: "Color",
                     initial: edges[0].color,
                     callback: data => edges.forEach(e => e.color = data),
-                    type: "color"
+                    type: "color",
+                    default: constants.EDGE_COLOR
                 },
                 {
                     label: "Arrow size",
                     initial: edges[0].arrowSizeFactor,
                     callback: data => edges.forEach(e => e.arrowSizeFactor = parseFloat(data)),
-                    type: "number"
+                    type: "number",
+                    default: constants.EDGE_ARROW_SIZE_FACTOR
                 },
                 {
                     label: "Weight",
                     initial: edges[0].weight,
                     callback: data => edges.forEach(e => e.weight = parseFloat(data)),
-                    type: "number"
+                    type: "number",
+                    default: constants.DEFAULT_EDGE_WEIGHT
                 },
                 {
                     label: "Show weight",
                     initial: edges[0].weightColor !== null,
                     callback: data => edges.forEach(e => e.weightColor = data ? "#fff4": null),
-                    type: "checkbox"
+                    type: "checkbox",
+                    default: true
                 },
                 {
                     label: "Weight color",
                     initial: edges[0].weightColor,
                     callback: data => edges.forEach(e => e.weightColor = data),
-                    type: "color"
+                    type: "color",
+                    default: constants.EDGE_WEIGHT_COLOR
                 },
                 {
                     label: "Weight font size",
                     initial: edges[0].weightFontSize,
                     callback: data => edges.forEach(e => e.weightFontSize = parseFloat(data)),
-                    type: "number"
+                    type: "number",
+                    default: constants.EDGE_WEIGHT_FONT_SIZE
                 },
                 {
                     label: "Show weight background",
                     initial: edges[0].weightBackgroundColor !== null,
                     callback: data => edges.forEach(e => e.weightBackgroundColor = data ? "#8888": null),
-                    type: "checkbox"
+                    type: "checkbox",
+                    default: true
                 },
                 {
                     label: "Weight background",
                     initial: edges[0].weightBackgroundColor,
                     callback: data => edges.forEach(e => e.weightBackgroundColor = data),
-                    type: "color"
+                    type: "color",
+                    default: constants.EDGE_WEIGHT_BACKGROUND_COLOR
                 }
         )
     }

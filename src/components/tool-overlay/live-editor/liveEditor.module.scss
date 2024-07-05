@@ -14,16 +14,16 @@
             padding-left: 20px;
             padding-right: 8px;
             line-height: $fontSize*1.4;
-            background: #8888;
+            background: #8882;
             font-size: $fontSize;
-            color: var(--text-color);
+            color: #888;
             text-align: end;
         }
     }
 
     textarea{
         width: 100%;
-        color: var(--text-color);
+        color: #000;
         font-size: $fontSize;
         padding-left: 4px;
         border: none;

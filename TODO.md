@@ -1,7 +1,9 @@
 
 --- TASK QUEUE ---
 
-Nothing to do
+- toolbar tools
+- Algorithms
+- Algorithm view
 
 ------------------
 
