@@ -1,15 +1,15 @@
 import constants from "../../graph-manager/utils/constants"
 import { focusOnElement } from "../../graph-manager/utils/view"
 
-export default function generateOptions(selectedElements){
+export default function generateOptions(selectedElements) {
 
-    
+
     if (selectedElements.length === 0) return globalOptions()
     else return elementsOptions(selectedElements)
 }
 
 
-function globalOptions(){
+function globalOptions() {
     const sections = []
 
     sections.push({
@@ -63,7 +63,7 @@ function globalOptions(){
                 initial: window.graph.gridOpacity,
                 callback: data => window.graph.gridOpacity = parseFloat(data),
                 type: "range",
-                options:{
+                options: {
                     step: 0.01,
                     min: 0,
                     max: 1
@@ -77,7 +77,7 @@ function globalOptions(){
 }
 
 
-function elementsOptions(selectedElements){
+function elementsOptions(selectedElements) {
     const sections = []
     const nodes = selectedElements.filter(e => e.constructor.name === "Node")
     const edges = selectedElements.filter(e => e.constructor.name === "Edge")
@@ -111,70 +111,70 @@ function elementsOptions(selectedElements){
         // One node
         if (nodes.length === 1) {
             fields.push(
-                    {
-                        label: "Label",
-                        initial: nodes[0].label,
-                        callback: data => nodes[0].label = data
-                    },
-                    {
-                        label: "X",
-                        initial: nodes[0].x,
-                        callback: data => nodes[0].x = parseFloat(data),
-                        type: "number"
-                    },
-                    {
-                        label: "Y",
-                        initial: nodes[0].y,
-                        callback: data => nodes[0].y = parseFloat(data),
-                        type: "number"
-                    },
-                    {
-                        label: "Radius",
-                        initial: nodes[0].r,
-                        callback: data => nodes[0].r = parseFloat(data),
-                        type: "number",
-                        default: constants.DEFAULT_NODE_RADIUS
-                    }
+                {
+                    label: "Label",
+                    initial: nodes[0].label,
+                    callback: data => nodes[0].label = data
+                },
+                {
+                    label: "X",
+                    initial: nodes[0].x,
+                    callback: data => nodes[0].x = parseFloat(data),
+                    type: "number"
+                },
+                {
+                    label: "Y",
+                    initial: nodes[0].y,
+                    callback: data => nodes[0].y = parseFloat(data),
+                    type: "number"
+                },
+                {
+                    label: "Radius",
+                    initial: nodes[0].r,
+                    callback: data => nodes[0].r = parseFloat(data),
+                    type: "number",
+                    default: constants.NODE_RADIUS
+                }
             )
         }
-        
+
         // One or more nodes
         fields.push(
-                {
-                    label: "Fill color",
-                    initial: nodes[0].backgroundColor,
-                    callback: data => nodes.forEach(e => e.backgroundColor = data),
-                    type: "color",
-                    default: constants.NODE_BACKGROUND_COLOR
-                },
-                {
-                    label: "Label color",
-                    initial: nodes[0].labelColor,
-                    callback: data => nodes.forEach(e => e.labelColor = data),
-                    type: "color",
-                    default: constants.NODE_LABEL_COLOR
-                },
-                {
-                    label: "Font size",
-                    initial: nodes[0].fontSize,
-                    callback: data => nodes.forEach(e => e.fontSize = parseFloat(data)),
-                    type: "number",
-                    default: constants.NODE_LABEL_FONT_SIZE
-                },
-                {
-                    label: "Border color",
-                    initial: nodes[0].borderColor,
-                    callback: data => nodes.forEach(e => e.borderColor = data),
-                    type: "color"
-                },
-                {
-                    label: "Border width",
-                    initial: nodes[0].borderWidth,
-                    callback: data => nodes.forEach(e => e.borderWidth = parseFloat(data)),
-                    type: "range",
-                    range: [0, 10],
-                    default: 0
-                },
+            {
+                label: "Fill color",
+                initial: nodes[0].backgroundColor,
+                callback: data => nodes.forEach(e => e.backgroundColor = data),
+                type: "color",
+                default: constants.NODE_BACKGROUND_COLOR
+            },
+            {
+                label: "Label color",
+                initial: nodes[0].labelColor,
+                callback: data => nodes.forEach(e => e.labelColor = data),
+                type: "color",
+                default: constants.NODE_LABEL_COLOR
+            },
+            {
+                label: "Font size",
+                initial: nodes[0].fontSize,
+                callback: data => nodes.forEach(e => e.fontSize = parseFloat(data)),
+                type: "number",
+                default: constants.NODE_LABEL_FONT_SIZE
+            },
+            {
+                label: "Border color",
+                initial: nodes[0].borderColor,
+                callback: data => nodes.forEach(e => e.borderColor = data),
+                type: "color"
+            },
+            {
+                label: "Border width",
+                initial: nodes[0].borderWidth,
+                callback: data => nodes.forEach(e => e.borderWidth = parseFloat(data)),
+                type: "range",
+                range: [0, 10],
+                default: 0
+            },
         )
     }
 
@@ -190,97 +190,98 @@ function elementsOptions(selectedElements){
         // One edge
         if (edges.length === 1) {
             sections[0].fields.push(
-                    {
-                        label: "Source node",
-                        initial: edges[0].src.id,
-                        disabled: true,
-                        callback: () => focusOnElement(edges[0].src),
-                        labelStyle: {cursor: "pointer"}
-                    },
-                    {
-                        label: "Destination node",
-                        initial: edges[0].dst.id,
-                        disabled: true,
-                        callback: () => focusOnElement(edges[0].dst),
-                        labelStyle: {cursor: "pointer"}
-                    }
+                {
+                    label: "Source node",
+                    initial: edges[0].src.id,
+                    disabled: true,
+                    callback: () => focusOnElement(edges[0].src),
+                    labelStyle: { cursor: "pointer" }
+                },
+                {
+                    label: "Destination node",
+                    initial: edges[0].dst.id,
+                    disabled: true,
+                    callback: () => focusOnElement(edges[0].dst),
+                    labelStyle: { cursor: "pointer" }
+                }
             )
         }
 
         // One or more edges
         fields.push(
-                {
-                    label: "Directed",
-                    initial: edges[0].directed,
-                    callback: data => edges.forEach(e => e.directed = data),
-                    type: "checkbox"
-                },
-                {
-                    label: "Thickness",
-                    initial: edges[0].thickness,
-                    callback: data => edges.forEach(e => e.thickness = parseFloat(data)),
-                    type: "number",
-                    default: constants.EDGE_THICKNESS
-                },
-                {
-                    label: "Color",
-                    initial: edges[0].color,
-                    callback: data => edges.forEach(e => e.color = data),
-                    type: "color",
-                    default: constants.EDGE_COLOR
-                },
-                {
-                    label: "Arrow size",
-                    initial: edges[0].arrowSizeFactor,
-                    callback: data => edges.forEach(e => e.arrowSizeFactor = parseFloat(data)),
-                    type: "number",
-                    default: constants.EDGE_ARROW_SIZE_FACTOR
-                },
-                {
-                    label: "Weight",
-                    initial: edges[0].weight,
-                    callback: data => edges.forEach(e => e.weight = parseFloat(data)),
-                    type: "number",
-                    default: constants.DEFAULT_EDGE_WEIGHT
-                },
-                {
-                    label: "Show weight",
-                    initial: edges[0].weightColor !== null,
-                    callback: data => edges.forEach(e => e.weightColor = data ? "#fff4": null),
-                    type: "checkbox",
-                    default: true
-                },
-                {
-                    label: "Weight color",
-                    initial: edges[0].weightColor,
-                    callback: data => edges.forEach(e => e.weightColor = data),
-                    type: "color",
-                    default: constants.EDGE_WEIGHT_COLOR
-                },
-                {
-                    label: "Weight font size",
-                    initial: edges[0].weightFontSize,
-                    callback: data => edges.forEach(e => e.weightFontSize = parseFloat(data)),
-                    type: "number",
-                    default: constants.EDGE_WEIGHT_FONT_SIZE
-                },
-                {
-                    label: "Show weight background",
-                    initial: edges[0].weightBackgroundColor !== null,
-                    callback: data => edges.forEach(e => e.weightBackgroundColor = data ? "#8888": null),
-                    type: "checkbox",
-                    default: true
-                },
-                {
-                    label: "Weight background",
-                    initial: edges[0].weightBackgroundColor,
-                    callback: data => edges.forEach(e => e.weightBackgroundColor = data),
-                    type: "color",
-                    default: constants.EDGE_WEIGHT_BACKGROUND_COLOR
-                }
+            {
+                label: "Weight",
+                initial: edges[0].weight,
+                callback: data => edges.forEach(e => e.weight = parseFloat(data)),
+                type: "number",
+                default: constants.EDGE_WEIGHT,
+                checkError: data => isNaN(parseFloat(data)) ? "Invalid number" : null
+            },
+            {
+                label: "Directed",
+                initial: edges[0].directed,
+                callback: data => edges.forEach(e => e.directed = data),
+                type: "checkbox"
+            },
+            {
+                label: "Thickness",
+                initial: edges[0].thickness,
+                callback: data => edges.forEach(e => e.thickness = parseFloat(data)),
+                type: "number",
+                default: constants.EDGE_THICKNESS
+            },
+            {
+                label: "Color",
+                initial: edges[0].color,
+                callback: data => edges.forEach(e => e.color = data),
+                type: "color",
+                default: constants.EDGE_COLOR
+            },
+            {
+                label: "Arrow size",
+                initial: edges[0].arrowSizeFactor,
+                callback: data => edges.forEach(e => e.arrowSizeFactor = parseFloat(data)),
+                type: "number",
+                default: constants.EDGE_ARROW_SIZE_FACTOR
+            },
+            {
+                label: "Show weight",
+                initial: edges[0].weightColor !== null,
+                callback: data => edges.forEach(e => e.weightColor = data ? "#fff4" : null),
+                type: "checkbox",
+                default: true
+            },
+            {
+                label: "Weight color",
+                initial: edges[0].weightColor,
+                callback: data => edges.forEach(e => e.weightColor = data),
+                type: "color",
+                default: constants.EDGE_WEIGHT_COLOR
+            },
+            {
+                label: "Weight font size",
+                initial: edges[0].weightFontSize,
+                callback: data => edges.forEach(e => e.weightFontSize = parseFloat(data)),
+                type: "number",
+                default: constants.EDGE_WEIGHT_FONT_SIZE
+            },
+            {
+                label: "Show weight background",
+                initial: edges[0].weightBackgroundColor !== null,
+                callback: data => edges.forEach(e => e.weightBackgroundColor = data ? "#8888" : null),
+                type: "checkbox",
+                default: true
+            },
+            {
+                label: "Weight background",
+                initial: edges[0].weightBackgroundColor,
+                callback: data => edges.forEach(e => e.weightBackgroundColor = data),
+                type: "color",
+                default: constants.EDGE_WEIGHT_BACKGROUND_COLOR
+            }
         )
     }
-            
+
     // Common fields (continued)
     sections.push({
         title: "Element" + (selectedElements.length > 1 ? "s" : ""),
