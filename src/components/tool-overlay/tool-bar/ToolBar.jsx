@@ -15,6 +15,7 @@ const tools = [
         title: "Edit & Select",
         icon: CursorIcon,
         tooltip: "Select, move, delete, edit",
+        shortcut: "S",
         action: ()=> setActivateTool("select")
     },
     { className: scss.separator },
@@ -24,6 +25,7 @@ const tools = [
         title: "Connect Edge",
         icon: EdgeIcon,
         tooltip: "Click on a node and drag to another node to connect them",
+        shortcut: "E",
         action: ()=> setActivateTool("edges")
     },
     {
@@ -32,6 +34,7 @@ const tools = [
         title: "Add Node",
         icon: AddNodeIcon,
         tooltip: "Click anywhere to add a node",
+        shortcut: "N",
         action: ()=>{}
     },
     {
@@ -40,6 +43,7 @@ const tools = [
         title: "Delete",
         icon: DeleteIcon,
         tooltip: "Click on an element to delete it",
+        shortcut: "D",
         action: ()=> setActivateTool("delete")
     }
 
@@ -68,6 +72,7 @@ export default function ToolBarOverlay(){
                 return (
                     <div key={i} className={[tool.className, activeTool === tool.id ? scss.active : ""].join(" ")} onClick={tool.action} title={tool.title}>
                         {tool.icon && <tool.icon />}
+                        {tool.shortcut && <span className={scss.shortcut}>{tool.shortcut}</span>}
                     </div>
                 )
             })}

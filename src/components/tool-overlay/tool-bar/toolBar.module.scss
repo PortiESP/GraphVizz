@@ -43,6 +43,7 @@
         width: 30px;
         height: 30px;
         border-radius: 8px;
+        position: relative;
 
         svg path{
             stroke: #0008;
@@ -60,6 +61,18 @@
             svg path{
                 stroke: #0008;
             }
+
+            .shortcut{
+                opacity: 0;
+            }
+        }
+
+        .shortcut{
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            color: #0006;
+            font-size: 8px;
         }
     }
 

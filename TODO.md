@@ -6,6 +6,7 @@
 - Algorithm view
 - Review memento triggers
   - Style triggers
+- Marked attr for edges (used in min-span-trees and shortest-path)
 
 ------------------
 
