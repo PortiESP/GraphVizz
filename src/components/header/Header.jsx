@@ -12,6 +12,9 @@ import SubMenu, { SubMenuItem } from "./sub-menu/SubMenu"
 import BFSIcon from "../../assets/bfs.svg?react"
 import DFSIcon from "../../assets/dfs.svg?react"
 import MapIcon from "../../assets/map.svg?react"
+import GridIcon from "../../assets/grid.svg?react"
+import RandomIcon from "../../assets/shuffle.svg?react"
+import CircularIcon from "../../assets/circle-dashed.svg?react"
 import BackArrow from "../../assets/bend-arrow-left.svg?react"
 import HomeIcon from "../../assets/home.svg?react"
 import { useNavigate } from "react-router-dom"
@@ -19,6 +22,7 @@ import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorit
 import bfs from "../graph-manager/utils/algorithms/bfs"
 import dfs from "../graph-manager/utils/algorithms/dfs"
 import { generateEdgesByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
+import { circularArrange } from "../graph-manager/utils/arrangements"
 
 
 export default function Header(props) {
@@ -49,8 +53,11 @@ export default function Header(props) {
             icon: () => <DFSIcon />,
             callback: () => {
                 const adjList = generateAdjacencyList()
-                const { result } = dfs(adjList, window.graph.nodes[0])
+                const { result, prevNode } = dfs(adjList, window.graph.nodes[0])
+                const edges = generateEdgesByPredecessors(prevNode)
                 result.forEach((node, i) => node.bubble = i)
+                window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                setViewAlert(true)
             }
         },
         {
@@ -63,17 +70,20 @@ export default function Header(props) {
     const arrangements = [
         {
             title: "Circular",
-            icon: () => <BFSIcon />,
-            callback: () => {}
+            icon: () => <CircularIcon />,
+            callback: () => {
+                circularArrange(window.graph.nodes)
+                focusOnAllNodes()
+            }
         },
         {
             title: "Grid",
-            icon: () => <DFSIcon />,
+            icon: () => <GridIcon />,
             callback: () => {}
         },
         {
             title: "Random",
-            icon: () => <MapIcon />,
+            icon: () => <RandomIcon />,
             callback: () => {}
         }
     ]
@@ -124,7 +134,7 @@ export default function Header(props) {
                 {
                     viewAlert && 
                     <div className={scss.menu_options_view_msg}>
-                        <span><strong>Warning: </strong> some elements may be hidden in the current view</span>
+                        <span><strong>Warning: </strong> some elements may be hidden/shown in the current view</span>
                         <button onClick={resetView}>Reset view</button>
                     </div>
                 }
