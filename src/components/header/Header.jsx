@@ -31,6 +31,7 @@ const algorithms = [
     {
         title: "Dijkstra",
         icon: () => <MapIcon />,
+        callback: () => {}
     }
 ]
 
@@ -48,6 +49,7 @@ const arrangements = [
     {
         title: "Random",
         icon: () => <MapIcon />,
+        callback: () => {}
     }
 ]
 
@@ -100,11 +102,15 @@ export default function Header(props) {
                             <SubMenu>
                                 {
                                     location.pathname === "/" ? <>
-                                        <h4>Algorithms</h4>
-                                        {algorithms.map((algorithm, index) => <SubMenuItem key={index} {...algorithm}/>) }
-                                        <h4>Arrangements</h4>
-                                        {arrangements.map((arrangement, index) => <SubMenuItem key={index} {...arrangement}/>)}
-                                    </>:
+                                        <div>
+                                            <h4>Algorithms</h4>
+                                            {algorithms.map((algorithm, index) => <SubMenuItem key={index} {...algorithm}/>) }
+                                        </div>
+                                        <div>
+                                            <h4>Arrangements</h4>
+                                            {arrangements.map((arrangement, index) => <SubMenuItem key={index} {...arrangement}/>)}
+                                        </div>
+                                    </> :
                                     <SubMenuItem title="Go back to the graph" icon={BackArrow} callback={() => navigate("/")}/>
                                 }
                             </SubMenu>

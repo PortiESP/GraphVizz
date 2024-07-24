@@ -8,6 +8,7 @@
 - Marked attr for edges (used in min-span-trees and shortest-path)
 - Review memento events
 - Refactor element editor widgets component as separated components
+- Set tool tip on after certain events to explain the user what to do
 
 ------------------
 
