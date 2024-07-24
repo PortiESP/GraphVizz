@@ -17,19 +17,21 @@ import RandomIcon from "../../assets/shuffle.svg?react"
 import CircularIcon from "../../assets/circle-dashed.svg?react"
 import BackArrow from "../../assets/bend-arrow-left.svg?react"
 import HomeIcon from "../../assets/home.svg?react"
+import ArrowR from "../../assets/arrow-right.svg?react"
 import { useNavigate } from "react-router-dom"
 import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import bfs from "../graph-manager/utils/algorithms/bfs"
 import dfs from "../graph-manager/utils/algorithms/dfs"
-import { generateEdgesByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
+import { generateEdgesByPredecessors, generateEdgesPathByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
 import { circularArrange } from "../graph-manager/utils/arrangements"
+import dijkstra from "../graph-manager/utils/algorithms/dijkstra"
 
 
 export default function Header(props) {
 
     const [zoom, setZoom] = useState(window.cvs?.zoom)
     const [showSharePopup, setShowSharePopup] = useState(false)
-    const [viewAlert, setViewAlert] = useState(false)
+    const [view, setView] = useState(false)
     const [showMenu, setShowMenu] = useState(false)
     const location = useLocation()
     const navigate = useNavigate()
@@ -45,7 +47,7 @@ export default function Header(props) {
                 const edges = generateEdgesByPredecessors(prevNode)
                 result.forEach((node, i) => node.bubble = i)
                 window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                setViewAlert(true)
+                setView("alert")
             }
         },
         {
@@ -57,16 +59,18 @@ export default function Header(props) {
                 const edges = generateEdgesByPredecessors(prevNode)
                 result.forEach((node, i) => node.bubble = i)
                 window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                setViewAlert(true)
+                setView("alert")
             }
         },
         {
             title: "Dijkstra",
             icon: () => <MapIcon />,
-            callback: () => {}
+            callback: () => {
+                setView("select-nodes")
+            }
         }
     ]
-    
+
     const arrangements = [
         {
             title: "Circular",
@@ -79,12 +83,12 @@ export default function Header(props) {
         {
             title: "Grid",
             icon: () => <GridIcon />,
-            callback: () => {}
+            callback: () => { }
         },
         {
             title: "Random",
             icon: () => <RandomIcon />,
-            callback: () => {}
+            callback: () => { }
         }
     ]
 
@@ -108,19 +112,13 @@ export default function Header(props) {
         focusOnAllNodes(false)  // Focus on all nodes without zooming
     }
 
-    const resetView = () => {
-        window.graph.nodes.forEach(node => node.hidden = false)
-        window.graph.nodes.forEach(node => node.bubble = null)
-        window.graph.edges.forEach(edge => edge.hidden = false)
-        setViewAlert(false)
-    }
-    
+
     return (<>
         <header className={scss.header_wrap}>
             <nav>
                 <div className={scss.menu_logo}>
                     {
-                        isGraphPage && 
+                        isGraphPage &&
                         <div className={scss.list_icon} onClick={() => setShowMenu(old => !old)}>
                             <HomeIcon />
                         </div>
@@ -131,52 +129,153 @@ export default function Header(props) {
                         </div>
                     </Link>
                 </div>
-                {
-                    viewAlert && 
-                    <div className={scss.menu_options_view_msg}>
-                        <span><strong>Warning: </strong> some elements may be hidden/shown in the current view</span>
-                        <button onClick={resetView}>Reset view</button>
-                    </div>
-                }
                 <div className={scss.menu_options}>
                     <ul>
-                        <li className={location.pathname === "/" ? scss.current: undefined}><Link to="/">Graph Editor</Link></li>
+                        <li className={location.pathname === "/" ? scss.current : undefined}><Link to="/">Graph Editor</Link></li>
                         <li>Algorithms
                             <SubMenu>
                                 {
                                     location.pathname === "/" ? <>
                                         <div>
                                             <h4>Algorithms</h4>
-                                            {algorithms.map((algorithm, index) => <SubMenuItem key={index} {...algorithm}/>) }
+                                            {algorithms.map((algorithm, index) => <SubMenuItem key={index} {...algorithm} />)}
                                         </div>
                                         <div>
                                             <h4>Arrangements</h4>
-                                            {arrangements.map((arrangement, index) => <SubMenuItem key={index} {...arrangement}/>)}
+                                            {arrangements.map((arrangement, index) => <SubMenuItem key={index} {...arrangement} />)}
                                         </div>
                                     </> :
-                                    <SubMenuItem title="Go back to the graph" icon={BackArrow} callback={() => navigate("/")}/>
+                                        <SubMenuItem title="Go back to the graph" icon={BackArrow} callback={() => navigate("/")} />
                                 }
                             </SubMenu>
                         </li>
-                        <li className={location.pathname === "/examples" ? scss.current: undefined}><Link to="/examples">Examples</Link></li>
-                        <li className={location.pathname === "/help" ? scss.current: undefined}><Link to="/help">Help</Link></li>
+                        <li className={location.pathname === "/examples" ? scss.current : undefined}><Link to="/examples">Examples</Link></li>
+                        <li className={location.pathname === "/help" ? scss.current : undefined}><Link to="/help">Help</Link></li>
                     </ul>
+                    {
+                        view === "alert" && <AlertView setView={setView} /> ||
+                        view === "select-nodes" && <SelectNodesView setView={setView} />
+                    }
                 </div>
-                
+
                 <div className={scss.menu_info}>
                     {
-                        isGraphPage && 
+                        isGraphPage &&
                         <>
-                        <button className={scss.share} onClick={handleShare}>Share</button>
-                        <span className={scss.zoom} onClick={handleResetZoom}>{Math.round(zoom*100)}%</span>
+                            <button className={scss.share} onClick={handleShare}>Share</button>
+                            <span className={scss.zoom} onClick={handleResetZoom}>{Math.round(zoom * 100)}%</span>
                         </>
                     }
                 </div>
             </nav>
         </header>
-        { showMenu && <HamburgerMenu close={()=>setShowMenu(false)}/> }
-        { showSharePopup && <SharePopup close={()=>setShowSharePopup(false)}/> }
-        </>)
+        {showMenu && <HamburgerMenu close={() => setShowMenu(false)} />}
+        {showSharePopup && <SharePopup close={() => setShowSharePopup(false)} />}
+    </>)
 }
 
 
+
+
+function AlertView({setView}) {
+    
+    const resetView = () => {
+        window.graph.nodes.forEach(node => node.hidden = false)
+        window.graph.nodes.forEach(node => node.bubble = null)
+        window.graph.edges.forEach(edge => edge.hidden = false)
+        setView(false)
+    }
+
+    return <div className={[scss.menu_options_view_msg, scss.alert].join(" ")}>
+        <span><strong>Warning: </strong> some elements may be hidden/shown in the current view</span>
+        <button onClick={resetView}>Close view</button>
+    </div>
+}
+
+
+
+function SelectNodesView(props) {
+
+    const [src, setSrc] = useState(window.graph.nodes[0]?.id)  // Default source node (first node)
+    const [dst, setDst] = useState("all")  // Default destination node (option: all)
+    const [hide, setHide] = useState(false)
+    const [result, setResult] = useState(dijkstra(generateAdjacencyList(), window.graph.nodes.find(node => node.id === src)))
+
+    const resetView = () => {
+        window.graph.nodes.forEach(node => {node.hidden = false; node.bubble = null})
+        window.graph.edges.forEach(edge => edge.hidden = false)
+    }
+
+    const closeView = () => {
+        resetView()
+        props.setView(false)
+    }
+
+    useEffect(() => {
+        const g = generateAdjacencyList()
+        const start = window.graph.nodes.find(node => node.id === src)
+        const result = dijkstra(g, start)
+        setResult(result)
+    }, [src])
+
+    console.log(result, src, dst)
+
+    useEffect(() => {
+        resetView()
+        paintResult()        
+    }, [dst])
+
+    useEffect(() => {
+        resetView()
+        paintResult()
+    }, [result])
+
+    const paintResult = () => {
+        if (dst === "all") {
+            const predecessors = Object.fromEntries(Object.entries(result).map(([node, data]) => [node, data.prevNode]))
+            const edges = generateEdgesByPredecessors(predecessors)
+            window.graph.nodes.forEach(node => node.bubble = result[node.id].distance)
+            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+        } else {
+            const target = window.graph.nodes.find(node => node.id === dst)
+            const prevs = Object.entries(result).map(([node, data]) => [node, data.prevNode])
+            const edges = generateEdgesPathByPredecessors(Object.fromEntries(prevs), src, dst)
+            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+            target.bubble = result[dst].distance
+        }
+    }
+
+    return <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
+        {
+            !hide ? <>
+            <span>Choose an initial node and a target node</span>
+            <div className={scss.inputs}>
+                <div className={scss.nodes_selector_group}>
+                    <label>Initial node</label>
+                    <select onChange={e => setSrc(e.target.value)} defaultValue={src}>
+                        {window.graph.nodes.map((node, index) => <option key={index} value={node.id}>{node.id}</option>)}
+                    </select>
+                </div>
+                <ArrowR />
+                <div className={scss.nodes_selector_group}>
+                    <label>Dst. node</label>
+                    <select onChange={e => setDst(e.target.value)} defaultValue={dst}>
+                        <option value="all">All</option>
+                        {window.graph.nodes.map((node, index) => <option key={index} value={node.id}>{node.id}</option>)}
+                    </select>
+                </div>
+            </div>
+            <button onClick={()=>setHide(true)}>Hide</button>
+            <hr />
+            <button onClick={closeView}>Close view</button>
+            </> : 
+            <div className={scss.hidden_menu} onClick={()=>setHide(false)}>
+                <span>Dijkstra's view</span>
+                <div>
+                    <button onClick={() => setHide(false)}>Show menu</button>
+                    <button onClick={closeView}>Reset view</button>
+                </div>
+            </div>
+        }
+    </div>
+}
