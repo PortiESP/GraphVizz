@@ -6,6 +6,8 @@
 - Review memento triggers
   - Style triggers
 - Marked attr for edges (used in min-span-trees and shortest-path)
+- Review memento events
+- Refactor element editor widgets component as separated components
 
 ------------------
 
@@ -33,6 +35,7 @@ GUI
   - shortcuts as callbacks
   - Allow add nodes with live editor without modifying the current arrangement (Avoid create new nodes if those already exist)
   - Global variable hover that calculates once at the mousemove event and the elements just check if they are inside the hover, and not calculate the hover again
+  - Absolute paths for imports
 
 
 - FIX

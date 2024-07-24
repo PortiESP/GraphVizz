@@ -40,7 +40,7 @@ function FromJSON(props){
           <li><code>x</code> - x-coordinate of the node</li>
           <li><code>y</code> - y-coordinate of the node</li>
           <li><code>r</code> - radius of the node <em>(optional)</em></li>
-          <li><code>label</code> - label of the node</li>
+          <li><code>id</code> - ID of the node</li>
         </ul>
       </div>
       <div>
