@@ -199,7 +199,7 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             
             input[type="range"]{
                 width: 100%;
@@ -209,6 +209,7 @@
                 appearance: none;
                 height: 10px;
                 border-radius: 2px;
+                padding: 0;
 
     
                 &::-webkit-slider-thumb {
@@ -242,9 +243,12 @@
             input[type="number"]{
                 width: 40px;
                 text-align: center;
+                color: #888;
+                font-size: .8rem;
                 
                 -moz-appearance:textfield;
                 appearance: textfield;
+                padding: 2px;
                 
                 &::-webkit-inner-spin-button,
                 &::-webkit-outer-spin-button {

@@ -1,7 +1,6 @@
 
 --- TASK QUEUE ---
 
-- toolbar tools
 - Algorithms
 - Algorithm view
 - Review memento triggers
