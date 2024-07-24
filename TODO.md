@@ -10,7 +10,7 @@
 - Refactor element editor widgets component as separated components
 - Set tool tip on after certain events to explain the user what to do
 
-------------------
+------------------s
 
 FEATURES
   - Algorithms 
