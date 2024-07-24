@@ -56,6 +56,7 @@ export default function ToolBarOverlay(){
 
     useEffect(() => {
         window.graph.toolListeners.push(()=>setActiveTool(window.graph.tool))
+        window.graph.setToolTip = setToolTip
     }, [])
 
     useEffect(() => {
@@ -66,7 +67,7 @@ export default function ToolBarOverlay(){
     return (
       <div className={scss.toolbar_wrap}>
         <div className={scss.container}>
-        <span className={scss.tooltip}>{toolTip}</span>
+        <span className={scss.tooltip} id="graph-tool-tip">{toolTip}</span>
           <div className={scss.toolbar}>
             {tools.map((tool, i) => {
                 return (
