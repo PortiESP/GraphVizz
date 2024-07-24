@@ -4,6 +4,10 @@ import scss2 from "./widgets.module.scss"
 import generateOptions from "./generateEditorOptions"
 import CloseIcon from "../../../assets/close.svg?react"
 import RevertIcon from "../../../assets/revert.svg?react"
+import Text from "./widgets/Text"
+import Number from "./widgets/Number"
+import Color from "./widgets/Color"
+import Range from "./widgets/Range"
 
 const scss = {...scss1, ...scss2}
 
@@ -35,6 +39,10 @@ export default function ElementEditor(props) {
                         <SectionTitle key={i} title={section.title}>
                             {
                                 section.fields.map((field, i) => (
+                                    field.type === "text" && <Text key={field.label + i} {...field}/> || 
+                                    field.type === "number" && <Number key={field.label + i} {...field}/> || 
+                                    field.type === "color" && <Color key={field.label + i} {...field}/> || 
+                                    field.type === "range" && <Range key={field.label + i} {...field}/> || 
                                     <Input key={field.label + i} {...field} />
                                 ))
                             }

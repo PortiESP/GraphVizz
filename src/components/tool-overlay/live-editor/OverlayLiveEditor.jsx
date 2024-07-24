@@ -1,10 +1,10 @@
 import { useRef } from "react"
 import scss from "./liveEditor.module.scss"
 import { useState } from "react"
-import { generateEdgeAndNodesList, generateEdgeList } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
+import { generateEdgeAndNodesList } from "../../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import { useEffect } from "react"
-import { isSingleNodeEdge, isValidEdge, loadFromEdgePlainTextList, parseEdge } from "../../graph-manager/utils/load_graph"
-import { circularArrange, getNodeById, organicArrange } from "../../graph-manager/utils/arrangements"
+import { isValidEdge, loadFromEdgePlainTextList } from "../../graph-manager/utils/load_graph"
+import { organicArrange } from "../../graph-manager/utils/arrangements"
 import { focusOnAllNodes } from "../../graph-manager/utils/view"
 
 export default function GraphEditor(props) {

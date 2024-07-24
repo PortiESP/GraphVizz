@@ -101,6 +101,7 @@ function elementsOptions(selectedElements) {
         if (nodes.length === 1) {
             fields.push(
                 {
+                    type: "text",
                     label: "ID",
                     initial: selectedElements[0].id,
                     callback: data => selectedElements[0].id = data,
@@ -112,27 +113,28 @@ function elementsOptions(selectedElements) {
                     },
                 },
                 {
+                    type: "text",
                     label: "Label",
                     initial: nodes[0].label,
                     callback: data => nodes[0].label = data
                 },
                 {
+                    type: "number",
                     label: "X",
                     initial: nodes[0].x,
                     callback: data => nodes[0].x = parseFloat(data),
-                    type: "number"
                 },
                 {
+                    type: "number",
                     label: "Y",
                     initial: nodes[0].y,
                     callback: data => nodes[0].y = parseFloat(data),
-                    type: "number"
                 },
                 {
+                    type: "number",
                     label: "Radius",
                     initial: nodes[0].r,
                     callback: data => nodes[0].r = parseFloat(data),
-                    type: "number",
                     default: constants.NODE_RADIUS
                 }
             )
@@ -141,38 +143,42 @@ function elementsOptions(selectedElements) {
         // One or more nodes
         fields.push(
             {
+                type: "color",
                 label: "Fill color",
                 initial: nodes[0].backgroundColor,
                 callback: data => nodes.forEach(e => e.backgroundColor = data),
-                type: "color",
                 default: constants.NODE_BACKGROUND_COLOR
             },
             {
+                type: "color",
                 label: "Label color",
                 initial: nodes[0].labelColor,
                 callback: data => nodes.forEach(e => e.labelColor = data),
-                type: "color",
                 default: constants.NODE_LABEL_COLOR
             },
             {
+                type: "number",
                 label: "Font size",
                 initial: nodes[0].fontSize,
                 callback: data => nodes.forEach(e => e.fontSize = parseFloat(data)),
-                type: "number",
                 default: constants.NODE_LABEL_FONT_SIZE
             },
             {
+                type: "color",
                 label: "Border color",
                 initial: nodes[0].borderColor,
                 callback: data => nodes.forEach(e => e.borderColor = data),
-                type: "color"
             },
             {
+                type: "range",
                 label: "Border width",
                 initial: nodes[0].borderWidth,
                 callback: data => nodes.forEach(e => e.borderWidth = parseFloat(data)),
-                type: "range",
-                range: [0, 10],
+                options: {
+                    min: 0,
+                    max: Math.min(nodes.map(e => e.r)),
+                    step: 0.1
+                },
                 default: 0
             },
         )
@@ -192,6 +198,7 @@ function elementsOptions(selectedElements) {
         if (edges.length === 1) {
             fields.push(
                 {
+                    type: "text",
                     label: "ID",
                     initial: selectedElements[0].id,
                     callback: data => selectedElements[0].id = data,
@@ -203,6 +210,7 @@ function elementsOptions(selectedElements) {
                     },
                 },
                 {
+                    type: "text",
                     label: "Source node",
                     initial: edges[0].src.id,
                     disabled: true,
@@ -210,6 +218,7 @@ function elementsOptions(selectedElements) {
                     labelStyle: { cursor: "pointer" }
                 },
                 {
+                    type: "text",
                     label: "Destination node",
                     initial: edges[0].dst.id,
                     disabled: true,
@@ -222,73 +231,73 @@ function elementsOptions(selectedElements) {
         // One or more edges
         fields.push(
             {
+                type: "number",
                 label: "Weight",
                 initial: edges[0].weight,
                 callback: data => edges.forEach(e => e.weight = parseFloat(data)),
-                type: "number",
                 default: constants.EDGE_WEIGHT,
                 checkError: data => isNaN(parseFloat(data)) ? "Invalid number" : null
             },
             {
+                type: "checkbox",
                 label: "Directed",
                 initial: edges[0].directed,
                 callback: data => edges.forEach(e => e.directed = data),
-                type: "checkbox"
             },
             {
+                type: "number",
                 label: "Thickness",
                 initial: edges[0].thickness,
                 callback: data => edges.forEach(e => e.thickness = parseFloat(data)),
-                type: "number",
                 default: constants.EDGE_THICKNESS
             },
             {
+                type: "color",
                 label: "Color",
                 initial: edges[0].color,
                 callback: data => edges.forEach(e => e.color = data),
-                type: "color",
                 default: constants.EDGE_COLOR
             },
             {
+                type: "number",
                 label: "Arrow size",
                 initial: edges[0].arrowSizeFactor,
                 callback: data => edges.forEach(e => e.arrowSizeFactor = parseFloat(data)),
-                type: "number",
                 default: constants.EDGE_ARROW_SIZE_FACTOR
             },
             {
+                type: "checkbox",
                 label: "Show weight",
                 initial: edges[0].weightColor !== null,
                 callback: data => edges.forEach(e => e.weightColor = data ? "#fff4" : null),
-                type: "checkbox",
                 default: true
             },
             {
+                type: "color",
                 label: "Weight color",
                 initial: edges[0].weightColor,
                 callback: data => edges.forEach(e => e.weightColor = data),
-                type: "color",
                 default: constants.EDGE_WEIGHT_COLOR
             },
             {
+                type: "number",
                 label: "Weight font size",
                 initial: edges[0].weightFontSize,
                 callback: data => edges.forEach(e => e.weightFontSize = parseFloat(data)),
-                type: "number",
                 default: constants.EDGE_WEIGHT_FONT_SIZE
             },
             {
+                type: "checkbox",
                 label: "Show weight background",
                 initial: edges[0].weightBackgroundColor !== null,
                 callback: data => edges.forEach(e => e.weightBackgroundColor = data ? "#8888" : null),
-                type: "checkbox",
                 default: true
             },
             {
+                type: "color",
                 label: "Weight background",
                 initial: edges[0].weightBackgroundColor,
                 callback: data => edges.forEach(e => e.weightBackgroundColor = data),
-                type: "color",
                 default: constants.EDGE_WEIGHT_BACKGROUND_COLOR
             }
         )
@@ -299,10 +308,10 @@ function elementsOptions(selectedElements) {
         title: "Element" + (selectedElements.length > 1 ? "s" : ""),
         fields: [
             {
+                type: "range",
                 label: "Opacity",
                 initial: selectedElements[0].opacity,
                 callback: data => selectedElements.forEach(e => e.opacity = parseFloat(data)),
-                type: "range",
                 options: {
                     step: 0.01,
                     min: 0,
