@@ -15,53 +15,71 @@ import MapIcon from "../../assets/map.svg?react"
 import BackArrow from "../../assets/bend-arrow-left.svg?react"
 import HomeIcon from "../../assets/home.svg?react"
 import { useNavigate } from "react-router-dom"
-
-
-const algorithms = [
-    {
-        title: "Breadth First Search (BFS)",
-        icon: () => <BFSIcon />,
-        callback: () => {}
-    },
-    {
-        title: "Depth First Search (DFS)",
-        icon: () => <DFSIcon />,
-        callback: () => {}
-    },
-    {
-        title: "Dijkstra",
-        icon: () => <MapIcon />,
-        callback: () => {}
-    }
-]
-
-const arrangements = [
-    {
-        title: "Circular",
-        icon: () => <BFSIcon />,
-        callback: () => {}
-    },
-    {
-        title: "Grid",
-        icon: () => <DFSIcon />,
-        callback: () => {}
-    },
-    {
-        title: "Random",
-        icon: () => <MapIcon />,
-        callback: () => {}
-    }
-]
+import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
+import bfs from "../graph-manager/utils/algorithms/bfs"
+import dfs from "../graph-manager/utils/algorithms/dfs"
+import { generateEdgesByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
 
 
 export default function Header(props) {
 
     const [zoom, setZoom] = useState(window.cvs?.zoom)
     const [showSharePopup, setShowSharePopup] = useState(false)
+    const [viewAlert, setViewAlert] = useState(false)
     const [showMenu, setShowMenu] = useState(false)
     const location = useLocation()
     const navigate = useNavigate()
     const [isGraphPage, setIsGraphPage] = useState(location.pathname === "/")
+
+    const algorithms = [
+        {
+            title: "Breadth First Search (BFS)",
+            icon: () => <BFSIcon />,
+            callback: () => {
+                const adjList = generateAdjacencyList()
+                const { result, prevNode } = bfs(adjList, window.graph.nodes[0])
+                const edges = generateEdgesByPredecessors(prevNode)
+                result.forEach((node, i) => node.bubble = i)
+                window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                setViewAlert(true)
+            }
+        },
+        {
+            title: "Depth First Search (DFS)",
+            icon: () => <DFSIcon />,
+            callback: () => {
+                const adjList = generateAdjacencyList()
+                const { result } = dfs(adjList, window.graph.nodes[0])
+                result.forEach((node, i) => node.bubble = i)
+            }
+        },
+        {
+            title: "Dijkstra",
+            icon: () => <MapIcon />,
+            callback: () => {}
+        }
+    ]
+    
+    const arrangements = [
+        {
+            title: "Circular",
+            icon: () => <BFSIcon />,
+            callback: () => {}
+        },
+        {
+            title: "Grid",
+            icon: () => <DFSIcon />,
+            callback: () => {}
+        },
+        {
+            title: "Random",
+            icon: () => <MapIcon />,
+            callback: () => {}
+        }
+    ]
+
+
+    // ===================================================
 
     useEffect(() => {
         setIsGraphPage(location.pathname === "/")
@@ -79,6 +97,14 @@ export default function Header(props) {
         resetZoom()
         focusOnAllNodes(false)  // Focus on all nodes without zooming
     }
+
+    const resetView = () => {
+        window.graph.nodes.forEach(node => node.hidden = false)
+        window.graph.nodes.forEach(node => node.bubble = null)
+        window.graph.edges.forEach(edge => edge.hidden = false)
+        setViewAlert(false)
+    }
+    
     return (<>
         <header className={scss.header_wrap}>
             <nav>
@@ -95,6 +121,13 @@ export default function Header(props) {
                         </div>
                     </Link>
                 </div>
+                {
+                    viewAlert && 
+                    <div className={scss.menu_options_view_msg}>
+                        <span><strong>Warning: </strong> some elements may be hidden in the current view</span>
+                        <button onClick={resetView}>Reset view</button>
+                    </div>
+                }
                 <div className={scss.menu_options}>
                     <ul>
                         <li className={location.pathname === "/" ? scss.current: undefined}><Link to="/">Graph Editor</Link></li>
@@ -119,6 +152,7 @@ export default function Header(props) {
                         <li className={location.pathname === "/help" ? scss.current: undefined}><Link to="/help">Help</Link></li>
                     </ul>
                 </div>
+                
                 <div className={scss.menu_info}>
                     {
                         isGraphPage && 

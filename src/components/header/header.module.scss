@@ -73,6 +73,7 @@
         .menu_options {
             width: 40%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 200%;
@@ -126,6 +127,43 @@
                     }
 
                 }
+            }
+
+        }
+
+        .menu_options_view_msg{
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(213, 216, 67, 0.295);
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 2px solid #0002;
+            color: #0008;
+            font-size: 0.8rem;
+            font-style: italic;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+
+            button{
+                border: none;
+                background: rgba(226, 185, 4, 0.197);
+                color: #0008;
+                padding: 5px 10px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 0.8rem;
+                font-weight: 500;
+                transition: all 0.1s;
+
+                &:hover{
+                    background: rgba(226, 185, 4, 0.597);
+                    color: #0009;
+                }
+            
             }
         }
 
