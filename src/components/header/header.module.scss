@@ -78,13 +78,9 @@
             align-items: center;
             height: 200%;
 
-            transform: translateY(-14px);
+            transform: translateY(-5px);
             transition: all 0.1s;
 
-            &:hover{
-                transform: translateY(10px);
-            }
-            
             ul {
                 display: flex;
                 list-style: none;
@@ -95,7 +91,7 @@
                 background: #eee;
                 box-shadow: 0 0 5px #0002;
                 padding: 5px;
-                border-radius: 6px;
+                border-radius: 0 0 6px 6px;
                 width: fit-content;
                 
                 li {
