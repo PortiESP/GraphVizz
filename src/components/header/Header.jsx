@@ -19,6 +19,7 @@ import CircularIcon from "../../assets/circle-dashed.svg?react"
 import BackArrow from "../../assets/bend-arrow-left.svg?react"
 import HomeIcon from "../../assets/home.svg?react"
 import DataTreeIcon from "../../assets/data-tree.svg?react"
+import DataTree2Icon from "../../assets/data-tree2.svg?react"
 
 import { useNavigate } from "react-router-dom"
 import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
@@ -105,10 +106,11 @@ export default function Header(props) {
         },
         {
             title: "Tree (bfs)",
-            icon: () => <DataTreeIcon />,
+            icon: () => <DataTree2Icon />,
             callback: () => {
                 setViewProps({
                     setView,
+                    hiddenView,
                     setHiddenView,
                     title: "Select the root node",
                     callback: (value) => {
@@ -127,6 +129,7 @@ export default function Header(props) {
             callback: () => {
                 setViewProps({
                     setView,
+                    hiddenView,
                     setHiddenView,
                     title: "Select the root node",
                     callback: (value) => {
@@ -146,6 +149,11 @@ export default function Header(props) {
 
     useEffect(() => {
         setIsGraphPage(location.pathname === "/")
+        setShowMenu(false)
+        setHiddenView(false)
+        setView(null)
+        setShowSharePopup(false)
+        setViewProps(null)
     }, [location])
 
     useEffect(() => {
@@ -225,8 +233,8 @@ export default function Header(props) {
                         }
                     </ul>
                     {
-                        view === "select-nodes" && <SelectNodesView hiddenView={hiddenView} {...viewProps}/> ||
-                        view === "select-node" && <SelectNodeView hiddenView={hiddenView} {...viewProps}/>
+                        view === "select-nodes" && <SelectNodesView options={viewProps}/> ||
+                        view === "select-node" && <SelectNodeView options={viewProps}/>
                     }
                 </div>
 

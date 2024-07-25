@@ -3,7 +3,8 @@ import { useEffect } from "react"
 import { useState } from "react"
 
 
-export default function SelectNodeView(props) {
+export default function SelectNodeView({options}) {
+
 
     const [node, setNode] = useState(window.graph.nodes[0]?.id)  // Default source node (first node)
 
@@ -25,15 +26,15 @@ export default function SelectNodeView(props) {
 
     const closeView = () => {
         resetView()
-        props.setView(false)
+        options.setView(false)
     }
 
     useEffect(() => {
-        props.callback(node)
-    }, [node])
+        options.callback(node)
+    }, [node, options])
 
-    return !props.hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
-            <span>{props.title}</span>
+    return !options.hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
+            <span>{options.title}</span>
             <div className={scss.inputs}>
                 <div className={scss.nodes_selector_group}>
                     <label>Initial node</label>
@@ -42,7 +43,7 @@ export default function SelectNodeView(props) {
                     </select>
                 </div>
             </div>
-            <button onClick={()=>props.setHiddenView(true)}>Hide menu</button>
+            <button onClick={()=>options.setHiddenView(true)}>Hide menu</button>
             <hr />
             <button onClick={closeView}>Close view</button>
     </div>
