@@ -263,7 +263,6 @@
                             font-weight: 400;
                             font-size: .8rem;
                             color: #0008;
-                            width: 100px;
                             text-align: center;
 
                         }
@@ -281,6 +280,7 @@
                             width: fit-content;
                             max-width: 50%;
                             outline: none;
+                            padding-right: 2px;
 
                             &:hover{
                                 border: 1px solid #0004;

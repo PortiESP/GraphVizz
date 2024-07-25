@@ -44,7 +44,7 @@ export default function SelectNodesView(props) {
     }
 
     useEffect(() => {
-     calcAlgorithm(src)   
+        calcAlgorithm(src)   
     }, [src])
 
     useEffect(() => {
@@ -53,8 +53,9 @@ export default function SelectNodesView(props) {
     }, [dst])
 
     useEffect(() => {
+        if (dst !== "all" && result[dst].distance === Infinity) setDst("all")
         resetView()
-        paintResult()
+        paintResult("all")
     }, [result])
 
     const copyTable = () => {
@@ -62,8 +63,8 @@ export default function SelectNodesView(props) {
         navigator.clipboard.writeText(JSON.stringify(data, null, 2))
     }
 
-    const paintResult = () => {
-        if (dst === "all") {
+    const paintResult = (forceDst) => {
+        if (forceDst === "all" || dst === "all") {
             const predecessors = Object.fromEntries(Object.entries(result).map(([node, data]) => [node, data.prevNode]))
             const edges = generateEdgesByPredecessors(predecessors)
             window.graph.nodes.forEach(node => node.bubble = result[node.id].distance === Infinity ? "∞" : result[node.id].distance)
@@ -82,14 +83,14 @@ export default function SelectNodesView(props) {
             <div className={scss.inputs}>
                 <div className={scss.nodes_selector_group}>
                     <label>Initial node</label>
-                    <select onChange={e => setSrc(e.target.value)} defaultValue={src}>
-                        {window.graph.nodes.map((node, index) => <option key={index} value={node.id} >{node.id}</option>)}
+                    <select onChange={e => setSrc(e.target.value)} title={src} value={src}>
+                        {window.graph.nodes.map((node, index) => <option key={index} value={node.id}>{node.id}</option>)}
                     </select>
                 </div>
                 <ArrowR />
                 <div className={scss.nodes_selector_group}>
                     <label>Dst. node</label>
-                    <select onChange={e => setDst(e.target.value)} defaultValue={dst}>
+                    <select onChange={e => setDst(e.target.value)} title={dst} value={dst}>
                         <option value="all">All</option>
                         {window.graph.nodes.map((node, index) => <option key={index} value={node.id} disabled={result[node].distance === Infinity}>{node.id}</option>)}
                     </select>
