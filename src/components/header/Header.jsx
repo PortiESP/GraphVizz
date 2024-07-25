@@ -84,6 +84,7 @@ export default function Header(props) {
                     callback: (node1, node2) => {
                         const g = generateAdjacencyList()
                         const result = dijkstra(g, window.graph.nodes.find(node => node.id === node1))
+                        const disabled = result[node2]?.distance === Infinity
                         setView("select-nodes")
 
                         if (node2 === "all") {
@@ -94,11 +95,37 @@ export default function Header(props) {
                         } else {
                             const target = window.graph.nodes.find(node => node.id === node2)
                             const prevs = Object.entries(result).map(([node, data]) => [node, data.prevNode])
-                            const edges = generateEdgesPathByPredecessors(Object.fromEntries(prevs), node1, node2)
+                            const edges = disabled ? [] : generateEdgesPathByPredecessors(Object.fromEntries(prevs), node1, node2)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                            target.bubble = result[node2].distance
+                            target.bubble = result[node2].distance === Infinity ? "∞" : result[node2].distance
                         }
-                    }
+
+                        const copyTable = () => {
+                            const data = Object.entries(result).map(([node, data]) => ({node, ...data}))
+                            navigator.clipboard.writeText(JSON.stringify(data, null, 2))
+                        }
+
+                        return result && <><table>
+                            <thead>
+                                <tr>
+                                    <th>Node</th>
+                                    <th>Distance</th>
+                                    <th>Prev. node</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {Object.entries(result).map(([node, data], index) => (
+                                    <tr key={index} className={node1===node ? scss.initial : node2===node ? scss.dst: undefined}>
+                                        <td>{node}</td>
+                                        <td>{data.distance}</td>
+                                        <td>{data.prevNode || "-"}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <button onClick={copyTable}>Copy table as JSON</button>
+                        </>
+                    },
                 })
                 setView("select-nodes")
             }
