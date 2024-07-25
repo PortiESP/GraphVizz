@@ -3,19 +3,15 @@ import { useEffect } from "react"
 import { useState } from "react"
 
 
-export default function SelectNodeView({options}) {
+export default function SelectNodeView({hiddenView, options}) {
 
 
     const [node, setNode] = useState(window.graph.nodes[0]?.id)  // Default source node (first node)
 
     // Create a listener to update the result when the graph changes
     useEffect(() => {
-        const cbk = (nodes) => {
-            const newNode = nodes[0]?.id
-            setNode(newNode)
-        }
+        const cbk = (nodes) => closeView()
         window.graph.graphListeners.push(cbk)
-
         return () => window.graph.graphListeners = window.graph.graphListeners.filter(listener => listener !== cbk)
     }, [])
 
@@ -34,7 +30,7 @@ export default function SelectNodeView({options}) {
         options.callback(node)
     }, [node, options])
 
-    return !options.hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
+    return !hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
             <span>{options.title}</span>
             <div className={scss.inputs}>
                 <div className={scss.nodes_selector_group}>

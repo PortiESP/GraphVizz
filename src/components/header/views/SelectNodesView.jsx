@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import { useState } from "react"
 
 
-export default function SelectNodesView({options}) {
+export default function SelectNodesView({hiddenView ,options}) {
 
     const [node1, setNode1] = useState(window.graph.nodes[0]?.id)  // Default source node (first node)
     const [node2, setNode2] = useState(options.allNodes ? "all": window.graph.nodes[0]?.id)  // Default destination node (option: all)
@@ -12,15 +12,8 @@ export default function SelectNodesView({options}) {
 
     // Create a listener to update the result when the graph changes
     useEffect(() => {
-        const cbk = (nodes) => {
-            const newSrc = nodes[0]?.id
-            setNode1(newSrc)
-            setNode2(options.allNodes ? "all": window.graph.nodes[0]?.id)
-            resetView()
-            setResult(options.callback(node1, node2))
-        }
+        const cbk = (nodes) => closeView()
         window.graph.graphListeners.push(cbk)
-
         return () => window.graph.graphListeners = window.graph.graphListeners.filter(listener => listener !== cbk)
     }, [])
 
@@ -39,7 +32,7 @@ export default function SelectNodesView({options}) {
         options.callback(node1, node2)
     }, [node1, node2])
 
-    return !options.hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
+    return !hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
             <span>{options.title}</span>
             <div className={scss.inputs}>
                 <div className={scss.nodes_selector_group}>

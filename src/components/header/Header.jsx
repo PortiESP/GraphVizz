@@ -159,7 +159,7 @@ export default function Header(props) {
         },
         {
             title: "Tree (bfs)",
-            icon: () => <DataTree2Icon />,
+            icon: () => <DataTreeIcon />,
             callback: () => {
                 setViewProps({
                     setView,
@@ -178,7 +178,7 @@ export default function Header(props) {
         },
         {
             title: "Tree (dfs)",
-            icon: () => <DataTreeIcon />,
+            icon: () => <DataTree2Icon />,
             callback: () => {
                 setViewProps({
                     setView,
@@ -286,8 +286,8 @@ export default function Header(props) {
                         }
                     </ul>
                     {
-                        view === "select-nodes" && <SelectNodesView options={viewProps} /> ||
-                        view === "select-node" && <SelectNodeView options={viewProps} />
+                        view === "select-nodes" && <SelectNodesView hiddenView={hiddenView} options={viewProps} /> ||
+                        view === "select-node" && <SelectNodeView hiddenView={hiddenView} options={viewProps} />
                     }
                 </div>
 
