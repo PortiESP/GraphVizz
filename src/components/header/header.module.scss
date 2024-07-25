@@ -123,6 +123,15 @@
                     }
 
                 }
+
+                hr{
+                    border: 1px solid #0001;
+                    margin: 4px 0;
+                }
+
+                li.view_item{
+                    color: rgba(139, 127, 12, 0.521);
+                }
             }
 
         }
@@ -277,6 +286,9 @@
                                 border: 1px solid #0004;
                             }
                         
+                            option:disabled{
+                                color: #0002;
+                            }
                         }
                     }
                 }
@@ -286,11 +298,34 @@
                     flex-direction: column;
                     gap: 10px;
 
+                    max-height: 60vh;
+                    overflow-y: auto;
+                    padding: 6px;
+
+                    // Edit scroll bar
+                    &::-webkit-scrollbar {
+                        width: 6px;
+                    }
+
+                    &::-webkit-scrollbar-track {
+                        background: #e4e4e400; 
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background: #888; 
+                        border-radius: 10px;
+                    }
+
+                    &::-webkit-scrollbar-thumb:hover {
+                        background: #555; 
+                    }
+
+                    
+
                     table{
                         width: 100%;
                         border-collapse: collapse;
 
-                        
                         th, td{
                             border: 1px solid #0002;
                             padding: 5px;
@@ -298,27 +333,27 @@
                             font-size: 0.8rem;
                             font-weight: 500;
                             color: #0008;
-
                         }
 
                         tr.initial td{
                             opacity: 0.2;
                         }
                         tr.dst td{
-                            background: #d2fcca;
+                            background: #cae4fc;
                         }
 
                         th{
                             font-weight: 700;
+                            background: #ddd;
                         }
 
-                        th{
-                            background: #0001;
+                        tr{
+                            background: #ddd;
+                            &:nth-child(even){
+                                background: #eee;
+                            }
                         }
-
-                        tr:nth-child(even){
-                            background: #0001;
-                        }
+                        
                     }
                 }
 

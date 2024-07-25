@@ -24,7 +24,9 @@ export function SubMenuItem(props) {
 
   return (
     <div className={scss.submenu_item} onClick={handleClick}>
-        <div className={scss.submenu_icon}><props.icon /></div>
+        {
+            props.icon && <div className={scss.submenu_icon}><props.icon /></div>
+        }
         <span className={scss.submenu_title}>{props.title}</span>
     </div>
   )
