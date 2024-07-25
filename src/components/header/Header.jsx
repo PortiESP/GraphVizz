@@ -265,6 +265,28 @@ function SelectNodesView(props) {
                     </select>
                 </div>
             </div>
+            <div className={scss.nodes_selector_summary}>
+                {
+                    result && <table>
+                        <thead>
+                            <tr>
+                                <th>Node</th>
+                                <th>Distance</th>
+                                <th>Prev. node</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Object.entries(result).map(([node, data], index) => (
+                                <tr key={index} className={src===node && scss.initial || dst===node && scss.dst}>
+                                    <td>{node}</td>
+                                    <td>{data.distance}</td>
+                                    <td>{data.prevNode || "-"}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                }
+            </div>
             <button onClick={()=>setHide(true)}>Hide</button>
             <hr />
             <button onClick={closeView}>Close view</button>

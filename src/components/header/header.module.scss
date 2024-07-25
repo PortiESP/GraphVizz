@@ -281,6 +281,45 @@
                     }
                 }
 
+                .nodes_selector_summary{
+                    display: flex;
+
+                    table{
+                        width: 100%;
+                        border-collapse: collapse;
+
+                        
+                        th, td{
+                            border: 1px solid #0002;
+                            padding: 5px;
+                            text-align: center;
+                            font-size: 0.8rem;
+                            font-weight: 500;
+                            color: #0008;
+
+                        }
+
+                        tr.initial td{
+                            opacity: 0.2;
+                        }
+                        tr.dst td{
+                            background: #d2fcca;
+                        }
+
+                        th{
+                            font-weight: 700;
+                        }
+
+                        th{
+                            background: #0001;
+                        }
+
+                        tr:nth-child(even){
+                            background: #0001;
+                        }
+                    }
+                }
+
                 button{
                     border: none;
                     background: var(--blue-bright);
