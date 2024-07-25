@@ -20,6 +20,7 @@ import BackArrow from "../../assets/bend-arrow-left.svg?react"
 import HomeIcon from "../../assets/home.svg?react"
 import AtomIcon from "../../assets/atom.svg?react"
 import PinIcon from "../../assets/pinpoint.svg?react"
+import FilterIcon from "../../assets/filter.svg?react"
 
 import { useNavigate } from "react-router-dom"
 import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
@@ -31,6 +32,7 @@ import AlertView from "./views/AlertView"
 import SelectNodesView from "./views/SelectNodesView"
 import SelectNodeView from "./views/SelectNodeView"
 import dijkstra from "../graph-manager/utils/algorithms/dijkstra"
+import kruskal from "../graph-manager/utils/algorithms/kruskal"
 
 
 export default function Header(props) {
@@ -145,6 +147,22 @@ export default function Header(props) {
                     },
                 })
                 setView("select-nodes")
+            }
+        },
+        {
+            title: "Min. Spanning Tree (Kruskal)",
+            icon: () => <FilterIcon />,
+            callback: () => {
+                const data = kruskal(generateAdjacencyList())
+                window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
+
+                setViewProps({
+                    title: "Result",
+                    message: `The minimum spanning tree was calculated. The total weight is ${data.totalWeight}. The number of edges is ${data.result.length}.`,
+                    color: "#cc62fc44"
+                })
+                setView("alert")
+
             }
         }
     ]
