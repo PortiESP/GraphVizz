@@ -13,6 +13,19 @@ export default function SelectNodesView(props) {
     const [dst, setDst] = useState("all")  // Default destination node (option: all)
     const [result, setResult] = useState(dijkstra(generateAdjacencyList(), window.graph.nodes.find(node => node.id === src)))
 
+    // Create a listener to update the result when the graph changes
+    useEffect(() => {
+        const cbk = (nodes) => {
+            const newSrc = nodes[0]?.id
+            setSrc(newSrc)
+            setDst("all")
+            calcAlgorithm(newSrc)
+        }
+        window.graph.graphListeners.push(cbk)
+
+        return () => window.graph.graphListeners = window.graph.graphListeners.filter(listener => listener !== cbk)
+    }, [])
+
     const resetView = () => {
         window.graph.nodes.forEach(node => {node.hidden = false; node.bubble = null})
         window.graph.edges.forEach(edge => edge.hidden = false)
@@ -23,14 +36,16 @@ export default function SelectNodesView(props) {
         props.setView(false)
     }
 
-    useEffect(() => {
+    const calcAlgorithm = (startId) => {
         const g = generateAdjacencyList()
-        const start = window.graph.nodes.find(node => node.id === src)
+        const start = window.graph.nodes.find(node => node.id === startId)
         const result = dijkstra(g, start)
         setResult(result)
-    }, [src])
+    }
 
-    console.log(result, src, dst)
+    useEffect(() => {
+     calcAlgorithm(src)   
+    }, [src])
 
     useEffect(() => {
         resetView()
@@ -92,7 +107,7 @@ export default function SelectNodesView(props) {
                         </thead>
                         <tbody>
                             {Object.entries(result).map(([node, data], index) => (
-                                <tr key={index} className={src===node && scss.initial || dst===node && scss.dst}>
+                                <tr key={index} className={src===node ? scss.initial : dst===node ? scss.dst: undefined}>
                                     <td>{node}</td>
                                     <td>{data.distance}</td>
                                     <td>{data.prevNode || "-"}</td>
