@@ -283,6 +283,8 @@
 
                 .nodes_selector_summary{
                     display: flex;
+                    flex-direction: column;
+                    gap: 10px;
 
                     table{
                         width: 100%;
@@ -337,6 +339,10 @@
 
                     &:hover{
                         filter: brightness(1.1);
+                    }
+
+                    &:active{
+                        filter: brightness(0.9);
                     }
                 }
             }

@@ -230,6 +230,11 @@ function SelectNodesView(props) {
         paintResult()
     }, [result])
 
+    const copyTable = () => {
+        const data = Object.entries(result).map(([node, data]) => ({node, ...data}))
+        navigator.clipboard.writeText(JSON.stringify(data, null, 2))
+    }
+
     const paintResult = () => {
         if (dst === "all") {
             const predecessors = Object.fromEntries(Object.entries(result).map(([node, data]) => [node, data.prevNode]))
@@ -267,7 +272,7 @@ function SelectNodesView(props) {
             </div>
             <div className={scss.nodes_selector_summary}>
                 {
-                    result && <table>
+                    result && <><table>
                         <thead>
                             <tr>
                                 <th>Node</th>
@@ -285,9 +290,11 @@ function SelectNodesView(props) {
                             ))}
                         </tbody>
                     </table>
+                    <button onClick={copyTable}>Copy table as JSON</button>
+                    </>
                 }
             </div>
-            <button onClick={()=>setHide(true)}>Hide</button>
+            <button onClick={()=>setHide(true)}>Hide menu</button>
             <hr />
             <button onClick={closeView}>Close view</button>
             </> : 
