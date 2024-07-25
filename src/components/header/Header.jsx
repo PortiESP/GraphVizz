@@ -19,14 +19,14 @@ import CircularIcon from "../../assets/circle-dashed.svg?react"
 import BackArrow from "../../assets/bend-arrow-left.svg?react"
 import HomeIcon from "../../assets/home.svg?react"
 import DataTreeIcon from "../../assets/data-tree.svg?react"
-import DataTree2Icon from "../../assets/data-tree2.svg?react"
+import AtomIcon from "../../assets/atom.svg?react"
 
 import { useNavigate } from "react-router-dom"
 import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import bfs from "../graph-manager/utils/algorithms/bfs"
 import dfs from "../graph-manager/utils/algorithms/dfs"
 import { generateEdgesByPredecessors, generateEdgesPathByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
-import { circularArrange, gridArrange, randomArrange, treeArrange } from "../graph-manager/utils/arrangements"
+import { circularArrange, gridArrange, organicArrange, randomArrange, treeArrange } from "../graph-manager/utils/arrangements"
 import SelectNodesView from "./views/SelectNodesView"
 import SelectNodeView from "./views/SelectNodeView"
 import dijkstra from "../graph-manager/utils/algorithms/dijkstra"
@@ -49,13 +49,21 @@ export default function Header(props) {
             title: "Breadth First Search (BFS)",
             icon: () => <BFSIcon />,
             callback: () => {
-                const adjList = generateAdjacencyList()
-                const { result, prevNode } = bfs(adjList, window.graph.nodes[0])
-                const edges = generateEdgesByPredecessors(prevNode)
-                result.forEach((node, i) => node.bubble = i)
-                window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                setView("alert")
-                setHiddenView(null)
+                setViewProps({
+                    title: "BFS",
+                    setView,
+                    hiddenView,
+                    setHiddenView,
+                    callback: (selectedNode) => {
+                        const adjList = generateAdjacencyList()
+                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+                        const { result, prevNode } = bfs(adjList, startNode)
+                        const edges = generateEdgesByPredecessors(prevNode)
+                        result.forEach((node, i) => node.bubble = i)
+                        window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                    }
+                })
+                setView("select-node")
             }
         },
         {
@@ -68,7 +76,6 @@ export default function Header(props) {
                 result.forEach((node, i) => node.bubble = i)
                 window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                 setView("alert")
-                setHiddenView(null)
             }
         },
         {
@@ -159,7 +166,7 @@ export default function Header(props) {
         },
         {
             title: "Tree (bfs)",
-            icon: () => <DataTreeIcon />,
+            icon: () => <BFSIcon />,
             callback: () => {
                 setViewProps({
                     setView,
@@ -178,7 +185,7 @@ export default function Header(props) {
         },
         {
             title: "Tree (dfs)",
-            icon: () => <DataTree2Icon />,
+            icon: () => <DFSIcon />,
             callback: () => {
                 setViewProps({
                     setView,
@@ -193,6 +200,14 @@ export default function Header(props) {
                     }
                 })
                 setView("select-node")
+            }
+        },
+        {
+            title: "Organic",
+            icon: () => <AtomIcon />,
+            callback: () => {
+                organicArrange()
+                focusOnAllNodes()
             }
         }
     ]
