@@ -50,7 +50,7 @@ export default function Header(props) {
             icon: () => <BFSIcon />,
             callback: () => {
                 setViewProps({
-                    title: "BFS",
+                    title: "Choose the initial node",
                     setView,
                     hiddenView,
                     setHiddenView,
@@ -70,12 +70,21 @@ export default function Header(props) {
             title: "Depth First Search (DFS)",
             icon: () => <DFSIcon />,
             callback: () => {
-                const adjList = generateAdjacencyList()
-                const { result, prevNode } = dfs(adjList, window.graph.nodes[0])
-                const edges = generateEdgesByPredecessors(prevNode)
-                result.forEach((node, i) => node.bubble = i)
-                window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                setView("alert")
+                setViewProps({
+                    title: "Choose the initial node",
+                    setView,
+                    hiddenView,
+                    setHiddenView,
+                    callback: (selectedNode) => {
+                        const adjList = generateAdjacencyList()
+                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+                        const { result, prevNode } = dfs(adjList, startNode)
+                        const edges = generateEdgesByPredecessors(prevNode)
+                        result.forEach((node, i) => node.bubble = i)
+                        window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                    }
+                })
+                setView("select-node")
             }
         },
         {
