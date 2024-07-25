@@ -25,10 +25,11 @@ import { useNavigate } from "react-router-dom"
 import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import bfs from "../graph-manager/utils/algorithms/bfs"
 import dfs from "../graph-manager/utils/algorithms/dfs"
-import { generateEdgesByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
+import { generateEdgesByPredecessors, generateEdgesPathByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
 import { circularArrange, gridArrange, randomArrange, treeArrange } from "../graph-manager/utils/arrangements"
 import SelectNodesView from "./views/SelectNodesView"
 import SelectNodeView from "./views/SelectNodeView"
+import dijkstra from "../graph-manager/utils/algorithms/dijkstra"
 
 
 export default function Header(props) {
@@ -74,6 +75,31 @@ export default function Header(props) {
             title: "Dijkstra",
             icon: () => <MapIcon />,
             callback: () => {
+                setViewProps({
+                    setView,
+                    hiddenView,
+                    setHiddenView,
+                    title: "Select the source node and the destination node (or all)",
+                    allNodes: true,
+                    callback: (node1, node2) => {
+                        const g = generateAdjacencyList()
+                        const result = dijkstra(g, window.graph.nodes.find(node => node.id === node1))
+                        setView("select-nodes")
+
+                        if (node2 === "all") {
+                            const predecessors = Object.fromEntries(Object.entries(result).map(([node, data]) => [node, data.prevNode]))
+                            const edges = generateEdgesByPredecessors(predecessors)
+                            window.graph.nodes.forEach(node => node.bubble = result[node.id].distance === Infinity ? "∞" : result[node.id].distance)
+                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                        } else {
+                            const target = window.graph.nodes.find(node => node.id === node2)
+                            const prevs = Object.entries(result).map(([node, data]) => [node, data.prevNode])
+                            const edges = generateEdgesPathByPredecessors(Object.fromEntries(prevs), node1, node2)
+                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                            target.bubble = result[node2].distance
+                        }
+                    }
+                })
                 setView("select-nodes")
             }
         }
@@ -91,7 +117,7 @@ export default function Header(props) {
         {
             title: "Grid",
             icon: () => <GridIcon />,
-            callback: () => { 
+            callback: () => {
                 gridArrange(window.graph.nodes)
                 focusOnAllNodes()
             }
@@ -222,19 +248,19 @@ export default function Header(props) {
                             view && <>
                                 <hr />
                                 <li className={scss.view_item}>View<SubMenu>
-                                        {<>
-                                            <div>
-                                                { view !== "alert" && <SubMenuItem title="Open view menu" callback={() => setHiddenView(false)} />}
-                                                <SubMenuItem title="Close view" callback={()=>closeView()}/>
-                                            </div>
-                                        </>}
-                                    </SubMenu>
+                                    {<>
+                                        <div>
+                                            {view !== "alert" && <SubMenuItem title="Open view menu" callback={() => setHiddenView(false)} />}
+                                            <SubMenuItem title="Close view" callback={() => closeView()} />
+                                        </div>
+                                    </>}
+                                </SubMenu>
                                 </li></>
                         }
                     </ul>
                     {
-                        view === "select-nodes" && <SelectNodesView options={viewProps}/> ||
-                        view === "select-node" && <SelectNodeView options={viewProps}/>
+                        view === "select-nodes" && <SelectNodesView options={viewProps} /> ||
+                        view === "select-node" && <SelectNodeView options={viewProps} />
                     }
                 </div>
 

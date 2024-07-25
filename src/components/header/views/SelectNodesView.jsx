@@ -7,18 +7,18 @@ import { generateAdjacencyList } from "../../graph-manager/utils/algorithms/algo
 import { generateEdgesByPredecessors, generateEdgesPathByPredecessors } from "../../graph-manager/utils/algorithms/algorithm_utils/convertions"
 
 
-export default function SelectNodesView(props) {
+export default function SelectNodesView({options}) {
 
-    const [src, setSrc] = useState(window.graph.nodes[0]?.id)  // Default source node (first node)
-    const [dst, setDst] = useState("all")  // Default destination node (option: all)
-    const [result, setResult] = useState(dijkstra(generateAdjacencyList(), window.graph.nodes.find(node => node.id === src)))
+    const [node1, setNode1] = useState(window.graph.nodes[0]?.id)  // Default source node (first node)
+    const [node2, setNode2] = useState(options.allNodes ? "all": window.graph.nodes[0]?.id)  // Default destination node (option: all)
+    const [result, setResult] = useState(dijkstra(generateAdjacencyList(), window.graph.nodes.find(node => node.id === node1)))
 
     // Create a listener to update the result when the graph changes
     useEffect(() => {
         const cbk = (nodes) => {
             const newSrc = nodes[0]?.id
-            setSrc(newSrc)
-            setDst("all")
+            setNode1(newSrc)
+            setNode2(options.allNodes ? "all": window.graph.nodes[0]?.id)
             calcAlgorithm(newSrc)
         }
         window.graph.graphListeners.push(cbk)
@@ -33,7 +33,7 @@ export default function SelectNodesView(props) {
 
     const closeView = () => {
         resetView()
-        props.setView(false)
+        options.setView(false)
     }
 
     const calcAlgorithm = (startId) => {
@@ -44,57 +44,28 @@ export default function SelectNodesView(props) {
     }
 
     useEffect(() => {
-        calcAlgorithm(src)   
-    }, [src])
-
-    useEffect(() => {
         resetView()
-        paintResult()        
-    }, [dst])
-
-    useEffect(() => {
-        resetView()
-        if (dst !== "all" && result[dst].distance === Infinity) {
-            setDst("all")
-            paintResult("all")
-        } else {
-            paintResult()
-        }
-    }, [result])
+        options.callback(node1, node2)
+    }, [node1, node2])
 
     const copyTable = () => {
         const data = Object.entries(result).map(([node, data]) => ({node, ...data}))
         navigator.clipboard.writeText(JSON.stringify(data, null, 2))
     }
 
-    const paintResult = (forceDst) => {
-        if (forceDst === "all" || dst === "all") {
-            const predecessors = Object.fromEntries(Object.entries(result).map(([node, data]) => [node, data.prevNode]))
-            const edges = generateEdgesByPredecessors(predecessors)
-            window.graph.nodes.forEach(node => node.bubble = result[node.id].distance === Infinity ? "∞" : result[node.id].distance)
-            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-        } else {
-            const target = window.graph.nodes.find(node => node.id === dst)
-            const prevs = Object.entries(result).map(([node, data]) => [node, data.prevNode])
-            const edges = generateEdgesPathByPredecessors(Object.fromEntries(prevs), src, dst)
-            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-            target.bubble = result[dst].distance
-        }
-    }
-
-    return !props.hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
+    return !options.hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
             <span>Choose an initial node and a destination node</span>
             <div className={scss.inputs}>
                 <div className={scss.nodes_selector_group}>
                     <label>Initial node</label>
-                    <select onChange={e => setSrc(e.target.value)} title={src} value={src}>
+                    <select onChange={e => setNode1(e.target.value)} title={node1} value={node1}>
                         {window.graph.nodes.map((node, index) => <option key={index} value={node.id}>{node.id}</option>)}
                     </select>
                 </div>
                 <ArrowR />
                 <div className={scss.nodes_selector_group}>
                     <label>Dst. node</label>
-                    <select onChange={e => setDst(e.target.value)} title={dst} value={dst}>
+                    <select onChange={e => setNode2(e.target.value)} title={node2} value={node2}>
                         <option value="all">All</option>
                         {window.graph.nodes.map((node, index) => <option key={index} value={node.id} disabled={result[node].distance === Infinity}>{node.id}</option>)}
                     </select>
@@ -112,7 +83,7 @@ export default function SelectNodesView(props) {
                         </thead>
                         <tbody>
                             {Object.entries(result).map(([node, data], index) => (
-                                <tr key={index} className={src===node ? scss.initial : dst===node ? scss.dst: undefined}>
+                                <tr key={index} className={node1===node ? scss.initial : node2===node ? scss.dst: undefined}>
                                     <td>{node}</td>
                                     <td>{data.distance}</td>
                                     <td>{data.prevNode || "-"}</td>
@@ -124,7 +95,7 @@ export default function SelectNodesView(props) {
                     </>
                 }
             </div>
-            <button onClick={()=>props.setHiddenView(true)}>Hide menu</button>
+            <button onClick={()=>options.setHiddenView(true)}>Hide menu</button>
             <hr />
             <button onClick={closeView}>Close view</button>
     </div>

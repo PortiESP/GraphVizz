@@ -30,6 +30,7 @@ export default function SelectNodeView({options}) {
     }
 
     useEffect(() => {
+        resetView()
         options.callback(node)
     }, [node, options])
 
