@@ -53,9 +53,13 @@ export default function SelectNodesView(props) {
     }, [dst])
 
     useEffect(() => {
-        if (dst !== "all" && result[dst].distance === Infinity) setDst("all")
         resetView()
-        paintResult("all")
+        if (dst !== "all" && result[dst].distance === Infinity) {
+            setDst("all")
+            paintResult("all")
+        } else {
+            paintResult()
+        }
     }, [result])
 
     const copyTable = () => {

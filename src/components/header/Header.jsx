@@ -22,8 +22,7 @@ import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorit
 import bfs from "../graph-manager/utils/algorithms/bfs"
 import dfs from "../graph-manager/utils/algorithms/dfs"
 import { generateEdgesByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
-import { circularArrange } from "../graph-manager/utils/arrangements"
-import AlertView from "./views/AlertView"
+import { circularArrange, gridArrange, randomArrange } from "../graph-manager/utils/arrangements"
 import SelectNodesView from "./views/SelectNodesView"
 
 
@@ -86,12 +85,18 @@ export default function Header(props) {
         {
             title: "Grid",
             icon: () => <GridIcon />,
-            callback: () => { }
+            callback: () => { 
+                gridArrange(window.graph.nodes)
+                focusOnAllNodes()
+            }
         },
         {
             title: "Random",
             icon: () => <RandomIcon />,
-            callback: () => { }
+            callback: () => {
+                randomArrange(window.graph.nodes)
+                focusOnAllNodes()
+            }
         }
     ]
 
@@ -170,7 +175,7 @@ export default function Header(props) {
                                 <li className={scss.view_item}>View<SubMenu>
                                         {<>
                                             <div>
-                                                { hiddenView !== null && <SubMenuItem title="Open view menu" callback={() => setHiddenView(false)} />}
+                                                { view !== "alert" && <SubMenuItem title="Open view menu" callback={() => setHiddenView(false)} />}
                                                 <SubMenuItem title="Close view" callback={()=>closeView()}/>
                                             </div>
                                         </>}
@@ -179,7 +184,6 @@ export default function Header(props) {
                         }
                     </ul>
                     {
-                        view === "alert" && <AlertView setView={setView} /> ||
                         view === "select-nodes" && <SelectNodesView setView={setView} hiddenView={hiddenView} setHiddenView={setHiddenView} />
                     }
                 </div>
