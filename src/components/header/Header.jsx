@@ -18,15 +18,16 @@ import RandomIcon from "../../assets/shuffle.svg?react"
 import CircularIcon from "../../assets/circle-dashed.svg?react"
 import BackArrow from "../../assets/bend-arrow-left.svg?react"
 import HomeIcon from "../../assets/home.svg?react"
-import DataTreeIcon from "../../assets/data-tree.svg?react"
 import AtomIcon from "../../assets/atom.svg?react"
+import PinIcon from "../../assets/pinpoint.svg?react"
 
 import { useNavigate } from "react-router-dom"
 import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import bfs from "../graph-manager/utils/algorithms/bfs"
 import dfs from "../graph-manager/utils/algorithms/dfs"
 import { generateEdgesByPredecessors, generateEdgesPathByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
-import { circularArrange, gridArrange, organicArrange, randomArrange, treeArrange } from "../graph-manager/utils/arrangements"
+import { circularArrange, gridArrange, organicArrange, randomArrange, toposortArrange, treeArrange } from "../graph-manager/utils/arrangements"
+import AlertView from "./views/AlertView"
 import SelectNodesView from "./views/SelectNodesView"
 import SelectNodeView from "./views/SelectNodeView"
 import dijkstra from "../graph-manager/utils/algorithms/dijkstra"
@@ -218,6 +219,34 @@ export default function Header(props) {
                 organicArrange()
                 focusOnAllNodes()
             }
+        },
+        {
+            title: "Toposort",
+            icon: () => <PinIcon />,
+            callback: () => {
+                const g = generateAdjacencyList()
+                const result = toposortArrange(g)
+
+                if (result.hasCycle) {
+                    setViewProps({
+                        title: "Error",
+                        message: "The graph has a cycle. The topological sort is not possible.",
+                        color: "#f004"
+                    })
+                    setView("alert")
+                } else {
+                    const edges = generateEdgesByPredecessors(result.prevNode)
+                    window.graph.nodes.forEach(node => node.bubble = result.levels[node.id])
+                    window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                    focusOnAllNodes()
+                    setViewProps({
+                        title: "Toposort",
+                        message: "The graph was arranged using the topological sort algorithm.",
+                        color: "#0f044"
+                    })
+                    setView("alert")
+                }
+            }
         }
     ]
 
@@ -310,6 +339,7 @@ export default function Header(props) {
                         }
                     </ul>
                     {
+                        view === "alert" && <AlertView hiddenView={hiddenView} options={viewProps} /> ||
                         view === "select-nodes" && <SelectNodesView hiddenView={hiddenView} options={viewProps} /> ||
                         view === "select-node" && <SelectNodeView hiddenView={hiddenView} options={viewProps} />
                     }

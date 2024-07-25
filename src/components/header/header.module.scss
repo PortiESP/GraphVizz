@@ -145,53 +145,6 @@
             background: #0001;
             border-radius: 6px;
 
-            .hidden_menu{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                gap: 6px;
-                
-                span{
-                    font-size: 0.8rem;
-                    font-weight: 500;
-                    color: #0008;
-                    border-radius: 6px;
-                    font-style: italic;
-                    padding-left: 5px;
-                }
-
-                div{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 10px;
-                    font-size: 0.8rem;
-
-                    button{
-                        border: none;
-                        background: rgba(4, 156, 226, 0.4);
-                        color: #0008;
-                        padding: 5px 10px;
-                        border-radius: 6px;
-                        cursor: pointer;
-                        font-size: 0.8rem;
-                        font-weight: 500;
-                        transition: all 0.1s;
-                        opacity: 0.8;
-
-                        &:nth-of-type(2){
-                            background: rgba(226, 4, 4, 0.4);
-                        }
-                        
-                        &:hover{
-                            opacity: 1;
-                        }
-                    
-                    }
-                
-                }
-            }
-            
             &.alert{
                 display: flex;
                 justify-content: center;
