@@ -6,6 +6,8 @@ import { useEffect } from "react"
 import { isValidEdge, loadFromEdgePlainTextList } from "../../graph-manager/utils/load_graph"
 import { organicArrange } from "../../graph-manager/utils/arrangements"
 import { focusOnAllNodes } from "../../graph-manager/utils/view"
+import { saveToCache } from "../../graph-manager/utils/cache"
+import { recordMemento } from "../../graph-manager/utils/memento"
 
 export default function GraphEditor(props) {
 
@@ -39,6 +41,14 @@ export default function GraphEditor(props) {
         organicArrange(nodesBefore)
         focusOnAllNodes()
 
+        // Cache
+        saveToCache()
+
+        // Debug
+        if (window.cvs.debug) {
+            console.log("Live editor valid lines:", validEdges)
+            console.log("Live editor invalid lines:", invalidLines)
+        }
     }
 
     useEffect(() => {
@@ -54,7 +64,6 @@ export default function GraphEditor(props) {
         window.graph.graphListeners.push(() => setForceUpdate(old => old + 1))
     }, [])
 
-
     return (
         <div className={scss.wrap}>
             <div className={scss.lines_nums}>
@@ -69,6 +78,7 @@ export default function GraphEditor(props) {
                 onInput={handleTextChange}
                 value={textarea}
                 rows={lines.length}
+                onBlur={recordMemento}
             ></textarea>
         </div>
     )

@@ -1,24 +1,14 @@
 
 --- TASK QUEUE ---
 
-- Review memento triggers
-  - Style triggers
+- Views of the algorithms (colors, heat-maps, etc)
 - Marked attr for edges (used in min-span-trees and shortest-path)
-- Review memento events
-- Refactor element editor widgets component as separated components
 - Set tool tip on after certain events to explain the user what to do
+- Study memento actions after live editor
 
 ------------------
 
 FEATURES
-  - Algorithms 
-    - Dijkstra
-    - Custom
-  - Auto arrange
-    - Camino critico (CPM)
-    - Grid
-    - Random
-  - Study memento actions
   - Images as nodes
   - Block nodes movement or edit style
 
