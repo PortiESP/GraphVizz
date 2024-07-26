@@ -181,6 +181,48 @@ function elementsOptions(selectedElements) {
                 },
                 default: 0
             },
+            {
+                type: "checkbox",
+                label: "Show bubble",
+                initial: nodes[0].bubble !== null,
+                callback: data => nodes.forEach(e => e.bubble = data ? 0 : null),
+                default: false
+            },
+            {
+                type: "number",
+                label: "Bubble value",
+                initial: nodes[0].bubble,
+                callback: data => nodes.forEach(e => e.bubble = parseFloat(data)),
+                default: 0
+            },
+            {
+                type: "number",
+                label: "Bubble radius",
+                initial: nodes[0].bubbleRadius,
+                callback: data => nodes.forEach(e => e.bubbleRadius = parseFloat(data)),
+                default: constants.NODE_BUBBLE_RADIUS
+            },
+            {
+                type: "color",
+                label: "Bubble color",
+                initial: nodes[0].bubbleColor,
+                callback: data => nodes.forEach(e => e.bubbleColor = data),
+                default: constants.NODE_BUBBLE_COLOR
+            },
+            {
+                type: "number",
+                label: "Bubble font size",
+                initial: 12,
+                callback: data => nodes.forEach(e => e.bubbleTextSize = parseFloat(data)),
+                default: constants.NODE_BUBBLE_TEXT_SIZE
+            },
+            {
+                type: "color",
+                label: "Bubble text color",
+                initial: nodes[0].bubbleTextColor,
+                callback: data => nodes.forEach(e => e.bubbleTextColor = data),
+                default: constants.NODE_BUBBLE_TEXT_COLOR
+            }
         )
     }
 

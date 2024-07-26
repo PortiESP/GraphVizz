@@ -23,13 +23,11 @@ FEATURES
   - Study memento actions
   - Images as nodes
   - Block nodes movement or edit style
-  - Organic arrangement (force directed)
 
 GUI
   - Responsive
   - Language
   - Context menu
-  - LiveEditor different edge list formats
 
 
 - REFACTOR 
