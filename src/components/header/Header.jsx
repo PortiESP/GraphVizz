@@ -36,6 +36,7 @@ import SelectNodeView from "./views/SelectNodeView"
 import dijkstra from "../graph-manager/utils/algorithms/dijkstra"
 import kruskal from "../graph-manager/utils/algorithms/kruskal"
 import hamiltonianPath from "../graph-manager/utils/algorithms/hamiltonian-path"
+import hamiltonianCycle from "../graph-manager/utils/algorithms/hamiltonian-cycle"
 
 
 export default function Header(props) {
@@ -256,6 +257,94 @@ export default function Header(props) {
                 setView("select-node")
             }
         },
+        {
+            title: "Hamiltonian Cycle (all)",
+            icon: () => <CycleIcon />,
+            callback: () => {
+                setViewProps({
+                    title: "Choose the initial node",
+                    setView,
+                    hiddenView,
+                    setHiddenView,
+                    callback: (selectedNode) => {
+                        const paintPath = (path) => {
+                            const edges = generateEdgesByNodesPath(path)
+                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                        }
+                        
+                        const adjList = generateAdjacencyList()
+                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+                        const data = hamiltonianCycle(adjList, startNode, true, true)
+                        const copyAsJSON = () => {
+                            const paths = data.all.map(path => path.map(node => node.id))
+                            const str = JSON.stringify(paths, null, 2)
+                            navigator.clipboard.writeText(str)
+                        }
+
+                        if (data) paintPath(data.path)
+                        else window.graph.edges.forEach(edge => edge.hidden = true)
+
+                        return data ? <>
+                        <span className={scss.info}>Cycles found: {data.all.length}</span>
+                        <button onClick={copyAsJSON}>Copy as JSON</button>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Path(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.all.map((path, index) => (
+                                        <tr key={index} onClick={() => paintPath(path)} className={scss.clickable}>
+                                            <td>{path.map(node => node.id).join(" → ")}</td>
+                                        </tr>
+                                    )) 
+                                }
+                            </tbody>
+                        </table>
+                        </>: <span className={scss.error}>No valid cycle found, try changing the starting point</span>
+                    }
+                })
+                setView("select-node")
+            }
+        },
+        {
+            title: "Hamiltonian Cycle (one)",
+            icon: () => <CycleIcon />,
+            callback: () => {
+                setViewProps({
+                    title: "Choose the initial node",
+                    setView,
+                    hiddenView,
+                    setHiddenView,
+                    callback: (selectedNode) => {
+                        const paintPath = (path) => {
+                            const edges = generateEdgesByNodesPath(path)
+                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                        }
+                        
+                        const adjList = generateAdjacencyList()
+                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+                        const data = hamiltonianCycle(adjList, startNode, false, true)
+                        const copyAsJSON = () => {
+                            const nodePath = data.path.map(node => node.id)
+                            const str = JSON.stringify(nodePath, null, 2)
+                            navigator.clipboard.writeText(str)
+                        }
+
+                        if (data) paintPath(data.path)
+                        else window.graph.edges.forEach(edge => edge.hidden = true)
+
+                        return data ? <>
+                        <p className={scss.info}>{data.path.map(node => node.id).join(" → ")}</p>
+                        <button onClick={copyAsJSON}>Copy as JSON</button>
+                        </>: <span className={scss.error}>No valid cycle found, try changing the starting point</span>
+                    }
+                })
+                setView("select-node")
+            }
+        }
     ]
 
     const arrangements = [
