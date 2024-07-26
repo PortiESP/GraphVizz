@@ -20,6 +20,7 @@ import BackArrow from "../../assets/bend-arrow-left.svg?react"
 import HomeIcon from "../../assets/home.svg?react"
 import AtomIcon from "../../assets/atom.svg?react"
 import PinIcon from "../../assets/pinpoint.svg?react"
+import BrokenLinkIcon from "../../assets/link-broken.svg?react"
 import FilterIcon from "../../assets/filter.svg?react"
 import PathIcon from "../../assets/path.svg?react"
 import CycleIcon from "../../assets/cycle.svg?react"
@@ -454,7 +455,7 @@ export default function Header(props) {
         },
         {
             title: "Toposort",
-            icon: () => <PinIcon />,
+            icon: () => <BrokenLinkIcon />,
             callback: () => {
                 const g = generateAdjacencyList()
                 const result = toposortArrange(g)

@@ -1,7 +1,7 @@
 import scss from "./overlay.module.scss"
 import LiveEditor from "./live-editor/OverlayLiveEditor"
 import CloseIcon from "../../assets/close.svg?react"
-import EditIcon from "../../assets/edit.svg?react"
+import PaletteIcon from "../../assets/palette.svg?react"
 import KbdIcon from "../../assets/keyboard.svg?react"
 import { useState } from "react"
 import ElementEditor from "./element-editor/OverlayElementEditor"
@@ -17,7 +17,7 @@ export default function ToolOverlay(props) {
         <AsideOverlay title="Live Editor" closeIcon={<KbdIcon />}>
           <LiveEditor />
         </AsideOverlay>
-        <AsideOverlay title="Custom style" right closeIcon={<EditIcon />}>
+        <AsideOverlay title="Custom style" right closeIcon={<PaletteIcon />}>
           <ElementEditor />
         </AsideOverlay>
         <ToolBarOverlay />
