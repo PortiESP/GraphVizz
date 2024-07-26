@@ -26,13 +26,14 @@ import { useNavigate } from "react-router-dom"
 import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import bfs from "../graph-manager/utils/algorithms/bfs"
 import dfs from "../graph-manager/utils/algorithms/dfs"
-import { generateEdgesByPredecessors, generateEdgesPathByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
+import { generateEdgesByNodesPath, generateEdgesByPredecessors, generateEdgesPathByPredecessors } from "../graph-manager/utils/algorithms/algorithm_utils/convertions"
 import { circularArrange, gridArrange, organicArrange, randomArrange, toposortArrange, treeArrange } from "../graph-manager/utils/arrangements"
 import AlertView from "./views/AlertView"
 import SelectNodesView from "./views/SelectNodesView"
 import SelectNodeView from "./views/SelectNodeView"
 import dijkstra from "../graph-manager/utils/algorithms/dijkstra"
 import kruskal from "../graph-manager/utils/algorithms/kruskal"
+import hamiltonianPath from "../graph-manager/utils/algorithms/hamiltonian-path"
 
 
 export default function Header(props) {
@@ -164,7 +165,105 @@ export default function Header(props) {
                 setView("alert")
 
             }
-        }
+        },
+        {
+            title: "Hamiltonian Path (all)",
+            icon: () => <FilterIcon />,
+            callback: () => {
+                setViewProps({
+                    title: "Choose the initial node",
+                    setView,
+                    hiddenView,
+                    setHiddenView,
+                    callback: (selectedNode) => {
+                        const paintPath = (path) => {
+                            const edges = generateEdgesByNodesPath(path)
+                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                        }
+                        
+                        const adjList = generateAdjacencyList()
+                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+                        const data = hamiltonianPath(adjList, startNode, true)
+                        const copyAsJSON = () => {
+                            const paths = data.all.map(path => path.map(node => node.id))
+                            const str = JSON.stringify(paths, null, 2)
+                            navigator.clipboard.writeText(str)
+                        }
+
+                        if (data) paintPath(data.path)
+                        else window.graph.edges.forEach(edge => edge.hidden = true)
+
+                        return data ? <>
+                        <span className={scss.info}>Paths found: {data.all.length}</span>
+                        <button onClick={copyAsJSON}>Copy as JSON</button>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Path(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    data.all.map((path, index) => (
+                                        <tr key={index} onClick={() => paintPath(path)} className={scss.clickable}>
+                                            <td>{path.map(node => node.id).join(" → ")}</td>
+                                        </tr>
+                                    )) 
+                                }
+                            </tbody>
+                        </table>
+                        </>: <span className={scss.error}>No valid path found, try changing the starting point</span>
+                    }
+                })
+                setView("select-node")
+            }
+        },
+        {
+            title: "Hamiltonian Path (one)",
+            icon: () => <FilterIcon />,
+            callback: () => {
+                setViewProps({
+                    title: "Choose the initial node",
+                    setView,
+                    hiddenView,
+                    setHiddenView,
+                    callback: (selectedNode) => {
+                        const paintPath = (path) => {
+                            const edges = generateEdgesByNodesPath(path)
+                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                        }
+                        
+                        const adjList = generateAdjacencyList()
+                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+                        const data = hamiltonianPath(adjList, startNode)
+                        const copyAsJSON = () => {
+                            const nodePath = data.path.map(node => node.id)
+                            const str = JSON.stringify(nodePath, null, 2)
+                            navigator.clipboard.writeText(str)
+                        }
+
+                        if (data) paintPath(data.path)
+                        else window.graph.edges.forEach(edge => edge.hidden = true)
+
+                        return data ? <><table>
+                            <thead>
+                                <tr>
+                                    <th>Path(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    <tr><td>{data.path.map(node => node.id).join(" → ")}</td></tr>
+                                }
+                            </tbody>
+                        </table>
+                        <button onClick={copyAsJSON}>Copy as JSON</button>
+                        </>: <span className={scss.error}>No valid path found, try changing the starting point</span>
+                    }
+                })
+                setView("select-node")
+            }
+        },
     ]
 
     const arrangements = [

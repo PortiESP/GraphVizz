@@ -27,7 +27,7 @@ export default function ToolOverlay(props) {
 
 
 function AsideOverlay(props){
-  const [closed, setClosed] = useState(false)
+  const [closed, setClosed] = useState(true)
 
   const closedClass = props.right ? scss.closed_right : scss.closed_left
   const className = props.right ? scss.overlay_right: scss.overlay_left

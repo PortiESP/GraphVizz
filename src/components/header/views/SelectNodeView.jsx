@@ -7,6 +7,7 @@ export default function SelectNodeView({hiddenView, options}) {
 
 
     const [node, setNode] = useState(window.graph.nodes[0]?.id)  // Default source node (first node)
+    const [result, setResult] = useState("")
 
     // Create a listener to update the result when the graph changes
     useEffect(() => {
@@ -27,7 +28,7 @@ export default function SelectNodeView({hiddenView, options}) {
 
     useEffect(() => {
         resetView()
-        options.callback(node)
+        setResult(options.callback(node))
     }, [node, options])
 
     return !hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
@@ -39,6 +40,9 @@ export default function SelectNodeView({hiddenView, options}) {
                         {window.graph.nodes.map((node, index) => <option key={index} value={node.id}>{node.id}</option>)}
                     </select>
                 </div>
+            </div>
+            <div className={scss.nodes_selector_summary}>
+                {result}
             </div>
             <button onClick={()=>options.setHiddenView(true)}>Hide menu</button>
             <hr />
