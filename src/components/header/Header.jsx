@@ -21,6 +21,8 @@ import HomeIcon from "../../assets/home.svg?react"
 import AtomIcon from "../../assets/atom.svg?react"
 import PinIcon from "../../assets/pinpoint.svg?react"
 import FilterIcon from "../../assets/filter.svg?react"
+import PathIcon from "../../assets/path.svg?react"
+import CycleIcon from "../../assets/cycle.svg?react"
 
 import { useNavigate } from "react-router-dom"
 import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
@@ -168,7 +170,7 @@ export default function Header(props) {
         },
         {
             title: "Hamiltonian Path (all)",
-            icon: () => <FilterIcon />,
+            icon: () => <PathIcon />,
             callback: () => {
                 setViewProps({
                     title: "Choose the initial node",
@@ -220,7 +222,7 @@ export default function Header(props) {
         },
         {
             title: "Hamiltonian Path (one)",
-            icon: () => <FilterIcon />,
+            icon: () => <PathIcon />,
             callback: () => {
                 setViewProps({
                     title: "Choose the initial node",
@@ -245,18 +247,8 @@ export default function Header(props) {
                         if (data) paintPath(data.path)
                         else window.graph.edges.forEach(edge => edge.hidden = true)
 
-                        return data ? <><table>
-                            <thead>
-                                <tr>
-                                    <th>Path(s)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    <tr><td>{data.path.map(node => node.id).join(" → ")}</td></tr>
-                                }
-                            </tbody>
-                        </table>
+                        return data ? <>
+                        <p className={scss.info}>{data.path.map(node => node.id).join(" → ")}</p>
                         <button onClick={copyAsJSON}>Copy as JSON</button>
                         </>: <span className={scss.error}>No valid path found, try changing the starting point</span>
                     }
@@ -271,6 +263,7 @@ export default function Header(props) {
             title: "Circular",
             icon: () => <CircularIcon />,
             callback: () => {
+                setView(null)
                 circularArrange(window.graph.nodes)
                 focusOnAllNodes()
             }
@@ -287,6 +280,7 @@ export default function Header(props) {
             title: "Random",
             icon: () => <RandomIcon />,
             callback: () => {
+                setView(null)
                 randomArrange(window.graph.nodes)
                 focusOnAllNodes()
             }
@@ -333,6 +327,7 @@ export default function Header(props) {
             title: "Organic",
             icon: () => <AtomIcon />,
             callback: () => {
+                setView(null)
                 organicArrange()
                 focusOnAllNodes()
             }
