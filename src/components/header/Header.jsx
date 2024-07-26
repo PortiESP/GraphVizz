@@ -23,6 +23,7 @@ import PinIcon from "../../assets/pinpoint.svg?react"
 import FilterIcon from "../../assets/filter.svg?react"
 import PathIcon from "../../assets/path.svg?react"
 import CycleIcon from "../../assets/cycle.svg?react"
+import ColorsIcon from "../../assets/colors.svg?react"
 
 import { useNavigate } from "react-router-dom"
 import { generateAdjacencyList } from "../graph-manager/utils/algorithms/algorithm_utils/generate_graph"
@@ -37,6 +38,7 @@ import dijkstra from "../graph-manager/utils/algorithms/dijkstra"
 import kruskal from "../graph-manager/utils/algorithms/kruskal"
 import hamiltonianPath from "../graph-manager/utils/algorithms/hamiltonian-path"
 import hamiltonianCycle from "../graph-manager/utils/algorithms/hamiltonian-cycle"
+import colorBorders from "../graph-manager/utils/algorithms/color-borders"
 
 
 export default function Header(props) {
@@ -340,6 +342,35 @@ export default function Header(props) {
                         <p className={scss.info}>{data.path.map(node => node.id).join(" → ")}</p>
                         <button onClick={copyAsJSON}>Copy as JSON</button>
                         </>: <span className={scss.error}>No valid cycle found, try changing the starting point</span>
+                    }
+                })
+                setView("select-node")
+            }
+        },
+        {
+            title: "Map border colors",
+            icon: () => <ColorsIcon />,
+            callback: () => {
+                setViewProps({
+                    title: "Choose the initial node",
+                    setView,
+                    hiddenView,
+                    setHiddenView,
+                    callback: (selectedNode) => {
+                        const g = generateAdjacencyList()
+                        const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
+                        console.log(data)
+                        window.graph.nodes.forEach(node => node.bubble = data[node.id])
+
+                        const copyAsJSON = () => {
+                            const str = JSON.stringify(data, null, 2)
+                            navigator.clipboard.writeText(str)
+                        }
+
+                        return <>
+                        <p className={scss.info}>Number of groups: {Math.max(...Object.values(data))+1}</p>
+                        <button onClick={copyAsJSON}>Copy as JSON</button>
+                        </>
                     }
                 })
                 setView("select-node")

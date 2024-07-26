@@ -37,6 +37,7 @@ export default function SelectNodeView({hiddenView, options}) {
                 <div className={scss.nodes_selector_group}>
                     <label>Initial node</label>
                     <select onChange={e => setNode(e.target.value)} title={node} value={node}>
+                        { options.all && <option value="all">All</option> }
                         {window.graph.nodes.map((node, index) => <option key={index} value={node.id}>{node.id}</option>)}
                     </select>
                 </div>
