@@ -4,6 +4,8 @@ import scss2 from "../widgets.module.scss"
 import RevertIcon from "../../../../assets/revert.svg?react"
 import CloseIcon from "../../../../assets/close.svg?react"
 import { useEffect } from "react"
+import { saveToCache } from "../../../graph-manager/utils/cache"
+import { recordMemento } from "../../../graph-manager/utils/memento"
 const scss = {...scss1, ...scss2}
 
 
@@ -19,6 +21,9 @@ export default function Checkbox(props) {
             const error = props.checkError(data)
 
             if (!error) {
+                // Memento
+                recordMemento()
+
                 props.callback(data)
                 setErrorMsg("")
             } else {
@@ -27,11 +32,15 @@ export default function Checkbox(props) {
 
             setValue(data)
         } else {
+            // Memento
+            recordMemento()
+
             props.callback(data)
             setValue(data)
         }
-
-
+        
+        // Cache
+        saveToCache()
     }
 
     useEffect(() => {
@@ -54,7 +63,16 @@ export default function Checkbox(props) {
                 </div>
             </label>
             <div className={scss.inputs}>
-                <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...props.options} checked={value} id={id} placeholder={errorMsg}></input>
+                <input 
+                    value={value}
+                    onChange={handleChange}
+                    disabled={props.disabled}
+                    type={props.type}
+                    {...props.options}
+                    checked={value}
+                    id={id}
+                    placeholder={errorMsg}
+                ></input>
             </div>
         </div>
     )

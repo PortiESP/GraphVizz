@@ -43,6 +43,7 @@ export default function ElementEditor(props) {
                                     field.type === "number" && <Number key={field.label + i} {...field}/> || 
                                     field.type === "color" && <Color key={field.label + i} {...field}/> || 
                                     field.type === "range" && <Range key={field.label + i} {...field}/> || 
+                                    field.type === "checkbox" && <Input key={field.label + i} {...field} /> ||
                                     <Input key={field.label + i} {...field} />
                                 ))
                             }

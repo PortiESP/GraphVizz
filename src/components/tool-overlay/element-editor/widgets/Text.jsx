@@ -4,6 +4,8 @@ import scss2 from "../widgets.module.scss"
 import RevertIcon from "../../../../assets/revert.svg?react"
 import CloseIcon from "../../../../assets/close.svg?react"
 import { useEffect } from "react"
+import { recordMemento } from "../../../graph-manager/utils/memento"
+import { saveToCache } from "../../../graph-manager/utils/cache"
 const scss = {...scss1, ...scss2}
 
 export default function Text(props) {
@@ -60,7 +62,18 @@ export default function Text(props) {
                 </div>
             </label>
             <div className={scss.inputs}>
-                <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...props.options} checked={value} id={id} placeholder={errorMsg}></input>
+                <input
+                    value={value}
+                    onChange={handleChange}
+                    disabled={props.disabled}
+                    type={props.type}
+                    {...props.options}
+                    checked={value}
+                    id={id}
+                    placeholder={errorMsg}
+                    onFocus={()=>recordMemento()}
+                    onBlur={()=>saveToCache()}
+                ></input>
             </div>
         </div>
     )

@@ -1,8 +1,6 @@
 
 --- TASK QUEUE ---
 
-- Algorithms
-- Algorithm view
 - Review memento triggers
   - Style triggers
 - Marked attr for edges (used in min-span-trees and shortest-path)
@@ -10,7 +8,7 @@
 - Refactor element editor widgets component as separated components
 - Set tool tip on after certain events to explain the user what to do
 
-------------------s
+------------------
 
 FEATURES
   - Algorithms 
