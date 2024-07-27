@@ -1,22 +1,26 @@
 import scss from "./toolBar.module.scss"
-import AddNodeIcon from "../../../assets/add-node.svg?react"
-import EdgeIcon from "../../../assets/edge.svg?react"
-import CursorIcon from "../../../assets/cursor.svg?react"
-import DeleteIcon from "../../../assets/bin.svg?react"
-import { useState } from "react"
-import { useEffect } from "react"
-import { setActivateTool } from "../../graph-manager/utils/tools/tools_callbacks"
-import constants from "../../graph-manager/utils/constants"
+import { useState, useEffect } from "react"
 
+// Utils
+import { setActivateTool } from "@components/graph-manager/utils/tools/tools_callbacks"
+import constants from "@components/graph-manager/utils/constants"
+
+// Icons
+import AddNodeIcon from "@assets/add-node.svg?react"
+import EdgeIcon from "@assets/edge.svg?react"
+import CursorIcon from "@assets/cursor.svg?react"
+import DeleteIcon from "@assets/bin.svg?react"
+
+// Define the items that will be shown in the toolbar, tools or separators.
 const tools = [
     {
-        id: "select",
-        className: scss.tool,
-        title: "Edit & Select",
-        icon: CursorIcon,
-        tooltip: "Select, move, delete, edit",
-        shortcut: "S",
-        action: ()=> setActivateTool("select")
+        id: "select",  // id is used to identify the active tool (must match the tool name in the graph manager constants)
+        className: scss.tool,  // Used to identify if the item is a tool, a separator, etc.
+        title: "Edit & Select",  // Title is used when the mouse hovers over the tool
+        icon: CursorIcon,  // Icons shown in the toolbar
+        tooltip: "Select, move, delete, edit",  // Text shown in the tooltip when the user activates the tool
+        shortcut: "S",  // Keyboard shortcut to activate the tool (this is esthetic, the actual shortcut is set in the graph manager)
+        action: ()=> setActivateTool("select")  // Function to call when the tool is clicked
     },
     { className: scss.separator },
     {
@@ -49,16 +53,26 @@ const tools = [
 
 ]
 
+
+/**
+ * ToolBarOverlay
+ * 
+ * This component is a toolbar that allows the user to select different tools to interact with the graph.
+ */
 export default function ToolBarOverlay(){
 
     const [activeTool, setActiveTool] = useState(constants.DEFAULT_TOOL)
     const [toolTip, setToolTip] = useState("")
 
+    // Initial setup
     useEffect(() => {
+        // Set the listeners to update when the tool is changed from other part of the application
         window.graph.toolListeners.push(()=>setActiveTool(window.graph.tool))
+        // Store the `setToolTip` function as a global variable. This is used to update the tooltip from other parts of the application when certain events happen.
         window.graph.setToolTip = setToolTip
     }, [])
 
+    // Update the tooltip when the active tool changes
     useEffect(() => {
         const tooltip = tools.find(tool => tool.id === activeTool).tooltip
         setToolTip(tooltip)

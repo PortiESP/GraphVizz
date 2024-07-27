@@ -264,3 +264,20 @@ fields.push({
 ```
 
 > Some field types have an additional `options` field where you can add attributes for the `<input>` tag. See the `widgets/` folder for more information on each field type.
+
+
+# ToolBar
+
+The ToolBar is a component that allows the user to interact with the graph. The ToolBar is located in the `/src/components/overlays/tool-bar` folder.
+
+### Add a new item to the ToolBar
+
+Edit the `tools` array in the `ToolBar.jsx` file. The array contains the tools that will be displayed in the ToolBar. Each tool is an object with the following properties:
+
+- `id`: The id of the tool. This id is used to identify the active tool. (*Must match the tool name in the graph manager constants*)
+- `className`: The class name of the tool. This class is used to identify if the item is a tool, a separator, etc.
+- `title`: Title used when the mouse hovers over the tool.
+- `icon`: Icon shown in the toolbar.
+- `tooltip`: Text shown in the tooltip when the user activates the tool.
+- `shortcut`: Keyboard shortcut to activate the tool. (*This is esthetic, the actual shortcut is set in the graph manager*)
+- `action`: Function to call when the tool is clicked. 
