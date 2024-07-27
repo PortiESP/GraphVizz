@@ -20,6 +20,7 @@ To add a new example we need to follow these steps:
       - `description`: A brief description of the example.
       - `thumbnail`: A JSX element that renders the thumbnail of the example 
 
+
 # Routes
 
 The project uses the `react-router-dom` library to manage the routes. The routes are defined in the `App.js` file.
@@ -34,3 +35,41 @@ To add a new route we need to follow these steps:
 2. Add a new key to the `ROUTES` array in the `App.jsx` file. 
    - The key will be the path of the route.
    - The value will be the component that will be rendered when the route is accessed.
+
+
+# Hamburger menu
+
+The hamburger menu is located in the header of the application. It is used to navigate between the different pages of the application or trigger certain actions.
+
+## Add a new menu item
+
+To add a new menu item we need to follow these steps in the `components/header/hamburger-menu/Hamburger.jsx` file:
+
+1. Create a new arrow function in the `HamburgerMenu` component that will be executed when the menu item is clicked.
+2. Import the icon that will be displayed next to the menu item.
+3. Add a new `<MenuItem>` component within the `<menu></menu>` tags. The component must contain the following properties:
+   - `label`: The text that will be displayed as the menu item.
+   - `onClick`: The arrow function created in step 1.
+   - `icon`: The icon imported in step 2.
+   - `shortcut`: The shortcut that will be displayed next to the menu item. (*Optional*)
+  
+*Use the previous menu items as a reference to create the new one.*
+
+
+## Modal
+
+The modal component is used by the Hamburger menu to display additional information or actions. The modal is not reusable and is used only in the Hamburger menu.
+
+The modal is based on scenes defined in the `modal/Modal.jsx` file.
+
+### Add a new scene
+
+To add a new scene we need to follow these steps in the `components/header/hamburger-menu/modal/Modal.jsx` file:
+
+1. Create a component that will be the content of the scene in `modal/scenes` folder.
+2. Import the component created in step 1 in the `Modal.jsx` file.
+3. Add a new key to the `SCENES` object in the `Modal.jsx` file. 
+   - The key will be the id (what ever you want) of the scene.
+   - The value will be the component created in step 1.
+
+To display the new scene, we need to call the `setModal` function with the id of the scene as a parameter in the `Hamburger.jsx` file, typically on the onClick event of a menu item.
