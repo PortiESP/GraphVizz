@@ -45,6 +45,17 @@
         padding-top: 0;
     }
 
+    .submenu_heading{
+        padding: 5px;
+        padding-top: 10px;
+
+        h3{
+            font-size: .9rem;
+            font-weight: 500;
+            color: #0008;
+        }
+    }
+
     .submenu_item{
         display: flex;
         gap: 10px;

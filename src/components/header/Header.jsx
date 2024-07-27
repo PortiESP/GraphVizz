@@ -8,7 +8,7 @@ import HamburgerMenu from "./hamburger-menu/Hamburger"
 import { resetZoom } from "../graph-manager/canvas-component/utils/zoom"
 import { focusOnAllNodes } from "../graph-manager/utils/view"
 import { useLocation } from "react-router-dom"
-import SubMenu, { SubMenuItem } from "./sub-menu/SubMenu"
+import SubMenu, { SubMenuItem } from "./nav-sub-menu/SubMenu"
 
 import BFSIcon from "../../assets/bfs.svg?react"
 import DFSIcon from "../../assets/dfs.svg?react"
@@ -171,6 +171,10 @@ export default function Header(props) {
                 setView("alert")
 
             }
+        },
+        {
+            title: "Paths and Cycles",
+            heading: true
         },
         {
             title: "Hamiltonian Path (all)",
