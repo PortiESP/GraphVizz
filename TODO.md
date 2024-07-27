@@ -1,7 +1,7 @@
 
 --- TASK QUEUE ---
 
- - Doc
+ - Doc (tomorrow graph-manager)
     - Comment
     - Document
     - Indentation of 4 spaces
@@ -13,6 +13,7 @@
 - Set tool tip on after certain events to explain the user what to do
 - Help page
 - Review editable attributes on the ElementEditor (global, nodes, multiple, etc.)
+- more examples
 
 ------------------
 
