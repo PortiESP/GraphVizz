@@ -19,3 +19,18 @@ To add a new example we need to follow these steps:
       - `title`: The title of the example.
       - `description`: A brief description of the example.
       - `thumbnail`: A JSX element that renders the thumbnail of the example 
+
+# Routes
+
+The project uses the `react-router-dom` library to manage the routes. The routes are defined in the `App.js` file.
+
+The header of the application is shared among all the pages. 
+
+## Add a new route
+
+To add a new route we need to follow these steps:
+
+1. Create a new component in the `/src/components` folder.
+2. Add a new key to the `ROUTES` array in the `App.jsx` file. 
+   - The key will be the path of the route.
+   - The value will be the component that will be rendered when the route is accessed.

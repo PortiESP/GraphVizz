@@ -1,6 +1,11 @@
 
 --- TASK QUEUE ---
 
+Doc
+  - Comment
+  - Document
+  - Indentation of 4 spaces
+
 - Views of the algorithms (colors, heat-maps, etc)
 - Marked attr for edges (used in min-span-trees and shortest-path)
 - Set tool tip on after certain events to explain the user what to do

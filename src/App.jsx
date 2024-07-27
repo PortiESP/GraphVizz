@@ -10,24 +10,26 @@ import Examples from './components/examples/Examples'
 // - The key is the path. E.g. "/help" will render a component when the path is "/help"
 // - The value is the component to render when the path is matched
 const ROUTES = {  // <-- EDIT THIS OBJECT TO CRUD THE ROUTES
-  "/": <Overlay><Graph /></Overlay>,
-  "/help": <Help />,
-  "/examples": <Examples />
+    "/": <Overlay><Graph /></Overlay>,
+    "/help": <Help />,
+    "/examples": <Examples />
 }
 
 function App() {
-  return (
-    <Router>
-      <div className='wrapper'>
-        <Header/>
-        <Routes>
-          {Object.entries(ROUTES).map(([path, component]) => (
-              <Route key={path} path={path} element={component} />
-            ))}
-        </Routes>
-      </div>
-    </Router>
-  )
+    return (
+        <Router>
+            <div className='wrapper'>
+                <Header />
+                <Routes>
+                    {
+                        Object.entries(ROUTES).map(([path, component]) => (
+                            <Route key={path} path={path} element={component} />
+                        ))
+                    }
+                </Routes>
+            </div>
+        </Router>
+    )
 }
 
 export default App

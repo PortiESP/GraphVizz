@@ -5,12 +5,15 @@ import Tree1SVG from "./thumbnails/tree-1.svg?react"
 import Circle1SVG from "./thumbnails/circular-1.svg?react"
 
 
-// List of examples
-// Each example has an id, title, description, and thumbnail
-//  - id: unique identifier for the example (used in the URL query string and must match a file in the /public/examples folder)
-//  - title: title of the example
-//  - description: description of the example
-//  - thumbnail: A JSX component that renders the thumbnail image for the example
+/**
+ * # List of examples
+ * 
+ * Each example has an id, title, description, and thumbnail 
+ * - id: unique identifier for the example (used in the URL query string and must match a file in the /public/examples folder)
+ * - title: title of the example
+ * - description: description of the example
+ * - thumbnail: A JSX component that renders the thumbnail image for the example
+ */
 const EXAMPLES = [  // <-- EDIT THIS ARRAY TO CRUD THE EXAMPLES
     {
         id: "basic-1",
@@ -40,19 +43,19 @@ const EXAMPLES = [  // <-- EDIT THIS ARRAY TO CRUD THE EXAMPLES
  */
 export default function Examples() {
 
-  return (
-      <div className={scss.wrap}>
-        <div className={scss.content}>
-            <h1>Examples</h1>
+    return (
+        <div className={scss.wrap}>
+            <div className={scss.content}>
+                <h1>Examples</h1>
 
-            <div className={scss.examples_wrap}>
-                {EXAMPLES.map((example, index) => {
-                    return <ExampleCard key={index} id={example.id || "#"}title={example.title} description={example.description} thumbnail={example.thumbnail} />
-                })}
+                <div className={scss.examples_wrap}>
+                    {EXAMPLES.map((example, index) => {
+                        return <ExampleCard key={index} id={example.id || "#"} title={example.title} description={example.description} thumbnail={example.thumbnail} />
+                    })}
+                </div>
             </div>
         </div>
-      </div>
-  )
+    )
 }
 
 /**
@@ -68,13 +71,13 @@ export default function Examples() {
  */
 function ExampleCard(props) {
 
-  return (
-    <Link to={`/?example=${props.id}`} className={scss.example}>
-      <div className={scss.thumbnail}>
-        {props.thumbnail}
-      </div>
-      <h2>{props.title}</h2>
-      <p>{props.description}</p>
-    </Link>
-  )
+    return (
+        <Link to={`/?example=${props.id}`} className={scss.example}>
+            <div className={scss.thumbnail}>
+                {props.thumbnail}
+            </div>
+            <h2>{props.title}</h2>
+            <p>{props.description}</p>
+        </Link>
+    )
 }
