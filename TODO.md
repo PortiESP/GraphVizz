@@ -1,10 +1,12 @@
 
 --- TASK QUEUE ---
 
-Doc
-  - Comment
-  - Document
-  - Indentation of 4 spaces
+ - Doc
+    - Comment
+    - Document
+    - Indentation of 4 spaces
+    - absolute imports
+  - Component mode generalize
 
 - Views of the algorithms (colors, heat-maps, etc)
 - Marked attr for edges (used in min-span-trees and shortest-path)
