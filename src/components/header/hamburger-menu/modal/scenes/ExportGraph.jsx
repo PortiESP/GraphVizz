@@ -22,7 +22,6 @@ export default function Export_graph(props) {
             <p className={scss.tip}>Choose an option from below to export the graph</p>
             <hr />
             <Tabs tabs={[() => AsSVG, () => AsPNG]} titles={["As SVG", "As PNG"]} closeModal={props.close} />
-
         </div>
     )
 }
