@@ -231,4 +231,36 @@ The ElementEditor is a component that allows the user to edit the properties of 
 
 ## Add a new option to the ElementEditor menu
 
-To add a new edit option we need add it in the `generateEditorOptions.js` file
+To add a new edit option we need add it in the `generateEditorOptions.js` file.
+
+Here you will find the `generateOptions` function that will return the sections with the fields that will be displayed in the ElementEditor. If no element is selected, the ElementEditor will show the global properties of the graph/canvas. If one element is selected, the ElementEditor will show the properties of the selected element. If multiple elements are selected, the ElementEditor will show the properties that can be edited in common for all the selected elements, or it will split the properties in sections if the elements are of different types.
+
+- To add a global property edit the `globalOptions` function.
+- To add an element property edit the `elementOptions` function.
+
+### Edit the options
+
+To add a new section:
+
+```js
+sections.push({
+    title: "Section title",
+    fields: []
+})
+```
+
+To add a new field to a section:
+
+```js
+fields.push({
+    type: "field type",
+    label: "Field label",
+    initial: initial value,
+    callback: callback function,
+    checkError: error checking function,
+    default: default value,
+    disabled: is field disabled,
+})
+```
+
+> Some field types have an additional `options` field where you can add attributes for the `<input>` tag. See the `widgets/` folder for more information on each field type.
