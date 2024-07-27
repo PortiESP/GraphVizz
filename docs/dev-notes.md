@@ -199,7 +199,6 @@ setViewProps({
 setView("select-node")
 ```
 
-
 # Help page
 
 The help page is located in the `/src/components/help` folder. The help page contains information about the tools, how to use it, and how to contribute to the project.
@@ -221,3 +220,15 @@ To add a toggle subsection we need to add a `<Toggle>` component within the `<se
 ### Add a shortcut
 
 Copy and paste the `<li>` item and fill it with the new shortcut information.
+
+
+# ElementEditor
+
+The ElementEditor is a component that allows the user to edit the properties of the selected elements. The ElementEditor is located in the `/src/components/overlays/element-editor` folder.
+
+- When no element is selected, the ElementEditor shows the global properties of the graph/canvas. 
+- When multiple elements are selected, the ElementEditor shows the properties that can be edited in common for all the selected elements. If elements of different types are selected, the ElementEditor splits in sections the properties that can be edited for each type of element and applies the changes to all the elements of the same type as the section the user is editing.
+
+## Add a new option to the ElementEditor menu
+
+To add a new edit option we need add it in the `generateEditorOptions.js` file

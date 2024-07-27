@@ -12,6 +12,7 @@
 - Marked attr for edges (used in min-span-trees and shortest-path)
 - Set tool tip on after certain events to explain the user what to do
 - Help page
+- Review editable attributes on the ElementEditor (global, nodes, multiple, etc.)
 
 ------------------
 

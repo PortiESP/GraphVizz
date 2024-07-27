@@ -1,33 +1,41 @@
-import { useState, useEffect } from "react"
 import scss1 from "./elementEditor.module.scss"
 import scss2 from "./widgets.module.scss"
+const scss = {...scss1, ...scss2}
+import { useState, useEffect } from "react"
+
+// Utils
 import generateOptions from "./generateEditorOptions"
-import CloseIcon from "../../../assets/close.svg?react"
-import RevertIcon from "../../../assets/revert.svg?react"
+
+// Icons
+import CloseIcon from "@assets/close.svg?react"
+import RevertIcon from "@assets/revert.svg?react"
+
+// Editor widgets
 import Text from "./widgets/Text"
 import Number from "./widgets/Number"
 import Color from "./widgets/Color"
 import Range from "./widgets/Range"
 
-const scss = {...scss1, ...scss2}
 
-export default function ElementEditor(props) {
+export default function ElementEditor() {
 
-    const [selectedElements, setSelectedElements] = useState([])
-    const [forceUpdate, setForceUpdate] = useState(0) // Force update when the selected elements change
-    const [menu, setMenu] = useState(null)
+    const [selectedElements, setSelectedElements] = useState([])  // Selected elements of the graph, to show the corresponding options
+    const [forceUpdate, setForceUpdate] = useState(0) // Force update when the selected elements change (increase the value to force a rerender) (bad practice fix for the issue: when a node is displaced, the editor does not update the position since the selected elements are the same, its the attributes that change)
+    const [menu, setMenu] = useState(null)  // Array of sections with the corresponding fields. See `generateEditorOptions.js` for more info
     
+    // Add a listener to update the selected elements and forceUpdate values
     useEffect(() => {
-        const sections = generateOptions(selectedElements)
-        setMenu(sections)
-    }, [selectedElements, forceUpdate])
-
-    useEffect(() => {
-        window.graph.allListeners.push(() => {
+        window.graph.graphListeners.push(() => {
             setForceUpdate(old=> old + 1)  // To update element position
             setSelectedElements(window.graph.selected)  // To update selected elements
         })
     }, [])
+
+    // Update the menu when the selected elements change or the forceUpdate value changes (usually when the user moves a node)
+    useEffect(() => {
+        const sections = generateOptions(selectedElements)
+        setMenu(sections)
+    }, [selectedElements, forceUpdate])
 
     return (
         <div className={scss.wrap}>
@@ -39,12 +47,13 @@ export default function ElementEditor(props) {
                         <SectionTitle key={i} title={section.title}>
                             {
                                 section.fields.map((field, i) => (
-                                    field.type === "text" && <Text key={field.label + i} {...field}/> || 
-                                    field.type === "number" && <Number key={field.label + i} {...field}/> || 
-                                    field.type === "color" && <Color key={field.label + i} {...field}/> || 
-                                    field.type === "range" && <Range key={field.label + i} {...field}/> || 
-                                    field.type === "checkbox" && <Input key={field.label + i} {...field} /> ||
-                                    <Input key={field.label + i} {...field} />
+                                    // Render the corresponding widget based on the field type
+                                    field.type === "text" && <Text key={field.label + i} {...field}/> ||        // Text input
+                                    field.type === "number" && <Number key={field.label + i} {...field}/> ||    // Number input
+                                    field.type === "color" && <Color key={field.label + i} {...field}/> ||      // Color input
+                                    field.type === "range" && <Range key={field.label + i} {...field}/> ||      // Range input
+                                    field.type === "checkbox" && <Input key={field.label + i} {...field} /> ||  // Checkbox input
+                                    <Input key={field.label + i} {...field} />                                  // Default input (text)
                                 ))
                             }
                         </SectionTitle>

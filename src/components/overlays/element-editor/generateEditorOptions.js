@@ -1,17 +1,57 @@
 import constants from "../../graph-manager/utils/constants"
 import { focusOnElement } from "../../graph-manager/utils/view"
 
+/*
+    To add a new section:
+    ```
+    sections.push({
+        title: "Section title",
+        fields: []
+    })
+    ```
+
+    To add a new field to a section:
+    ```
+    fields.push({
+        type: "field type",
+        label: "Field label",
+        initial: initial value,
+        callback: callback function,
+        checkError: error checking function,
+        default: default value,
+        disabled: is field disabled,
+    })
+    ```
+
+    > Some field types have an additional `options` field where you can add attributes for the `<input>` tag. See the `widgets/` folder for more information on each field type.
+*/
+
+
+/**
+ * Generate the options for the element editor based on the selected elements 
+ * 
+ * @param {Array} selectedElements - The selected elements of the graph
+ * 
+ * @returns {Array} - The sections with the corresponding fields
+ */
 export default function generateOptions(selectedElements) {
-
-
+    // If no elements are selected, show the global options
     if (selectedElements.length === 0) return globalOptions()
+    // Return the options for the selected elements
     else return elementsOptions(selectedElements)
 }
 
 
+/**
+ * Generate the options for the global settings
+ * 
+ * @returns {Array} - The sections with the corresponding fields
+ */
 function globalOptions() {
     const sections = []
 
+    // Add the "Global" section
+    // This section contains the settings for the environment
     sections.push({
         title: "Global",
         fields: [
@@ -24,6 +64,9 @@ function globalOptions() {
             },
         ]
     })
+
+    // Add the "Grid" section
+    // This section contains the settings for the grid
     sections.push({
         title: "Grid",
         fields: [
@@ -77,27 +120,34 @@ function globalOptions() {
 }
 
 
+/**
+ * Generate the options for the selected elements
+ * 
+ * @param {Array} selectedElements - The selected elements of the graph
+ * 
+ * @returns {Array} - The sections with the corresponding fields
+ */
 function elementsOptions(selectedElements) {
     const sections = []
+
+    // Separate the nodes from the edges
     const nodes = selectedElements.filter(e => e.constructor.name === "Node")
     const edges = selectedElements.filter(e => e.constructor.name === "Edge")
 
-    // Common fields (disabling for now)
-    // if (selectedElements.length === 1) sections.push({
-    //     title: "Data",
-    //     fields: []
-    // })
-
-    // Node specific fields
+    // --- NODES SPECIFIC FIELDS ---
     if (nodes.length > 0) {
-        const currentSection = {
-            title: "Node" + (nodes.length > 1 ? "s" : ""),
+        // Add a new section to the sections array
+        sections.push({
+            title: "Node" + (nodes.length > 1 ? "s" : ""),  // Node or Nodes
             fields: []
-        }
-        sections.push(currentSection)
+        })
+
+        // Holds the current section from the sections array as a shorter reference
+        const currentSection = sections[sections.length - 1]
+        // Holds the fields of the current section as a shorter reference
         const fields = currentSection.fields
 
-        // One node
+        // Only one node selected
         if (nodes.length === 1) {
             fields.push(
                 {
@@ -140,7 +190,7 @@ function elementsOptions(selectedElements) {
             )
         }
 
-        // One or more nodes
+        // One or more nodes selected
         fields.push(
             {
                 type: "color",
@@ -226,17 +276,21 @@ function elementsOptions(selectedElements) {
         )
     }
 
-
-    // Edge specific fields
+    // --- EDGES SPECIFIC FIELDS ---
     if (edges.length > 0) {
-        const currentSection = {
+
+        // Add a new section to the sections array
+        sections.push({
             title: "Edge" + (edges.length > 1 ? "s" : ""),
             fields: []
-        }
-        sections.push(currentSection)
+        })
+
+        // Holds the current section from the sections array as a shorter reference
+        const currentSection = sections[sections.length - 1]
+        // Holds the fields of the current section as a shorter reference
         const fields = currentSection.fields
 
-        // One edge
+        // Only one edge selected
         if (edges.length === 1) {
             fields.push(
                 {
@@ -270,7 +324,7 @@ function elementsOptions(selectedElements) {
             )
         }
 
-        // One or more edges
+        // One or more edges selected
         fields.push(
             {
                 type: "number",
@@ -345,7 +399,7 @@ function elementsOptions(selectedElements) {
         )
     }
 
-    // Common fields (continued)
+    // --- COMMON FIELDS ---
     sections.push({
         title: "Element" + (selectedElements.length > 1 ? "s" : ""),
         fields: [

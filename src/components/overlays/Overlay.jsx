@@ -1,6 +1,8 @@
 import scss from "./overlay.module.scss"
-import LiveEditor from "./live-editor/OverlayLiveEditor"
 import { useState } from "react"
+
+// Components
+import LiveEditor from "./live-editor/OverlayLiveEditor"
 import ElementEditor from "./element-editor/OverlayElementEditor"
 import ToolBarOverlay from "./tool-bar/ToolBar"
 
@@ -9,6 +11,13 @@ import CloseIcon from "@assets/close.svg?react"
 import PaletteIcon from "@assets/palette.svg?react"
 import KbdIcon from "@assets/keyboard.svg?react"
 
+
+/**
+ * ToolOverlay component
+ * 
+ * @param {Object} props
+ * @param {React.ReactNode} props.children - The children of the component. The canvas
+ */
 export default function ToolOverlay(props) {
 
   return (

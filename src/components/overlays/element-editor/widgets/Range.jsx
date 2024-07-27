@@ -1,13 +1,33 @@
-import { useState } from "react"
 import scss1 from "../elementEditor.module.scss"
 import scss2 from "../widgets.module.scss"
-import RevertIcon from "../../../../assets/revert.svg?react"
-import CloseIcon from "../../../../assets/close.svg?react"
-import { useEffect } from "react"
-import { recordMemento } from "../../../graph-manager/utils/memento"
-import { saveToCache } from "../../../graph-manager/utils/cache"
 const scss = {...scss1, ...scss2}
+import { useEffect, useState } from "react"
 
+// Functions
+import { saveToCache } from "@components/graph-manager/utils/cache"
+import { recordMemento } from "@components/graph-manager/utils/memento"
+
+// Icons
+import RevertIcon from "@assets/revert.svg?react"
+import CloseIcon from "@assets/close.svg?react"
+
+
+/**
+ * Range input
+ * 
+ * @param {Object} props
+ * @param {String} props.label - Label for the input
+ * @param {String} props.type - Type of input
+ * @param {String} props.initial - Initial value of the input
+ * @param {String} props.default - Default value of the input (used for reset)
+ * @param {Boolean} props.disabled - If the input is disabled
+ * @param {Object} props.options - Additional options for the input
+ * @param {Object} props.labelStyle - Style for the label
+ * @param {Function} props.callback - Callback function for the input
+ * @param {Function} props.checkError - Function to check for errors
+ * 
+ * @returns {JSX.Element}
+ */
 export default function Range(props) {
     const [value, setValue] = useState(props.initial ?? "")
     const [errorMsg, setErrorMsg] = useState("")
