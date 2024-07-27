@@ -2,6 +2,8 @@
 
 This file is intended to provide information that helps developers understand the project structure, how certain features work, and how to contribute to the project.
 
+> See also the README files of the `graph-manager` and `canvas-component` for more information about the code located in those folders.
+
 # Examples
 
 The examples page `/examples` contains a list of templates that demonstrate how to use the GraphVizz Tool. 
