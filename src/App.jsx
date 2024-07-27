@@ -1,7 +1,7 @@
 import './App.css'
 import Graph from './components/graph-manager/GraphManager'
 import Header from './components/header/Header'
-import Overlay from './components/tool-overlay/Overlay'
+import Overlay from './components/overlays/Overlay'
 import Help from './components/help/help'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Examples from './components/examples/Examples'

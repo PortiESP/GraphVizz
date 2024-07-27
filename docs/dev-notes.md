@@ -72,4 +72,152 @@ To add a new scene we need to follow these steps in the `components/header/hambu
    - The key will be the id (what ever you want) of the scene.
    - The value will be the component created in step 1.
 
-To display the new scene, we need to call the `setModal` function with the id of the scene as a parameter in the `Hamburger.jsx` file, typically on the onClick event of a menu item.
+> To display the new scene, we need to call the `setModal` function with the id of the scene as a parameter in the `Hamburger.jsx` file, typically on the onClick event of a menu item.
+
+
+# Nav 
+
+## Nav items
+
+### Add a new navigation item
+
+To add a new navigation item we edit the `Nav.jsx` file. There are two types of navigation items: `Link` and `SubMenu`.
+- `Link`: A simple navigation item that redirects to a different page. Just modify URL (*both in the `className` and the `to`*) and text.
+  ```html
+  <li className={location.pathname === "/examples" ? scss.current : undefined}><Link to="/examples">Examples</Link></li>
+   ```
+- `SubMenu`: A navigation item that displays a list of sub-items when clicked.
+  ```html
+   <SubMenu>
+      <div></div>
+      <div></div>
+   </SubMenu>
+  ```
+
+### Add an algorithm, arrangement, etc. To the algorithms submenu
+
+To add a new algorithm, arrangement, etc. to the algorithms submenu we need to go to the `nav/AlgorithmsSubMenu.jsx` there we can add find the arrays for this categories. To add an item to any of these arrays we need to follow add an object with the following properties:
+- `title`: The label of the item. (*E.G.: Dijkstra*)
+- `icon`: The icon that will be displayed next to the item. (*E.G.: <DijkstraIcon />*)
+- `callback`: The function that will be executed when the item is clicked. (*E.G.: () => doSomething()*)
+
+> Usually, the callback function will call the `setViewProps` and the `setView` functions to display a view with the algorithm in case we need to ask for additional information to the user. In this case, it depends on the view to be displayed, but we will usually have a key in the object passed to the `setViewProps` function that will be also `callback` and that will be called when the user interacts with the view, passing the of the user interaction to the callback function.
+
+```jsx
+// Example 
+{
+    title: "Depth First Search (DFS)",
+    icon: () => <DFSIcon />,
+    callback: () => {
+        setViewProps({
+            title: "Choose the initial node",
+            callback: (selectedNode) => {
+                const adjList = generateAdjacencyList()
+                const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+                const { result, prevNode } = dfs(adjList, startNode)
+                const edges = generateEdgesByPredecessors(prevNode)
+                result.forEach((node, i) => node.bubble = i)
+                window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+            }
+        })
+        setView("select-node")
+    }
+}
+```
+
+## Views
+
+The views are just a state of the application after running an algorithm where the graph is temporarily altered to show/hide additional information. Some views may display a menu with options to interact with the view.
+
+The views are defined in the `header/nav/views` folder.
+
+> When a view is active, in the nav will appear a new option where we can choose the options to show the view menu or close the view.
+
+### Add a new view
+
+To add a new view we need to follow these steps:
+
+1. Create a new component in the `header/nav/views` folder.
+   - The component receive the props 
+     - `setView` function to set a different view
+     - `setHiddenView` function to hide the current view menu
+     - `options` Object with the data of the state `viewProps` that can be filled with data by the caller that triggered the view.
+2. Import the component created in step 1 in the `Nav.jsx` file.
+3. Add the view to the `// Views` section in the JSX of the `Nav.jsx` file. (*Use the previous views as a reference to create the new one*)
+
+### Display a view
+
+To display a view we need to call the `setViewProps` function with an object as a parameter containing the data that the view requires. Then, we call the `setView` function with the id of the view as a parameter. 
+
+```jsx
+setViewProps({
+    option1: "value1",
+    option2: "value2"
+    // ...
+})
+setView("my-view")
+```
+
+### Views callbacks
+
+When the user interacts with the view, the view will call the callback function passed in the `setViewProps` function with the user interaction as a parameter.
+
+```jsx
+setViewProps({
+    title: "Choose the initial node",
+    callback: (selectedNode) => {
+        const adjList = generateAdjacencyList()
+        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+        const { result, prevNode } = dfs(adjList, startNode)
+        const edges = generateEdgesByPredecessors(prevNode)
+        result.forEach((node, i) => node.bubble = i)
+        window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+    }
+})
+setView("select-node")
+```
+
+If the callback provided in the `setViewProps` function returns a valid JSX element, the view will display the result of the callback function. This is useful when the view needs to display additional information to the user such as a list of nodes, edges, tables, etc.
+
+```jsx
+setViewProps({
+    title: "Choose the initial node",
+    callback: (selectedNode) => {
+        const adjList = generateAdjacencyList()
+        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+        const { result, prevNode } = dfs(adjList, startNode)
+        const edges = generateEdgesByPredecessors(prevNode)
+        result.forEach((node, i) => node.bubble = i)
+        window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+        return <div>
+            <h2>Result</h2>
+            <p>Nodes visited: {result.length}</p>
+            <p>Edges visited: {edges.length}</p>
+        </div>
+    }
+})
+setView("select-node")
+```
+
+
+# Help page
+
+The help page is located in the `/src/components/help` folder. The help page contains information about the tools, how to use it, and how to contribute to the project.
+
+## Add a new section
+
+To add a new section we need to add a `<section id="my-section">` tag within the `<main>` tag, providing a unique id for the section. The section must contain a `<h2>` tag with the title of the section. And additionally `<h3>` tags for subsections.
+
+### Add a toggle subsection
+
+To add a toggle subsection we need to add a `<Toggle>` component within the `<section>` tag. Providing the title prop with the title of the subsection and the children prop with the content of the subsection.
+
+```html
+<Toggle title="My subsection">
+    <p>Content of the subsection</p>
+</Toggle>
+```
+
+### Add a shortcut
+
+Copy and paste the `<li>` item and fill it with the new shortcut information.

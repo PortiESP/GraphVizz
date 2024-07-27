@@ -1,11 +1,13 @@
 import scss from "./overlay.module.scss"
 import LiveEditor from "./live-editor/OverlayLiveEditor"
-import CloseIcon from "../../assets/close.svg?react"
-import PaletteIcon from "../../assets/palette.svg?react"
-import KbdIcon from "../../assets/keyboard.svg?react"
 import { useState } from "react"
 import ElementEditor from "./element-editor/OverlayElementEditor"
 import ToolBarOverlay from "./tool-bar/ToolBar"
+
+// Icons
+import CloseIcon from "@assets/close.svg?react"
+import PaletteIcon from "@assets/palette.svg?react"
+import KbdIcon from "@assets/keyboard.svg?react"
 
 export default function ToolOverlay(props) {
 

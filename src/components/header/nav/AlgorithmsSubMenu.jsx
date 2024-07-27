@@ -1,4 +1,4 @@
-import scss from "./nav.module.scss"
+import scss from "./views.module.scss"
 
 // Components & functions
 import SubMenu, { SubMenuItem } from "./nav-sub-menu/SubMenu"

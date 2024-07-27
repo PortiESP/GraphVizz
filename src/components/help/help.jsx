@@ -37,9 +37,9 @@ export default function Help(props) {
             <h3>General</h3>
             <div>
               <ul>
-                <li>Save the current graph<kbd>Ctrl + s</kbd></li>
-                <li>Open a graph from a file<kbd>Ctrl + o</kbd></li>
-                <li>Create a new graph<kbd>Ctrl + n</kbd></li>
+                <li>Save the current graph<kbd>Ctrl + S</kbd></li>
+                <li>Open a graph from a file<kbd>Ctrl + O</kbd></li>
+                <li>Create a new graph<kbd>Ctrl + N</kbd></li>
               </ul>
             </div>
           </section >

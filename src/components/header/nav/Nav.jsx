@@ -1,7 +1,8 @@
 import scss1 from "./nav.module.scss"
 import scss2 from "./views.module.scss"
 const scss = { ...scss1, ...scss2 } 
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 // Components & functions
 import AlgorithmsSubMenu from "./AlgorithmsSubMenu";
@@ -11,9 +12,6 @@ import SubMenu, { SubMenuItem } from "./nav-sub-menu/SubMenu";
 import AlertView from "./views/AlertView";
 import SelectNodesView from "./views/SelectNodesView";
 import SelectNodeView from "./views/SelectNodeView";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
 
 /**
  * The navigation bar.
@@ -74,6 +72,7 @@ export default function Nav() {
             {
                 // Views
                 !hiddenView && <> {// If the view is not hidden ...
+                    // Render a different component based on the value of the view state
                     view === "alert" && <AlertView setView={setView} setHiddenView={setHiddenView} options={viewProps} /> ||
                     view === "select-nodes" && <SelectNodesView setView={setView} setHiddenView={setHiddenView} options={viewProps} /> ||
                     view === "select-node" && <SelectNodeView setView={setView} setHiddenView={setHiddenView} options={viewProps} />
