@@ -1,7 +1,9 @@
-import scss from "../header.module.scss"
+import scss from "./nav.module.scss"
 
-import SubMenu, { SubMenuItem } from "../nav-sub-menu/SubMenu"
+// Components & functions
+import SubMenu, { SubMenuItem } from "./nav-sub-menu/SubMenu"
 import { useNavigate } from "react-router-dom"
+import { focusOnAllNodes } from "@components/graph-manager/utils/view"
 
 // Algorithms & arrangements
 import { generateEdgesByNodesPath, generateEdgesByPredecessors, generateEdgesPathByPredecessors } from "@components/graph-manager/utils/algorithms/algorithm_utils/convertions"
@@ -30,8 +32,7 @@ import PathIcon from "@assets/path.svg?react"
 import CycleIcon from "@assets/cycle.svg?react"
 import ColorsIcon from "@assets/colors.svg?react"
 
-
-export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHiddenView, setView, setViewProps}) {
+export default function AlgorithmsSubMenu({ setView, setViewProps }) {
 
     const navigate = useNavigate()
 
@@ -42,9 +43,6 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
             callback: () => {
                 setViewProps({
                     title: "Choose the initial node",
-                    setView,
-                    hiddenView,
-                    setHiddenView,
                     callback: (selectedNode) => {
                         const adjList = generateAdjacencyList()
                         const startNode = window.graph.nodes.find(node => node.id === selectedNode)
@@ -63,9 +61,6 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
             callback: () => {
                 setViewProps({
                     title: "Choose the initial node",
-                    setView,
-                    hiddenView,
-                    setHiddenView,
                     callback: (selectedNode) => {
                         const adjList = generateAdjacencyList()
                         const startNode = window.graph.nodes.find(node => node.id === selectedNode)
@@ -83,9 +78,6 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
             icon: () => <MapIcon />,
             callback: () => {
                 setViewProps({
-                    setView,
-                    hiddenView,
-                    setHiddenView,
                     title: "Select the source node and the destination node (or all)",
                     allNodes: true,
                     callback: (node1, node2) => {
@@ -163,9 +155,6 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
             callback: () => {
                 setViewProps({
                     title: "Choose the initial node",
-                    setView,
-                    hiddenView,
-                    setHiddenView,
                     callback: (selectedNode) => {
                         const paintPath = (path) => {
                             const edges = generateEdgesByNodesPath(path)
@@ -215,9 +204,6 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
             callback: () => {
                 setViewProps({
                     title: "Choose the initial node",
-                    setView,
-                    hiddenView,
-                    setHiddenView,
                     callback: (selectedNode) => {
                         const paintPath = (path) => {
                             const edges = generateEdgesByNodesPath(path)
@@ -251,9 +237,6 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
             callback: () => {
                 setViewProps({
                     title: "Choose the initial node",
-                    setView,
-                    hiddenView,
-                    setHiddenView,
                     callback: (selectedNode) => {
                         const paintPath = (path) => {
                             const edges = generateEdgesByNodesPath(path)
@@ -303,9 +286,6 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
             callback: () => {
                 setViewProps({
                     title: "Choose the initial node",
-                    setView,
-                    hiddenView,
-                    setHiddenView,
                     callback: (selectedNode) => {
                         const paintPath = (path) => {
                             const edges = generateEdgesByNodesPath(path)
@@ -339,9 +319,6 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
             callback: () => {
                 setViewProps({
                     title: "Choose the initial node",
-                    setView,
-                    hiddenView,
-                    setHiddenView,
                     callback: (selectedNode) => {
                         const g = generateAdjacencyList()
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
@@ -396,9 +373,6 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
             icon: () => <BFSIcon />,
             callback: () => {
                 setViewProps({
-                    setView,
-                    hiddenView,
-                    setHiddenView,
                     title: "Select the root node",
                     callback: (value) => {
                         const data = treeArrange(value, "bfs")
@@ -415,9 +389,6 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
             icon: () => <DFSIcon />,
             callback: () => {
                 setViewProps({
-                    setView,
-                    hiddenView,
-                    setHiddenView,
                     title: "Select the root node",
                     callback: (value) => {
                         const data = treeArrange(value, "dfs")
@@ -471,7 +442,8 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
     return (
         <SubMenu>
             {
-                location.pathname === "/" ? <>
+                location.pathname === "/" 
+                ? <>
                     <div>
                         <h4>Algorithms</h4>
                         {algorithms.map((algorithm, index) => <SubMenuItem key={index} {...algorithm} />)}
@@ -480,8 +452,8 @@ export default function AlgorithmsSubMenu({view, viewProps, hiddenView, setHidde
                         <h4>Arrangements</h4>
                         {arrangements.map((arrangement, index) => <SubMenuItem key={index} {...arrangement} />)}
                     </div>
-                </> :
-                    <SubMenuItem title="Go back to the graph" icon={BackArrow} callback={() => navigate("/")} />
+                </> 
+                : <SubMenuItem title="Go back to the graph" icon={BackArrow} callback={() => navigate("/")} />
             }
         </SubMenu>
     )

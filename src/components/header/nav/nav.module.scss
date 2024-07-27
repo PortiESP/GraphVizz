@@ -1,0 +1,52 @@
+.wrapper {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    background: #eee;
+    box-shadow: 0 0 5px #0002;
+    padding: 5px;
+    border-radius: 0 0 6px 6px;
+    width: fit-content;
+    
+    li {
+        color: var(--text-gray);
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.1s;
+        cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 6px;
+        position: relative;
+        
+        &:hover {
+            background: #0001;
+            color: #333;
+            
+            & > *{
+                display: block;
+            }
+        }
+
+        &.current{
+            pointer-events: none;
+
+            a {
+                color: #0003;
+            }
+        }
+
+    }
+
+    hr{
+        border: 1px solid #0001;
+        margin: 4px 0;
+    }
+
+    li.view_item{
+        color: rgba(139, 127, 12, 0.521);
+    }
+}

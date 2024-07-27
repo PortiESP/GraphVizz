@@ -1,10 +1,20 @@
-import scss from "../header.module.scss"
-import ArrowR from "../../../assets/arrow-right.svg?react"
-import { useEffect } from "react"
-import { useState } from "react"
+import scss from "../views.module.scss"
+import { useState, useEffect } from "react"
 
+// Icons
+import ArrowR from "@assets/arrow-right.svg?react"
 
-export default function SelectNodesView({hiddenView ,options}) {
+/**
+ * Shows a view to select a source and destination node.
+ * 
+ * @param {Object} options - The select nodes options.
+ * @param {string} options.title - The select nodes title.
+ * @param {Function} options.callback - The select nodes callback.
+ * @param {boolean} options.allNodes - If true, show an option to select all nodes.
+ * @param {Function} setHiddenView - The hidden view state setter.
+ * @param {Function} setView - The view state setter.
+ */
+export default function SelectNodesView({ setView, setHiddenView, options }) {
 
     const [node1, setNode1] = useState(window.graph.nodes[0]?.id)  // Default source node (first node)
     const [node2, setNode2] = useState(options.allNodes ? "all": window.graph.nodes[0]?.id)  // Default destination node (option: all)
@@ -12,28 +22,32 @@ export default function SelectNodesView({hiddenView ,options}) {
 
     // Create a listener to update the result when the graph changes
     useEffect(() => {
-        const cbk = (nodes) => closeView()
+        const cbk = () => closeView()
         window.graph.graphListeners.push(cbk)
         return () => window.graph.graphListeners = window.graph.graphListeners.filter(listener => listener !== cbk)
     }, [])
 
+    // Reset the view, showing all nodes and edges
     const resetView = () => {
         window.graph.nodes.forEach(node => {node.hidden = false; node.bubble = null})
         window.graph.edges.forEach(edge => edge.hidden = false)
     }
 
+    // Close the view, resetting the view and hiding the view menu
     const closeView = () => {
         resetView()
-        options.setView(false)
+        setView(false)
     }
 
+    // Update the result when the source or destination node changes
     useEffect(() => {
         resetView()
-        options.callback(node1, node2)
-    }, [node1, node2])
+        setResult(options.callback(node1, node2))
+    }, [node1, node2, options])
 
-    return !hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
+    return  <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
             <span>{options.title}</span>
+
             <div className={scss.inputs}>
                 <div className={scss.nodes_selector_group}>
                     <label>Initial node</label>
@@ -50,10 +64,8 @@ export default function SelectNodesView({hiddenView ,options}) {
                     </select>
                 </div>
             </div>
-            <div className={scss.nodes_selector_summary}>
-                {result}
-            </div>
-            <button onClick={()=>options.setHiddenView(true)}>Hide menu</button>
+            <div className={scss.nodes_selector_summary}>{result}</div>
+            <button onClick={()=>setHiddenView(true)}>Hide menu</button>
             <hr />
             <button onClick={closeView}>Close view</button>
     </div>

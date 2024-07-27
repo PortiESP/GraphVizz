@@ -1,37 +1,47 @@
-import scss from "../header.module.scss"
-import { useEffect } from "react"
-import { useState } from "react"
+import scss from "../views.module.scss"
+import { useState, useEffect } from "react"
 
-
-export default function SelectNodeView({hiddenView, options}) {
-
+/**
+ * Shows a select node view.
+ * 
+ * @param {Object} options - The select node options.
+ * @param {string} options.title - The select node title.
+ * @param {Function} options.callback - The select node callback.
+ * @param {boolean} options.all - If true, show an option to select all nodes.
+ * @param {Function} setView - The view state setter.
+ * @param {Function} setHiddenView - The hidden view state setter.
+ */
+export default function SelectNodeView({ setView, setHiddenView, options }) {
 
     const [node, setNode] = useState(window.graph.nodes[0]?.id)  // Default source node (first node)
-    const [result, setResult] = useState("")
+    const [result, setResult] = useState(undefined)
 
     // Create a listener to update the result when the graph changes
     useEffect(() => {
-        const cbk = (nodes) => closeView()
+        const cbk = () => closeView()
         window.graph.graphListeners.push(cbk)
         return () => window.graph.graphListeners = window.graph.graphListeners.filter(listener => listener !== cbk)
     }, [])
 
+    // Reset the view, showing all nodes and edges
     const resetView = () => {
         window.graph.nodes.forEach(node => {node.hidden = false; node.bubble = null})
         window.graph.edges.forEach(edge => edge.hidden = false)
     }
 
+    // Close the view, resetting the view and hiding the view menu
     const closeView = () => {
         resetView()
-        options.setView(false)
+        setView(false)
     }
 
+    // Update the result when the source or destination node changes
     useEffect(() => {
         resetView()
         setResult(options.callback(node))
     }, [node, options])
 
-    return !hiddenView && <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
+    return  <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
             <span>{options.title}</span>
             <div className={scss.inputs}>
                 <div className={scss.nodes_selector_group}>
@@ -45,7 +55,7 @@ export default function SelectNodeView({hiddenView, options}) {
             <div className={scss.nodes_selector_summary}>
                 {result}
             </div>
-            <button onClick={()=>options.setHiddenView(true)}>Hide menu</button>
+            <button onClick={()=>setHiddenView(true)}>Hide menu</button>
             <hr />
             <button onClick={closeView}>Close view</button>
     </div>
