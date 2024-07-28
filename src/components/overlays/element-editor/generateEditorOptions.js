@@ -395,6 +395,13 @@ function elementsOptions(selectedElements) {
                 initial: edges[0].weightBackgroundColor,
                 callback: data => edges.forEach(e => e.weightBackgroundColor = data),
                 default: constants.EDGE_WEIGHT_BACKGROUND_COLOR
+            },
+            {
+                type: "number",
+                label: "Weight container size",
+                initial: edges[0].weightContainerSize,
+                callback: data => edges.forEach(e => e.weightContainerSize = parseFloat(data)),
+                default: constants.EDGE_WEIGHT_CONTAINER_SIZE
             }
         )
     }
