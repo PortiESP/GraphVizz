@@ -14,8 +14,8 @@ import SelectNodesView from "./views/SelectNodesView";
 import SelectNodeView from "./views/SelectNodeView";
 
 
-const DEFAULT_VIEW = "alert"  // The default view
-const DEFAULT_VIEW_PROPS = {title: "Alert", message: "This is an alert message.", type: "success"}  // The default view props
+const DEFAULT_VIEW = null  // The default view
+const DEFAULT_VIEW_PROPS = null  // The default view props
 
 
 /**

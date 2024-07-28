@@ -23,26 +23,22 @@ export default function SelectNodeView({ setView, setHiddenView, options }) {
         return () => window.graph.graphListeners = window.graph.graphListeners.filter(listener => listener !== cbk)
     }, [])
 
-    // Reset the view, showing all nodes and edges
-    const resetView = () => {
-        window.graph.nodes.forEach(node => {node.hidden = false; node.bubble = null})
-        window.graph.edges.forEach(edge => edge.hidden = false)
-    }
-
     // Close the view, resetting the view and hiding the view menu
     const closeView = () => {
-        resetView()
+        window.graph.resetView()
         setView(false)
     }
 
     // Update the result when the source or destination node changes
     useEffect(() => {
-        resetView()
+        window.graph.resetView()
         setResult(options.callback(node))
     }, [node, options])
 
     return  <div className={[scss.menu_options_view_msg, scss.select_nodes].join(" ")}>
-            <span>{options.title}</span>
+            <h4>{options.title}</h4>
+            <p className={scss.hint}>Select the a node to apply the algorithm.</p>
+
             <div className={scss.inputs}>
                 <div className={scss.nodes_selector_group}>
                     <label>Initial node</label>

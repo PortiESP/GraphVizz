@@ -32,7 +32,7 @@ import PathIcon from "@assets/path.svg?react"
 import CycleIcon from "@assets/cycle.svg?react"
 import ColorsIcon from "@assets/colors.svg?react"
 
-export default function AlgorithmsSubMenu({ setView, setViewProps }) {
+export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView }) {
 
     const navigate = useNavigate()
 
@@ -41,8 +41,9 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Breadth First Search (BFS)",
             icon: () => <BFSIcon />,
             callback: () => {
+                setHiddenView(false)
                 setViewProps({
-                    title: "Choose the initial node",
+                    title: "Breadth First Search (BFS)",
                     callback: (selectedNode) => {
                         const adjList = generateAdjacencyList()
                         const startNode = window.graph.nodes.find(node => node.id === selectedNode)
@@ -59,8 +60,9 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Depth First Search (DFS)",
             icon: () => <DFSIcon />,
             callback: () => {
+                setHiddenView(false)
                 setViewProps({
-                    title: "Choose the initial node",
+                    title: "Depth First Search (DFS)",
                     callback: (selectedNode) => {
                         const adjList = generateAdjacencyList()
                         const startNode = window.graph.nodes.find(node => node.id === selectedNode)
@@ -77,8 +79,9 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Dijkstra",
             icon: () => <MapIcon />,
             callback: () => {
+                setHiddenView(false)
                 setViewProps({
-                    title: "Select the source node and the destination node (or all)",
+                    title: "Dijkstra's algorithm",
                     allNodes: true,
                     callback: (node1, node2) => {
                         const g = generateAdjacencyList()
@@ -133,6 +136,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Min. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
+                setHiddenView(false)
+                window.graph.resetView()
                 const data = kruskal(generateAdjacencyList())
                 window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
 
@@ -153,6 +158,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Path (all)",
             icon: () => <PathIcon />,
             callback: () => {
+                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -202,6 +208,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Path (one)",
             icon: () => <PathIcon />,
             callback: () => {
+                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -235,6 +242,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Cycle (all)",
             icon: () => <CycleIcon />,
             callback: () => {
+                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -284,6 +292,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Cycle (one)",
             icon: () => <CycleIcon />,
             callback: () => {
+                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -317,6 +326,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Chromatic number",
             icon: () => <ColorsIcon />,
             callback: () => {
+                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -346,6 +356,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Circular",
             icon: () => <CircularIcon />,
             callback: () => {
+                setHiddenView(false)
                 setView(null)
                 circularArrange(window.graph.nodes)
                 focusOnAllNodes()
@@ -355,6 +366,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Grid",
             icon: () => <GridIcon />,
             callback: () => {
+                setHiddenView(false)
                 gridArrange(window.graph.nodes)
                 focusOnAllNodes()
             }
@@ -363,6 +375,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Random",
             icon: () => <RandomIcon />,
             callback: () => {
+                setHiddenView(false)
                 setView(null)
                 randomArrange(window.graph.nodes)
                 focusOnAllNodes()
@@ -372,6 +385,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Tree (bfs)",
             icon: () => <BFSIcon />,
             callback: () => {
+                setHiddenView(false)
                 setViewProps({
                     title: "Select the root node",
                     callback: (value) => {
@@ -388,6 +402,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Tree (dfs)",
             icon: () => <DFSIcon />,
             callback: () => {
+                setHiddenView(false)
                 setViewProps({
                     title: "Select the root node",
                     callback: (value) => {
@@ -404,6 +419,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Organic",
             icon: () => <AtomIcon />,
             callback: () => {
+                setHiddenView(false)
                 setView(null)
                 organicArrange()
                 focusOnAllNodes()
@@ -413,6 +429,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Toposort",
             icon: () => <BrokenLinkIcon />,
             callback: () => {
+                setHiddenView(false)
                 const g = generateAdjacencyList()
                 const result = toposortArrange(g)
 

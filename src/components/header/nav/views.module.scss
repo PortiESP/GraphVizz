@@ -90,22 +90,36 @@
         padding: 10px 20px;
         border: 1px solid #0002;
 
-        & > span{
+        & > h4{
             font-weight: 500;
             font-size: 1rem;
-            font-style: italic;
             color: #0008;
             text-align: center;
+            margin-bottom: 2px;
+            border-bottom: 1px solid #0002;
+            padding-bottom: 10px;
+        }
+
+        .hint{
+            font-weight: 400;
+            font-size: 0.8rem;
+            font-style: italic;
+            color: #0006;
+            text-align: center;
+            padding: 6px 0;
         }
 
         hr{
-            border: 1px solid #0002;
+            height: 1px;
+            background: #0002;
+            border: none;
         }
 
         .inputs{
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
+            gap: 20px;
 
             & > svg path{
                 stroke: #0008;
@@ -117,7 +131,6 @@
                 gap: 5px;
                 justify-content: center;
                 align-items: center;
-                width: 100%;
 
                 label{
                     font-weight: 400;
@@ -138,7 +151,6 @@
                     cursor: pointer;
                     transition: all 0.1s;
                     width: fit-content;
-                    max-width: 50%;
                     outline: none;
                     padding-right: 2px;
 
