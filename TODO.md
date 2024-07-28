@@ -14,6 +14,9 @@
 - Help page
 - Review editable attributes on the ElementEditor (global, nodes, multiple, etc.)
 - more examples
+- review clone method (stores all the relevant information)
+- review the convertions.js file to refactor the functions to handle invalid inputs
+- test performance with a lot of elements
 
 ------------------
 
