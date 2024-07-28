@@ -1,9 +1,7 @@
 import scss from "./hamburger.module.scss"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
 
 // Components & functions
-import Modal from "./modal/Modal"
 import { redo, undo } from "@components/graph-manager/utils/memento"
 import { focusOnAllNodes } from "@components/graph-manager/utils/view"
 import { zoomCenterBy } from "@components/graph-manager/canvas-component/utils/zoom"
@@ -30,16 +28,15 @@ import ZoomOut from "@assets/zoom-out.svg?react"
  * @returns {JSX.Element} 
  */
 export default function HamburgerMenu(props) {
-    const [modal, setModal] = useState(null)  // Modal scene. Can be ["load_graph", "save_graph", "export_graph"]
 
     const navigator = useNavigate()  // Hook to navigate between routes
 
     // Callback functions of the menu items
     const visitHelp = () => { props.close(); navigator("/help") } // Function to navigate to the help page
     const resetGraph = () => { props.close(); window.graph.reset(); navigator("/") } // Function to reset the graph
-    const loadModal = () => { setModal("load_graph") } // Function to open the load graph modal
-    const saveModal = () => { setModal("save_graph") } // Function to open the save graph modal
-    const exportModal = () => { setModal("export_graph") } // Function to open the export graph modal
+    const loadModal = () => { window.graph.setModal("load_graph") } // Function to open the load graph modal
+    const saveModal = () => { window.graph.setModal("save_graph") } // Function to open the save graph modal
+    const exportModal = () => { window.graph.setModal("export_graph") } // Function to open the export graph modal
 
     return (
         <>
@@ -60,7 +57,6 @@ export default function HamburgerMenu(props) {
                     <MenuItem label="Help & About" onClick={visitHelp} icon={InfoIcon}></MenuItem>
                 </menu>
             </div>
-            {modal && <Modal scene={modal} close={() => setModal(null)} />}
         </>
     )
 }

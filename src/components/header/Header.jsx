@@ -12,19 +12,23 @@ import Nav from "./nav/Nav"
 // Icons
 import Logo from "@assets/logo.svg?react"
 import HomeIcon from "@assets/home.svg?react"
+import Modal from "./hamburger-menu/modal/Modal"
 
 export default function Header() {
 
     const location = useLocation()
 
-    const [zoom, setZoom] = useState(window.cvs?.zoom)  // Zoom level in %
     const [isShowSharePopup, setIsShowSharePopup] = useState(false)  // Share popup visibility
     const [isShowHamburgerMenu, setIsShowHamburgerMenu] = useState(false)  // Hamburger menu visibility
     const [isGraphPage, setIsGraphPage] = useState(location.pathname === "/")  // Check if the user is on the graph page
+    const [modal, setModal] = useState(null)  // Modal scene. Can be ["load_graph", "save_graph", "export_graph"]
+    const [zoom, setZoom] = useState(window.cvs?.zoom || 1)  // Zoom level in %
+
 
     // Store the zoom function in the window object
     useEffect(() => {
-        window.setZoom = setZoom
+        window.graph.setZoomLabel = setZoom
+        window.graph.setModal = setModal
     }, [])
 
     // When the user navigates to a different page, close the hamburger menu, share popup, etc.
@@ -77,5 +81,6 @@ export default function Header() {
         </header>
         {isShowHamburgerMenu && <HamburgerMenu close={() => setIsShowHamburgerMenu(false)} />}
         {isShowSharePopup && <SharePopup close={() => setIsShowSharePopup(false)} />}
-    </>)
+        {modal && <Modal scene={modal} close={() => setModal(null)} />}
+        </>)
 }
