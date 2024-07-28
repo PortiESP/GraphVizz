@@ -13,6 +13,11 @@ import AlertView from "./views/AlertView";
 import SelectNodesView from "./views/SelectNodesView";
 import SelectNodeView from "./views/SelectNodeView";
 
+
+const DEFAULT_VIEW = "alert"  // The default view
+const DEFAULT_VIEW_PROPS = {title: "Alert", message: "This is an alert message.", type: "success"}  // The default view props
+
+
 /**
  * The navigation bar.
  */
@@ -20,15 +25,15 @@ export default function Nav() {
 
     const location = useLocation()  // Get the current location
 
-    const [view, setView] = useState(false)  // The current view. Can be [false, "alert", "select-nodes", "select-node"]
-    const [viewProps, setViewProps] = useState(false)
+    const [view, setView] = useState(DEFAULT_VIEW)  // The current view. Can be [false, "alert", "select-nodes", "select-node"]
+    const [viewProps, setViewProps] = useState(DEFAULT_VIEW_PROPS)
     const [hiddenView, setHiddenView] = useState(false)
 
     // Close the view when the location changes
     useEffect(() => {
         setHiddenView(false)
-        setView(null)
-        setViewProps(null)
+        setView(DEFAULT_VIEW)
+        setViewProps(DEFAULT_VIEW_PROPS)
     }, [location])
 
     // Reset the hidden state when the view changes

@@ -10,13 +10,58 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 10px;
-        padding: 4px 10px;
-        font-style: italic;
+        gap: 12px;
+        padding: 10px 25px;
+        padding-left: 20px;
+        border-radius: 40px;
         background: rgba(213, 216, 67, 0.295);
         color: #0008;
         font-size: 0.8rem;
         border: 2px solid #0002;
+
+        &.error{
+            background: #ff3730;
+            color: #eee;
+            border: none;
+
+            span{
+                padding-bottom: 2px;
+            }
+
+            svg path{
+                fill: #eee;
+                stroke-width: 1;
+            }
+        }
+
+        &.info{
+            background: #2a63ff;
+            color: #eee;
+            border: none;
+
+            span{
+                padding-bottom: 2px;
+            }
+
+            svg path{
+                stroke: #eee;
+            }
+        }
+
+        &.success{
+            background: #00ca2c;
+            color: #eee;
+            border: none;
+
+            span{
+                padding-bottom: 2px;
+            }
+
+            svg path{
+                stroke: #eee;
+                stroke-width: 1;
+            }
+        }
 
         button{
             border: none;

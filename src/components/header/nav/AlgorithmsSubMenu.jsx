@@ -138,8 +138,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
 
                 setViewProps({
                     title: "Result",
-                    message: `The minimum spanning tree was calculated. The total weight is ${data.totalWeight}. The number of edges is ${data.result.length}.`,
-                    color: "#cc62fc44"
+                    message: `Total weight is ${data.totalWeight}.`,
+                    type: "info"
                 })
                 setView("alert")
 
@@ -314,7 +314,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             }
         },
         {
-            title: "Map border colors",
+            title: "Chromatic number",
             icon: () => <ColorsIcon />,
             callback: () => {
                 setViewProps({
@@ -420,7 +420,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                     setViewProps({
                         title: "Error",
                         message: "The graph has a cycle. The topological sort is not possible.",
-                        color: "#f004"
+                        type: "error"
                     })
                     setView("alert")
                 } else {
@@ -431,7 +431,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                     setViewProps({
                         title: "Toposort",
                         message: "The graph was arranged using the topological sort algorithm.",
-                        color: "#0f044"
+                        type: "success"
                     })
                     setView("alert")
                 }
