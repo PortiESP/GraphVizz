@@ -69,7 +69,7 @@ export default function ToolBarOverlay(){
         // Set the listeners to update when the tool is changed from other part of the application
         window.graph.toolListeners.push(()=>setActiveTool(window.graph.tool))
         // Store the `setToolTip` function as a global variable. This is used to update the tooltip from other parts of the application when certain events happen.
-        window.graph.setToolTip = setToolTip
+        window.ui.setToolTip = setToolTip
     }, [])
 
     // Update the tooltip when the active tool changes

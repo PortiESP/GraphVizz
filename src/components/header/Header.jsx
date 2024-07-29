@@ -27,8 +27,8 @@ export default function Header() {
 
     // Store the zoom function in the window object
     useEffect(() => {
-        window.graph.setZoomLabel = setZoom
-        window.graph.setModal = setModal
+        window.ui.setZoomLabel = setZoom
+        window.ui.setModal = setModal
     }, [])
 
     // When the user navigates to a different page, close the hamburger menu, share popup, etc.

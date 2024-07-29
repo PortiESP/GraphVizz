@@ -34,18 +34,18 @@ export default function HamburgerMenu(props) {
     // Callback functions of the menu items
     const visitHelp = () => { props.close(); navigator("/help") } // Function to navigate to the help page
     const resetGraph = () => { props.close(); window.graph.reset(); navigator("/") } // Function to reset the graph
-    const loadModal = () => { window.graph.setModal("load_graph") } // Function to open the load graph modal
-    const saveModal = () => { window.graph.setModal("save_graph") } // Function to open the save graph modal
-    const exportModal = () => { window.graph.setModal("export_graph") } // Function to open the export graph modal
+    const loadModal = () => { window.ui.setModal("load_graph") } // Function to open the load graph modal
+    const saveModal = () => { window.ui.setModal("save_graph") } // Function to open the save graph modal
+    const exportModal = () => { window.ui.setModal("export_graph") } // Function to open the export graph modal
 
     return (
         <>
             <div className={scss.wrap} onClick={e => e.target.className === scss.wrap && props.close()}>
                 <menu >
-                    <MenuItem label="New empty graph" onClick={resetGraph} icon={NoteIcon}></MenuItem>
+                    <MenuItem label="New empty graph" shortcut="Ctrl+Alt+N" onClick={resetGraph} icon={NoteIcon}></MenuItem>
                     <MenuItem label="Save as..." shortcut="Ctrl+Shift+S" onClick={saveModal} icon={SaveIcon}></MenuItem>
-                    <MenuItem label="Load from..." onClick={loadModal} icon={ImportIcon}></MenuItem>
-                    <MenuItem label="Export as..." onClick={exportModal} icon={ExportIcon}></MenuItem>
+                    <MenuItem label="Load from..." shortcut="Ctrl+O" onClick={loadModal} icon={ImportIcon}></MenuItem>
+                    <MenuItem label="Export as..." shortcut="Ctrl+Shift+E" onClick={exportModal} icon={ExportIcon}></MenuItem>
                     <hr />
                     <MenuItem label="Undo" shortcut="Ctrl+Z" onClick={undo} icon={UndoIcon}></MenuItem>
                     <MenuItem label="Redo" shortcut="Ctrl+Shift+Z" onClick={redo} icon={RedoIcon}></MenuItem>
