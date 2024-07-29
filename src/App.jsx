@@ -16,6 +16,7 @@ const ROUTES = {  // <-- EDIT THIS OBJECT TO CRUD THE ROUTES
 }
 
 function App() {
+
     return (
         <Router>
             <div className='wrapper'>

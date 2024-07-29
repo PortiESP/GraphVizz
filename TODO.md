@@ -12,6 +12,7 @@
 - test performance with a lot of elements
 - Default values for the elements in the global element editor
 - shortcuts
+- Ctrl+C/Ctrl+V
 
 ------------------
 
