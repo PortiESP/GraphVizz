@@ -53,7 +53,7 @@ export default function HamburgerMenu(props) {
                     <MenuItem label="Zoom Out" onClick={() => zoomCenterBy(0.9)} icon={ZoomOut}></MenuItem>
                     <MenuItem label="Focus All" onClick={focusOnAllNodes} icon={FocusAllIcon}></MenuItem>
                     <hr />
-                    <MenuItem label="Settings" onClick={() => console.log("btn")} icon={SettingsIcon}></MenuItem>
+                    {/* <MenuItem label="Settings" onClick={() => console.log("btn")} icon={SettingsIcon}></MenuItem> */}
                     <MenuItem label="Help & About" onClick={visitHelp} icon={InfoIcon}></MenuItem>
                 </menu>
             </div>

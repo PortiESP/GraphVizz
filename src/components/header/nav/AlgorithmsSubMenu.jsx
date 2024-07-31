@@ -31,12 +31,18 @@ import FilterIcon from "@assets/filter.svg?react"
 import PathIcon from "@assets/path.svg?react"
 import CycleIcon from "@assets/cycle.svg?react"
 import ColorsIcon from "@assets/colors.svg?react"
+import constants from "@components/graph-manager/utils/constants"
+import colorGenerator from "@components/graph-manager/utils/algorithms/algorithm_utils/color_generator"
 
-export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView }) {
+export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView, setResetViewStyles }) {
 
     const navigate = useNavigate()
 
     const algorithms = [
+        {
+            title: "Paths",
+            heading: true
+        },
         {
             title: "Breadth First Search (BFS)",
             icon: () => <BFSIcon />,
@@ -130,24 +136,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     },
                 })
                 setView("select-nodes")
-            }
-        },
-        {
-            title: "Min. Spanning Tree (Kruskal)",
-            icon: () => <FilterIcon />,
-            callback: () => {
-                setHiddenView(false)
-                window.graph.resetView()
-                const data = kruskal(generateAdjacencyList())
-                window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
-
-                setViewProps({
-                    title: "Result",
-                    message: `Total weight is ${data.totalWeight}.`,
-                    type: "info"
-                })
-                setView("alert")
-
             }
         },
         {
@@ -323,6 +311,50 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             }
         },
         {
+            title: "Spanning Trees",
+            heading: true
+        },
+        {
+            title: "Min. Spanning Tree (Kruskal)",
+            icon: () => <FilterIcon />,
+            callback: () => {
+                setHiddenView(false)
+                window.graph.resetView()
+                const data = kruskal(generateAdjacencyList())
+                window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
+
+                setViewProps({
+                    title: "Result",
+                    message: `Total weight is ${data.totalWeight}.`,
+                    type: "info"
+                })
+                setView("alert")
+
+            }
+        },
+        {
+            title: "Max. Spanning Tree (Kruskal)",
+            icon: () => <FilterIcon />,
+            callback: () => {
+                setHiddenView(false)
+                window.graph.resetView()
+                const data = kruskal(generateAdjacencyList(), true)
+                window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
+
+                setViewProps({
+                    title: "Result",
+                    message: `Total weight is ${data.totalWeight}.`,
+                    type: "info"
+                })
+                setView("alert")
+
+            }
+        },
+        {
+            title: "Other algorithms",
+            heading: true
+        },
+        {
             title: "Chromatic number",
             icon: () => <ColorsIcon />,
             callback: () => {
@@ -332,7 +364,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     callback: (selectedNode) => {
                         const g = generateAdjacencyList()
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
-                        console.log(data)
                         window.graph.nodes.forEach(node => node.bubble = data[node.id])
 
                         const copyAsJSON = () => {
@@ -353,6 +384,10 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
 
     const arrangements = [
         {
+            title: "Shapes",
+            heading: true
+        },
+        {
             title: "Circular",
             icon: () => <CircularIcon />,
             callback: () => {
@@ -372,14 +407,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             }
         },
         {
-            title: "Random",
-            icon: () => <RandomIcon />,
-            callback: () => {
-                setHiddenView(false)
-                setView(null)
-                randomArrange(window.graph.nodes)
-                focusOnAllNodes()
-            }
+            title: "Trees",
+            heading: true
         },
         {
             title: "Tree (bfs)",
@@ -416,16 +445,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             }
         },
         {
-            title: "Organic",
-            icon: () => <AtomIcon />,
-            callback: () => {
-                setHiddenView(false)
-                setView(null)
-                organicArrange()
-                focusOnAllNodes()
-            }
-        },
-        {
             title: "Toposort",
             icon: () => <BrokenLinkIcon />,
             callback: () => {
@@ -453,7 +472,65 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     setView("alert")
                 }
             }
-        }
+        },
+        {
+            title: "Unordered",
+            heading: true
+        },
+        {
+            title: "Organic",
+            icon: () => <AtomIcon />,
+            callback: () => {
+                setHiddenView(false)
+                setView(null)
+                organicArrange()
+                focusOnAllNodes()
+            }
+        },
+        {
+            title: "Random",
+            icon: () => <RandomIcon />,
+            callback: () => {
+                setHiddenView(false)
+                setView(null)
+                randomArrange(window.graph.nodes)
+                focusOnAllNodes()
+            }
+        },
+    ]
+
+    const views = [
+        {
+            title: "Color",
+            heading: true
+        },
+        {
+            title: "Chromatic neighbors",
+            icon: () => <ColorsIcon />,
+            callback: () => {
+                setHiddenView(false)
+                setViewProps({
+                    title: "Choose the initial node",
+                    callback: (selectedNode) => {
+                        const g = generateAdjacencyList()
+                        const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
+                        
+                        const COLORS = colorGenerator(Math.max(...Object.values(data))+1)
+                        console.log(COLORS)
+                        const prevStyles = []
+
+                        Object.entries(data).forEach(([node, color]) => {
+                            const nodeElement = window.graph.nodes.find(n => n.id === node)
+                            prevStyles.push({node, backgroundColor: nodeElement.backgroundColor})
+                            nodeElement.backgroundColor = COLORS[color]
+                        })
+
+                        setResetViewStyles(old => old || prevStyles)
+                    }
+                })
+                setView("select-node")
+            }
+        },
     ]
 
     return (
@@ -468,6 +545,10 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     <div>
                         <h4>Arrangements</h4>
                         {arrangements.map((arrangement, index) => <SubMenuItem key={index} {...arrangement} />)}
+                    </div>
+                    <div>
+                        <h4>Views</h4>
+                        {views.map((arrangement, index) => <SubMenuItem key={index} {...arrangement} />)}
                     </div>
                 </> 
                 : <SubMenuItem title="Go back to the graph" icon={BackArrow} callback={() => navigate("/")} />

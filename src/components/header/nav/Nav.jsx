@@ -28,6 +28,7 @@ export default function Nav() {
     const [view, setView] = useState(DEFAULT_VIEW)  // The current view. Can be [false, "alert", "select-nodes", "select-node"]
     const [viewProps, setViewProps] = useState(DEFAULT_VIEW_PROPS)
     const [hiddenView, setHiddenView] = useState(false)
+    const [resetViewStyles, setResetViewStyles] = useState(null) // Allow the view to run a callback when it closes. E.G.: [{node: "A", color: "red", r: 30}, ...]
 
     // Close the view when the location changes
     useEffect(() => {
@@ -38,6 +39,7 @@ export default function Nav() {
 
     // Reset the hidden state when the view changes
     useEffect(() => {
+        if (!view) closeView()
         setHiddenView(false)
     }, [view])
 
@@ -46,6 +48,19 @@ export default function Nav() {
         window.graph.nodes.forEach(node => node.hidden = false)
         window.graph.nodes.forEach(node => node.bubble = null)
         window.graph.edges.forEach(edge => edge.hidden = false)
+
+        // Reset the styles modified by the view
+        if (resetViewStyles && !view) {
+            if (window.cvs.debug) console.log("resetting view styles", resetViewStyles)
+            resetViewStyles.map(({ node, ...styles}) => {
+                node = window.graph.findElementById(node)
+                Object.entries(styles).forEach(([k, v]) => {
+                    node[k] = v
+                })
+            })
+            setResetViewStyles(null)
+        }
+
         setView(false)
     }
 
@@ -55,7 +70,7 @@ export default function Nav() {
                 <li className={location.pathname === "/" ? scss.current : undefined}><Link to="/">Graph Editor</Link></li>
                 <li>
                     Algorithms
-                    <AlgorithmsSubMenu setView={setView} setViewProps={setViewProps} setHiddenView={setHiddenView} />
+                    <AlgorithmsSubMenu setView={setView} setViewProps={setViewProps} setHiddenView={setHiddenView} setResetViewStyles={setResetViewStyles}/>
                 </li>
                 <li className={location.pathname === "/examples" ? scss.current : undefined}><Link to="/examples">Examples</Link></li>
                 <li className={location.pathname === "/help" ? scss.current : undefined}><Link to="/help">Help</Link></li>
