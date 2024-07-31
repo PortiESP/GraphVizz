@@ -11,6 +11,7 @@
 - review the convertions.js file to refactor the functions to handle invalid inputs
 - test performance with a lot of elements
 - Default values for the elements in the global element editor
+- FIX closest hover element
 
 ------------------
 

@@ -16,6 +16,9 @@ import colorBorders from "@components/graph-manager/utils/algorithms/color-borde
 import bfs from "@components/graph-manager/utils/algorithms/bfs"
 import dfs from "@components/graph-manager/utils/algorithms/dfs"
 import { circularArrange, gridArrange, organicArrange, randomArrange, toposortArrange, treeArrange } from "@components/graph-manager/utils/arrangements"
+import { colorGenerator, heatmapColorGenerator } from "@components/graph-manager/utils/algorithms/algorithm_utils/color_generator"
+import nodes_deg from "@components/graph-manager/utils/algorithms/nodes_deg"
+import { criticalNodes } from "@components/graph-manager/utils/algorithms/critical-nodes"
 
 // Icons
 import BFSIcon from "@assets/bfs.svg?react"
@@ -31,8 +34,8 @@ import FilterIcon from "@assets/filter.svg?react"
 import PathIcon from "@assets/path.svg?react"
 import CycleIcon from "@assets/cycle.svg?react"
 import ColorsIcon from "@assets/colors.svg?react"
-import constants from "@components/graph-manager/utils/constants"
-import colorGenerator from "@components/graph-manager/utils/algorithms/algorithm_utils/color_generator"
+import DegIcon from "@assets/deg.svg?react"
+import WifiOffIcon from "@assets/wifi-off.svg?react"
 
 export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView, setResetViewStyles }) {
 
@@ -379,6 +382,15 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                 })
                 setView("select-node")
             }
+        },
+        {
+            title: "Nodes degree",
+            icon: () => <DegIcon />,
+            callback: () => {
+                setHiddenView(false)
+                const data = nodes_deg(window.graph)
+                window.graph.nodes.forEach(node => node.bubble = data[node.id])
+            }
         }
     ]
 
@@ -531,6 +543,61 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                 setView("select-node")
             }
         },
+        {
+            title: "Heatmaps",
+            heading: true
+        },
+        {
+            title: "Degree",
+            icon: () => <DegIcon />,
+            callback: () => {
+                setHiddenView(false)
+                const data = nodes_deg(window.graph)
+                const max = Math.max(...Object.values(data))+1
+                const min = Math.min(...Object.values(data))
+                const COLORS = heatmapColorGenerator(max-min)
+                const prevStyles = []
+
+                Object.entries(data).forEach(([node, color]) => {
+                    const nodeElement = window.graph.nodes.find(n => n.id === node)
+                    prevStyles.push({node, backgroundColor: nodeElement.backgroundColor})
+                    nodeElement.backgroundColor = COLORS[color-min]
+                })
+
+                setViewProps({
+                    title: "Degree heatmap",
+                    message: `Min: ${min}, Max: ${max}`,
+                    type: "info"
+                })
+                setView("alert")
+
+                setResetViewStyles(old => old || prevStyles)
+            }
+        },
+        {
+            title: "Critical nodes",
+            icon: () => <WifiOffIcon />,
+            callback: () => {
+                setHiddenView(false)
+                const nodes = criticalNodes(generateAdjacencyList())
+
+                const prevStyles = []                
+                window.graph.nodes.forEach(node => {
+                    const critical = nodes.includes(node.id)
+                    prevStyles.push({node: node.id, backgroundColor: node.backgroundColor})
+                    node.backgroundColor = critical ? "red" : "hsl(120, 100%, 45%)"
+                })
+
+                setViewProps({
+                    title: "Critical nodes",
+                    message: `Critical nodes (${nodes.length}): ${nodes.join(", ")}`,
+                    type: "info"
+                })
+                setView("alert")
+
+                setResetViewStyles(old => old || prevStyles)
+            }
+        }
     ]
 
     return (

@@ -18,6 +18,7 @@ import SettingsIcon from "@assets/settings.svg?react"
 import InfoIcon from "@assets/info.svg?react"
 import ZoomIn from "@assets/zoom-in.svg?react"
 import ZoomOut from "@assets/zoom-out.svg?react"
+import { clearCache } from "@components/graph-manager/utils/cache"
 
 /**
  * Hamburger menu component
@@ -32,12 +33,12 @@ export default function HamburgerMenu(props) {
     const navigator = useNavigate()  // Hook to navigate between routes
 
     // Callback functions of the menu items
-    const visitHelp = () => { props.close(); navigator("/help") } // Function to navigate to the help page
-    const resetGraph = () => { props.close(); window.graph.reset(); navigator("/") } // Function to reset the graph
+    const resetGraph = () => { props.close(); window.graph.reset(); clearCache(); navigator("/") } // Function to reset the graph
     const loadModal = () => { window.ui.call("setModal", "load_graph") } // Function to open the load graph modal
     const saveModal = () => { window.ui.call("setModal", "save_graph") } // Function to open the save graph modal
     const exportModal = () => { window.ui.call("setModal", "export_graph") } // Function to open the export graph modal
-
+    const visitHelp = () => { props.close(); navigator("/help") } // Function to navigate to the help page
+    
     return (
         <>
             <div className={scss.wrap} onClick={e => e.target.className === scss.wrap && props.close()}>
