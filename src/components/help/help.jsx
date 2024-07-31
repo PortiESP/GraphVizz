@@ -85,6 +85,8 @@ export default function Help(props) {
                             <li>Empty graph <kbd>Ctrl+Alt+N</kbd></li>
                             <li>Undo <kbd>Ctrl+Z</kbd></li>
                             <li>Redo <span><kbd>Ctrl+Shift+Z</kbd> / <kbd>Ctrl+Y</kbd></span></li>
+                            <li>Copy <kbd>Ctrl+C</kbd></li>
+                            <li>Paste <kbd>Ctrl+V</kbd></li>
                         </ul>
                     </div>
                 </section >

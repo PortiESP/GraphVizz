@@ -138,9 +138,9 @@ function FromURL(props) {
 
 const exampleJSON = `{
   nodes: [
-      {x: 300, y: 300, r: 30, label: "A"},
-      {x: 400, y: 400, r: 30, label: "B"},
-      {x: 500, y: 500, r: 30, label: "C"},
+      {_x: 300, _y: 300, r: 30, label: "A"},
+      {_x: 400, _y: 400, r: 30, label: "B"},
+      {_x: 500, _y: 500, r: 30, label: "C"},
   ],
   edges: [
       {src: "A", dst: "B", weight: 1},
