@@ -62,6 +62,7 @@ const tools = [
 export default function ToolBarOverlay(){
 
     const [activeTool, setActiveTool] = useState(constants.DEFAULT_TOOL)
+    const [defaultToolTip, setDefaultToolTip] = useState("")
     const [toolTip, setToolTip] = useState("")
 
     // Initial setup
@@ -75,13 +76,13 @@ export default function ToolBarOverlay(){
     // Update the tooltip when the active tool changes
     useEffect(() => {
         const tooltip = tools.find(tool => tool.id === activeTool).tooltip
-        setToolTip(tooltip)
+        setDefaultToolTip(tooltip)
     }, [activeTool])
 
     return (
       <div className={scss.toolbar_wrap}>
         <div className={scss.container}>
-        <span className={scss.tooltip} id="graph-tool-tip">{toolTip}</span>
+        <span className={scss.tooltip} id="graph-tool-tip">{toolTip || defaultToolTip}</span>
           <div className={scss.toolbar}>
             {tools.map((tool, i) => {
                 return (
