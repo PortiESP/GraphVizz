@@ -37,7 +37,7 @@ const tools = [
         className: scss.tool,
         title: "Add Node",
         icon: AddNodeIcon,
-        tooltip: "Click anywhere to add a node",
+        tooltip: "Click anywhere to add a node. Hold shift to snap to grid",
         shortcut: "N",
         action: ()=>setActivateTool("add-nodes")
     },
@@ -55,7 +55,7 @@ const tools = [
 
 
 /**
- * ToolBarOverlayw
+ * ToolBarOverlay
  * 
  * This component is a toolbar that allows the user to select different tools to interact with the graph.
  */
@@ -76,6 +76,7 @@ export default function ToolBarOverlay(){
     // Update the tooltip when the active tool changes
     useEffect(() => {
         const tooltip = tools.find(tool => tool.id === activeTool).tooltip
+        setToolTip(undefined)
         setDefaultToolTip(tooltip)
     }, [activeTool])
 
