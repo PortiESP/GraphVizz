@@ -9,7 +9,7 @@ import { focusOnAllNodes } from "@components/graph-manager/utils/view"
 import { saveToCache } from "@components/graph-manager/utils/cache"
 import { recordMemento } from "@components/graph-manager/utils/memento"
 
-export default function GraphEditor() {
+export default function LiveEditor() {
 
     const [lines, setLines] = useState([])  // Textarea lines
     const [textarea, setTextarea] = useState("")  // Textarea value
@@ -24,10 +24,6 @@ export default function GraphEditor() {
         
         const validLines = []    // Valid lines that can be parsed into edges or nodes
         const invalidLines = []  // Invalid lines that cannot be parsed into edges or nodes
-        
-        // Resize the textarea to fit the content
-        $tArea.current.style.height = "auto"
-        $tArea.current.style.height = $tArea.current.scrollHeight + "px"
         
         // Parse the lines into edges and nodes
         newLines.forEach((line, i) => {
@@ -64,7 +60,6 @@ export default function GraphEditor() {
         const resList = generateEdgeAndNodesList()  // Generate the edge and nodes list from the graph
         setLines(resList)  // Update the lines state
         setTextarea(resList.join("\n")) // Update the textarea state
-
     }, [forceUpdate])
     
 
