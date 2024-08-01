@@ -19,6 +19,8 @@ import { circularArrange, gridArrange, organicArrange, randomArrange, toposortAr
 import { colorGenerator, heatmapColorGenerator } from "@components/graph-manager/utils/algorithms/algorithm_utils/color_generator"
 import nodes_deg from "@components/graph-manager/utils/algorithms/nodes_deg"
 import { criticalNodes } from "@components/graph-manager/utils/algorithms/critical-nodes"
+import conexComps from "@components/graph-manager/utils/algorithms/conex-comp"
+import constants from "@components/graph-manager/utils/constants"
 
 // Icons
 import BFSIcon from "@assets/bfs.svg?react"
@@ -36,6 +38,7 @@ import CycleIcon from "@assets/cycle.svg?react"
 import ColorsIcon from "@assets/colors.svg?react"
 import DegIcon from "@assets/deg.svg?react"
 import WifiOffIcon from "@assets/wifi-off.svg?react"
+import RevertIcon from "@assets/revert.svg?react"
 
 export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView, setResetViewStyles }) {
 
@@ -533,7 +536,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
 
                         Object.entries(data).forEach(([node, color]) => {
                             const nodeElement = window.graph.nodes.find(n => n.id === node)
-                            prevStyles.push({node, backgroundColor: nodeElement.backgroundColor})
+                            prevStyles.push({node: nodeElement, backgroundColor: nodeElement.backgroundColor})
                             nodeElement.backgroundColor = COLORS[color]
                         })
 
@@ -560,7 +563,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
 
                 Object.entries(data).forEach(([node, color]) => {
                     const nodeElement = window.graph.nodes.find(n => n.id === node)
-                    prevStyles.push({node, backgroundColor: nodeElement.backgroundColor})
+                    prevStyles.push({node: nodeElement, backgroundColor: nodeElement.backgroundColor})
                     nodeElement.backgroundColor = COLORS[color-min]
                 })
 
@@ -584,7 +587,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                 const prevStyles = []                
                 window.graph.nodes.forEach(node => {
                     const critical = nodes.includes(node.id)
-                    prevStyles.push({node: node.id, backgroundColor: node.backgroundColor})
+                    prevStyles.push({node, backgroundColor: node.backgroundColor})
                     node.backgroundColor = critical ? "red" : "hsl(120, 100%, 45%)"
                 })
 
@@ -597,7 +600,54 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
 
                 setResetViewStyles(old => old || prevStyles)
             }
-        }
+        },
+        {
+            title: "Conex components",
+            icon: () => <AtomIcon />,
+            callback: () => {
+                setHiddenView(false)
+                
+                const g = generateAdjacencyList()
+                const result = conexComps(g)
+                const n = result.length
+                const colors = colorGenerator(n).reverse()
+                
+                const prevStyles = []
+                result.forEach((comp, index) => {
+                    comp.forEach(node => {
+                        const nodeElement = window.graph.nodes.find(n => n.id === node.id)
+                        prevStyles.push({node, backgroundColor: nodeElement.backgroundColor})
+                        nodeElement.backgroundColor = colors[index]
+                    })
+                })
+
+                setViewProps({
+                    title: "Conex components",
+                    message: `Number of components: ${n}`,
+                    type: "info"
+                })
+                setView("alert")
+
+                setResetViewStyles(old => old || prevStyles)
+            }
+        },
+        {
+            title: "Reset",
+            heading: true,
+        },
+        {
+            title: "Default style",
+            icon: () => <RevertIcon />,
+            callback: () => {
+                setHiddenView(false)
+                window.graph.nodes.forEach(node => {
+                    node.backgroundColor = constants.NODE_BACKGROUND_COLOR
+                    node.color = constants.NODE_LABEL_COLOR
+                    node.borderColor = constants.NODE_BORDER_COLOR
+                    node.borderWidth = constants.NODE_BORDER_WIDTH
+                })
+            }
+        },
     ]
 
     return (

@@ -53,7 +53,6 @@ export default function Nav() {
         if (resetViewStyles && !view) {
             if (window.cvs.debug) console.log("resetting view styles", resetViewStyles)
             resetViewStyles.map(({ node, ...styles}) => {
-                node = window.graph.findElementById(node)
                 Object.entries(styles).forEach(([k, v]) => {
                     node[k] = v
                 })
