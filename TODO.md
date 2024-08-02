@@ -1,11 +1,6 @@
 
 --- TASK QUEUE ---
 
-- Review editable attributes on the ElementEditor (global, nodes, multiple, etc.)
-- ElementEditor
-  - Refactor general style (make clearer the sections)
-
-
 - split trigger for nodes attrs and graph edit (new/delete elements)
 - Help page
   - multiple selection
