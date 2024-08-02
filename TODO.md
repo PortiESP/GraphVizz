@@ -5,10 +5,12 @@
 - ElementEditor
   - Refactor general style (make clearer the sections)
 
-- review the convertions.js file to refactor the functions to handle invalid inputs
-- test performance with a lot of elements
+
 - split trigger for nodes attrs and graph edit (new/delete elements)
 - Help page
+  - multiple selection
+    explain the shift, select box, etc.
+  - explain the views
 - more examples
 
 ------------------
@@ -40,15 +42,11 @@ UPDATE & CHECK regularly
   - Unused code
   - Memento events
 
-THEORY
- - Order: Number of nodes
- - Size: Number of edges
-   - Maximum size is achieved when the graph is complete: all nodes are connected to all nodes: (n * (n - 1)) / 2
- - Degree: Number of edges connected to a node
-    - Zero degree: Isolated node
- - Conex components
- - Bipartito
- - Eulerian: All nodes have even degree.
-   - Eulerian path: Start and end in different nodes, while only passing once through each edge
-   - Eulerian cycle: Start and end in the same node, while only passing once through each edge
- - Chromatic number
+DOC
+  - README
+  - Doc the practices like the *triggers*, *shortcut managers*, etc.
+
+TESTS
+  - Run algorithms with empty graph
+  - test performance with a lot of elements
+  - review the convertions.js file to refactor the functions to handle invalid inputs

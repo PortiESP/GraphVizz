@@ -113,7 +113,7 @@ export default function Help(props) {
 
 
 function Toggle(props) {
-    const [expanded, setExpanded] = useState(true)
+    const [expanded, setExpanded] = useState(false)
 
     return (
         <div className={scss.toggle_wrap}>

@@ -3,6 +3,7 @@ import scss from "./example.module.scss"
 import Basic1SVG from "./thumbnails/basic-1.svg?react"
 import Tree1SVG from "./thumbnails/tree-1.svg?react"
 import Circle1SVG from "./thumbnails/circular-1.svg?react"
+import Tests1SVG from "./thumbnails/tests-1.svg?react"
 
 
 /**
@@ -15,6 +16,12 @@ import Circle1SVG from "./thumbnails/circular-1.svg?react"
  * - thumbnail: A JSX component that renders the thumbnail image for the example
  */
 const EXAMPLES = [  // <-- EDIT THIS ARRAY TO CRUD THE EXAMPLES
+    {
+        id: "tests-1",
+        title: "Tests",
+        description: "Tests",
+        thumbnail: <Tests1SVG />
+    },
     {
         id: "basic-1",
         title: "Basic graph",
