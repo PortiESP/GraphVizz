@@ -53,8 +53,12 @@ function globalOptions() {
     // Add the "Global" section
     // This section contains the settings for the environment
     sections.push({
-        title: "Global",
+        title: "Canvas",
         fields: [
+            {
+                type: "title",
+                label: "Background"
+            },
             {
                 label: "Background color",
                 initial: window.graph.backgroundColor,
@@ -62,14 +66,10 @@ function globalOptions() {
                 type: "color",
                 default: "#eee"
             },
-        ]
-    })
-
-    // Add the "Grid" section
-    // This section contains the settings for the grid
-    sections.push({
-        title: "Grid",
-        fields: [
+            {
+                type: "title",
+                label: "Grid"
+            },
             {
                 label: "Show grid",
                 initial: window.graph.gridEnabled,
@@ -151,6 +151,10 @@ function elementsOptions(selectedElements) {
         if (nodes.length === 1) {
             fields.push(
                 {
+                    type: "title",
+                    label: "Identity"
+                },
+                {
                     type: "text",
                     label: "ID",
                     initial: selectedElements[0].id,
@@ -169,6 +173,10 @@ function elementsOptions(selectedElements) {
                     callback: data => nodes[0].label = data
                 },
                 {
+                    type: "title",
+                    label: "Position"
+                },
+                {
                     type: "number",
                     label: "X",
                     initial: nodes[0].x,
@@ -179,6 +187,10 @@ function elementsOptions(selectedElements) {
                     label: "Y",
                     initial: nodes[0].y,
                     callback: data => nodes[0].y = parseFloat(data),
+                },
+                {
+                    type: "title",
+                    label: "Appearance"  
                 },
                 {
                     type: "number",
@@ -192,6 +204,10 @@ function elementsOptions(selectedElements) {
 
         // One or more nodes selected
         fields.push(
+            nodes.length > 1 && {  // Only add the title if there are more than one node selected, otherwise skip it (this is because when there is only one node selected, the title is already added)
+                type: "title",
+                label: "Appearance"
+            },
             {
                 type: "color",
                 label: "Fill color",
@@ -230,6 +246,10 @@ function elementsOptions(selectedElements) {
                     step: 0.1
                 },
                 default: 0
+            },
+            {
+                type: "title",
+                label: "Bubble"
             },
             {
                 type: "checkbox",
@@ -294,6 +314,10 @@ function elementsOptions(selectedElements) {
         if (edges.length === 1) {
             fields.push(
                 {
+                    type: "title",
+                    label: "Identity"
+                },
+                {
                     type: "text",
                     label: "ID",
                     initial: selectedElements[0].id,
@@ -327,6 +351,10 @@ function elementsOptions(selectedElements) {
         // One or more edges selected
         fields.push(
             {
+                type: "title",
+                label: "Properties"
+            },
+            {
                 type: "number",
                 label: "Weight",
                 initial: edges[0].weight,
@@ -341,6 +369,10 @@ function elementsOptions(selectedElements) {
                 callback: data => edges.forEach(e => e.directed = data),
             },
             {
+                type: "title",
+                label: "Edge appearance"
+            },
+            {
                 type: "number",
                 label: "Thickness",
                 initial: edges[0].thickness,
@@ -349,17 +381,21 @@ function elementsOptions(selectedElements) {
             },
             {
                 type: "color",
-                label: "Color",
+                label: "Line color",
                 initial: edges[0].color,
                 callback: data => edges.forEach(e => e.color = data),
                 default: constants.EDGE_COLOR
             },
-            {
+            edges.some(e => e.directed) && {
                 type: "number",
                 label: "Arrow size",
                 initial: edges[0].arrowSizeFactor,
                 callback: data => edges.forEach(e => e.arrowSizeFactor = parseFloat(data)),
                 default: constants.EDGE_ARROW_SIZE_FACTOR
+            },
+            {
+                type: "title",
+                label: "Weight appearance"
             },
             {
                 type: "checkbox",
@@ -410,6 +446,10 @@ function elementsOptions(selectedElements) {
     sections.push({
         title: "Element" + (selectedElements.length > 1 ? "s" : ""),
         fields: [
+            {
+                type: "title",
+                label: "Appearance"
+            },
             {
                 type: "range",
                 label: "Opacity",

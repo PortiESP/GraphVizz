@@ -48,12 +48,12 @@ export default function ElementEditor() {
                             {
                                 section.fields.map((field, i) => (
                                     // Render the corresponding widget based on the field type
+                                    field.type === "title" && <h3 key={field.label + i} className={scss.section_title}>{field.label}</h3> ||    // Title
                                     field.type === "text" && <Text key={field.label + i} {...field}/> ||        // Text input
                                     field.type === "number" && <Number key={field.label + i} {...field}/> ||    // Number input
                                     field.type === "color" && <Color key={field.label + i} {...field}/> ||      // Color input
                                     field.type === "range" && <Range key={field.label + i} {...field}/> ||      // Range input
-                                    field.type === "checkbox" && <Input key={field.label + i} {...field} /> ||  // Checkbox input
-                                    <Input key={field.label + i} {...field} />                                  // Default input (text)
+                                    field.type === "checkbox" && <Input key={field.label + i} {...field} />     // Checkbox input
                                 ))
                             }
                         </SectionTitle>
@@ -130,10 +130,12 @@ function Input(props) {
 
 
 function SectionTitle(props){
+    const [closed, setClosed] = useState(false)
+
     return (
         <div className={scss.section}>
-            <div className={scss.title}>{props.title}</div>
-            {props.children}
+            <div className={[scss.title, closed && scss.closed].join(" ")} onClick={() => setClosed(old => !old)}><span>{props.title}</span></div>
+            { !closed && props.children }
         </div>
     )
 }

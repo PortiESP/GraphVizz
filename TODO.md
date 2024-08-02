@@ -50,3 +50,4 @@ TESTS
   - Run algorithms with empty graph
   - test performance with a lot of elements
   - review the convertions.js file to refactor the functions to handle invalid inputs
+  - element editor updates with weird selections (select fast, remove selection, etc.)
