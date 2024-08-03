@@ -4,6 +4,7 @@ import Basic1SVG from "./thumbnails/basic-1.svg?react"
 import Tree1SVG from "./thumbnails/tree-1.svg?react"
 import Circle1SVG from "./thumbnails/circular-1.svg?react"
 import Tests1SVG from "./thumbnails/tests-1.svg?react"
+import Europe1SVG from "./thumbnails/europe-1.svg?react"
 
 
 /**
@@ -36,11 +37,17 @@ const EXAMPLES = [  // <-- EDIT THIS ARRAY TO CRUD THE EXAMPLES
     },
     {
         id: "circular-1",
-        title: "circular-1",
-        description: "Circular graph",
+        title: "Circular graph",
+        description: "All the nodes are arranged in a circle shape. This makes it easier to see the connections between the nodes", 
         thumbnail: <Circle1SVG />
     },
-]
+    {
+        id: "europe-1",
+        title: "Map of Europe by population",
+        description: "Each node represents a country in Europe, the size of the node is proportional to the population of the country, and the distance between the capitals of the countries that share a land border. (the values are not accurate)",
+        thumbnail: <Europe1SVG />
+    }
+].filter(e => e)  // <-- DO NOT EDIT THIS LINE
 
 
 /**

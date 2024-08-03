@@ -801,6 +801,11 @@
       "src": "Norway",
       "dst": "Finland",
       "weight": 1702
+    },
+    {
+      "src": "Finland",
+      "dst": "Russia",
+      "weight": 1251
     }
   ]
 }

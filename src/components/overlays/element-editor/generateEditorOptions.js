@@ -213,34 +213,34 @@ function elementsOptions(selectedElements) {
                 type: "color",
                 label: "Fill color",
                 initial: nodes[0].backgroundColor,
-                callback: data => nodes.forEach(e => e.backgroundColor = data),
+                callback: data => nodes.forEach(e => e.style.backgroundColor = data),
                 default: constants.NODE_BACKGROUND_COLOR
             },
             {
                 type: "color",
                 label: "Label color",
                 initial: nodes[0].labelColor,
-                callback: data => nodes.forEach(e => e.labelColor = data),
+                callback: data => nodes.forEach(e => e.style.labelColor = data),
                 default: constants.NODE_LABEL_COLOR
             },
             {
                 type: "number",
                 label: "Font size",
                 initial: nodes[0].fontSize,
-                callback: data => nodes.forEach(e => e.fontSize = parseFloat(data)),
+                callback: data => nodes.forEach(e => e.style.fontSize = parseFloat(data)),
                 default: constants.NODE_LABEL_FONT_SIZE
             },
             {
                 type: "color",
                 label: "Border color",
                 initial: nodes[0].borderColor,
-                callback: data => nodes.forEach(e => e.borderColor = data),
+                callback: data => nodes.forEach(e => e.style.borderColor = data),
             },
             {
                 type: "range",
                 label: "Border width ratio",
                 initial: nodes[0].borderRatio,
-                callback: data => nodes.forEach(e => e.borderRatio = parseFloat(data)),
+                callback: data => nodes.forEach(e => e.style.borderRatio = parseFloat(data)),
                 options: {
                     min: 0,
                     max: 1,
@@ -270,28 +270,28 @@ function elementsOptions(selectedElements) {
                 type: "number",
                 label: "Bubble radius",
                 initial: nodes[0].bubbleRadius,
-                callback: data => nodes.forEach(e => e.bubbleRadius = parseFloat(data)),
+                callback: data => nodes.forEach(e => e.style.bubbleRadius = parseFloat(data)),
                 default: constants.NODE_BUBBLE_RADIUS
             },
             {
                 type: "color",
                 label: "Bubble color",
                 initial: nodes[0].bubbleColor,
-                callback: data => nodes.forEach(e => e.bubbleColor = data),
+                callback: data => nodes.forEach(e => e.style.bubbleColor = data),
                 default: constants.NODE_BUBBLE_COLOR
             },
             {
                 type: "number",
                 label: "Bubble font size",
                 initial: 12,
-                callback: data => nodes.forEach(e => e.bubbleTextSize = parseFloat(data)),
+                callback: data => nodes.forEach(e => e.style.bubbleTextSize = parseFloat(data)),
                 default: constants.NODE_BUBBLE_TEXT_SIZE
             },
             {
                 type: "color",
                 label: "Bubble text color",
                 initial: nodes[0].bubbleTextColor,
-                callback: data => nodes.forEach(e => e.bubbleTextColor = data),
+                callback: data => nodes.forEach(e => e.style.bubbleTextColor = data),
                 default: constants.NODE_BUBBLE_TEXT_COLOR
             }
         )
@@ -378,21 +378,21 @@ function elementsOptions(selectedElements) {
                 type: "number",
                 label: "Thickness",
                 initial: edges[0].thickness,
-                callback: data => edges.forEach(e => e.thickness = parseFloat(data)),
+                callback: data => edges.forEach(e => e.style.thickness = parseFloat(data)),
                 default: constants.EDGE_THICKNESS_RATIO
             },
             {
                 type: "color",
                 label: "Line color",
                 initial: edges[0].color,
-                callback: data => edges.forEach(e => e.color = data),
+                callback: data => edges.forEach(e => e.style.color = data),
                 default: constants.EDGE_COLOR
             },
             edges.some(e => e.directed) && {
                 type: "number",
                 label: "Arrow size",
                 initial: edges[0].arrowSizeFactor,
-                callback: data => edges.forEach(e => e.arrowSizeFactor = parseFloat(data)),
+                callback: data => edges.forEach(e => e.style.arrowSizeFactor = parseFloat(data)),
                 default: constants.EDGE_ARROW_SIZE_FACTOR
             },
             {
@@ -403,42 +403,42 @@ function elementsOptions(selectedElements) {
                 type: "checkbox",
                 label: "Show weight",
                 initial: edges[0].weightColor !== null,
-                callback: data => edges.forEach(e => e.weightColor = data ? "#fff4" : null),  // The draw function will not draw the weight if the color is null
+                callback: data => edges.forEach(e => e.style.weightColor = data ? "#fff4" : null),  // The draw function will not draw the weight if the color is null
                 default: true
             },
             {
                 type: "color",
                 label: "Weight color",
                 initial: edges[0].weightColor,
-                callback: data => edges.forEach(e => e.weightColor = data),
+                callback: data => edges.forEach(e => e.style.weightColor = data),
                 default: constants.EDGE_WEIGHT_COLOR
             },
             {
                 type: "number",
                 label: "Weight font size",
                 initial: edges[0].weightFontSize,
-                callback: data => edges.forEach(e => e.weightFontSize = parseFloat(data)),
+                callback: data => edges.forEach(e => e.style.weightFontSize = parseFloat(data)),
                 default: constants.EDGE_WEIGHT_FONT_SIZE
             },
             {
                 type: "checkbox",
                 label: "Show weight background",
                 initial: edges[0].weightBackgroundColor !== null,
-                callback: data => edges.forEach(e => e.weightBackgroundColor = data ? "#8888" : null),
+                callback: data => edges.forEach(e => e.style.weightBackgroundColor = data ? "#8888" : null),
                 default: true
             },
             {
                 type: "color",
                 label: "Weight background",
                 initial: edges[0].weightBackgroundColor,
-                callback: data => edges.forEach(e => e.weightBackgroundColor = data),
+                callback: data => edges.forEach(e => e.style.weightBackgroundColor = data),
                 default: constants.EDGE_WEIGHT_BACKGROUND_COLOR
             },
             {
                 type: "range",
                 label: "Weight container size",
                 initial: edges[0].weightContainerFactor,
-                callback: data => edges.forEach(e => e.weightContainerFactor = parseFloat(data)),
+                callback: data => edges.forEach(e => e.style.weightContainerFactor = parseFloat(data)),
                 default: constants.EDGE_WEIGHT_CONTAINER_FACTOR,
                 options: {
                     min: 0,
@@ -461,7 +461,7 @@ function elementsOptions(selectedElements) {
                 type: "range",
                 label: "Opacity",
                 initial: selectedElements[0].opacity,
-                callback: data => selectedElements.forEach(e => e.opacity = parseFloat(data)),
+                callback: data => selectedElements.forEach(e => e.style.opacity = parseFloat(data)),
                 options: {
                     step: 0.01,
                     min: 0,

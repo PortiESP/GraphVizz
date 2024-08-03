@@ -28,7 +28,6 @@ export default function Nav() {
     const [view, setView] = useState(DEFAULT_VIEW)  // The current view. Can be [false, "alert", "select-nodes", "select-node"]
     const [viewProps, setViewProps] = useState(DEFAULT_VIEW_PROPS)
     const [hiddenView, setHiddenView] = useState(false)
-    const [resetViewStyles, setResetViewStyles] = useState(null) // Allow the view to run a callback when it closes. E.G.: [{node: "A", color: "red", r: 30}, ...]
 
     // Close the view when the location changes
     useEffect(() => {
@@ -53,15 +52,7 @@ export default function Nav() {
         window.graph.edges.forEach(edge => edge.hidden = false)
 
         // Reset the styles modified by the view
-        if (resetViewStyles && !view) {
-            if (window.cvs.debug) console.log("resetting view styles", resetViewStyles)
-            resetViewStyles.map(({ node, ...styles}) => {
-                Object.entries(styles).forEach(([k, v]) => {
-                    node[k] = v
-                })
-            })
-            setResetViewStyles(null)
-        }
+        if (!view) window.graph.nodes.map(node => node.resetStyle())
 
         setHiddenView(false)
     }
@@ -78,7 +69,7 @@ export default function Nav() {
                 <li className={location.pathname === "/" ? scss.current : undefined}><Link to="/">Graph Editor</Link></li>
                 <li>
                     Algorithms
-                    <AlgorithmsSubMenu setView={setView} setViewProps={setViewProps} setHiddenView={setHiddenView} setResetViewStyles={setResetViewStyles}/>
+                    <AlgorithmsSubMenu setView={setView} setViewProps={setViewProps} setHiddenView={setHiddenView} />
                 </li>
                 <li className={location.pathname === "/examples" ? scss.current : undefined}><Link to="/examples">Examples</Link></li>
                 <li className={location.pathname === "/help" ? scss.current : undefined}><Link to="/help">Help</Link></li>

@@ -44,7 +44,7 @@ function AsSVG() {
     const handleExportAsSVG = () => {
         const DOWNLOAD_NAME = "graph.svg"  // The name of the downloaded file
 
-        const svg = $svg.current  // Get the SVG element
+        const svg = $svg.current.firstChild  // Get the SVG element
         const svgData = new XMLSerializer().serializeToString(svg)  // Serialize the SVG element to a string
         const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" })  // Create a blob from the SVG string
         const url = URL.createObjectURL(blob)  // Create a URL from the blob

@@ -40,7 +40,7 @@ import DegIcon from "@assets/deg.svg?react"
 import WifiOffIcon from "@assets/wifi-off.svg?react"
 import RevertIcon from "@assets/revert.svg?react"
 
-export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView, setResetViewStyles }) {
+export default function AlgorithmsSubMenu({ setView, setViewProps }) {
 
     const navigate = useNavigate()
 
@@ -510,15 +510,11 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
                         
                         const COLORS = colorGenerator(Math.max(...Object.values(data))+1)
-                        const prevStyles = []
 
                         Object.entries(data).forEach(([node, color]) => {
                             const nodeElement = window.graph.nodes.find(n => n.id === node)
-                            prevStyles.push({node: nodeElement, backgroundColor: nodeElement.backgroundColor})
-                            nodeElement.backgroundColor = COLORS[color]
+                            nodeElement.style.backgroundColor = COLORS[color]
                         })
-
-                        setResetViewStyles(old => old || prevStyles)
                     }
                 })
                 setView("select-node")
@@ -536,12 +532,10 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                 const max = Math.max(...Object.values(data))+1
                 const min = Math.min(...Object.values(data))
                 const COLORS = heatmapColorGenerator(max-min)
-                const prevStyles = []
 
                 Object.entries(data).forEach(([node, color]) => {
-                    const nodeElement = window.graph.nodes.find(n => n.id === node)
-                    prevStyles.push({node: nodeElement, backgroundColor: nodeElement.backgroundColor})
-                    nodeElement.backgroundColor = COLORS[color-min]
+                    const nodeElement = window.graph.findNodeById(node)
+                    nodeElement.style.backgroundColor = COLORS[color-min]
                 })
 
                 setViewProps({
@@ -550,8 +544,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     type: "info"
                 })
                 setView("alert")
-
-                setResetViewStyles(old => old || prevStyles)
             }
         },
         {
@@ -560,11 +552,9 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             callback: () => {
                 const nodes = criticalNodes(generateAdjacencyList())
 
-                const prevStyles = []                
                 window.graph.nodes.forEach(node => {
-                    const critical = nodes.includes(node.id)
-                    prevStyles.push({node, backgroundColor: node.backgroundColor})
-                    node.backgroundColor = critical ? "red" : "hsl(120, 100%, 45%)"
+                    const critical = nodes.includes(node)
+                    node.style.backgroundColor = critical ? "red" : "hsl(120, 100%, 45%)"
                 })
 
                 setViewProps({
@@ -573,8 +563,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     type: "info"
                 })
                 setView("alert")
-
-                setResetViewStyles(old => old || prevStyles)
             }
         },
         {
@@ -586,12 +574,10 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                 const n = result.length
                 const colors = colorGenerator(n).reverse()
                 
-                const prevStyles = []
                 result.forEach((comp, index) => {
                     comp.forEach(node => {
-                        const nodeElement = window.graph.nodes.find(n => n.id === node.id)
-                        prevStyles.push({node, backgroundColor: nodeElement.backgroundColor})
-                        nodeElement.backgroundColor = colors[index]
+                        const nodeElement = window.graph.findNodeById(node.id)
+                        nodeElement.style.backgroundColor = colors[index]
                     })
                 })
 
@@ -601,8 +587,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     type: "info"
                 })
                 setView("alert")
-
-                setResetViewStyles(old => old || prevStyles)
             }
         },
         {
