@@ -115,7 +115,7 @@ To add a new algorithm, arrangement, etc. to the algorithms submenu we need to g
             title: "Choose the initial node",
             callback: (selectedNode) => {
                 const adjList = generateAdjacencyList()
-                const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+                const startNode = window.graph.findNodeById(selectedNode)
                 const { result, prevNode } = dfs(adjList, startNode)
                 const edges = generateEdgesByPredecessors(prevNode)
                 result.forEach((node, i) => node.bubble = i)
@@ -169,8 +169,7 @@ setViewProps({
     title: "Choose the initial node",
     callback: (selectedNode) => {
         const adjList = generateAdjacencyList()
-        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
-        const { result, prevNode } = dfs(adjList, startNode)
+        const { result, prevNode } = dfs(adjList, selectedNode)
         const edges = generateEdgesByPredecessors(prevNode)
         result.forEach((node, i) => node.bubble = i)
         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
@@ -186,8 +185,7 @@ setViewProps({
     title: "Choose the initial node",
     callback: (selectedNode) => {
         const adjList = generateAdjacencyList()
-        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
-        const { result, prevNode } = dfs(adjList, startNode)
+        const { result, prevNode } = dfs(adjList, selectedNode)
         const edges = generateEdgesByPredecessors(prevNode)
         result.forEach((node, i) => node.bubble = i)
         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))

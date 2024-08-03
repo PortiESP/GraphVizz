@@ -102,7 +102,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                             window.graph.nodes.forEach(node => node.bubble = result[node.id].distance === Infinity ? "∞" : result[node.id].distance)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                         } else {
-                            const target = window.graph.nodes.find(node => node.id === node2)
+                            const target = window.graph.findNodeById(node2)
                             const prevs = Object.entries(result).map(([node, data]) => [node, data.prevNode])
                             const edges = disabled ? [] : generateEdgesPathByPredecessors(Object.fromEntries(prevs), node1, node2)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
@@ -156,7 +156,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                         }
                         
                         const adjList = generateAdjacencyList()
-                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+                        const startNode = window.graph.findNodeById(selectedNode)
                         const data = hamiltonianPath(adjList, startNode, true)
                         const copyAsJSON = () => {
                             const paths = data.all.map(path => path.map(node => node.id))
@@ -205,7 +205,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                         }
                         
                         const adjList = generateAdjacencyList()
-                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
+                        const startNode = window.graph.findNodeById(selectedNode)
                         const data = hamiltonianPath(adjList, startNode)
                         const copyAsJSON = () => {
                             const nodePath = data.path.map(node => node.id)
@@ -415,7 +415,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                 setViewProps({
                     title: "Select the root node",
                     callback: (value) => {
-                        const start = window.graph.nodes.find(node => node.id === value)
+                        const start = window.graph.findNodeById(value)
                         const data = treeArrange(start, "bfs")
                         const edges = generateEdgesByPredecessors(data.prevNode)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
@@ -432,7 +432,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                 setViewProps({
                     title: "Select the root node",
                     callback: (value) => {
-                        const start = window.graph.nodes.find(node => node.id === value)
+                        const start = window.graph.findNodeById(value)
                         const data = treeArrange(start, "dfs")
                         const edges = generateEdgesByPredecessors(data.prevNode)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
