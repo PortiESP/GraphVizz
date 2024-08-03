@@ -6,6 +6,8 @@ import Circle1SVG from "./thumbnails/circular-1.svg?react"
 import Tests1SVG from "./thumbnails/tests-1.svg?react"
 import Europe1SVG from "./thumbnails/europe-1.svg?react"
 import Cayley1SVG from "./thumbnails/cayley-1.svg?react"
+import Complete1SVG from "./thumbnails/complete-1.svg?react"
+import Topo1SVG from "./thumbnails/topo-1.svg?react"
 
 
 /**
@@ -51,10 +53,22 @@ const EXAMPLES = [  // <-- EDIT THIS ARRAY TO CRUD THE EXAMPLES
     {
         id: "cayley-1",
         title: "Cayley graph",
-        description: "Cayley graph of the dihedral group D4",
+        description: "Cayley graph",
         thumbnail: <Cayley1SVG />
+    },
+    {
+        id: "complete-1",
+        title: "Complete graph",
+        description: "A complete graph is a graph in which each pair of graph vertices is connected by an edge",
+        thumbnail: <Complete1SVG />
+    },
+    {
+        id: "topo-1",
+        title: "Topological graph",
+        description: "A graph that represents that can be sorted in a topological order",
+        thumbnail: <Topo1SVG />
     }
-].filter(e => e)  // <-- DO NOT EDIT THIS LINE
+]
 
 
 /**

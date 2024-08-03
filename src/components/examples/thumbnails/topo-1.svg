@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="140 -10 470 320"><defs><style>svg{font-size: 16px; font-family: Arial, sans-serif;}
+.edge#Edge_66r5c4p1sa8 {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_66r5c4p1sa8 {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_66r5c4p1sa8 {fill: #000}
+.edge#Edge_bbkdh79cs7v {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_bbkdh79cs7v {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_bbkdh79cs7v {fill: #000}
+.edge#Edge_1gslgp7g3o7 {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_1gslgp7g3o7 {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_1gslgp7g3o7 {fill: #000}
+.edge#Edge_febzbscpo9 {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_febzbscpo9 {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_febzbscpo9 {fill: #000}
+.edge#Edge_tmbc05yr1qk {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_tmbc05yr1qk {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_tmbc05yr1qk {fill: #000}
+.node#A {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-A {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-A {fill: purple}
+.bubble_text#bubble-text-A {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.node#B {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-B {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-B {fill: purple}
+.bubble_text#bubble-text-B {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.node#C {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-C {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-C {fill: purple}
+.bubble_text#bubble-text-C {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.node#D {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-D {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-D {fill: purple}
+.bubble_text#bubble-text-D {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.node#E {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-E {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-E {fill: purple}
+.bubble_text#bubble-text-E {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}</style></defs><line class="edge" x1="221.21320343559643" y1="128.78679656440357" x2="268.6044589153173" y2="81.39554108468272" stroke="#000" id="Edge_66r5c4p1sa8"/><polygon class="edge" points="278.7867965644036,71.21320343559643 274.1280537525582,88.59986830879966 261.40013169120033,75.8719462474418" fill="#000" id="edge-arrow-Edge_66r5c4p1sa8"/><line class="edge" x1="221.21320343559643" y1="171.21320343559643" x2="268.6044589153173" y2="218.6044589153173" stroke="#000" id="Edge_bbkdh79cs7v"/><polygon class="edge" points="278.7867965644036,228.78679656440357 261.40013169120033,224.1280537525582 274.1280537525582,211.40013169120036" fill="#000" id="edge-arrow-Edge_bbkdh79cs7v"/><line class="edge" x1="321.2132034355964" y1="71.21320343559643" x2="368.6044589153173" y2="118.6044589153173" stroke="#000" id="Edge_1gslgp7g3o7"/><polygon class="edge" points="378.7867965644036,128.78679656440357 361.40013169120033,124.1280537525582 374.1280537525582,111.40013169120034" fill="#000" id="edge-arrow-Edge_1gslgp7g3o7"/><line class="edge" x1="321.2132034355964" y1="228.78679656440357" x2="368.6044589153173" y2="181.39554108468272" stroke="#000" id="Edge_febzbscpo9"/><polygon class="edge" points="378.7867965644036,171.21320343559643 374.1280537525582,188.59986830879964 361.40013169120033,175.8719462474418" fill="#000" id="edge-arrow-Edge_febzbscpo9"/><line class="edge" x1="430" y1="150" x2="505.6" y2="150" stroke="#000" id="Edge_tmbc05yr1qk"/><polygon class="edge" points="520,150 504.4115427318801,159 504.4115427318801,141" fill="#000" id="edge-arrow-Edge_tmbc05yr1qk"/><circle class="node" cx="200" cy="150" r="27.75" id="A"/><circle class="node" cx="300" cy="50" r="27.75" id="B"/><circle class="node" cx="300" cy="250" r="27.75" id="C"/><circle class="node" cx="400" cy="150" r="27.75" id="D"/><circle class="node" cx="550" cy="150" r="27.75" id="E"/><text class="node_label" x="200" y="150" id="label-A">A</text><text class="node_label" x="300" y="50" id="label-B">B</text><text class="node_label" x="300" y="250" id="label-C">C</text><text class="node_label" x="400" y="150" id="label-D">D</text><text class="node_label" x="550" y="150" id="label-E">E</text><circle class="weight_container" cx="250" cy="100" r="12" id="container-Edge_66r5c4p1sa8"/><text class="weight" x="250" y="100" id="weight-Edge_66r5c4p1sa8">1</text><circle class="weight_container" cx="250" cy="200" r="12" id="container-Edge_bbkdh79cs7v"/><text class="weight" x="250" y="200" id="weight-Edge_bbkdh79cs7v">1</text><circle class="weight_container" cx="350" cy="100" r="12" id="container-Edge_1gslgp7g3o7"/><text class="weight" x="350" y="100" id="weight-Edge_1gslgp7g3o7">1</text><circle class="weight_container" cx="350" cy="200" r="12" id="container-Edge_febzbscpo9"/><text class="weight" x="350" y="200" id="weight-Edge_febzbscpo9">1</text><circle class="weight_container" cx="475" cy="150" r="12" id="container-Edge_tmbc05yr1qk"/><text class="weight" x="475" y="150" id="weight-Edge_tmbc05yr1qk">1</text></svg>
