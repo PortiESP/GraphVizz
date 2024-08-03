@@ -11,11 +11,9 @@
 ------------------
 
 FEATURES
-  - Images as nodes
   - Block nodes movement or edit style
 
 GUI
-  - Responsive
   - Language
   - Context menu
 

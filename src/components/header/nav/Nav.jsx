@@ -45,6 +45,8 @@ export default function Nav() {
 
     // Close the view by resetting hidden nodes and edges and other decorations
     const closeView = () => {
+        if (!window.graph) return  // If the graph is not loaded, return
+
         window.graph.nodes.forEach(node => node.hidden = false)
         window.graph.nodes.forEach(node => node.bubble = null)
         window.graph.edges.forEach(edge => edge.hidden = false)

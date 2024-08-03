@@ -38,6 +38,7 @@ export default function HamburgerMenu(props) {
     const saveModal = () => { window.ui.call("setModal", "save_graph") } // Function to open the save graph modal
     const exportModal = () => { window.ui.call("setModal", "export_graph") } // Function to open the export graph modal
     const visitHelp = () => { props.close(); navigator("/help") } // Function to navigate to the help page
+    const visitHelpReport = () => { props.close(); navigator("/help#to-contact") } // Function to navigate to the help page
     
     return (
         <>
@@ -54,8 +55,8 @@ export default function HamburgerMenu(props) {
                     <MenuItem label="Zoom Out" onClick={() => zoomCenterBy(0.9)} icon={ZoomOut}></MenuItem>
                     <MenuItem label="Focus All" onClick={focusOnAllNodes} icon={FocusAllIcon}></MenuItem>
                     <hr />
-                    {/* <MenuItem label="Settings" onClick={() => console.log("btn")} icon={SettingsIcon}></MenuItem> */}
                     <MenuItem label="Help & About" onClick={visitHelp} icon={InfoIcon}></MenuItem>
+                    <MenuItem label="Report" onClick={visitHelpReport} icon={SettingsIcon}></MenuItem>
                 </menu>
             </div>
         </>

@@ -17,6 +17,7 @@ export default function Help(props) {
                 </div>
 
                 <section id="how-to">
+                    <span className={scss.section_id} id="to-how-to"></span>
                     <h2>How to...</h2>
 
                     <h3>Nodes and edges creation</h3>
@@ -41,6 +42,7 @@ export default function Help(props) {
                 </section>
 
                 <section id="shortcuts">
+                    <span className={scss.section_id} id="to-shortcuts"></span>
                     <h2>Shortcuts</h2>
 
                     <h3>Movement</h3>
@@ -92,12 +94,13 @@ export default function Help(props) {
                 </section >
 
                 <section id="contact">
-                    <h2>Contact</h2>
+                    <span className={scss.section_id} id="to-contact"></span>
+                    <h2>Contact & Support</h2>
                     <div className={scss.contact_section}>
                         <span className={scss.contact_icon}>
                             <HelpIcon />
                         </span>
-                        <p>If you have any <em>questions, suggestions or problems</em>, please contact us at <br/><a href="mailto:support@graphvizz.com">support@graphvizz.com</a></p>
+                        <p>If you have any <strong>questions, suggestions or problems</strong>, please contact us at <br/><a href="mailto:support@graphvizz.com">support@graphvizz.com</a></p>
                     </div>
                     <div className={scss.contact_section}>
                         <span className={scss.contact_icon}>
