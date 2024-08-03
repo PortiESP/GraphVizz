@@ -3,15 +3,10 @@
 
 - split trigger for nodes attrs and graph edit (new/delete elements)
 - Help page
-  - multiple selection
-    explain the shift, select box, etc.
   - explain the views
 - more examples
 
 ------------------
-
-FEATURES
-  - Block nodes movement or edit style
 
 GUI
   - Language

@@ -28,7 +28,7 @@ export default function ToolOverlay(props) {
             <AsideOverlay title="Live Editor" closeIcon={<KbdIcon />}>
                 <LiveEditor />
             </AsideOverlay>
-            <AsideOverlay title="Custom style" right closeIcon={<PaletteIcon />}>
+            <AsideOverlay title="Element Editor" right closeIcon={<PaletteIcon />}>
                 <ElementEditor />
             </AsideOverlay>
             <ToolBarOverlay />

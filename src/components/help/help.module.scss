@@ -243,7 +243,7 @@
 }
 
 
-.toggle_wrap {
+.content .toggle_wrap {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -287,12 +287,19 @@
     .toggle_content {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
         width: 100%;
         position: relative;
         padding: 20px;
         padding-top: 0;
         font-weight: 400;
+
+        h5{
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #999;
+            margin-bottom: 10px;
+        }
 
         hr{
             border: none;
@@ -301,8 +308,9 @@
         }
 
         p{
-            font-size: 12rem;
-            color: #000a;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0008;
         }
 
 
