@@ -531,7 +531,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
                         
                         const COLORS = colorGenerator(Math.max(...Object.values(data))+1)
-                        console.log(COLORS)
                         const prevStyles = []
 
                         Object.entries(data).forEach(([node, color]) => {

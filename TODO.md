@@ -1,9 +1,6 @@
 
 --- TASK QUEUE ---
 
-- split trigger for nodes attrs and graph edit (new/delete elements)
-- Help page
-  - explain the views
 - more examples
 
 ------------------

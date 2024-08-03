@@ -65,6 +65,7 @@ export default function LiveEditor() {
 
     // Add the force update listener (to update the textarea when the graph changes)
     useEffect(() => {
+        // Update the textarea when the graph changes (node/edge added or removed)
         window.graph.graphListeners.push(() => setForceUpdate(old => old + 1))
     }, [])
 
