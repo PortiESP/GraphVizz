@@ -12,6 +12,7 @@ import SubMenu, { SubMenuItem } from "./nav-sub-menu/SubMenu";
 import AlertView from "./views/AlertView";
 import SelectNodesView from "./views/SelectNodesView";
 import SelectNodeView from "./views/SelectNodeView";
+import { useNavigate } from "react-router-dom";
 
 
 const DEFAULT_VIEW = null  // The default view
