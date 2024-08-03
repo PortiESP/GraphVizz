@@ -240,7 +240,7 @@ function elementsOptions(selectedElements) {
                 type: "range",
                 label: "Border width ratio",
                 initial: nodes[0].borderRatio,
-                callback: data => nodes.forEach(e => e.style.borderRatio = parseFloat(data)),
+                callback: data => nodes.forEach(e => {e.style.borderRatio = parseFloat(data); e.computeStyle()}),
                 options: {
                     min: 0,
                     max: 1,

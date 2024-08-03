@@ -5,6 +5,7 @@ import Tree1SVG from "./thumbnails/tree-1.svg?react"
 import Circle1SVG from "./thumbnails/circular-1.svg?react"
 import Tests1SVG from "./thumbnails/tests-1.svg?react"
 import Europe1SVG from "./thumbnails/europe-1.svg?react"
+import Cayley1SVG from "./thumbnails/cayley-1.svg?react"
 
 
 /**
@@ -46,6 +47,12 @@ const EXAMPLES = [  // <-- EDIT THIS ARRAY TO CRUD THE EXAMPLES
         title: "Map of Europe by population",
         description: "Each node represents a country in Europe, the size of the node is proportional to the population of the country, and the distance between the capitals of the countries that share a land border. (the values are not accurate)",
         thumbnail: <Europe1SVG />
+    },
+    {
+        id: "cayley-1",
+        title: "Cayley graph",
+        description: "Cayley graph of the dihedral group D4",
+        thumbnail: <Cayley1SVG />
     }
 ].filter(e => e)  // <-- DO NOT EDIT THIS LINE
 
