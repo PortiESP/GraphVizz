@@ -581,7 +581,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Conex components",
             icon: () => <AtomIcon />,
             callback: () => {
-                
                 const g = generateAdjacencyList()
                 const result = conexComps(g)
                 const n = result.length
@@ -614,6 +613,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Default style",
             icon: () => <RevertIcon />,
             callback: () => {
+                setViewProps(null)
+                setView(null)
                 window.graph.nodes.forEach(node => {
                     node.backgroundColor = constants.NODE_BACKGROUND_COLOR
                     node.color = constants.NODE_LABEL_COLOR
