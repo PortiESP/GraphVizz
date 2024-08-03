@@ -57,8 +57,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     title: "Breadth First Search (BFS)",
                     callback: (selectedNode) => {
                         const adjList = generateAdjacencyList()
-                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
-                        const { result, prevNode } = bfs(adjList, startNode)
+                        const { result, prevNode } = bfs(adjList, selectedNode)
                         const edges = generateEdgesByPredecessors(prevNode)
                         result.forEach((node, i) => node.bubble = i)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
@@ -75,8 +74,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     title: "Depth First Search (DFS)",
                     callback: (selectedNode) => {
                         const adjList = generateAdjacencyList()
-                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
-                        const { result, prevNode } = dfs(adjList, startNode)
+                        const { result, prevNode } = dfs(adjList, selectedNode)
                         const edges = generateEdgesByPredecessors(prevNode)
                         result.forEach((node, i) => node.bubble = i)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
@@ -94,7 +92,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     allNodes: true,
                     callback: (node1, node2) => {
                         const g = generateAdjacencyList()
-                        const result = dijkstra(g, window.graph.nodes.find(node => node.id === node1))
+                        const result = dijkstra(g, node1)
                         const disabled = result[node2]?.distance === Infinity
                         setView("select-nodes")
 
@@ -240,8 +238,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                         }
                         
                         const adjList = generateAdjacencyList()
-                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
-                        const data = hamiltonianCycle(adjList, startNode, true, true)
+                        const data = hamiltonianCycle(adjList, selectedNode, true, true)
                         const copyAsJSON = () => {
                             const paths = data.all.map(path => path.map(node => node.id))
                             const str = JSON.stringify(paths, null, 2)
@@ -289,8 +286,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                         }
                         
                         const adjList = generateAdjacencyList()
-                        const startNode = window.graph.nodes.find(node => node.id === selectedNode)
-                        const data = hamiltonianCycle(adjList, startNode, false, true)
+                        const data = hamiltonianCycle(adjList, selectedNode, false, true)
                         const copyAsJSON = () => {
                             const nodePath = data.path.map(node => node.id)
                             const str = JSON.stringify(nodePath, null, 2)
