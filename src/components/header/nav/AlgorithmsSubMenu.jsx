@@ -378,6 +378,14 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             callback: () => {
                 const data = nodes_deg(window.graph)
                 window.graph.nodes.forEach(node => node.bubble = data[node.id])
+
+                setViewProps({
+                    title: "Nodes degree",
+                    message: "The degree of each node was calculated and displayed.",
+                    type: "info"
+                })
+
+                setView("alert")
             }
         }
     ]
