@@ -40,11 +40,12 @@ export default function Nav() {
     // Reset the hidden state when the view changes
     useEffect(() => {
         if (!view) closeView()
+        resetView()
         setHiddenView(false)
     }, [view])
 
-    // Close the view by resetting hidden nodes and edges and other decorations
-    const closeView = () => {
+    // Reset the view by resetting hidden nodes and edges and other decorations
+    const resetView = () => {
         if (!window.graph) return  // If the graph is not loaded, return
 
         window.graph.nodes.forEach(node => node.hidden = false)
@@ -62,6 +63,12 @@ export default function Nav() {
             setResetViewStyles(null)
         }
 
+        setHiddenView(false)
+    }
+
+    // Close the view by resetting hidden nodes and edges and other decorations
+    const closeView = () => {
+        resetView()
         setView(false)
     }
 

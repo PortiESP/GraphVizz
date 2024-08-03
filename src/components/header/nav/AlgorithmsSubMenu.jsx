@@ -53,7 +53,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Breadth First Search (BFS)",
             icon: () => <BFSIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Breadth First Search (BFS)",
                     callback: (selectedNode) => {
@@ -72,7 +71,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Depth First Search (DFS)",
             icon: () => <DFSIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Depth First Search (DFS)",
                     callback: (selectedNode) => {
@@ -91,7 +89,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Dijkstra",
             icon: () => <MapIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Dijkstra's algorithm",
                     allNodes: true,
@@ -152,7 +149,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Hamiltonian Path (all)",
             icon: () => <PathIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -202,7 +198,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Hamiltonian Path (one)",
             icon: () => <PathIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -236,7 +231,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Hamiltonian Cycle (all)",
             icon: () => <CycleIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -286,7 +280,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Hamiltonian Cycle (one)",
             icon: () => <CycleIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -324,7 +317,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Min. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
-                setHiddenView(false)
                 window.graph.resetView()
                 const data = kruskal(generateAdjacencyList())
                 window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
@@ -342,7 +334,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Max. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
-                setHiddenView(false)
                 window.graph.resetView()
                 const data = kruskal(generateAdjacencyList(), true)
                 window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
@@ -364,7 +355,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Chromatic number",
             icon: () => <ColorsIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -390,7 +380,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Nodes degree",
             icon: () => <DegIcon />,
             callback: () => {
-                setHiddenView(false)
                 const data = nodes_deg(window.graph)
                 window.graph.nodes.forEach(node => node.bubble = data[node.id])
             }
@@ -406,7 +395,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Circular",
             icon: () => <CircularIcon />,
             callback: () => {
-                setHiddenView(false)
                 setView(null)
                 circularArrange(window.graph.nodes)
                 focusOnAllNodes()
@@ -416,7 +404,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Grid",
             icon: () => <GridIcon />,
             callback: () => {
-                setHiddenView(false)
                 gridArrange(window.graph.nodes)
                 focusOnAllNodes()
             }
@@ -429,11 +416,11 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Tree (bfs)",
             icon: () => <BFSIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Select the root node",
                     callback: (value) => {
-                        const data = treeArrange(value, "bfs")
+                        const start = window.graph.nodes.find(node => node.id === value)
+                        const data = treeArrange(start, "bfs")
                         const edges = generateEdgesByPredecessors(data.prevNode)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                         focusOnAllNodes()
@@ -446,11 +433,11 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Tree (dfs)",
             icon: () => <DFSIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Select the root node",
                     callback: (value) => {
-                        const data = treeArrange(value, "dfs")
+                        const start = window.graph.nodes.find(node => node.id === value)
+                        const data = treeArrange(start, "dfs")
                         const edges = generateEdgesByPredecessors(data.prevNode)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                         focusOnAllNodes()
@@ -463,7 +450,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Toposort",
             icon: () => <BrokenLinkIcon />,
             callback: () => {
-                setHiddenView(false)
                 const g = generateAdjacencyList()
                 const result = toposortArrange(g)
 
@@ -496,7 +482,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Organic",
             icon: () => <AtomIcon />,
             callback: () => {
-                setHiddenView(false)
                 setView(null)
                 organicArrange()
                 focusOnAllNodes()
@@ -506,7 +491,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Random",
             icon: () => <RandomIcon />,
             callback: () => {
-                setHiddenView(false)
                 setView(null)
                 randomArrange(window.graph.nodes)
                 focusOnAllNodes()
@@ -523,7 +507,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Chromatic neighbors",
             icon: () => <ColorsIcon />,
             callback: () => {
-                setHiddenView(false)
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -553,7 +536,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Degree",
             icon: () => <DegIcon />,
             callback: () => {
-                setHiddenView(false)
                 const data = nodes_deg(window.graph)
                 const max = Math.max(...Object.values(data))+1
                 const min = Math.min(...Object.values(data))
@@ -580,7 +562,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Critical nodes",
             icon: () => <WifiOffIcon />,
             callback: () => {
-                setHiddenView(false)
                 const nodes = criticalNodes(generateAdjacencyList())
 
                 const prevStyles = []                
@@ -604,7 +585,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Conex components",
             icon: () => <AtomIcon />,
             callback: () => {
-                setHiddenView(false)
                 
                 const g = generateAdjacencyList()
                 const result = conexComps(g)
@@ -638,7 +618,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
             title: "Default style",
             icon: () => <RevertIcon />,
             callback: () => {
-                setHiddenView(false)
                 window.graph.nodes.forEach(node => {
                     node.backgroundColor = constants.NODE_BACKGROUND_COLOR
                     node.color = constants.NODE_LABEL_COLOR
