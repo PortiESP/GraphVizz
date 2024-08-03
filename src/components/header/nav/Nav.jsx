@@ -12,6 +12,7 @@ import SubMenu, { SubMenuItem } from "./nav-sub-menu/SubMenu";
 import AlertView from "./views/AlertView";
 import SelectNodesView from "./views/SelectNodesView";
 import SelectNodeView from "./views/SelectNodeView";
+import { useNavigate } from "react-router-dom";
 
 
 const DEFAULT_VIEW = null  // The default view
@@ -24,6 +25,7 @@ const DEFAULT_VIEW_PROPS = null  // The default view props
 export default function Nav() {
 
     const location = useLocation()  // Get the current location
+
 
     const [view, setView] = useState(DEFAULT_VIEW)  // The current view. Can be [false, "alert", "select-nodes", "select-node"]
     const [viewProps, setViewProps] = useState(DEFAULT_VIEW_PROPS)

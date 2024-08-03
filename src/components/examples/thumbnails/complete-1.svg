@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="-410 -310 420 470"><defs><style>svg{font-size: 16px; font-family: Arial, sans-serif;}
+.edge#Edge_5kymwf0q4n2 {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_5kymwf0q4n2 {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_5kymwf0q4n2 {fill: #000}
+.edge#Edge_2oowz3w4nal {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_2oowz3w4nal {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_2oowz3w4nal {fill: #000}
+.edge#Edge_j37z5f87dr {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_j37z5f87dr {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_j37z5f87dr {fill: #000}
+.edge#Edge_h6dj08dmcmj {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_h6dj08dmcmj {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_h6dj08dmcmj {fill: #000}
+.edge#Edge_dku5eneny8d {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_dku5eneny8d {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_dku5eneny8d {fill: #000}
+.edge#Edge_0n28qpmzykc {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_0n28qpmzykc {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_0n28qpmzykc {fill: #000}
+.edge#Edge_4t6dr8s6dar {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_4t6dr8s6dar {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_4t6dr8s6dar {fill: #000}
+.edge#Edge_mjv6ynw7r9n {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_mjv6ynw7r9n {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_mjv6ynw7r9n {fill: #000}
+.edge#Edge_b7y523sgaph {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_b7y523sgaph {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_b7y523sgaph {fill: #000}
+.edge#Edge_19iibfphxih {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_19iibfphxih {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_19iibfphxih {fill: #000}
+.edge#Edge_k7l33e0kwwi {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_k7l33e0kwwi {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_k7l33e0kwwi {fill: #000}
+.edge#Edge_vuoyo39fdcj {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_vuoyo39fdcj {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_vuoyo39fdcj {fill: #000}
+.edge#Edge_xrgucwn8pdl {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_xrgucwn8pdl {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_xrgucwn8pdl {fill: #000}
+.edge#Edge_amdqir5dih4 {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_amdqir5dih4 {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_amdqir5dih4 {fill: #000}
+.edge#Edge_88rcz2648tv {stroke: #000; stroke-width: 6}
+.weight#weight-Edge_88rcz2648tv {fill: #fff; font-size: 9.600000000000001px; text-anchor: middle; dominant-baseline: middle}
+.weight_container#container-Edge_88rcz2648tv {fill: #000}
+.node#A {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-A {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-A {fill: purple}
+.bubble_text#bubble-text-A {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.node#B {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-B {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-B {fill: purple}
+.bubble_text#bubble-text-B {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.node#C {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-C {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-C {fill: purple}
+.bubble_text#bubble-text-C {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.node#D {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-D {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-D {fill: purple}
+.bubble_text#bubble-text-D {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.node#E {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-E {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-E {fill: purple}
+.bubble_text#bubble-text-E {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.node#F {fill: #fff; stroke: #000; stroke-width: 4.5px; stroke-color: #000}
+.node_label#label-F {fill: #000; font-size: 16; text-anchor: middle; dominant-baseline: middle; font-weight: bold}
+.bubble#bubble-F {fill: purple}
+.bubble_text#bubble-text-F {fill: white; font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-weight: bold}</style></defs><line class="edge" x1="-224.9615088301353" y1="-233.3589941132431" x2="-325.0384911698647" y2="-166.64100588675686" stroke="#000" id="Edge_5kymwf0q4n2"/><line class="edge" x1="-350" y1="-120" x2="-350" y2="-30" stroke="#000" id="Edge_2oowz3w4nal"/><line class="edge" x1="-325.0384911698647" y1="16.641005886756872" x2="-224.9615088301353" y2="83.35899411324313" stroke="#000" id="Edge_j37z5f87dr"/><line class="edge" x1="-175.0384911698647" y1="83.35899411324313" x2="-74.96150883013532" y2="16.641005886756876" stroke="#000" id="Edge_h6dj08dmcmj"/><line class="edge" x1="-50" y1="-30" x2="-50" y2="-120" stroke="#000" id="Edge_dku5eneny8d"/><line class="edge" x1="-74.96150883013532" y1="-166.6410058867569" x2="-175.0384911698647" y2="-233.3589941132431" stroke="#000" id="Edge_0n28qpmzykc"/><line class="edge" x1="-215.4348726628258" y1="-224.27521222862367" x2="-334.5651273371742" y2="-25.72478777137633" stroke="#000" id="Edge_4t6dr8s6dar"/><line class="edge" x1="-200" y1="-220" x2="-200" y2="70" stroke="#000" id="Edge_mjv6ynw7r9n"/><line class="edge" x1="-184.5651273371742" y1="-224.27521222862367" x2="-65.4348726628258" y2="-25.724787771376324" stroke="#000" id="Edge_b7y523sgaph"/><line class="edge" x1="-334.5651273371742" y1="-124.27521222862367" x2="-215.4348726628258" y2="74.27521222862367" stroke="#000" id="Edge_19iibfphxih"/><line class="edge" x1="-323.1671842700025" y1="-136.58359213500125" x2="-76.83281572999748" y2="-13.416407864998735" stroke="#000" id="Edge_k7l33e0kwwi"/><line class="edge" x1="-320" y1="-150" x2="-80" y2="-150" stroke="#000" id="Edge_vuoyo39fdcj"/><line class="edge" x1="-323.1671842700025" y1="-13.416407864998737" x2="-76.83281572999748" y2="-136.58359213500125" stroke="#000" id="Edge_xrgucwn8pdl"/><line class="edge" x1="-320" y1="0" x2="-80" y2="3.67394039744206e-15" stroke="#000" id="Edge_amdqir5dih4"/><line class="edge" x1="-184.5651273371742" y1="74.27521222862367" x2="-65.4348726628258" y2="-124.27521222862367" stroke="#000" id="Edge_88rcz2648tv"/><circle class="node" cx="-200" cy="-250" r="27.75" id="A"/><circle class="node" cx="-350" cy="-150" r="27.75" id="B"/><circle class="node" cx="-350" cy="0" r="27.75" id="C"/><circle class="node" cx="-200" cy="100" r="27.75" id="D"/><circle class="node" cx="-50" cy="0" r="27.75" id="E"/><circle class="node" cx="-50" cy="-150" r="27.75" id="F"/><text class="node_label" x="-200" y="-250" id="label-A">A</text><text class="node_label" x="-350" y="-150" id="label-B">B</text><text class="node_label" x="-350" y="0" id="label-C">C</text><text class="node_label" x="-200" y="100" id="label-D">D</text><text class="node_label" x="-50" y="0" id="label-E">E</text><text class="node_label" x="-50" y="-150" id="label-F">F</text><circle class="weight_container" cx="-275" cy="-200" r="12" id="container-Edge_5kymwf0q4n2"/><text class="weight" x="-275" y="-200" id="weight-Edge_5kymwf0q4n2">1</text><circle class="weight_container" cx="-350" cy="-75" r="12" id="container-Edge_2oowz3w4nal"/><text class="weight" x="-350" y="-75" id="weight-Edge_2oowz3w4nal">1</text><circle class="weight_container" cx="-275" cy="50" r="12" id="container-Edge_j37z5f87dr"/><text class="weight" x="-275" y="50" id="weight-Edge_j37z5f87dr">1</text><circle class="weight_container" cx="-125" cy="50" r="12" id="container-Edge_h6dj08dmcmj"/><text class="weight" x="-125" y="50" id="weight-Edge_h6dj08dmcmj">1</text><circle class="weight_container" cx="-50" cy="-75" r="12" id="container-Edge_dku5eneny8d"/><text class="weight" x="-50" y="-75" id="weight-Edge_dku5eneny8d">1</text><circle class="weight_container" cx="-125" cy="-200" r="12" id="container-Edge_0n28qpmzykc"/><text class="weight" x="-125" y="-200" id="weight-Edge_0n28qpmzykc">1</text><circle class="weight_container" cx="-275" cy="-125" r="12" id="container-Edge_4t6dr8s6dar"/><text class="weight" x="-275" y="-125" id="weight-Edge_4t6dr8s6dar">1</text><circle class="weight_container" cx="-200" cy="-75" r="12" id="container-Edge_mjv6ynw7r9n"/><text class="weight" x="-200" y="-75" id="weight-Edge_mjv6ynw7r9n">1</text><circle class="weight_container" cx="-125" cy="-125" r="12" id="container-Edge_b7y523sgaph"/><text class="weight" x="-125" y="-125" id="weight-Edge_b7y523sgaph">1</text><circle class="weight_container" cx="-275" cy="-25" r="12" id="container-Edge_19iibfphxih"/><text class="weight" x="-275" y="-25" id="weight-Edge_19iibfphxih">1</text><circle class="weight_container" cx="-200" cy="-75" r="12" id="container-Edge_k7l33e0kwwi"/><text class="weight" x="-200" y="-75" id="weight-Edge_k7l33e0kwwi">1</text><circle class="weight_container" cx="-200" cy="-150" r="12" id="container-Edge_vuoyo39fdcj"/><text class="weight" x="-200" y="-150" id="weight-Edge_vuoyo39fdcj">1</text><circle class="weight_container" cx="-200" cy="-75" r="12" id="container-Edge_xrgucwn8pdl"/><text class="weight" x="-200" y="-75" id="weight-Edge_xrgucwn8pdl">1</text><circle class="weight_container" cx="-200" cy="1.83697019872103e-15" r="12" id="container-Edge_amdqir5dih4"/><text class="weight" x="-200" y="1.83697019872103e-15" id="weight-Edge_amdqir5dih4">1</text><circle class="weight_container" cx="-125" cy="-25" r="12" id="container-Edge_88rcz2648tv"/><text class="weight" x="-125" y="-25" id="weight-Edge_88rcz2648tv">1</text></svg>

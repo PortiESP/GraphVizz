@@ -1,0 +1,66 @@
+{
+    "nodes": [
+      {
+        "x": 1100,
+        "y": 500,
+        "id": "A",
+        "r": 30
+      },
+      {
+        "x": 1200,
+        "y": 400,
+        "id": "B",
+        "r": 30
+      },
+      {
+        "x": 1200,
+        "y": 600,
+        "id": "C",
+        "r": 30
+      },
+      {
+        "x": 1300,
+        "y": 500,
+        "id": "D",
+        "r": 30
+      },
+      {
+        "x": 1450,
+        "y": 500,
+        "id": "E",
+        "r": 30
+      }
+    ],
+    "edges": [
+      {
+        "src": "A",
+        "dst": "B",
+        "weight": 1,
+        "directed": true
+      },
+      {
+        "src": "A",
+        "dst": "C",
+        "weight": 1,
+        "directed": true
+      },
+      {
+        "src": "B",
+        "dst": "D",
+        "weight": 1,
+        "directed": true
+      },
+      {
+        "src": "C",
+        "dst": "D",
+        "weight": 1,
+        "directed": true
+      },
+      {
+        "src": "D",
+        "dst": "E",
+        "weight": 1,
+        "directed": true
+      }
+    ]
+  }
