@@ -161,6 +161,7 @@ function elementsOptions(selectedElements) {
                     callback: data => selectedElements[0].id = data,
                     checkError: data => {
                         if (data === "") return "Id cannot be empty"
+                        if (data.includes(" ")) return "Id cannot contain spaces"
                         if (window.graph.nodes.find(e => e.id === data) !== undefined || window.graph.edges.find(e => e.id === data) !== undefined) return "Id already exists"
 
                         return null
@@ -237,12 +238,12 @@ function elementsOptions(selectedElements) {
             },
             {
                 type: "range",
-                label: "Border width",
-                initial: nodes[0].borderWidth,
-                callback: data => nodes.forEach(e => e.borderWidth = parseFloat(data)),
+                label: "Border width ratio",
+                initial: nodes[0].borderRatio,
+                callback: data => nodes.forEach(e => e.borderRatio = parseFloat(data)),
                 options: {
                     min: 0,
-                    max: Math.min(nodes.map(e => e.r)),
+                    max: 1,
                     step: 0.1
                 },
                 default: 0
@@ -324,6 +325,7 @@ function elementsOptions(selectedElements) {
                     callback: data => selectedElements[0].id = data,
                     checkError: data => {
                         if (data === "") return "Id cannot be empty"
+                        if (data.includes(" ")) return "Id cannot contain spaces"
                         if (window.graph.nodes.find(e => e.id === data) !== undefined || window.graph.edges.find(e => e.id === data) !== undefined) return "Id already exists"
 
                         return null
@@ -377,7 +379,7 @@ function elementsOptions(selectedElements) {
                 label: "Thickness",
                 initial: edges[0].thickness,
                 callback: data => edges.forEach(e => e.thickness = parseFloat(data)),
-                default: constants.EDGE_THICKNESS
+                default: constants.EDGE_THICKNESS_RATIO
             },
             {
                 type: "color",
@@ -433,11 +435,16 @@ function elementsOptions(selectedElements) {
                 default: constants.EDGE_WEIGHT_BACKGROUND_COLOR
             },
             {
-                type: "number",
+                type: "range",
                 label: "Weight container size",
-                initial: edges[0].weightContainerSize,
-                callback: data => edges.forEach(e => e.weightContainerSize = parseFloat(data)),
-                default: constants.EDGE_WEIGHT_CONTAINER_SIZE
+                initial: edges[0].weightContainerFactor,
+                callback: data => edges.forEach(e => e.weightContainerFactor = parseFloat(data)),
+                default: constants.EDGE_WEIGHT_CONTAINER_FACTOR,
+                options: {
+                    min: 0,
+                    max: 1,
+                    step: 0.1
+                }
             }
         )
     }

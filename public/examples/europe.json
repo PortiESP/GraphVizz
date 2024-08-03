@@ -1,0 +1,806 @@
+{
+  "nodes": [
+    {
+      "x": -474.2494600779055,
+      "y": 474.5711732299244,
+      "id": "Spain",
+      "r": 48
+    },
+    {
+      "x": -275.09852163714925,
+      "y": 254.52031121294,
+      "id": "France",
+      "r": 67
+    },
+    {
+      "x": -211.41708783139939,
+      "y": 110.40583818958453,
+      "id": "Belgium",
+      "r": 11
+    },
+    {
+      "x": -58.774944036002466,
+      "y": 89.2110851870919,
+      "id": "Germany",
+      "r": 83
+    },
+    {
+      "x": 5.498785649150932,
+      "y": 434.98798463858304,
+      "id": "Italy",
+      "r": 60
+    },
+    {
+      "x": -168.15080997095833,
+      "y": 138.75272211671398,
+      "id": "Luxembourg",
+      "r": 0.6
+    },
+    {
+      "x": -160.83933970964745,
+      "y": 381.59329878457925,
+      "id": "Monaco",
+      "r": 0.04
+    },
+    {
+      "x": -125.91740047410212,
+      "y": 260.82195483668147,
+      "id": "Switzerland",
+      "r": 8
+    },
+    {
+      "x": -186.08384713294095,
+      "y": 45.489408899784905,
+      "id": "Netherlands",
+      "r": 17
+    },
+    {
+      "x": 35.58200897857023,
+      "y": 227.57207641995467,
+      "id": "Austria",
+      "r": 9
+    },
+    {
+      "x": 41.91531915318478,
+      "y": 146.8223716936185,
+      "id": "Czech_Republic",
+      "r": 10
+    },
+    {
+      "x": -92.66752205737544,
+      "y": -74.84348441789268,
+      "id": "Denmark",
+      "r": 6
+    },
+    {
+      "x": 133.7483166850966,
+      "y": 43.90608135613127,
+      "id": "Poland",
+      "r": 38
+    },
+    {
+      "x": 2.336823609689759,
+      "y": 356.9642187381371,
+      "id": "San_Marino",
+      "r": 0.03
+    },
+    {
+      "x": 53.39253256061977,
+      "y": 280.1567577165012,
+      "id": "Slovenia",
+      "r": 2
+    },
+    {
+      "x": 144.831609490672,
+      "y": 244.98867940014486,
+      "id": "Hungary",
+      "r": 10
+    },
+    {
+      "x": 203.41472860585725,
+      "y": -92.26008739808276,
+      "id": "Lithuania",
+      "r": 3
+    },
+    {
+      "x": 140.08162685971115,
+      "y": 172.15561239207693,
+      "id": "Slovakia",
+      "r": 5
+    },
+    {
+      "x": 381.7174963239364,
+      "y": 97.64043975803023,
+      "id": "Ukraine",
+      "r": 41
+    },
+    {
+      "x": 81.49850774452602,
+      "y": 300.4051434280228,
+      "id": "Croatia",
+      "r": 4
+    },
+    {
+      "x": 301.58103631238373,
+      "y": 263.98860992398875,
+      "id": "Romania",
+      "r": 19
+    },
+    {
+      "x": 204.99805614951083,
+      "y": 335.2383493884031,
+      "id": "Serbia",
+      "r": 7
+    },
+    {
+      "x": 153.09592101238545,
+      "y": 343.56655870705396,
+      "id": "Bosnia_and_Herzegovina",
+      "r": 3
+    },
+    {
+      "x": 170.1673201997562,
+      "y": 387.60446123473525,
+      "id": "Montenegro",
+      "r": 1
+    },
+    {
+      "x": 325.3309494671885,
+      "y": 376.40486552339803,
+      "id": "Bulgaria",
+      "r": 7
+    },
+    {
+      "x": 212.13717209804247,
+      "y": 389.109768562938,
+      "id": "Kosovo",
+      "r": 1.8
+    },
+    {
+      "x": 235.75160772581535,
+      "y": 417.7245164254947,
+      "id": "North_Macedonia",
+      "r": 2
+    },
+    {
+      "x": -342.83327395465244,
+      "y": 10.65620293940458,
+      "id": "United_Kingdom",
+      "r": 67
+    },
+    {
+      "x": -99.00083223198999,
+      "y": -266.4261171999844,
+      "id": "Norway",
+      "r": 5
+    },
+    {
+      "x": 64.20834584355453,
+      "y": -233.27628181145135,
+      "id": "Sweden",
+      "r": 10
+    },
+    {
+      "x": 225.50766923983997,
+      "y": -323.3376774748582,
+      "id": "Finland",
+      "r": 5
+    },
+    {
+      "x": -483.74942533982744,
+      "y": -24.177003020975803,
+      "id": "Ireland",
+      "r": 5
+    },
+    {
+      "x": -615.1656114630806,
+      "y": 480.90448340453884,
+      "id": "Portugal",
+      "r": 10
+    },
+    {
+      "x": 280.9977782448859,
+      "y": 520.4876719958803,
+      "id": "Greece",
+      "r": 10
+    },
+    {
+      "x": 203.41472860585736,
+      "y": 455.5712427060805,
+      "id": "Albania",
+      "r": 3
+    },
+    {
+      "x": 362.1351854165574,
+      "y": 204.91901028114336,
+      "id": "Moldova",
+      "r": 3
+    },
+    {
+      "x": 298.8881983150188,
+      "y": -62.42697163914718,
+      "id": "Belarus",
+      "r": 9
+    },
+    {
+      "x": 224.45359959508266,
+      "y": -143.57572068405085,
+      "id": "Latvia",
+      "r": 2
+    },
+    {
+      "x": 232.9879752986701,
+      "y": -227.73443273540283,
+      "id": "Estonia",
+      "r": 1
+    },
+    {
+      "x": 584.3996756384171,
+      "y": -337.02437790916525,
+      "id": "Russia",
+      "r": 144
+    },
+    {
+      "x": -527.454785822623,
+      "y": -516.3694879661167,
+      "id": "Iceland",
+      "r": 0.3
+    },
+    {
+      "x": 2.55416616657727,
+      "y": 567.3364561215399,
+      "id": "Malta",
+      "r": 0.5
+    },
+    {
+      "x": 662.0462789812636,
+      "y": 571.8628273555219,
+      "id": "Cyprus",
+      "r": 1
+    },
+    {
+      "x": -74.51237656898547,
+      "y": 245.96144496959693,
+      "id": "Liechtenstein",
+      "r": 0.04
+    },
+    {
+      "x": 612.5791696741562,
+      "y": 449.65797458237495,
+      "id": "Turkey",
+      "r": 84
+    }
+  ],
+  "edges": [
+    {
+      "src": "Spain",
+      "dst": "France",
+      "weight": 1246
+    },
+    {
+      "src": "France",
+      "dst": "Belgium",
+      "weight": 338
+    },
+    {
+      "src": "France",
+      "dst": "Germany",
+      "weight": 1397
+    },
+    {
+      "src": "France",
+      "dst": "Italy",
+      "weight": 1475
+    },
+    {
+      "src": "France",
+      "dst": "Luxembourg",
+      "weight": 462
+    },
+    {
+      "src": "France",
+      "dst": "Monaco",
+      "weight": 864
+    },
+    {
+      "src": "France",
+      "dst": "Switzerland",
+      "weight": 555
+    },
+    {
+      "src": "Belgium",
+      "dst": "Germany",
+      "weight": 1104
+    },
+    {
+      "src": "Belgium",
+      "dst": "Luxembourg",
+      "weight": 260
+    },
+    {
+      "src": "Belgium",
+      "dst": "Netherlands",
+      "weight": 193
+    },
+    {
+      "src": "Germany",
+      "dst": "Austria",
+      "weight": 628
+    },
+    {
+      "src": "Germany",
+      "dst": "Czech_Republic",
+      "weight": 318
+    },
+    {
+      "src": "Germany",
+      "dst": "Denmark",
+      "weight": 391
+    },
+    {
+      "src": "Germany",
+      "dst": "Luxembourg",
+      "weight": 939
+    },
+    {
+      "src": "Germany",
+      "dst": "Netherlands",
+      "weight": 1020
+    },
+    {
+      "src": "Germany",
+      "dst": "Poland",
+      "weight": 913
+    },
+    {
+      "src": "Germany",
+      "dst": "Switzerland",
+      "weight": 1154
+    },
+    {
+      "src": "Italy",
+      "dst": "Austria",
+      "weight": 888
+    },
+    {
+      "src": "Italy",
+      "dst": "San_Marino",
+      "weight": 243
+    },
+    {
+      "src": "Italy",
+      "dst": "Slovenia",
+      "weight": 553
+    },
+    {
+      "src": "Italy",
+      "dst": "Switzerland",
+      "weight": 920
+    },
+    {
+      "src": "Luxembourg",
+      "dst": "Belgium",
+      "weight": 260
+    },
+    {
+      "src": "Luxembourg",
+      "dst": "Germany",
+      "weight": 939
+    },
+    {
+      "src": "Luxembourg",
+      "dst": "France",
+      "weight": 462
+    },
+    {
+      "src": "Netherlands",
+      "dst": "Belgium",
+      "weight": 193
+    },
+    {
+      "src": "Netherlands",
+      "dst": "Germany",
+      "weight": 1020
+    },
+    {
+      "src": "Austria",
+      "dst": "Czech_Republic",
+      "weight": 322
+    },
+    {
+      "src": "Austria",
+      "dst": "Germany",
+      "weight": 628
+    },
+    {
+      "src": "Austria",
+      "dst": "Hungary",
+      "weight": 331
+    },
+    {
+      "src": "Austria",
+      "dst": "Italy",
+      "weight": 888
+    },
+    {
+      "src": "Austria",
+      "dst": "Slovenia",
+      "weight": 341
+    },
+    {
+      "src": "Austria",
+      "dst": "Switzerland",
+      "weight": 1251
+    },
+    {
+      "src": "Czech_Republic",
+      "dst": "Austria",
+      "weight": 322
+    },
+    {
+      "src": "Czech_Republic",
+      "dst": "Germany",
+      "weight": 318
+    },
+    {
+      "src": "Czech_Republic",
+      "dst": "Poland",
+      "weight": 830
+    },
+    {
+      "src": "Denmark",
+      "dst": "Germany",
+      "weight": 391
+    },
+    {
+      "src": "Poland",
+      "dst": "Czech_Republic",
+      "weight": 830
+    },
+    {
+      "src": "Poland",
+      "dst": "Germany",
+      "weight": 913
+    },
+    {
+      "src": "Poland",
+      "dst": "Lithuania",
+      "weight": 590
+    },
+    {
+      "src": "Poland",
+      "dst": "Slovakia",
+      "weight": 677
+    },
+    {
+      "src": "Poland",
+      "dst": "Ukraine",
+      "weight": 1161
+    },
+    {
+      "src": "Switzerland",
+      "dst": "Austria",
+      "weight": 1251
+    },
+    {
+      "src": "Switzerland",
+      "dst": "France",
+      "weight": 555
+    },
+    {
+      "src": "Switzerland",
+      "dst": "Germany",
+      "weight": 1154
+    },
+    {
+      "src": "Switzerland",
+      "dst": "Italy",
+      "weight": 920
+    },
+    {
+      "src": "Hungary",
+      "dst": "Austria",
+      "weight": 331
+    },
+    {
+      "src": "Hungary",
+      "dst": "Croatia",
+      "weight": 418
+    },
+    {
+      "src": "Hungary",
+      "dst": "Romania",
+      "weight": 924
+    },
+    {
+      "src": "Hungary",
+      "dst": "Serbia",
+      "weight": 366
+    },
+    {
+      "src": "Hungary",
+      "dst": "Slovakia",
+      "weight": 244
+    },
+    {
+      "src": "Hungary",
+      "dst": "Slovenia",
+      "weight": 570
+    },
+    {
+      "src": "Slovakia",
+      "dst": "Austria",
+      "weight": 88
+    },
+    {
+      "src": "Slovakia",
+      "dst": "Czech_Republic",
+      "weight": 395
+    },
+    {
+      "src": "Slovakia",
+      "dst": "Hungary",
+      "weight": 244
+    },
+    {
+      "src": "Slovakia",
+      "dst": "Poland",
+      "weight": 677
+    },
+    {
+      "src": "Slovakia",
+      "dst": "Ukraine",
+      "weight": 1633
+    },
+    {
+      "src": "Slovenia",
+      "dst": "Austria",
+      "weight": 341
+    },
+    {
+      "src": "Slovenia",
+      "dst": "Croatia",
+      "weight": 179
+    },
+    {
+      "src": "Slovenia",
+      "dst": "Hungary",
+      "weight": 570
+    },
+    {
+      "src": "Slovenia",
+      "dst": "Italy",
+      "weight": 553
+    },
+    {
+      "src": "Croatia",
+      "dst": "Bosnia_and_Herzegovina",
+      "weight": 374
+    },
+    {
+      "src": "Croatia",
+      "dst": "Hungary",
+      "weight": 418
+    },
+    {
+      "src": "Croatia",
+      "dst": "Montenegro",
+      "weight": 564
+    },
+    {
+      "src": "Croatia",
+      "dst": "Serbia",
+      "weight": 550
+    },
+    {
+      "src": "Croatia",
+      "dst": "Slovenia",
+      "weight": 179
+    },
+    {
+      "src": "Bosnia_and_Herzegovina",
+      "dst": "Croatia",
+      "weight": 374
+    },
+    {
+      "src": "Bosnia_and_Herzegovina",
+      "dst": "Montenegro",
+      "weight": 198
+    },
+    {
+      "src": "Bosnia_and_Herzegovina",
+      "dst": "Serbia",
+      "weight": 268
+    },
+    {
+      "src": "Serbia",
+      "dst": "Bosnia_and_Herzegovina",
+      "weight": 268
+    },
+    {
+      "src": "Serbia",
+      "dst": "Bulgaria",
+      "weight": 426
+    },
+    {
+      "src": "Serbia",
+      "dst": "Croatia",
+      "weight": 550
+    },
+    {
+      "src": "Serbia",
+      "dst": "Hungary",
+      "weight": 366
+    },
+    {
+      "src": "Serbia",
+      "dst": "Kosovo",
+      "weight": 268
+    },
+    {
+      "src": "Serbia",
+      "dst": "Montenegro",
+      "weight": 315
+    },
+    {
+      "src": "Serbia",
+      "dst": "North_Macedonia",
+      "weight": 354
+    },
+    {
+      "src": "Spain",
+      "dst": "Portugal",
+      "weight": 683
+    },
+    {
+      "src": "United_Kingdom",
+      "dst": "Ireland",
+      "weight": 768
+    },
+    {
+      "src": "Montenegro",
+      "dst": "Kosovo",
+      "weight": 229
+    },
+    {
+      "src": "Montenegro",
+      "dst": "Albania",
+      "weight": 149
+    },
+    {
+      "src": "North_Macedonia",
+      "dst": "Kosovo",
+      "weight": 85
+    },
+    {
+      "src": "North_Macedonia",
+      "dst": "Albania",
+      "weight": 209
+    },
+    {
+      "src": "North_Macedonia",
+      "dst": "Bulgaria",
+      "weight": 242
+    },
+    {
+      "src": "North_Macedonia",
+      "dst": "Greece",
+      "weight": 555
+    },
+    {
+      "src": "Albania",
+      "dst": "Greece",
+      "weight": 617
+    },
+    {
+      "src": "Greece",
+      "dst": "Bulgaria",
+      "weight": 567
+    },
+    {
+      "src": "Turkey",
+      "dst": "Greece",
+      "weight": 1120
+    },
+    {
+      "src": "Bulgaria",
+      "dst": "Turkey",
+      "weight": 1191
+    },
+    {
+      "src": "Bulgaria",
+      "dst": "Romania",
+      "weight": 392
+    },
+    {
+      "src": "Romania",
+      "dst": "Moldova",
+      "weight": 453
+    },
+    {
+      "src": "Moldova",
+      "dst": "Ukraine",
+      "weight": 458
+    },
+    {
+      "src": "Hungary",
+      "dst": "Ukraine",
+      "weight": 1422
+    },
+    {
+      "src": "Ukraine",
+      "dst": "Belarus",
+      "weight": 546
+    },
+    {
+      "src": "Belarus",
+      "dst": "Poland",
+      "weight": 811
+    },
+    {
+      "src": "Belarus",
+      "dst": "Lithuania",
+      "weight": 289
+    },
+    {
+      "src": "Lithuania",
+      "dst": "Russia",
+      "weight": 1486
+    },
+    {
+      "src": "Latvia",
+      "dst": "Russia",
+      "weight": 1627
+    },
+    {
+      "src": "Estonia",
+      "dst": "Russia",
+      "weight": 1605
+    },
+    {
+      "src": "Lithuania",
+      "dst": "Latvia",
+      "weight": 305
+    },
+    {
+      "src": "Latvia",
+      "dst": "Estonia",
+      "weight": 308
+    },
+    {
+      "src": "Romania",
+      "dst": "Ukraine",
+      "weight": 896
+    },
+    {
+      "src": "Serbia",
+      "dst": "Romania",
+      "weight": 679
+    },
+    {
+      "src": "Kosovo",
+      "dst": "Albania",
+      "weight": 227
+    },
+    {
+      "src": "Belarus",
+      "dst": "Russia",
+      "weight": 1226
+    },
+    {
+      "src": "Norway",
+      "dst": "Sweden",
+      "weight": 880
+    },
+    {
+      "src": "Sweden",
+      "dst": "Finland",
+      "weight": 830
+    },
+    {
+      "src": "Norway",
+      "dst": "Finland",
+      "weight": 1702
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 --- TASK QUEUE ---
 
 - more examples
+- ensure that the loads prevent the user loading invalid data
+- prohibir ids con espacios
 
 ------------------
 

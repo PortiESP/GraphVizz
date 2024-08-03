@@ -619,7 +619,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps, setHiddenView
                     node.backgroundColor = constants.NODE_BACKGROUND_COLOR
                     node.color = constants.NODE_LABEL_COLOR
                     node.borderColor = constants.NODE_BORDER_COLOR
-                    node.borderWidth = constants.NODE_BORDER_WIDTH
+                    node.borderRatio = constants.NODE_BORDER_RATIO
                 })
             }
         },
