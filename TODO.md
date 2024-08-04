@@ -1,11 +1,10 @@
 
 --- TASK QUEUE ---
 
-- more examples
-- ensure that the loads prevent the user loading invalid data
 - prohibir ids con espacios
 - default style for svg exports
 - fix topo sort (topo-2.json)
+- sistema de mensajes o alertas
 
 ------------------
 

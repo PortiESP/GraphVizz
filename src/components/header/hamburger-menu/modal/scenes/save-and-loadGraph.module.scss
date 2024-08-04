@@ -152,5 +152,11 @@
             background: #f22c;
             color: #fff;
         }
+
+        &:disabled{
+            background: #ccc;
+            color: #888;
+            cursor: not-allowed;
+        }
     }
 }

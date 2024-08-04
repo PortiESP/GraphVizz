@@ -3,9 +3,10 @@ import { useRef } from "react";
 
 // Components & functions
 import Tabs from "../components/tabs/Tabs";
-import { loadFromEdgePlainTextList, loadFromJSON, loadFromURL } from "@components/graph-manager/utils/load_graph";
+import { loadFromEdgePlainTextList, loadFromJSON, loadFromURL, validateJSON, validateURL } from "@components/graph-manager/utils/load_graph";
 import { circularArrange } from "@components/graph-manager/utils/arrangements";
 import { focusOnAllNodes } from "@components/graph-manager/utils/view";
+import { useState } from "react";
 
 
 /**
@@ -34,6 +35,11 @@ export default function LoadGraph(props) {
 function FromJSON(props) {
 
     const $input = useRef(null)
+    const [isValid, setIsValid] = useState(true)
+
+    const validateInput = () => {
+        validateJSON($input.current.value) ? setIsValid(true) : setIsValid(false)
+    }
 
     // Load the graph in memory from the JSON entered by the user in the input field
     const handleLoad = () => {
@@ -53,9 +59,10 @@ function FromJSON(props) {
                     <li><code>x</code> - x-coordinate of the node</li>
                     <li><code>y</code> - y-coordinate of the node</li>
                     <li><code>r</code> - radius of the node <em>(optional)</em></li>
-                    <li><code>id</code> - ID of the node</li>
+                    <li><code>id</code> - ID of the node (⚠️<em>cannot contain spaces</em>⚠️)</li>
                 </ul>
             </div>
+            <p>💡 Additionally other keys can be added for the color, label, etc.</p>
             <div>
                 <p>The <code>edges</code> key is an array of objects, each object representing an edge with the following keys</p>
                 <ul>
@@ -68,8 +75,8 @@ function FromJSON(props) {
             <hr />
             <span className={scss.tip_code}><pre>{exampleJSON}</pre><em>Example code using JS syntax</em></span>
         </div>
-        <textarea placeholder="JSON..." ref={$input} />
-        <button onClick={handleLoad}>Load</button>
+        <textarea placeholder="JSON..." ref={$input} onChange={validateInput}/>
+        <button onClick={handleLoad} disabled={!isValid}>{isValid ? "Load": "Invalid input"}</button>
     </div>
 }
 
@@ -116,6 +123,12 @@ function FromEdgeList(props) {
 function FromURL(props) {
     const $input = useRef(null)
 
+    const [isValid, setIsValid] = useState(true)
+
+    const validateInput = () => {
+        validateURL($input.current.value) ? setIsValid(true) : setIsValid(false)
+    }
+
     // Load the graph in memory from the URL entered by the user in the input field
     const handleLoad = () => {
         const url = $input.current.value
@@ -131,8 +144,8 @@ function FromURL(props) {
             <p>The URL must contain a query parameter <code>graph</code> with the graph scheme</p>
             <p>The graph scheme is generated when clicking the <em>Share</em> button, and it will generate a URL with the scheme of the current graph</p>
         </div>
-        <input type="text" placeholder={`${window.location.origin}?graph=...`} ref={$input} />
-        <button onClick={handleLoad}>Load</button>
+        <input type="text" placeholder={`${window.location.origin}?graph=...`} ref={$input} onChange={validateInput}/>
+        <button onClick={handleLoad} disabled={!isValid}>{isValid? "Load": "Invalid URL"}</button>
     </div>
 }
 
