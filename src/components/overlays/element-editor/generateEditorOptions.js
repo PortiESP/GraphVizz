@@ -71,7 +71,7 @@ function globalOptions() {
                 label: "Background color",
                 initial: window.cvs.background,
                 callback: data => window.cvs.background = data,
-                default: "#eee"
+                default: "#eeeeee"
             },
             {
                 type: "title",
@@ -410,7 +410,7 @@ function elementsOptions(selectedElements) {
                 type: "checkbox",
                 label: "Show weight",
                 initial: edges[0].weightColor !== null,
-                callback: data => edges.forEach(e => e.style.weightColor = data ? "#fff4" : null),  // The draw function will not draw the weight if the color is null
+                callback: data => edges.forEach(e => e.style.weightColor = data ? "#ffffff44" : null),  // The draw function will not draw the weight if the color is null
                 default: true
             },
             {
