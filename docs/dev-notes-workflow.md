@@ -2,4 +2,6 @@
 
 ## Global variables
 
-## Getters and setters
+## Getters and Setters
+
+## Triggers and Listeners
