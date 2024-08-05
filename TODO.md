@@ -1,9 +1,11 @@
 
 --- TASK QUEUE ---
 
-- dejar claro q el estilo de un algoritmo:view se mantiene hasta que se cierra la view, incluso si ejecutamos un algoritmo:algorithm, hacer como una alerta de los views abiertos
-- sistema de mensajes o alertas
+DOC
+
 - item en la nav de cuando hay una view activa para copiar el resultado
+- sistema de mensajes o alertas
+- dejar claro q el estilo de un algoritmo:view se mantiene hasta que se cierra la view, incluso si ejecutamos un algoritmo:algorithm, hacer como una alerta de los views abiertos
 
 ------------------
 

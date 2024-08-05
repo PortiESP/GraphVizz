@@ -196,25 +196,21 @@ function elementsOptions(selectedElements) {
                     initial: nodes[0].y,
                     callback: data => nodes[0].y = parseFloat(data),
                 },
-                {
-                    type: "title",
-                    label: "Appearance"  
-                },
-                {
-                    type: "number",
-                    label: "Radius",
-                    initial: nodes[0].r,
-                    callback: data => nodes[0].r = parseFloat(data),
-                    default: constants.NODE_RADIUS
-                }
             )
         }
 
         // One or more nodes selected
         fields.push(
-            nodes.length > 1 && {  // Only add the title if there are more than one node selected, otherwise skip it (this is because when there is only one node selected, the title is already added)
+            {
                 type: "title",
-                label: "Appearance"
+                label: "Appearance"  
+            },
+            {
+                type: "number",
+                label: "Radius",
+                initial: nodes[0].r,
+                callback: data => nodes[0].r = parseFloat(data),
+                default: constants.NODE_RADIUS
             },
             {
                 type: "color",
