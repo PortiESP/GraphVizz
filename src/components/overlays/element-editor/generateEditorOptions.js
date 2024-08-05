@@ -20,6 +20,7 @@ import { focusOnElement } from "../../graph-manager/utils/view"
         checkError: error checking function,
         default: default value,
         disabled: is field disabled,
+        options: additional options (depends on the field type)
     })
     ```
 

@@ -1,11 +1,13 @@
 import { useState } from "react"
 import scss from "./help.module.scss"
+
+// Icons
 import GithubIcon from "@assets/github.svg?react"
 import InfoIcon from "@assets/info-circle.svg?react"
 import HelpIcon from "@assets/help-question.svg?react"
 import BranchIcon from "@assets/git-branch.svg?react"
 
-export default function Help(props) {
+export default function Help() {
 
     return (
         <div className={scss.wrapper}>

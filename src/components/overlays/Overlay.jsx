@@ -37,6 +37,15 @@ export default function ToolOverlay(props) {
 }
 
 
+/**
+ * AsideOverlay component
+ * 
+ * @param {Object} props
+ * @param {String} props.title - The title of the overlay
+ * @param {React.ReactNode} props.children - The children of the overlay
+ * @param {React.ReactNode} props.closeIcon - The icon to show when the overlay is closed
+ * @param {Boolean} props.right - If the overlay should be on the right side. Left side by default
+ */
 function AsideOverlay(props) {
     const [closed, setClosed] = useState(true)
 

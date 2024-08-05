@@ -8,11 +8,12 @@ import { focusOnAllNodes } from "@components/graph-manager/utils/view"
 import HamburgerMenu from "./hamburger-menu/Hamburger"
 import { resetZoom } from "@components/graph-manager/canvas-component/utils/zoom"
 import Nav from "./nav/Nav"
+import Modal from "./hamburger-menu/modal/Modal"
 
 // Icons
 import Logo from "@assets/logo.svg?react"
 import HomeIcon from "@assets/home.svg?react"
-import Modal from "./hamburger-menu/modal/Modal"
+
 
 export default function Header() {
 

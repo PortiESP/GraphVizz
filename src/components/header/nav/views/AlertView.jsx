@@ -1,4 +1,6 @@
 import scss from "../views.module.scss"
+
+// Icons
 import XCircleIcon from "@assets/x-circle.svg?react"
 import InfoIcon from "@assets/info-circle.svg?react"
 import CheckIcon from "@assets/check-circle.svg?react"
@@ -10,7 +12,9 @@ import CheckIcon from "@assets/check-circle.svg?react"
  * @param {Object} options - The alert options.
  * @param {string} options.title - The alert title.
  * @param {string} options.message - The alert message.
+ * @param {string} options.type - The alert type: ["error", "info", "success"], this will change the icon and the color, if not provided, the color will be taken from the color option.
  * @param {string} options.color - The alert color.
+ * @param {JSX.Element} options.icon - The alert icon.
  */
 export default function AlertView({options}) {
 

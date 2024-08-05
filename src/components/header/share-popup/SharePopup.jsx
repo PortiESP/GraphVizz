@@ -34,6 +34,7 @@ export default function SharePopup(props) {
             <div className={scss.container}>
                 <h3 className={scss.title}>Share your graph</h3>
                 <p>Copy the link below and share it with your friends</p>
+                <p className={scss.warning}>The link just store the nodes & edges. If you want to keep also the style, share the JSON using the <strong>save as</strong> menu</p>
                 <div className={scss.link}>
                     <input type="text" value={url} readOnly onClick={handleShare} />
                     <button onClick={handleShare}>{text}</button>

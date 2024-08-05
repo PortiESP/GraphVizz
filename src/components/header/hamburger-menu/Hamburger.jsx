@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { redo, undo } from "@components/graph-manager/utils/memento"
 import { focusOnAllNodes } from "@components/graph-manager/utils/view"
 import { zoomCenterBy } from "@components/graph-manager/canvas-component/utils/zoom"
+import { clearCache } from "@components/graph-manager/utils/cache"
 
 // Icons
 import NoteIcon from "@assets/note.svg?react"
@@ -14,12 +15,10 @@ import ExportIcon from "@assets/export.svg?react"
 import UndoIcon from "@assets/undo.svg?react"
 import RedoIcon from "@assets/redo.svg?react"
 import FocusAllIcon from "@assets/focus-all.svg?react"
-import SettingsIcon from "@assets/settings.svg?react"
 import InfoIcon from "@assets/info.svg?react"
 import ZoomIn from "@assets/zoom-in.svg?react"
 import ZoomOut from "@assets/zoom-out.svg?react"
 import BugIcon from "@assets/bug.svg?react"
-import { clearCache } from "@components/graph-manager/utils/cache"
 
 /**
  * Hamburger menu component
