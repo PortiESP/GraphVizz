@@ -84,3 +84,15 @@
         text-align: center;
     }
 }
+
+
+// Responsive
+@media screen and (max-width: 768px){
+    .wrap{
+        width: 90%;
+    }
+
+    .examples_wrap{
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}

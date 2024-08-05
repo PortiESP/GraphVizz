@@ -76,3 +76,13 @@
         }
     }
 }
+
+// Responsive
+@media screen and (max-width: 768px){
+    .wrap{
+        menu{
+            left: -10px;
+            width: 70vw;
+        }
+    }
+}

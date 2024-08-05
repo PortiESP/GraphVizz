@@ -101,3 +101,26 @@
         }
     }
 }
+
+// Responsive
+
+@media screen and (max-width: 768px){
+    .submenu_wrap{
+        position: fixed;
+        top: 60px;
+        padding: 20px;
+        margin: auto;
+
+        .arrow{
+            display: none;
+        }
+
+        .submenu{
+            flex-direction: column;
+            overflow: scroll;
+            height: 70vh;
+        }
+    }
+
+
+}

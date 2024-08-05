@@ -11,17 +11,15 @@ GUI
   - Language
   - Context menu
 
-- REFACTOR 
+REFACTOR 
   - Global variable hover that calculates once at the mousemove event and the elements just check if they are inside the hover, and not calculate the hover again
 
-- FIX
-  - console log Warnings of color when number
+FIX
 
 UPDATE & CHECK regularly
   - Help page
   - Code quality (comments, JSDoc, encapsulation, consistency)
   - Unused code
-  - Memento events
 
 DOC
   - README
