@@ -1,11 +1,8 @@
 
 --- TASK QUEUE ---
 
-- revisar el resetView Nav:43 y hacer que cada algoritmo lo ejecute
-- element editor debe modificar el estilo original, no el temporal GenerateElementEditorOptions
 - dejar claro q el estilo de un algoritmo:view se mantiene hasta que se cierra la view, incluso si ejecutamos un algoritmo:algorithm, hacer como una alerta de los views abiertos
 - sistema de mensajes o alertas
-- export png background
 - getters y setters para todos los atributos de las clases
 
 ------------------

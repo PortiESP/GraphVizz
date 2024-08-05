@@ -27,7 +27,7 @@ export default function Nav() {
 
 
     const [view, setViewOriginal] = useState(DEFAULT_VIEW)  // The current view. Can be [false, "alert", "select-nodes", "select-node"]
-    const setView = (view) => {
+    const setView = (view) => {  // This function is used as a wrapper to reset the view when the view is changed. (we are not using the useEffect hook for this because we need to reset the view immediately)
         resetView()
         setViewOriginal(view)
     }

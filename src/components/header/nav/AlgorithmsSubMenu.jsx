@@ -399,7 +399,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Circular",
             icon: () => <CircularIcon />,
             callback: () => {
-                setView(null)
                 circularArrange(window.graph.nodes)
                 focusOnAllNodes()
             }
