@@ -18,6 +18,7 @@ import SettingsIcon from "@assets/settings.svg?react"
 import InfoIcon from "@assets/info.svg?react"
 import ZoomIn from "@assets/zoom-in.svg?react"
 import ZoomOut from "@assets/zoom-out.svg?react"
+import BugIcon from "@assets/bug.svg?react"
 import { clearCache } from "@components/graph-manager/utils/cache"
 
 /**
@@ -38,7 +39,7 @@ export default function HamburgerMenu(props) {
     const saveModal = () => { window.ui.call("setModal", "save_graph") } // Function to open the save graph modal
     const exportModal = () => { window.ui.call("setModal", "export_graph") } // Function to open the export graph modal
     const visitHelp = () => { props.close(); navigator("/help") } // Function to navigate to the help page
-    const visitHelpReport = () => { props.close(); navigator("/help#to-contact") } // Function to navigate to the help page
+    const visitGithub = () => { props.close(); window.open("https://github.com/PortiESP/GraphVizz/issues", "_blank"); } // Function to navigate to the help page
     
     return (
         <>
@@ -56,7 +57,7 @@ export default function HamburgerMenu(props) {
                     <MenuItem label="Focus All" onClick={focusOnAllNodes} icon={FocusAllIcon}></MenuItem>
                     <hr />
                     <MenuItem label="Help & About" onClick={visitHelp} icon={InfoIcon}></MenuItem>
-                    <MenuItem label="Report" onClick={visitHelpReport} icon={SettingsIcon}></MenuItem>
+                    <MenuItem label="Report" onClick={visitGithub} icon={BugIcon}></MenuItem>
                 </menu>
             </div>
         </>
