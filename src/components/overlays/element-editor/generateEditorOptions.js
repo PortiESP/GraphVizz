@@ -377,7 +377,7 @@ function elementsOptions(selectedElements) {
             {
                 type: "number",
                 label: "Thickness",
-                initial: edges[0].thickness,
+                initial: edges[0].style.thickness,
                 callback: data => edges.forEach(e => e.style.thickness = parseFloat(data)),
                 default: constants.EDGE_THICKNESS_RATIO
             },

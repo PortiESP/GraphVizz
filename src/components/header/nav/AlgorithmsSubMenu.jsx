@@ -466,8 +466,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                     setView("alert")
                 } else {
                     const edges = generateEdgesByPredecessors(result.prevNode)
-                    window.graph.nodes.forEach(node => node.bubble = result.levels[node.id])
-                    window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                     focusOnAllNodes()
                     setViewProps({
                         title: "Toposort",
@@ -475,6 +473,9 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                         type: "success"
                     })
                     setView("alert")
+                    
+                    window.graph.nodes.forEach(node => node.bubble = result.levels[node.id])
+                    window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                 }
             }
         },

@@ -26,7 +26,11 @@ export default function Nav() {
     const location = useLocation()  // Get the current location
 
 
-    const [view, setView] = useState(DEFAULT_VIEW)  // The current view. Can be [false, "alert", "select-nodes", "select-node"]
+    const [view, setViewOriginal] = useState(DEFAULT_VIEW)  // The current view. Can be [false, "alert", "select-nodes", "select-node"]
+    const setView = (view) => {
+        resetView()
+        setViewOriginal(view)
+    }
     const [viewProps, setViewProps] = useState(DEFAULT_VIEW_PROPS)
     const [hiddenView, setHiddenView] = useState(false)
 
@@ -40,7 +44,6 @@ export default function Nav() {
     // Reset the hidden state when the view changes
     useEffect(() => {
         if (!view) closeView()
-        resetView()
         setHiddenView(false)
     }, [view])
 

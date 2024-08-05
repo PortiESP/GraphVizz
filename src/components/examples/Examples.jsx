@@ -8,6 +8,7 @@ import Europe1SVG from "./thumbnails/europe-1.svg?react"
 import Cayley1SVG from "./thumbnails/cayley-1.svg?react"
 import Complete1SVG from "./thumbnails/complete-1.svg?react"
 import Topo1SVG from "./thumbnails/topo-1.svg?react"
+import Topo2SVG from "./thumbnails/topo-2.svg?react"
 
 
 /**
@@ -22,6 +23,12 @@ import Topo1SVG from "./thumbnails/topo-1.svg?react"
 const EXAMPLES = [  // <-- EDIT THIS ARRAY TO CRUD THE EXAMPLES
     {
         id: "tests-1",
+        title: "Tests",
+        description: "Tests",
+        thumbnail: <Tests1SVG />
+    },
+    {
+        id: "topo-2",
         title: "Tests",
         description: "Tests",
         thumbnail: <Tests1SVG />
@@ -67,6 +74,12 @@ const EXAMPLES = [  // <-- EDIT THIS ARRAY TO CRUD THE EXAMPLES
         title: "Topological graph",
         description: "A graph that represents that can be sorted in a topological order",
         thumbnail: <Topo1SVG />
+    },
+    {
+        id: "topo-2",
+        title: "Topological graph",
+        description: "A graph that represents that can be sorted in a topological order",
+        thumbnail: <Topo2SVG />
     }
 ]
 
