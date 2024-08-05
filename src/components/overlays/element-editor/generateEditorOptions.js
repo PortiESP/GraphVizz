@@ -60,10 +60,17 @@ function globalOptions() {
                 label: "Background"
             },
             {
-                label: "Background color",
-                initial: window.graph.backgroundColor,
-                callback: data => window.cvs.$canvas.style.backgroundColor = data,
+                type: "checkbox",
+                label: "Enable background",
+                initial: !!window.cvs.hasBackground,
+                callback: data => window.cvs.hasBackground = data,
+                default: false
+            },
+            {
                 type: "color",
+                label: "Background color",
+                initial: window.cvs.background,
+                callback: data => window.cvs.background = data,
                 default: "#eee"
             },
             {
