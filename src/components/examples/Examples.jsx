@@ -3,12 +3,13 @@ import scss from "./example.module.scss"
 import Basic1SVG from "./thumbnails/basic-1.svg?react"
 import Tree1SVG from "./thumbnails/tree-1.svg?react"
 import Circle1SVG from "./thumbnails/circular-1.svg?react"
-import Tests1SVG from "./thumbnails/tests-1.svg?react"
+// import Tests1SVG from "./thumbnails/tests-1.svg?react"
 import Europe1SVG from "./thumbnails/europe-1.svg?react"
 import Cayley1SVG from "./thumbnails/cayley-1.svg?react"
 import Complete1SVG from "./thumbnails/complete-1.svg?react"
 import Topo1SVG from "./thumbnails/topo-1.svg?react"
 import Topo2SVG from "./thumbnails/topo-2.svg?react"
+import Logo from "@assets/logo.svg?react"
 
 
 /**
@@ -21,18 +22,18 @@ import Topo2SVG from "./thumbnails/topo-2.svg?react"
  * - thumbnail: A JSX component that renders the thumbnail image for the example
  */
 const EXAMPLES = [  // <-- EDIT THIS ARRAY TO CRUD THE EXAMPLES
-    {
-        id: "tests-1",
-        title: "Tests",
-        description: "Tests",
-        thumbnail: <Tests1SVG />
-    },
-    {
-        id: "topo-2",
-        title: "Tests",
-        description: "Tests",
-        thumbnail: <Tests1SVG />
-    },
+    // {
+    //     id: "tests-1",
+    //     title: "Tests",
+    //     description: "Tests",
+    //     thumbnail: <Tests1SVG />,
+    // },
+    // {
+    //     id: "topo-2",
+    //     title: "Tests",
+    //     description: "Tests",
+    //     thumbnail: <Tests1SVG />
+    // },
     {
         id: "basic-1",
         title: "Basic graph",
@@ -94,6 +95,8 @@ export default function Examples() {
     return (
         <div className={scss.wrap}>
             <div className={scss.content}>
+            <div className={scss.logo}><Logo /></div>
+
                 <h1>Examples</h1>
 
                 <div className={scss.examples_wrap}>

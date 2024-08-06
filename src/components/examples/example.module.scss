@@ -18,6 +18,17 @@
         font-size: 1rem;
         margin-bottom: 20px;
 
+        .logo{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 0;
+            svg{
+                width: 600px;
+                height: 80px;
+            }
+        }
+
         h1{
             font-size: 4rem;
             font-weight: 700;

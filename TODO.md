@@ -2,7 +2,6 @@
 --- TASK QUEUE ---
 
 DOC
-- new edge style
 
 - item en la nav de cuando hay una view activa para copiar el resultado
 - sistema de mensajes o alertas

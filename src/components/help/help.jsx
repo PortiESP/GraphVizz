@@ -6,12 +6,15 @@ import GithubIcon from "@assets/github.svg?react"
 import InfoIcon from "@assets/info-circle.svg?react"
 import HelpIcon from "@assets/help-question.svg?react"
 import BranchIcon from "@assets/git-branch.svg?react"
+import Logo from "@assets/logo.svg?react"
+
 
 export default function Help() {
 
     return (
         <div className={scss.wrapper}>
             <main className={scss.content}>
+                <div className={scss.logo}><Logo /></div>
                 <h1>Help</h1>
                 <div className={scss.tip}>
                     <InfoIcon /> 

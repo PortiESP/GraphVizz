@@ -57,9 +57,11 @@ export default function Header() {
                 <div className={scss.menu_logo}>
                     {
                         // Display the hamburger menu icon only on the graph page
-                        isGraphPage && <div className={scss.list_icon} onClick={() => setIsShowHamburgerMenu(old => !old)}><HomeIcon /></div>
+                        isGraphPage && <>
+                            <div className={scss.list_icon} onClick={() => setIsShowHamburgerMenu(old => !old)}><HomeIcon /></div>
+                            <Link to="/"><div className={scss.logo}><Logo /></div></Link>
+                        </>
                     }
-                    <Link to="/"><div className={scss.logo}><Logo /></div></Link>
                 </div>
 
                 {/* Middle */}
@@ -83,5 +85,5 @@ export default function Header() {
         {isShowHamburgerMenu && <HamburgerMenu close={() => setIsShowHamburgerMenu(false)} />}
         {isShowSharePopup && <SharePopup close={() => setIsShowSharePopup(false)} />}
         {modal && <Modal scene={modal} close={() => setModal(null)} />}
-        </>)
+    </>)
 }

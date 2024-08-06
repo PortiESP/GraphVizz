@@ -18,13 +18,23 @@
         gap: 20px;
         font-size: 1rem;
 
+        .logo{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 0;
+            svg{
+                width: 600px;
+                height: 80px;
+            }
+        }
+
         h1{
             font-size: 4rem;
             font-weight: 700;
             color: #111;
             border-bottom: 2px solid var(--red-secondary);
             padding-bottom: 10px;
-            margin-top: 60px;
         }
 
         .tip{
