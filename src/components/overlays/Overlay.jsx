@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import SharePopup from "./share-popup/SharePopup"
 import ZoomBar from "./zoom-bar/ZoomBar"
+import HelpMenu from "./help/Help-menu"
 
 
 /**
@@ -55,6 +56,7 @@ export default function Overlay(props) {
             {/* Bottom */}
             <ToolBarOverlay />
             <ZoomBar />
+            <HelpMenu />
             {/* Center */}
             {modal && <Modal scene={modal} close={() => setModal(null)} />}
             <Welcome/>
