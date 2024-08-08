@@ -19,6 +19,10 @@ import InfoIcon from "@assets/info.svg?react"
 import ZoomIn from "@assets/zoom-in.svg?react"
 import ZoomOut from "@assets/zoom-out.svg?react"
 import BugIcon from "@assets/bug.svg?react"
+import Logo from "@assets/logo.svg?react"
+import HomeIcon from "@assets/home.svg?react"
+import { useState } from "react"
+import { Link } from "react-router-dom"
 
 /**
  * Hamburger menu component
@@ -31,6 +35,8 @@ import BugIcon from "@assets/bug.svg?react"
 export default function HamburgerMenu(props) {
 
     const navigator = useNavigate()  // Hook to navigate between routes
+    const [isShowHamburgerMenu, setIsShowHamburgerMenu] = useState(false)
+
 
     // Callback functions of the menu items
     const resetGraph = () => { props.close(); window.graph.reset(); clearCache(); navigator("/") } // Function to reset the graph
@@ -42,22 +48,29 @@ export default function HamburgerMenu(props) {
     
     return (
         <>
-            <div className={scss.wrap} onClick={e => e.target.className === scss.wrap && props.close()}>
-                <menu >
-                    <MenuItem label="New empty graph" shortcut="Ctrl+Alt+N" onClick={resetGraph} icon={NoteIcon}></MenuItem>
-                    <MenuItem label="Save as..." shortcut="Ctrl+Shift+S" onClick={saveModal} icon={SaveIcon}></MenuItem>
-                    <MenuItem label="Load from..." shortcut="Ctrl+O" onClick={loadModal} icon={ImportIcon}></MenuItem>
-                    <MenuItem label="Export as..." shortcut="Ctrl+Shift+E" onClick={exportModal} icon={ExportIcon}></MenuItem>
-                    <hr />
-                    <MenuItem label="Undo" shortcut="Ctrl+Z" onClick={undo} icon={UndoIcon}></MenuItem>
-                    <MenuItem label="Redo" shortcut="Ctrl+Shift+Z" onClick={redo} icon={RedoIcon}></MenuItem>
-                    <MenuItem label="Zoom In" onClick={() => zoomCenterBy(1.1)} icon={ZoomIn}></MenuItem>
-                    <MenuItem label="Zoom Out" onClick={() => zoomCenterBy(0.9)} icon={ZoomOut}></MenuItem>
-                    <MenuItem label="Focus All" onClick={focusOnAllNodes} icon={FocusAllIcon}></MenuItem>
-                    <hr />
-                    <MenuItem label="Help & About" onClick={visitHelp} icon={InfoIcon}></MenuItem>
-                    <MenuItem label="Report" onClick={visitGithub} icon={BugIcon}></MenuItem>
-                </menu>
+            <div className={scss.menu_logo}>
+                <div className={scss.menu_icon} onClick={() => setIsShowHamburgerMenu(old => !old)}><HomeIcon /></div>
+                <Link to="/"><div className={scss.logo}><Logo /></div></Link>
+                {
+                    isShowHamburgerMenu && 
+                    <div className={scss.wrap} onClick={e => e.target.className === scss.wrap && setIsShowHamburgerMenu(false)}>
+                        <menu >
+                            <MenuItem label="New empty graph" shortcut="Ctrl+Alt+N" onClick={resetGraph} icon={NoteIcon}></MenuItem>
+                            <MenuItem label="Save as..." shortcut="Ctrl+Shift+S" onClick={saveModal} icon={SaveIcon}></MenuItem>
+                            <MenuItem label="Load from..." shortcut="Ctrl+O" onClick={loadModal} icon={ImportIcon}></MenuItem>
+                            <MenuItem label="Export as..." shortcut="Ctrl+Shift+E" onClick={exportModal} icon={ExportIcon}></MenuItem>
+                            <hr />
+                            <MenuItem label="Undo" shortcut="Ctrl+Z" onClick={undo} icon={UndoIcon}></MenuItem>
+                            <MenuItem label="Redo" shortcut="Ctrl+Shift+Z" onClick={redo} icon={RedoIcon}></MenuItem>
+                            <MenuItem label="Zoom In" onClick={() => zoomCenterBy(1.1)} icon={ZoomIn}></MenuItem>
+                            <MenuItem label="Zoom Out" onClick={() => zoomCenterBy(0.9)} icon={ZoomOut}></MenuItem>
+                            <MenuItem label="Focus All" onClick={focusOnAllNodes} icon={FocusAllIcon}></MenuItem>
+                            <hr />
+                            <MenuItem label="Help & About" onClick={visitHelp} icon={InfoIcon}></MenuItem>
+                            <MenuItem label="Report" onClick={visitGithub} icon={BugIcon}></MenuItem>
+                        </menu>
+                    </div>
+                }
             </div>
         </>
     )

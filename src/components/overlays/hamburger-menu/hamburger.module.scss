@@ -1,3 +1,58 @@
+
+.menu_logo{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    width: 30%;
+    z-index: 100;
+
+    & > .menu_icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 6px;
+        padding: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ebebeb;
+        box-shadow: 0 0 5px #0002;
+        position: relative;
+
+
+        svg {
+            width: 40px;
+            height: 40px;
+
+            path{
+                stroke: #0004;
+            }
+        }
+
+        &:hover {
+            background: #aaa8;
+        }
+    }
+
+    a{
+        height: 30px;
+        display: flex;
+        align-items: center;
+        .logo{
+            height: 100%;
+
+            svg{
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+
 .wrap{
     width: 100vw;
     height: 100vh;
@@ -40,20 +95,30 @@
     display: flex;
     position: relative;
     border-radius: 5px;
+    gap: 10px;
 
     &:hover{
         background: #ddd6;
+
+        .menu_icon svg path {
+            stroke: #333;
+        }
     }
 
     .menu_icon{
-        margin-right: 10px;
+        width: 25px;
+        height: 25px;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
 
-        svg{
+        svg {
             width: 20px;
             height: 20px;
+
+            path{
+                stroke: #888;
+            }
         }
     }
 

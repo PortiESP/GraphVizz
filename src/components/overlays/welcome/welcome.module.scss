@@ -1,0 +1,25 @@
+.wrap{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0004;
+    z-index: 110;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button{
+        border: none;
+        background: #eeea;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 1.2rem;
+        color: #3334;
+    }
+}
+
+
