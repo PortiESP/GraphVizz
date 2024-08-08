@@ -1,0 +1,3 @@
+[submodule "src/components/graph-manager"]
+	path = src/components/graph-manager
+	url = https://github.com/PortiESP/graph-manager.git

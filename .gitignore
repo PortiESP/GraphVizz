@@ -22,7 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# Canvas and Graph
-src/components/canvas
-src/components/graph-manager
