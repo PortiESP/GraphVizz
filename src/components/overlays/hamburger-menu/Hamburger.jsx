@@ -22,29 +22,25 @@ import BugIcon from "@assets/bug.svg?react"
 import Logo from "@assets/logo.svg?react"
 import HomeIcon from "@assets/home.svg?react"
 import { useState } from "react"
-import { Link } from "react-router-dom"
 
 /**
  * Hamburger menu component
  * 
- * @param {Object} props
- * @param {Function} props.close - Function to close the hamburger menu
- * 
  * @returns {JSX.Element} 
  */
-export default function HamburgerMenu(props) {
+export default function HamburgerMenu() {
 
     const navigator = useNavigate()  // Hook to navigate between routes
     const [isShowHamburgerMenu, setIsShowHamburgerMenu] = useState(false)
-
+    const close = () => { setIsShowHamburgerMenu(false) }
 
     // Callback functions of the menu items
-    const resetGraph = () => { props.close(); window.graph.reset(); clearCache(); navigator("/") } // Function to reset the graph
+    const resetGraph = () => { close(); window.graph.reset(); clearCache(); navigator("/") } // Function to reset the graph
     const loadModal = () => { window.ui.call("setModal", "load_graph") } // Function to open the load graph modal
     const saveModal = () => { window.ui.call("setModal", "save_graph") } // Function to open the save graph modal
     const exportModal = () => { window.ui.call("setModal", "export_graph") } // Function to open the export graph modal
-    const visitHelp = () => { props.close(); navigator("/help") } // Function to navigate to the help page
-    const visitGithub = () => { props.close(); window.open("https://github.com/PortiESP/GraphVizz/issues", "_blank"); } // Function to navigate to the help page
+    const visitHelp = () => { close(); navigator("/help") } // Function to navigate to the help page
+    const visitGithub = () => { close(); window.open("https://github.com/PortiESP/GraphVizz/issues", "_blank"); } // Function to navigate to the help page
     
     return (
         <>
