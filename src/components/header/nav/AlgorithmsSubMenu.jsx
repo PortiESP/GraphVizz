@@ -67,9 +67,12 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Breadth First Search (BFS)",
             icon: () => <BFSIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Breadth First Search (BFS)",
                     callback: (selectedNode) => {
+
                         const data = bfs(generateAdjacencyList(), selectedNode)
                         window.ui.call("setLastResult", data)
 
@@ -87,6 +90,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Depth First Search (DFS)",
             icon: () => <DFSIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Depth First Search (DFS)",
                     callback: (selectedNode) => {
@@ -107,6 +112,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Dijkstra",
             icon: () => <MapIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Dijkstra's algorithm",
                     allNodes: true,
@@ -169,6 +176,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Path (all)",
             icon: () => <PathIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -220,6 +229,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Path (one)",
             icon: () => <PathIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -255,6 +266,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Cycle (all)",
             icon: () => <CycleIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -305,6 +318,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Cycle (one)",
             icon: () => <CycleIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -343,6 +358,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Min. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 const data = kruskal(generateAdjacencyList())
                 
                 setViewProps({
@@ -361,6 +378,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Max. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 const data = kruskal(generateAdjacencyList(), true)
                 
                 setViewProps({
@@ -382,6 +401,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Chromatic number",
             icon: () => <ColorsIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -409,6 +430,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Nodes degree",
             icon: () => <DegIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 const data = nodes_deg(window.graph)
                 
                 setViewProps({
@@ -433,6 +456,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Circular",
             icon: () => <CircularIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 circularArrange(window.graph.nodes)
                 focusOnAllNodes()
             }
@@ -441,6 +466,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Grid",
             icon: () => <GridIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 gridArrange(window.graph.nodes)
                 focusOnAllNodes()
             }
@@ -453,6 +480,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Tree (bfs)",
             icon: () => <BFSIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Select the root node",
                     callback: (value) => {
@@ -470,6 +499,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Tree (dfs)",
             icon: () => <DFSIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Select the root node",
                     callback: (value) => {
@@ -487,6 +518,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Toposort",
             icon: () => <BrokenLinkIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 const g = generateAdjacencyList()
                 const result = toposortArrange(g)
 
@@ -520,6 +553,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Organic",
             icon: () => <AtomIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setView(null)
                 organicArrange()
                 focusOnAllNodes()
@@ -529,6 +564,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Random",
             icon: () => <RandomIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setView(null)
                 randomArrange(window.graph.nodes)
                 focusOnAllNodes()
@@ -545,6 +582,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Chromatic neighbors",
             icon: () => <ColorsIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -571,6 +610,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Degree",
             icon: () => <DegIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 const data = nodes_deg(window.graph)
                 const max = Math.max(...Object.values(data))+1
                 const min = Math.min(...Object.values(data))                
@@ -594,6 +635,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Critical nodes",
             icon: () => <WifiOffIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 const nodes = criticalNodes(generateAdjacencyList())
 
                 setViewProps({
@@ -614,6 +657,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Conex components",
             icon: () => <AtomIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 const g = generateAdjacencyList()
                 const result = conexComps(g)
                 const n = result.length
@@ -644,6 +689,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Default style",
             icon: () => <RevertIcon />,
             callback: () => {
+                if (window.graph.isGraphEmpty()) return
+
                 setViewProps(null)
                 setView(null)
                 window.graph.getElements().forEach(element => element.resetStyle())
