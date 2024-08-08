@@ -72,6 +72,10 @@
             --color: #333;
         }
 
+        &:active{
+            background: #0002;
+        }
+
         .submenu_icon{
             width: 18px;
             height: 18px;

@@ -40,9 +40,23 @@ import DegIcon from "@assets/deg.svg?react"
 import WifiOffIcon from "@assets/wifi-off.svg?react"
 import RevertIcon from "@assets/revert.svg?react"
 
+export function copyToClipboard(data) {
+    const parser = (key, value) => {
+        const eType = value?.constructor?.name
+        if (eType === "Node") return value.id
+        if (eType === "Edge") return {src: value.src.id, dst: value.dst.id, weight: value.weight, directed: value.directed}
+        return value
+    }
+    navigator.clipboard.writeText(JSON.stringify(data, parser, 2))
+    .then(() => window.cvs.debug && console.log("Data copied to clipboard", data))
+    .catch((e) => console.error("Failed to copy data to clipboard", data, e))
+}
+
 export default function AlgorithmsSubMenu({ setView, setViewProps }) {
 
     const navigate = useNavigate()
+
+    
 
     const algorithms = [
         {
@@ -56,11 +70,14 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                 setViewProps({
                     title: "Breadth First Search (BFS)",
                     callback: (selectedNode) => {
-                        const adjList = generateAdjacencyList()
-                        const { result, prevNode } = bfs(adjList, selectedNode)
-                        const edges = generateEdgesByPredecessors(prevNode)
-                        result.forEach((node, i) => node.bubble = i)
+                        const data = bfs(generateAdjacencyList(), selectedNode)
+                        window.ui.call("setLastResult", data)
+
+                        const edges = generateEdgesByPredecessors(data.prevNode)
+                        data.result.forEach((node, i) => node.bubble = i)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+
+                        return <button onClick={() => copyToClipboard(data)}>Copy data</button>
                     }
                 })
                 setView("select-node")
@@ -73,11 +90,14 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                 setViewProps({
                     title: "Depth First Search (DFS)",
                     callback: (selectedNode) => {
-                        const adjList = generateAdjacencyList()
-                        const { result, prevNode } = dfs(adjList, selectedNode)
-                        const edges = generateEdgesByPredecessors(prevNode)
-                        result.forEach((node, i) => node.bubble = i)
+                        const data = dfs(generateAdjacencyList(), selectedNode)
+                        window.ui.call("setLastResult", data)
+
+                        const edges = generateEdgesByPredecessors(data.prevNode)
+                        data.result.forEach((node, i) => node.bubble = i)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+
+                        return <button onClick={() => copyToClipboard(data)}>Copy data</button>
                     }
                 })
                 setView("select-node")
@@ -93,6 +113,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                     callback: (node1, node2) => {
                         const g = generateAdjacencyList()
                         const result = dijkstra(g, node1)
+                        window.ui.call("setLastResult", result)
+
                         const disabled = result[node2]?.distance === Infinity
                         setView("select-nodes")
 
@@ -158,6 +180,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                         const adjList = generateAdjacencyList()
                         const startNode = window.graph.findNodeById(selectedNode)
                         const data = hamiltonianPath(adjList, startNode, true)
+                        window.ui.call("setLastResult", data)
+
                         const copyAsJSON = () => {
                             const paths = data.all.map(path => path.map(node => node.id))
                             const str = JSON.stringify(paths, null, 2)
@@ -207,6 +231,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                         const adjList = generateAdjacencyList()
                         const startNode = window.graph.findNodeById(selectedNode)
                         const data = hamiltonianPath(adjList, startNode)
+                        window.ui.call("setLastResult", data)
+
                         const copyAsJSON = () => {
                             const nodePath = data.path.map(node => node.id)
                             const str = JSON.stringify(nodePath, null, 2)
@@ -239,6 +265,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                         
                         const adjList = generateAdjacencyList()
                         const data = hamiltonianCycle(adjList, selectedNode, true, true)
+                        window.ui.call("setLastResult", data)
+
                         const copyAsJSON = () => {
                             const paths = data.all.map(path => path.map(node => node.id))
                             const str = JSON.stringify(paths, null, 2)
@@ -287,6 +315,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                         
                         const adjList = generateAdjacencyList()
                         const data = hamiltonianCycle(adjList, selectedNode, false, true)
+                        window.ui.call("setLastResult", data)
+
                         const copyAsJSON = () => {
                             const nodePath = data.path.map(node => node.id)
                             const str = JSON.stringify(nodePath, null, 2)
@@ -313,16 +343,17 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Min. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
-                window.graph.resetView()
                 const data = kruskal(generateAdjacencyList())
-                window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
-
+                
                 setViewProps({
                     title: "Result",
                     message: `Total weight is ${data.totalWeight}.`,
                     type: "info"
                 })
                 setView("alert")
+                window.ui.call("setLastResult", data)
+                
+                window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
 
             }
         },
@@ -330,17 +361,17 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Max. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
-                window.graph.resetView()
                 const data = kruskal(generateAdjacencyList(), true)
-                window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
-
+                
                 setViewProps({
                     title: "Result",
                     message: `Total weight is ${data.totalWeight}.`,
                     type: "info"
                 })
                 setView("alert")
-
+                window.ui.call("setLastResult", data)
+                
+                window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
             }
         },
         {
@@ -356,6 +387,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                     callback: (selectedNode) => {
                         const g = generateAdjacencyList()
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
+                        window.ui.call("setLastResult", data)
+
                         window.graph.nodes.forEach(node => node.bubble = data[node.id])
 
                         const copyAsJSON = () => {
@@ -364,8 +397,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                         }
 
                         return <>
-                        <p className={scss.info}>Number of groups: {Math.max(...Object.values(data))+1}</p>
-                        <button onClick={copyAsJSON}>Copy as JSON</button>
+                            <p className={scss.info}>Number of groups: {Math.max(...Object.values(data))+1}</p>
+                            <button onClick={copyAsJSON}>Copy as JSON</button>
                         </>
                     }
                 })
@@ -377,15 +410,16 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             icon: () => <DegIcon />,
             callback: () => {
                 const data = nodes_deg(window.graph)
-                window.graph.nodes.forEach(node => node.bubble = data[node.id])
-
+                
                 setViewProps({
                     title: "Nodes degree",
                     message: "The degree of each node was calculated and displayed.",
                     type: "info"
                 })
-
                 setView("alert")
+                window.ui.call("setLastResult", data)
+                
+                window.graph.nodes.forEach(node => node.bubble = data[node.id])
             }
         }
     ]
@@ -516,6 +550,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                     callback: (selectedNode) => {
                         const g = generateAdjacencyList()
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
+                        window.ui.call("setLastResult", data)
                         
                         const COLORS = colorGenerator(Math.max(...Object.values(data))+1)
 
@@ -538,13 +573,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             callback: () => {
                 const data = nodes_deg(window.graph)
                 const max = Math.max(...Object.values(data))+1
-                const min = Math.min(...Object.values(data))
-                const COLORS = heatmapColorGenerator(max-min)
-
-                Object.entries(data).forEach(([node, color]) => {
-                    const nodeElement = window.graph.findNodeById(node)
-                    nodeElement.style.backgroundColor = COLORS[color-min]
-                })
+                const min = Math.min(...Object.values(data))                
 
                 setViewProps({
                     title: "Degree heatmap",
@@ -552,6 +581,13 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                     type: "info"
                 })
                 setView("alert")
+                window.ui.call("setLastResult", data)
+                
+                const COLORS = heatmapColorGenerator(max-min)
+                Object.entries(data).forEach(([node, color]) => {
+                    const nodeElement = window.graph.findNodeById(node)
+                    nodeElement.style.backgroundColor = COLORS[color-min]
+                })
             }
         },
         {
@@ -560,17 +596,18 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             callback: () => {
                 const nodes = criticalNodes(generateAdjacencyList())
 
-                window.graph.nodes.forEach(node => {
-                    const critical = nodes.includes(node)
-                    node.style.backgroundColor = critical ? "red" : "hsl(120, 100%, 45%)"
-                })
-
                 setViewProps({
                     title: "Critical nodes",
                     message: `Critical nodes (${nodes.length}): ${nodes.join(", ")}`,
                     type: "info"
                 })
                 setView("alert")
+                window.ui.call("setLastResult", nodes)
+
+                window.graph.nodes.forEach(node => {
+                    const critical = nodes.includes(node)
+                    node.style.backgroundColor = critical ? "red" : "hsl(120, 100%, 45%)"
+                })
             }
         },
         {
@@ -581,6 +618,14 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                 const result = conexComps(g)
                 const n = result.length
                 const colors = colorGenerator(n).reverse()
+
+                setViewProps({
+                    title: "Conex components",
+                    message: `Number of components: ${n}`,
+                    type: "info"
+                })
+                setView("alert")
+                window.ui.call("setLastResult", result)
                 
                 result.forEach((comp, index) => {
                     comp.forEach(node => {
@@ -589,12 +634,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                     })
                 })
 
-                setViewProps({
-                    title: "Conex components",
-                    message: `Number of components: ${n}`,
-                    type: "info"
-                })
-                setView("alert")
             }
         },
         {
@@ -607,12 +646,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             callback: () => {
                 setViewProps(null)
                 setView(null)
-                window.graph.nodes.forEach(node => {
-                    node.backgroundColor = constants.NODE_BACKGROUND_COLOR
-                    node.color = constants.NODE_LABEL_COLOR
-                    node.borderColor = constants.NODE_BORDER_COLOR
-                    node.borderRatio = constants.NODE_BORDER_RATIO
-                })
+                window.graph.getElements().forEach(element => element.resetStyle())
             }
         },
     ]

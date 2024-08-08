@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 // Components & functions
-import AlgorithmsSubMenu from "./AlgorithmsSubMenu";
+import AlgorithmsSubMenu, { copyToClipboard as copyDataToClipboard } from "./AlgorithmsSubMenu";
 import SubMenu, { SubMenuItem } from "./nav-sub-menu/SubMenu";
 
 // Views
@@ -25,14 +25,16 @@ export default function Nav() {
 
     const location = useLocation()  // Get the current location
 
-
     const [view, setViewOriginal] = useState(DEFAULT_VIEW)  // The current view. Can be [false, "alert", "select-nodes", "select-node"]
     const setView = (view) => {  // This function is used as a wrapper to reset the view when the view is changed. (we are not using the useEffect hook for this because we need to reset the view immediately)
         resetView()
+        setHiddenView(false)
+        setLastResult(null)
         setViewOriginal(view)
     }
     const [viewProps, setViewProps] = useState(DEFAULT_VIEW_PROPS)
     const [hiddenView, setHiddenView] = useState(false)
+    const [lastResult, setLastResult] = useState(null)
 
     // Close the view when the location changes
     useEffect(() => {
@@ -41,11 +43,10 @@ export default function Nav() {
         setViewProps(DEFAULT_VIEW_PROPS)
     }, [location])
 
-    // Reset the hidden state when the view changes
     useEffect(() => {
-        if (!view) closeView()
-        setHiddenView(false)
-    }, [view])
+        window.ui.set("setLastResult", setLastResult)
+    }, [])
+
 
     // Reset the view by resetting hidden nodes and edges and other decorations
     const resetView = () => {
@@ -85,6 +86,7 @@ export default function Nav() {
                             {<>
                                 <div>
                                     {view !== "alert" && <SubMenuItem title="Open view menu" callback={() => setHiddenView(false)} />}
+                                    {lastResult && <SubMenuItem title="Copy result" callback={() => copyDataToClipboard(lastResult)} />}
                                     <SubMenuItem title="Close view" callback={() => closeView()} />
                                 </div>
                             </>}
