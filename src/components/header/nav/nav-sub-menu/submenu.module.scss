@@ -108,7 +108,7 @@
     .submenu_wrap{
         position: fixed;
         top: 60px;
-        padding: 20px;
+        padding: 0px;
         margin: auto;
 
         .arrow{
@@ -118,7 +118,7 @@
         .submenu{
             flex-direction: column;
             overflow: scroll;
-            height: 70vh;
+            max-height: 70vh;
         }
     }
 
