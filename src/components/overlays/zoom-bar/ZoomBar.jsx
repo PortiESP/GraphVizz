@@ -4,8 +4,8 @@ import scss from "./zoomBar.module.scss"
 // Icons
 import ZoomInIcon from "@assets/zoom-in.svg?react"
 import ZoomOutIcon from "@assets/zoom-out.svg?react"
-import { useEffect } from "react";
-import { zoomCenterBy, zoomCenterTo, zoomIn, zoomOut, zoomTo } from "@components/graph-manager/canvas-component/utils/zoom";
+import { useEffect } from "react"
+import { zoomCenterBy, zoomCenterTo } from "@components/graph-manager/canvas-component/utils/zoom"
 
 export default function ZoomBar(props) {
 
