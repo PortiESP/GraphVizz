@@ -10,6 +10,12 @@
     padding: 5px;
     border-radius: 0 0 6px 6px;
     width: fit-content;
+
+    a{
+        text-decoration: none;
+        color: var(--text-gray);
+        height: 100%;
+    }
     
     li {
         color: var(--text-gray);

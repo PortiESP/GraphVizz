@@ -1,3 +1,46 @@
+.menu_info {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px;
+    width: 30%;
+    z-index: 65;
+
+    .share{
+        border: none;
+        border-radius: 6px;
+        padding: 8px 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        color: #fff8;
+        background: var(--blue-bright);
+        cursor: pointer;
+
+        &:hover{
+            color: #eeed;
+        }
+    }
+
+    .zoom{
+        font-weight: 500;
+        color: var(--text-gray);
+        min-width: 50px;
+        text-align: center;
+
+        &:hover{
+            text-decoration: line-through;
+        }
+    }
+}
+
+
 .wrap{
     position: fixed;
     top: 0;

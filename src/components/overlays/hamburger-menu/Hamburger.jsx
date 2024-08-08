@@ -50,7 +50,7 @@ export default function HamburgerMenu(props) {
         <>
             <div className={scss.menu_logo}>
                 <div className={scss.menu_icon} onClick={() => setIsShowHamburgerMenu(old => !old)}><HomeIcon /></div>
-                <Link to="/"><div className={scss.logo}><Logo /></div></Link>
+                <div className={scss.logo}><Logo /></div>
                 {
                     isShowHamburgerMenu && 
                     <div className={scss.wrap} onClick={e => e.target.className === scss.wrap && setIsShowHamburgerMenu(false)}>

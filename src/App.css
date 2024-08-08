@@ -4,11 +4,5 @@
     align-items: flex-start;
     width: 100%;
     min-height: 100vh;
-}
-
-#canvas{
-    /* background-image: url('/mapa.webp');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat; */
+    position: relative;
 }

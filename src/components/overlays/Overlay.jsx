@@ -16,6 +16,8 @@ import HamburgerMenu from "./hamburger-menu/Hamburger"
 import Modal from "./hamburger-menu/modal/Modal"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
+import SharePopup from "./share-popup/SharePopup"
+import ZoomBar from "./zoom-bar/ZoomBar"
 
 
 /**
@@ -36,11 +38,13 @@ export default function Overlay(props) {
 
     return (
         <div className={scss.wrap}>
+            {/* Canvas */}
             <div className={scss.canvas_wrap}>
                 {props.children}
             </div>
             {/* Top */}
             <HamburgerMenu />
+            <SharePopup />
             {/* Mid */}
             <AsideOverlay title="Live Editor" closeIcon={<KbdIcon />} help="to-live-editor">
                 <LiveEditor />
@@ -50,6 +54,7 @@ export default function Overlay(props) {
             </AsideOverlay>
             {/* Bottom */}
             <ToolBarOverlay />
+            <ZoomBar />
             {/* Center */}
             {modal && <Modal scene={modal} close={() => setModal(null)} />}
             <Welcome/>
