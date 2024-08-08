@@ -139,6 +139,11 @@
 
 // Responsive
 @media screen and (max-width: 768px) {
+    .menu_logo {
+        top: 50px;
+        
+    }
+
     .wrap {
         menu {
             left: -10px;

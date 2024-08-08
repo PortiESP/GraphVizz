@@ -63,3 +63,16 @@
 
     }
 }
+
+
+// Responsive
+@media (max-width: 768px){
+    .zoom_wrap{
+        padding: 10px;
+
+        .zoom_tool .zoom_value{
+           font-size: .8rem;
+           width: 40px;
+        }
+    }
+}

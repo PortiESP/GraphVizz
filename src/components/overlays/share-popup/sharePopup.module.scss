@@ -164,3 +164,11 @@
 
     }
 }
+
+
+// Responsive
+@media screen and (max-width: 768px){
+    .menu_info{
+        display: none;
+    }
+}

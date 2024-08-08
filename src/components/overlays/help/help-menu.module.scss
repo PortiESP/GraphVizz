@@ -67,3 +67,14 @@
         color: #333;
     }
 }
+
+
+// Responsive
+@media (max-width: 768px){
+    .item{
+        &:hover{
+            background: none;
+            color: #0006;
+        }
+    }
+}
