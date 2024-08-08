@@ -7,9 +7,18 @@ import InfoIcon from "@assets/info-circle.svg?react"
 import HelpIcon from "@assets/help-question.svg?react"
 import BranchIcon from "@assets/git-branch.svg?react"
 import Logo from "@assets/logo.svg?react"
+import { useLayoutEffect } from "react"
 
 
 export default function Help() {
+
+
+    useLayoutEffect(() => {
+        if(location.hash) {
+            const element = document.getElementById(location.hash.slice(1))
+            if(element) element.scrollIntoView()
+        }
+    })
 
     return (
         <div className={scss.wrapper}>
@@ -203,10 +212,19 @@ export default function Help() {
 
 
 function Toggle(props) {
-    const [expanded, setExpanded] = useState(false)
+    const id = props.title.replace(/ /g, "-").toLowerCase()
+    const [expanded, setExpanded] = useState(location.hash === "#to-"+id)
+
+    useLayoutEffect(() => {
+        if(location.hash === "#to-"+id) {
+            setExpanded(true)
+            document.getElementById("to-"+id).scrollIntoView()
+        }
+    })
 
     return (
-        <div className={scss.toggle_wrap}>
+        <div className={scss.toggle_wrap} id={id}>
+            <span className={scss.section_id} id={"to-"+id}></span>
             <div className={[scss.toggle_header, expanded ? scss.open: undefined].join(" ")} onClick={() => setExpanded(!expanded)}>
                 <span className={[scss.toggle_triangle, expanded && scss.triangle_rot].join(" ")}>▲</span>
                 <h4>{props.title}</h4>

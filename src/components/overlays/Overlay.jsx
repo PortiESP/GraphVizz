@@ -10,6 +10,9 @@ import ToolBarOverlay from "./tool-bar/ToolBar"
 import CloseIcon from "@assets/close.svg?react"
 import PaletteIcon from "@assets/palette.svg?react"
 import KbdIcon from "@assets/keyboard.svg?react"
+import HelpIcon from "@assets/info.svg?react"
+import Welcome from "./welcome/Welcome"
+import { useNavigate } from "react-router-dom"
 
 
 /**
@@ -25,13 +28,14 @@ export default function ToolOverlay(props) {
             <div className={scss.canvas_wrap}>
                 {props.children}
             </div>
-            <AsideOverlay title="Live Editor" closeIcon={<KbdIcon />}>
+            <AsideOverlay title="Live Editor" closeIcon={<KbdIcon />} help="to-live-editor">
                 <LiveEditor />
             </AsideOverlay>
-            <AsideOverlay title="Element Editor" right closeIcon={<PaletteIcon />}>
+            <AsideOverlay title="Element Editor" right closeIcon={<PaletteIcon />} help="to-element-editor">
                 <ElementEditor />
             </AsideOverlay>
             <ToolBarOverlay />
+            <Welcome/>
         </div>
     )
 }
@@ -48,6 +52,7 @@ export default function ToolOverlay(props) {
  */
 function AsideOverlay(props) {
     const [closed, setClosed] = useState(true)
+    const nav = useNavigate()
 
     const closedClass = props.right ? scss.closed_right : scss.closed_left
     const className = props.right ? scss.overlay_right : scss.overlay_left
@@ -56,6 +61,7 @@ function AsideOverlay(props) {
         <div className={[scss.overlay, className, closed ? closedClass : ""].join(" ")}>
             <div className={scss.title}>
                 {props.title}
+                <HelpIcon onClick={e => nav("/help#"+props.help)}/>
                 <div className={scss.toggle} onClick={() => setClosed(old => !old)}>
                     <CloseIcon />
                 </div>

@@ -22,6 +22,29 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 5px;
+
+        svg {
+            width: 15px;
+            height: 15px;
+
+            path {
+                stroke: #0003;
+            }
+            circle {
+                fill: #0003;
+            }
+
+            &:hover {
+                cursor: pointer;
+                path {
+                    stroke: #0008;
+                }
+                circle {
+                    fill: #0008;
+                }
+            }
+        }
 
         .toggle {
             position: absolute;
