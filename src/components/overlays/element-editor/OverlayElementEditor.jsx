@@ -15,6 +15,7 @@ import Text from "./widgets/Text"
 import Number from "./widgets/Number"
 import Color from "./widgets/Color"
 import Range from "./widgets/Range"
+import Checkbox from "./widgets/Checkbox"
 
 
 export default function ElementEditor() {
@@ -46,84 +47,28 @@ export default function ElementEditor() {
                     menu?.map((section, i) => (
                         <SectionTitle key={i} title={section.title}>
                             {
-                                section.fields.map((field, i) => (
+                                section.fields.map((field, i) => {
+                                    const parseField = (field) => {
+                                        return field.type === "title" && <h3 key={field.label + i} className={scss.section_title}>{field.label}</h3> ||    // Title
+                                        field.type === "text" && <Text key={field.label + i} {...field}/> ||        // Text input
+                                        field.type === "number" && <Number key={field.label + i} {...field}/> ||    // Number input
+                                        field.type === "color" && <Color key={field.label + i} {...field}/> ||      // Color input
+                                        field.type === "range" && <Range key={field.label + i} {...field}/> ||      // Range input
+                                        field.type === "checkbox" && <Checkbox key={field.label + i} {...field} /> ||  // Checkbox input
+                                        field.type === "row" && <div key={"row" + i} className={scss.row}>{
+                                            field.cols.map((f, i) => {
+                                                return parseField(f)
+                                            })
+                                        }</div> || null
+                                    }
+
                                     // Render the corresponding widget based on the field type
-                                    field.type === "title" && <h3 key={field.label + i} className={scss.section_title}>{field.label}</h3> ||    // Title
-                                    field.type === "text" && <Text key={field.label + i} {...field}/> ||        // Text input
-                                    field.type === "number" && <Number key={field.label + i} {...field}/> ||    // Number input
-                                    field.type === "color" && <Color key={field.label + i} {...field}/> ||      // Color input
-                                    field.type === "range" && <Range key={field.label + i} {...field}/> ||      // Range input
-                                    field.type === "checkbox" && <Input key={field.label + i} {...field} />     // Checkbox input
-                                ))
+                                    return parseField(field)
+                                })
                             }
                         </SectionTitle>
                     ))
                 }
-        </div>
-    )
-}
-
-
-
-function Input(props) {
-    const [value, setValue] = useState(props.initial ?? "")
-    const [errorMsg, setErrorMsg] = useState("")
-
-    const handleChange = e => {
-        let data = e.target.value ?? ""
-        if (props.type === "checkbox") data = e.target.checked
-
-        if (props.checkError) {
-            // Validate the input, return true if valid, otherwise return an error message
-            const error = props.checkError(data)
-
-            if (!error) {
-                props.callback(data)
-                setErrorMsg("")
-            } else {
-                setErrorMsg(error ?? "")
-            }
-
-            setValue(data)
-        } else {
-            props.callback(data)
-            setValue(data)
-        }
-
-
-    }
-
-    useEffect(() => {
-        setValue(props.initial ?? "")
-    }, [props.initial])
-
-    const id = Math.random().toString(36).substring(7)
-    const colorThumbnail = {
-        background: props.type === "color" ? value : null,
-        
-    }
-
-    const resetDefault = () => {
-        const defValue = props.default || props.initial
-        setValue(defValue)
-        props.callback(defValue)
-    }
-
-    return (
-        <div className={[scss.input_wrap, scss[props.type]].join(" ")} onClick={props.disabled ? props.callback: undefined}>
-            <label htmlFor={id} style={props.labelStyle}>{props.label}  
-                <div className={scss.label_info}>
-                    <span className={scss.revert} onClick={resetDefault}><RevertIcon /></span>
-                    {errorMsg && <span className={scss.error} title={errorMsg}><CloseIcon /></span>}
-                </div>
-            </label>
-            <div className={scss.inputs} style={colorThumbnail}>
-                <input value={value} onChange={handleChange} disabled={props.disabled} type={props.type} {...props.options} checked={value} id={id} placeholder={errorMsg}></input>
-                {
-                    props.type === "range" &&
-                    <input value={value} onChange={handleChange} disabled={props.disabled} type="number" {...props.options} tabIndex={null}/>
-                }
-            </div>
         </div>
     )
 }

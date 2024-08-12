@@ -186,16 +186,21 @@ function elementsOptions(selectedElements) {
                     label: "Position"
                 },
                 {
-                    type: "number",
-                    label: "X",
-                    initial: nodes[0].x,
-                    callback: data => nodes[0].x = parseFloat(data),
-                },
-                {
-                    type: "number",
-                    label: "Y",
-                    initial: nodes[0].y,
-                    callback: data => nodes[0].y = parseFloat(data),
+                    type: "row",
+                    cols: [
+                        {
+                            type: "number",
+                            label: "X",
+                            initial: nodes[0].x,
+                            callback: data => nodes[0].x = parseFloat(data),
+                        },
+                        {
+                            type: "number",
+                            label: "Y",
+                            initial: nodes[0].y,
+                            callback: data => nodes[0].y = parseFloat(data),
+                        },
+                    ]
                 },
             )
         }

@@ -1,5 +1,8 @@
-import { Link } from "react-router-dom"
 import scss from "./example.module.scss"
+import { Link } from "react-router-dom"
+import Logo from "@assets/logo.svg?react"
+
+// Thumbnails for the examples
 import Basic1SVG from "./thumbnails/basic-1.svg?react"
 import Tree1SVG from "./thumbnails/tree-1.svg?react"
 import Circle1SVG from "./thumbnails/circular-1.svg?react"
@@ -9,7 +12,6 @@ import Cayley1SVG from "./thumbnails/cayley-1.svg?react"
 import Complete1SVG from "./thumbnails/complete-1.svg?react"
 import Topo1SVG from "./thumbnails/topo-1.svg?react"
 import Topo2SVG from "./thumbnails/topo-2.svg?react"
-import Logo from "@assets/logo.svg?react"
 
 
 /**

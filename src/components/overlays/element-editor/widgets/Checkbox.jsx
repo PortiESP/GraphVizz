@@ -34,7 +34,7 @@ export default function Checkbox(props) {
 
     // Handle the input change event (true/false)
     const handleChange = e => {
-        data = e.target.checked  // Checked is true/false
+        const data = e.target.checked  // Checked is true/false
 
         // If the user has defined a validation function
         if (props.checkError) {
