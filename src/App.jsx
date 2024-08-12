@@ -1,5 +1,5 @@
 import './App.css'
-import Graph from './components/graph-manager/GraphManager'
+import Graph from './components/graph-manager/GraphManager.jsx'
 import Header from './components/header/Header'
 import Overlay from './components/overlays/Overlay'
 import Help from './components/help/help'
