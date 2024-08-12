@@ -16,7 +16,6 @@ export default function SubMenu(props) {
                     props.children
                 }
             </div>
-            <div className={scss.arrow} />
         </div>
     )
 }

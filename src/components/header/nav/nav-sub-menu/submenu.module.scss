@@ -2,23 +2,10 @@
     display: none;
 
     position: absolute;
-    top: 26px;
     left: 50%;
     transform: translateX(-50%);
-    padding-top: 10px;
+    padding-top: 20px;
     z-index: 1;
-
-    .arrow{
-        position: absolute;
-        top: 0px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-bottom: 10px solid #eee;
-    }
 
     .submenu{
         background: #eeeeeef0;
@@ -33,6 +20,12 @@
 }
 
 .submenu{
+
+    // customize scrollbar
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #0002 #0001;
+
 
     h4{
         font-size: 1.1rem;
@@ -122,6 +115,7 @@
         .submenu{
             flex-direction: column;
             overflow: scroll;
+            overflow-x: hidden;
             max-height: 70vh;
         }
     }
