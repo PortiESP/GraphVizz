@@ -10,16 +10,73 @@
     justify-content: center;
     align-items: center;
 
-    button{
-        border: none;
-        background: #eeea;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: inherit;
-        font-size: 1.2rem;
-        color: #3334;
-    }
+    
 }
 
 
+.central{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 6px;
+    background-color: #e0e0e0;
+    border: 1px solid #0004;
+    gap: 20px;
+
+    svg{
+        height: 30px;
+    }
+
+    h2{
+        font-size: 2rem;
+        // padding: 10px;
+        padding-top: 0;
+        color: #3336;
+        text-align: center;
+    }
+
+    hr{
+        width: 10%;
+        border: none;
+        border-top: 2px solid #0001;
+    }
+
+    button{
+        border: none;
+        background: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: 2px solid #f004;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 1rem;
+        color: #3334;
+        color: #f004;
+
+        &:hover{
+            background: #f00;
+            color: #fff;
+        }
+    }
+
+    p{
+        font-size: 1rem;
+        color: #3338;
+    }   
+
+    kbd{
+        font-size: .8rem;
+        background: #0001;
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: #f708;
+    }
+
+    .hint{
+        font-size: .8rem;
+        color: #0004;
+        text-decoration: underline;
+    }
+}

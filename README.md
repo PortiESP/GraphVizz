@@ -49,6 +49,8 @@ This is an online graph visualization tool that allows you to **create**, **edit
 - 📤 **Import and export graphs**
   - Import graphs from an edge list, JSON file, or a URL. 
   - Export graphs to an edge list or a JSON file or share the graph using a URL.
+- 📱 **Responsive**
+  - Use the tool in mobile devices.
 - 🔧 **Other features**
   - Undo/Redo actions with `Ctrl + Z` and `Ctrl + Y` or `Ctrl + Shift + Z`.
 
