@@ -105,7 +105,8 @@ function globalOptions() {
                 callback: data => window.graph.gridThickness = parseFloat(data),
                 type: "number",
                 options: {
-                    min: 0
+                    min: 0,
+                    step: .2
                 },
                 default: 1
             },
