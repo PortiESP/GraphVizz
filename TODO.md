@@ -3,6 +3,7 @@
 
 DOC
 
+- canvas user select disabled for mobile devices
 - sistema de mensajes o alertas
 - mouse hovers y actives
 - logo responsive on top of other menus
