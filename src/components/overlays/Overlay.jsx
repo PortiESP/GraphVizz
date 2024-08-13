@@ -5,7 +5,6 @@ import { useState } from "react"
 import LiveEditor from "./live-editor/OverlayLiveEditor"
 import ElementEditor from "./element-editor/OverlayElementEditor"
 import ToolBarOverlay from "./tool-bar/ToolBar"
-import { Bounce, ToastContainer } from "react-toastify"
 
 // Icons
 import CloseIcon from "@assets/close.svg?react"
@@ -20,6 +19,7 @@ import { useEffect } from "react"
 import SharePopup from "./share-popup/SharePopup"
 import ZoomBar from "./zoom-bar/ZoomBar"
 import HelpMenu from "./help/Help-menu"
+import { Toaster } from "react-hot-toast"
 
 
 /**
@@ -61,19 +61,7 @@ export default function Overlay(props) {
             {/* Center */}
             {modal && <Modal scene={modal} close={() => setModal(null)} />}
             <Welcome/>
-            <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light" 
-                transition={Bounce}
-            />
+            <Toaster position="bottom-right" />
         </div>
     )
 }
