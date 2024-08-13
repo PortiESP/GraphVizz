@@ -3,6 +3,7 @@
 
 DOC
 
+- setupAfterCanvas, mejorar esta práctica
 - canvas user select disabled for mobile devices
 - sistema de mensajes o alertas
 - mouse hovers y actives

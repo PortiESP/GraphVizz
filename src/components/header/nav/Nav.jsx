@@ -9,7 +9,6 @@ import AlgorithmsSubMenu, { copyToClipboard as copyDataToClipboard } from "./Alg
 import SubMenu, { SubMenuItem } from "./nav-sub-menu/SubMenu";
 
 // Views
-import AlertView from "./views/AlertView";
 import SelectNodesView from "./views/SelectNodesView";
 import SelectNodeView from "./views/SelectNodeView";
 
@@ -98,7 +97,6 @@ export default function Nav() {
                 // Views
                 !hiddenView && <> {// If the view is not hidden ...
                     // Render a different component based on the value of the view state
-                    view === "alert" && <AlertView setView={setView} setHiddenView={setHiddenView} options={viewProps} /> ||
                     view === "select-nodes" && <SelectNodesView setView={setView} setHiddenView={setHiddenView} options={viewProps} /> ||
                     view === "select-node" && <SelectNodeView setView={setView} setHiddenView={setHiddenView} options={viewProps} />
                 }</>

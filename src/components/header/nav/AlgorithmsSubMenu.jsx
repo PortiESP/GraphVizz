@@ -20,7 +20,6 @@ import { colorGenerator, heatmapColorGenerator } from "@components/graph-manager
 import nodes_deg from "@components/graph-manager/utils/algorithms/nodes_deg"
 import { criticalNodes } from "@components/graph-manager/utils/algorithms/critical-nodes"
 import conexComps from "@components/graph-manager/utils/algorithms/conex-comp"
-import constants from "@components/graph-manager/utils/constants"
 
 // Icons
 import BFSIcon from "@assets/bfs.svg?react"
@@ -39,6 +38,8 @@ import ColorsIcon from "@assets/colors.svg?react"
 import DegIcon from "@assets/deg.svg?react"
 import WifiOffIcon from "@assets/wifi-off.svg?react"
 import RevertIcon from "@assets/revert.svg?react"
+import toast from "react-hot-toast"
+
 
 export function copyToClipboard(data) {
     const parser = (key, value) => {
@@ -362,12 +363,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
 
                 const data = kruskal(generateAdjacencyList())
                 
-                setViewProps({
-                    title: "Result",
-                    message: `Total weight is ${data.totalWeight}.`,
-                    type: "info"
-                })
                 setView("alert")
+                toast(`Min. weight: ${data.totalWeight}`, {duration: 5000, icon: "👁️"})
                 window.ui.call("setLastResult", data)
                 
                 window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
@@ -382,12 +379,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
 
                 const data = kruskal(generateAdjacencyList(), true)
                 
-                setViewProps({
-                    title: "Result",
-                    message: `Total weight is ${data.totalWeight}.`,
-                    type: "info"
-                })
                 setView("alert")
+                toast("Max. weight: " + data.totalWeight, {duration: 5000, icon: "👁️"})
                 window.ui.call("setLastResult", data)
                 
                 window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
@@ -434,12 +427,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
 
                 const data = nodes_deg(window.graph)
                 
-                setViewProps({
-                    title: "Nodes degree",
-                    message: "The degree of each node was calculated and displayed.",
-                    type: "info"
-                })
                 setView("alert")
+                toast("Nodes degrees displayed", {duration: 5000, icon: "👁️"})
                 window.ui.call("setLastResult", data)
                 
                 window.graph.nodes.forEach(node => node.bubble = data[node.id])
@@ -524,21 +513,11 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                 const result = toposortArrange(g)
 
                 if (result.hasCycle) {
-                    setViewProps({
-                        title: "Error",
-                        message: "The graph has a cycle. The topological sort is not possible.",
-                        type: "error"
-                    })
-                    setView("alert")
+                    toast.error("The graph has a cycle")
                 } else {
                     const edges = generateEdgesByPredecessors(result.prevNode)
                     focusOnAllNodes()
-                    setViewProps({
-                        title: "Toposort",
-                        message: "The graph was arranged using the topological sort algorithm.",
-                        type: "success"
-                    })
-                    setView("alert")
+                    toast.success("Success")
                     
                     window.graph.nodes.forEach(node => node.bubble = result.levels[node.id])
                     window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
@@ -613,7 +592,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                 if (window.graph.isGraphEmpty()) return
 
                 const data = nodes_deg(window.graph)
-                const max = Math.max(...Object.values(data))+1
+                const max = Math.max(...Object.values(data))
                 const min = Math.min(...Object.values(data))                
 
                 setViewProps({
@@ -622,9 +601,10 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                     type: "info"
                 })
                 setView("alert")
+                toast(`Degree heatmap: min[${min}] max[${max}]`, {duration: 5000, icon: "👁️"})
                 window.ui.call("setLastResult", data)
                 
-                const COLORS = heatmapColorGenerator(max-min)
+                const COLORS = heatmapColorGenerator(max-min+1)
                 Object.entries(data).forEach(([node, color]) => {
                     const nodeElement = window.graph.findNodeById(node)
                     nodeElement.style.backgroundColor = COLORS[color-min]
@@ -639,12 +619,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
 
                 const nodes = criticalNodes(generateAdjacencyList())
 
-                setViewProps({
-                    title: "Critical nodes",
-                    message: `Critical nodes (${nodes.length}): ${nodes.join(", ")}`,
-                    type: "info"
-                })
                 setView("alert")
+                toast(`Critical nodes: ${nodes.length}`, {duration: 5000, icon: "👁️"})
                 window.ui.call("setLastResult", nodes)
 
                 window.graph.nodes.forEach(node => {
@@ -664,12 +640,8 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                 const n = result.length
                 const colors = colorGenerator(n).reverse()
 
-                setViewProps({
-                    title: "Conex components",
-                    message: `Number of components: ${n}`,
-                    type: "info"
-                })
                 setView("alert")
+                toast(`Conex components: ${n}`, {duration: 5000, icon: "👁️"})
                 window.ui.call("setLastResult", result)
                 
                 result.forEach((comp, index) => {
