@@ -13,7 +13,7 @@ import RevertIcon from "@assets/revert.svg?react"
 
 export default function Number(props) {
     const [value, setValue2] = useState(props.initial ?? "")
-    const setValue = (v) => setValue2(parseFloat(v).toFixed(2))
+    const setValue = (v) => setValue2(String(v).split(".")[1]?.length > 2 ? parseFloat(v).toFixed(2): parseFloat(v))
     const [errorMsg, setErrorMsg] = useState("")
 
     // Update the value using the callback function and the checkError function
