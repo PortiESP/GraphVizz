@@ -7,7 +7,9 @@ DOC
   - New algorithms
   - Ensure quality
   - Document them
-  - Refactor call to algorithms so errors are more traceable
+  - **Refactor call to algorithms so errors are more traceable
+- View manager 
+  - migrate algorithms to the new view manager
 
 ------------------
 

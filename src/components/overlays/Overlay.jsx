@@ -20,6 +20,7 @@ import SharePopup from "./share-popup/SharePopup"
 import ZoomBar from "./zoom-bar/ZoomBar"
 import HelpMenu from "./help/Help-menu"
 import { Toaster } from "react-hot-toast"
+import ViewManager from "./view-manager/viewManager"
 
 
 /**
@@ -60,7 +61,8 @@ export default function Overlay(props) {
             <HelpMenu />
             {/* Center */}
             {modal && <Modal scene={modal} close={() => setModal(null)} />}
-            <Welcome/>
+            <Welcome />
+            <ViewManager />
             <Toaster position="bottom-right" />
         </div>
     )
