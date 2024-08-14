@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 // Components & functions
 import Tabs from "../components/tabs/Tabs";
 import { generateEdgeAndNodesList, generateGraphObject, generateURL } from "@components/graph-manager/utils/algorithms/algorithm_utils/generate_graph";
+import toast from "react-hot-toast";
 
 
 /**
@@ -43,6 +44,7 @@ function ToEdgeList(props) {
     const handleCopy = () => {
         $input.current.select()
         navigator.clipboard.writeText($input.current.value)
+        toast.success("Copied to clipboard")
     }
 
     return <div className={scss.tab_wrap}>
@@ -81,6 +83,7 @@ function ToJSON() {
     const handleCopy = () => {
         $input.current.select()
         navigator.clipboard.writeText($input.current.value)
+        toast.success("Copied to clipboard")
     }
 
     return <div className={scss.tab_wrap}>
@@ -128,6 +131,7 @@ function ToURL(props) {
     const handleCopy = () => {
         $input.current.select()
         navigator.clipboard.writeText($input.current.value)
+        toast.success("Copied to clipboard")
     }
 
     return <div className={scss.tab_wrap}>

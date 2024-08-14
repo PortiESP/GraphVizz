@@ -7,6 +7,7 @@ import { loadFromEdgePlainTextList, loadFromJSON, loadFromURL, validateJSON, val
 import { circularArrange } from "@components/graph-manager/utils/arrangements";
 import { focusOnAllNodes } from "@components/graph-manager/utils/view";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 
 /**
@@ -35,7 +36,7 @@ export default function LoadGraph(props) {
 function FromJSON(props) {
 
     const $input = useRef(null)
-    const [isValid, setIsValid] = useState(true)
+    const [isValid, setIsValid] = useState(false)
 
     const validateInput = () => {
         validateJSON($input.current.value) ? setIsValid(true) : setIsValid(false)
@@ -46,6 +47,7 @@ function FromJSON(props) {
         const json = eval(`[${$input.current.value}]`)[0]  // Evaluate the JSON string to an object (the [] is to avoid errors when the JSON starts with an object due to the eval function way of working)
         loadFromJSON(json)
         focusOnAllNodes()
+        toast.success("Graph loaded successfully")
         props.closeModal()
     }
 
@@ -93,6 +95,7 @@ function FromEdgeList(props) {
         loadFromEdgePlainTextList(edgeList)
         circularArrange(window.graph.nodes)
         focusOnAllNodes()
+        toast.success("Graph loaded successfully")
         props.closeModal()
     }
 
@@ -123,7 +126,7 @@ function FromEdgeList(props) {
 function FromURL(props) {
     const $input = useRef(null)
 
-    const [isValid, setIsValid] = useState(true)
+    const [isValid, setIsValid] = useState(false)
 
     const validateInput = () => {
         validateURL($input.current.value) ? setIsValid(true) : setIsValid(false)
@@ -135,6 +138,7 @@ function FromURL(props) {
         loadFromURL(url)
         circularArrange(window.graph.nodes)
         focusOnAllNodes()
+        toast.success("Graph loaded successfully")
         props.closeModal()
     }
 

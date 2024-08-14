@@ -4,11 +4,7 @@
 DOC
 
 - setupAfterCanvas, mejorar esta práctica
-- canvas user select disabled for mobile devices
-- sistema de mensajes o alertas
 - mouse hovers y actives
-- logo responsive on top of other menus
-- dejar claro q el estilo de un algoritmo:view se mantiene hasta que se cierra la view, incluso si ejecutamos un algoritmo:algorithm, hacer como una alerta de los views abiertos
 
 ------------------
 

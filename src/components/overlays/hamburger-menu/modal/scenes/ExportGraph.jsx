@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react"
 // Components & functions
 import { generateSVG } from "@components/graph-manager/utils/algorithms/algorithm_utils/generate_graph"
 import Tabs from "../components/tabs/Tabs"
+import toast from "react-hot-toast"
 
 
 /**
@@ -55,6 +56,8 @@ function AsSVG() {
         a.download = DOWNLOAD_NAME  // Set the name of the downloaded file
         a.click() // Click the link to download the file automatically
         URL.revokeObjectURL(url) // Revoke the URL
+
+        toast.success("SVG generated successfully")
     }
 
     return (<div className={scss.tab_wrap}>
@@ -89,6 +92,8 @@ function AsPNG() {
         a.href = dataURL  // Set the data URL as the link's URL
         a.download = DOWNLOAD_NAME  // Set the name of the downloaded file
         a.click()  // Click the link to download the file automatically
+
+        toast.success("PNG generated successfully")
     }
 
     return (
