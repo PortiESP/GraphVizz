@@ -22,6 +22,7 @@ import BugIcon from "@assets/bug.svg?react"
 import Logo from "@assets/logo.svg?react"
 import HomeIcon from "@assets/home.svg?react"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 /**
  * Hamburger menu component
@@ -35,7 +36,7 @@ export default function HamburgerMenu() {
     const close = () => { setIsShowHamburgerMenu(false) }
 
     // Callback functions of the menu items
-    const resetGraph = () => { close(); window.graph.reset(); clearCache(); navigator("/") } // Function to reset the graph
+    const resetGraph = () => { close(); window.graph.reset(); clearCache(); navigator("/"); toast.success("Empty graph loaded") } // Function to reset the graph
     const loadModal = () => { window.ui.call("setModal", "load_graph") } // Function to open the load graph modal
     const saveModal = () => { window.ui.call("setModal", "save_graph") } // Function to open the save graph modal
     const exportModal = () => { window.ui.call("setModal", "export_graph") } // Function to open the export graph modal
@@ -57,9 +58,9 @@ export default function HamburgerMenu() {
                             <hr />
                             <MenuItem label="Undo" shortcut="Ctrl+Z" onClick={undo} icon={UndoIcon}></MenuItem>
                             <MenuItem label="Redo" shortcut="Ctrl+Shift+Z" onClick={redo} icon={RedoIcon}></MenuItem>
-                            <MenuItem label="Zoom In" onClick={() => zoomCenterBy(1.1)} icon={ZoomIn}></MenuItem>
-                            <MenuItem label="Zoom Out" onClick={() => zoomCenterBy(0.9)} icon={ZoomOut}></MenuItem>
-                            <MenuItem label="Focus All" onClick={focusOnAllNodes} icon={FocusAllIcon}></MenuItem>
+                            <MenuItem label="Zoom In" shortcut="wheelUp" onClick={() => zoomCenterBy(1.1)} icon={ZoomIn}></MenuItem>
+                            <MenuItem label="Zoom Out" shortcut="wheelDown" onClick={() => zoomCenterBy(0.9)} icon={ZoomOut}></MenuItem>
+                            <MenuItem label="Focus All" shortcut="Ctrl+Shift+F" onClick={focusOnAllNodes} icon={FocusAllIcon}></MenuItem>
                             <hr />
                             <MenuItem label="Help & About" onClick={visitHelp} icon={InfoIcon}></MenuItem>
                             <MenuItem label="Report" onClick={visitGithub} icon={BugIcon}></MenuItem>

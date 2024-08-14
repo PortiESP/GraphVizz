@@ -147,6 +147,7 @@ export default function Help() {
                             <li>Pan freely <span><kbd>WheelBtn+Drag</kbd> / <kbd>DoubleClick</kbd> / <kbd>Space+Drag</kbd></span></li>
                             <li>Pan one step <kbd>Ctrl+Arrows</kbd></li>
                             <li>Zoom in/out<span><kbd>WheelUp</kbd> / <kbd>WheelDown</kbd></span></li>
+                            <li>Focus all nodes <kbd>Ctrl+Shift+F</kbd></li>
                         </ul>
                     </div>
 

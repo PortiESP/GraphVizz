@@ -6,6 +6,7 @@ import { generateURL } from "@components/graph-manager/utils/algorithms/algorith
 // Icons
 import CloseIcon from "@assets/close.svg?react"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 
 /**
@@ -19,15 +20,14 @@ import { useState } from "react"
 export default function SharePopup(props) {
 
     const [isShowSharePopup, setIsShowSharePopup] = useState(false)  // Share popup visibility
-    const [text, setText] = useState("Copy!")
 
     // Generate the URL of the current graph
     const url = isShowSharePopup && generateURL()
 
     // Copy the URL to the clipboard
-    const handleShare = () => {
+    const handleShare = () => { 
         navigator.clipboard.writeText(url)
-        setText("Copied!")
+        toast.success("Link copied to clipboard!")
     }
 
     return <div className={scss.menu_info}>
@@ -41,7 +41,7 @@ export default function SharePopup(props) {
                         <p className={scss.warning}>The link just store the nodes & edges. If you want to keep also the style, share the JSON using the <strong>save as</strong> menu</p>
                         <div className={scss.link}>
                             <input type="text" value={url} readOnly onClick={handleShare} />
-                            <button onClick={handleShare}>{text}</button>
+                            <button onClick={handleShare}>Copy!</button>
                         </div>
                         <button onClick={() => setIsShowSharePopup(false)} className={scss.close}><CloseIcon /></button>
                     </div>

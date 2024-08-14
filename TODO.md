@@ -3,8 +3,11 @@
 
 DOC
 
-- setupAfterCanvas, mejorar esta práctica
-- mouse hovers y actives
+- Improve algorithms
+  - New algorithms
+  - Ensure quality
+  - Document them
+  - Refactor call to algorithms so errors are more traceable
 
 ------------------
 
