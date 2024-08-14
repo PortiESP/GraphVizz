@@ -68,19 +68,18 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Breadth First Search (BFS)",
             icon: () => <BFSIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps({
                     title: "Breadth First Search (BFS)",
                     callback: (selectedNode) => {
-
+                        // Algorithm
                         const data = bfs(generateAdjacencyList(), selectedNode)
+                        // Save result
                         window.ui.call("setLastResult", data)
-
+                        // Paint the result
                         const edges = generateEdgesByPredecessors(data.prevNode)
                         data.result.forEach((node, i) => node.bubble = i)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-
+                        // Display additional JSX alongside the result
                         return <button onClick={() => copyToClipboard(data)}>Copy data</button>
                     }
                 })
@@ -91,18 +90,18 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Depth First Search (DFS)",
             icon: () => <DFSIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps({
                     title: "Depth First Search (DFS)",
                     callback: (selectedNode) => {
+                        // Algorithm
                         const data = dfs(generateAdjacencyList(), selectedNode)
+                        // Save result
                         window.ui.call("setLastResult", data)
-
+                        // Paint the result
                         const edges = generateEdgesByPredecessors(data.prevNode)
                         data.result.forEach((node, i) => node.bubble = i)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-
+                        // Display additional JSX alongside the result
                         return <button onClick={() => copyToClipboard(data)}>Copy data</button>
                     }
                 })
@@ -113,19 +112,18 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Dijkstra",
             icon: () => <MapIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps({
                     title: "Dijkstra's algorithm",
                     allNodes: true,
                     callback: (node1, node2) => {
+                        // Algorithm
                         const g = generateAdjacencyList()
                         const result = dijkstra(g, node1)
+                        // Save result
                         window.ui.call("setLastResult", result)
-
+                        // Paint the result
                         const disabled = result[node2]?.distance === Infinity
                         setView("select-nodes")
-
                         if (node2 === "all") {
                             const predecessors = Object.fromEntries(Object.entries(result).map(([node, data]) => [node, data.prevNode]))
                             const edges = generateEdgesByPredecessors(predecessors)
@@ -143,7 +141,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                             const data = Object.entries(result).map(([node, data]) => ({node, ...data}))
                             navigator.clipboard.writeText(JSON.stringify(data, null, 2))
                         }
-
+                        // Display additional JSX alongside the result
                         return result && <><table>
                             <thead>
                                 <tr>
@@ -177,8 +175,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Path (all)",
             icon: () => <PathIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -186,12 +182,13 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                             const edges = generateEdgesByNodesPath(path)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                         }
-                        
+                        // Algorithm
                         const adjList = generateAdjacencyList()
                         const startNode = window.graph.findNodeById(selectedNode)
                         const data = hamiltonianPath(adjList, startNode, true)
+                        // Save result
                         window.ui.call("setLastResult", data)
-
+                        // Paint result
                         const copyAsJSON = () => {
                             const paths = data.all.map(path => path.map(node => node.id))
                             const str = JSON.stringify(paths, null, 2)
@@ -230,7 +227,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Path (one)",
             icon: () => <PathIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
 
                 setViewProps({
                     title: "Choose the initial node",
@@ -239,12 +235,13 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                             const edges = generateEdgesByNodesPath(path)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                         }
-                        
+                        // Algorithm
                         const adjList = generateAdjacencyList()
                         const startNode = window.graph.findNodeById(selectedNode)
                         const data = hamiltonianPath(adjList, startNode)
+                        // Save result
                         window.ui.call("setLastResult", data)
-
+                        // Paint result
                         const copyAsJSON = () => {
                             const nodePath = data.path.map(node => node.id)
                             const str = JSON.stringify(nodePath, null, 2)
@@ -267,8 +264,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Cycle (all)",
             icon: () => <CycleIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -276,11 +271,12 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                             const edges = generateEdgesByNodesPath(path)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                         }
-                        
+                        // Algorithm
                         const adjList = generateAdjacencyList()
                         const data = hamiltonianCycle(adjList, selectedNode, true, true)
+                        // Save result
                         window.ui.call("setLastResult", data)
-
+                        // Paint result
                         const copyAsJSON = () => {
                             const paths = data.all.map(path => path.map(node => node.id))
                             const str = JSON.stringify(paths, null, 2)
@@ -319,8 +315,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Hamiltonian Cycle (one)",
             icon: () => <CycleIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
@@ -328,11 +322,12 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                             const edges = generateEdgesByNodesPath(path)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                         }
-                        
+                        // Algorithm
                         const adjList = generateAdjacencyList()
                         const data = hamiltonianCycle(adjList, selectedNode, false, true)
+                        // Save result
                         window.ui.call("setLastResult", data)
-
+                        // Paint result
                         const copyAsJSON = () => {
                             const nodePath = data.path.map(node => node.id)
                             const str = JSON.stringify(nodePath, null, 2)
@@ -359,14 +354,13 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Min. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Algorithm
                 const data = kruskal(generateAdjacencyList())
-                
                 setView("alert")
                 toast(`Min. weight: ${data.totalWeight}`, {duration: 5000, icon: "👁️"})
+                // Save result
                 window.ui.call("setLastResult", data)
-                
+                // Paint result
                 window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
 
             }
@@ -375,14 +369,13 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Max. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Algorithm
                 const data = kruskal(generateAdjacencyList(), true)
-                
                 setView("alert")
                 toast("Max. weight: " + data.totalWeight, {duration: 5000, icon: "👁️"})
+                // Save result
                 window.ui.call("setLastResult", data)
-                
+                // Paint result
                 window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
             }
         },
@@ -394,15 +387,15 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Chromatic number",
             icon: () => <ColorsIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
+                        // Algorithm
                         const g = generateAdjacencyList()
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
+                        // Save result
                         window.ui.call("setLastResult", data)
-
+                        // Paint result
                         window.graph.nodes.forEach(node => node.bubble = data[node.id])
 
                         const copyAsJSON = () => {
@@ -423,14 +416,13 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Nodes degree",
             icon: () => <DegIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Algorithm
                 const data = nodes_deg(window.graph)
-                
                 setView("alert")
                 toast("Nodes degrees displayed", {duration: 5000, icon: "👁️"})
+                // Save result
                 window.ui.call("setLastResult", data)
-                
+                // Paint result
                 window.graph.nodes.forEach(node => node.bubble = data[node.id])
             }
         }
@@ -445,20 +437,16 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Circular",
             icon: () => <CircularIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Arrange
                 circularArrange(window.graph.nodes)
-                focusOnAllNodes()
             }
         },
         {
             title: "Grid",
             icon: () => <GridIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Arrange
                 gridArrange(window.graph.nodes)
-                focusOnAllNodes()
             }
         },
         {
@@ -469,16 +457,14 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Tree (bfs)",
             icon: () => <BFSIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps({
                     title: "Select the root node",
                     callback: (value) => {
+                        // Arrange
                         const start = window.graph.findNodeById(value)
                         const data = treeArrange(start, "bfs")
                         const edges = generateEdgesByPredecessors(data.prevNode)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                        focusOnAllNodes()
                     }
                 })
                 setView("select-node")
@@ -488,16 +474,14 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Tree (dfs)",
             icon: () => <DFSIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps({
                     title: "Select the root node",
                     callback: (value) => {
+                        // Arrange
                         const start = window.graph.findNodeById(value)
                         const data = treeArrange(start, "dfs")
                         const edges = generateEdgesByPredecessors(data.prevNode)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                        focusOnAllNodes()
                     }
                 })
                 setView("select-node")
@@ -507,8 +491,7 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Toposort",
             icon: () => <BrokenLinkIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Arrange
                 const g = generateAdjacencyList()
                 const result = toposortArrange(g)
 
@@ -516,7 +499,6 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                     toast.error("The graph has a cycle")
                 } else {
                     const edges = generateEdgesByPredecessors(result.prevNode)
-                    focusOnAllNodes()
                     toast.success("Success")
                     
                     window.graph.nodes.forEach(node => node.bubble = result.levels[node.id])
@@ -532,22 +514,18 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Organic",
             icon: () => <AtomIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Arrange
                 setView(null)
                 organicArrange()
-                focusOnAllNodes()
             }
         },
         {
             title: "Random",
             icon: () => <RandomIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Arrange
                 setView(null)
                 randomArrange(window.graph.nodes)
-                focusOnAllNodes()
             }
         },
     ]
@@ -561,15 +539,15 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Chromatic neighbors",
             icon: () => <ColorsIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps({
                     title: "Choose the initial node",
                     callback: (selectedNode) => {
+                        // Algorithm
                         const g = generateAdjacencyList()
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
+                        // Save result
                         window.ui.call("setLastResult", data)
-                        
+                        // Paint result
                         const COLORS = colorGenerator(Math.max(...Object.values(data))+1)
 
                         Object.entries(data).forEach(([node, color]) => {
@@ -589,12 +567,10 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Degree",
             icon: () => <DegIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Algorithm
                 const data = nodes_deg(window.graph)
                 const max = Math.max(...Object.values(data))
                 const min = Math.min(...Object.values(data))                
-
                 setViewProps({
                     title: "Degree heatmap",
                     message: `Min: ${min}, Max: ${max}`,
@@ -602,8 +578,9 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                 })
                 setView("alert")
                 toast(`Degree heatmap: min[${min}] max[${max}]`, {duration: 5000, icon: "👁️"})
+                // Save result
                 window.ui.call("setLastResult", data)
-                
+                // Paint result
                 const COLORS = heatmapColorGenerator(max-min+1)
                 Object.entries(data).forEach(([node, color]) => {
                     const nodeElement = window.graph.findNodeById(node)
@@ -615,14 +592,13 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Critical nodes",
             icon: () => <WifiOffIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Algorithm
                 const nodes = criticalNodes(generateAdjacencyList())
-
                 setView("alert")
                 toast(`Critical nodes: ${nodes.length}`, {duration: 5000, icon: "👁️"})
+                // Save result
                 window.ui.call("setLastResult", nodes)
-
+                // Paint result
                 window.graph.nodes.forEach(node => {
                     const critical = nodes.includes(node)
                     node.style.backgroundColor = critical ? "red" : "hsl(120, 100%, 45%)"
@@ -633,17 +609,16 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Conex components",
             icon: () => <AtomIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
+                // Algorithm
                 const g = generateAdjacencyList()
                 const result = conexComps(g)
                 const n = result.length
                 const colors = colorGenerator(n).reverse()
-
                 setView("alert")
                 toast(`Conex components: ${n}`, {duration: 5000, icon: "👁️"})
+                // Save result
                 window.ui.call("setLastResult", result)
-                
+                // Paint result
                 result.forEach((comp, index) => {
                     comp.forEach(node => {
                         const nodeElement = window.graph.findNodeById(node.id)
@@ -661,14 +636,40 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
             title: "Default style",
             icon: () => <RevertIcon />,
             callback: () => {
-                if (window.graph.isGraphEmpty()) return
-
                 setViewProps(null)
                 setView(null)
                 window.graph.getElements().forEach(element => element.resetStyle())
             }
         },
     ]
+
+    const algorithmCallbackDecorator = cbk => () => {
+        // PRE -->
+        if (window.graph.isGraphEmpty()) return
+        // <-- PRE
+        cbk()
+        // POST -->
+        // <-- POST
+    }
+
+    const arrangementCallbackDecorator = cbk => () => {
+        // PRE -->
+        if (window.graph.isGraphEmpty()) return
+        // <-- PRE
+        cbk()
+        // POST -->
+        focusOnAllNodes()
+        // <-- POST
+    }
+
+    const viewCallbackDecorator = cbk => () => {
+        // PRE -->
+        if (window.graph.isGraphEmpty()) return
+        // <-- PRE
+        cbk()
+        // POST -->
+        // <-- POST
+    }
 
     return (
         <SubMenu>
@@ -677,15 +678,15 @@ export default function AlgorithmsSubMenu({ setView, setViewProps }) {
                 ? <>
                     <div>
                         <h4>Algorithms</h4>
-                        {algorithms.map((algorithm, index) => <SubMenuItem key={index} {...algorithm} />)}
+                        {algorithms.map((algorithm, index) => <SubMenuItem key={index} {...algorithm} callback={algorithmCallbackDecorator(algorithm.callback)} />)}
                     </div>
                     <div>
                         <h4>Arrangements</h4>
-                        {arrangements.map((arrangement, index) => <SubMenuItem key={index} {...arrangement} />)}
+                        {arrangements.map((arrangement, index) => <SubMenuItem key={index} {...arrangement} callback={arrangementCallbackDecorator(arrangement.callback)}/>)}
                     </div>
                     <div>
                         <h4>Views</h4>
-                        {views.map((arrangement, index) => <SubMenuItem key={index} {...arrangement} />)}
+                        {views.map((view, index) => <SubMenuItem key={index} {...view} callback={viewCallbackDecorator(view.callback)}/>)}
                     </div>
                 </> 
                 : <SubMenuItem title="Go back to the graph" icon={BackArrow} callback={() => navigate("/")} />
