@@ -44,9 +44,8 @@ export default function HamburgerMenu() {
     
     return (
         <>
-            <div className={scss.menu_logo}>
+            <div className={scss.menu_wrap}>
                 <div className={scss.menu_icon} onClick={() => setIsShowHamburgerMenu(old => !old)}><HomeIcon /></div>
-                <div className={scss.logo}><Logo /></div>
                 {
                     isShowHamburgerMenu && 
                     <div className={scss.wrap} onClick={e => e.target.className === scss.wrap && setIsShowHamburgerMenu(false)}>
@@ -64,6 +63,8 @@ export default function HamburgerMenu() {
                             <hr />
                             <MenuItem label="Help & About" onClick={visitHelp} icon={InfoIcon}></MenuItem>
                             <MenuItem label="Report" onClick={visitGithub} icon={BugIcon}></MenuItem>
+                            <hr />  
+                            <div className={scss.logo}><Logo /></div>
                         </menu>
                     </div>
                 }
