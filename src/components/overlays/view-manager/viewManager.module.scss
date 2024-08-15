@@ -134,6 +134,9 @@
         // mini scroll bar
         scrollbar-width: thin;
         scrollbar-color: #0001 #eee;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 
     // ============ Info view ============

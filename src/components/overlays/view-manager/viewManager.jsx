@@ -185,12 +185,23 @@ export default function ViewManager(props) {
 
 
 
-function Info({ data }) {
+function Info({ data, setOutput }) {
+
+    useEffect(() => {
+        // Run the setup function if it exists
+        if (data.setup) {
+            const result = data.setup()
+            setOutput(result)
+        }
+    }, [])
+
     return <p className={scss.info}>{data.info}</p>
 }
 
 function SelectNode1({ data, setOutput }) {
-
+    const [selected, setSelected] = useState("-")
+    // Reset the selected value when the data changes (e.g. when another view is opened)
+    useEffect(() => setSelected(data.default || "-"), [data])
 
     useEffect(() => {
         // Run the setup function if it exists
@@ -202,6 +213,7 @@ function SelectNode1({ data, setOutput }) {
 
     const handleChange = e => {
         const selected = e.target.value
+        setSelected(selected)
         if (data.onChange) {
             const result = data.onChange(selected)
             setOutput(result)
@@ -211,7 +223,7 @@ function SelectNode1({ data, setOutput }) {
     return (
         <div className={scss.select1}>
             {data.label && <label htmlFor="view-select">{data.label}</label>}
-            <select name="select" id="view-select" onChange={handleChange} defaultValue="-">
+            <select name="select" id="view-select" onChange={handleChange} value={selected}>
                 <option value="-" disabled>-</option>
                 {data.options.map((option, index) => <option key={index} value={option}>{option}</option>)}
             </select>
@@ -224,6 +236,11 @@ function SelectNode2({ data, setOutput }) {
 
     const [selectedA, setSelectedA] = useState(data.defaultA || "-")
     const [selectedB, setSelectedB] = useState(data.defaultB || "-")
+    // Reset the selected value when the data changes (e.g. when another view is opened)
+    useEffect(() => {
+        setSelectedA(data.defaultA || "-")
+        setSelectedB(data.defaultB || "-")
+    }, [data])
 
     useEffect(() => {
         // Run the setup function if it exists

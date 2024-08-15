@@ -39,6 +39,7 @@ import DegIcon from "@assets/deg.svg?react"
 import WifiOffIcon from "@assets/wifi-off.svg?react"
 import RevertIcon from "@assets/revert.svg?react"
 import toast from "react-hot-toast"
+import { info } from "sass"
 
 
 export default function AlgorithmsSubMenu() {
@@ -60,7 +61,11 @@ export default function AlgorithmsSubMenu() {
             </tbody>
         </table>
     }
-                    
+    const paintPath = (path) => {
+        const edges = generateEdgesByNodesPath(path)
+        window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+    }
+
 
     const algorithms = [
         {
@@ -95,7 +100,7 @@ export default function AlgorithmsSubMenu() {
                             const step = steps[node] ?? "-"
                             const prev = data.prevNode[node]?.id ?? "-"
                             const visited = data.visited[node]
-                            parsedData[node] = {step, prev, visited}
+                            parsedData[node] = { step, prev, visited }
                         })
                         // Store the result that can be copied to clipboard
                         window.ui.call("setLastResult", parsedData)
@@ -140,7 +145,7 @@ export default function AlgorithmsSubMenu() {
                             const step = steps[node] ?? "-"
                             const prev = data.prevNode[node]?.id ?? "-"
                             const visited = data.visited[node]
-                            parsedData[node] = {step, prev, visited}
+                            parsedData[node] = { step, prev, visited }
                         })
                         // Store the result that can be copied to clipboard
                         window.ui.call("setLastResult", parsedData)
@@ -225,10 +230,6 @@ export default function AlgorithmsSubMenu() {
                     label: "Starting node",
                     options: nodes,
                     onChange: (selectedNode) => {
-                        const paintPath = (path) => {
-                            const edges = generateEdgesByNodesPath(path)
-                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                        }
                         // Algorithm
                         const adjList = generateAdjacencyList()
                         const startNode = window.graph.findNodeById(selectedNode)
@@ -241,12 +242,12 @@ export default function AlgorithmsSubMenu() {
                         else window.graph.edges.forEach(edge => edge.hidden = true)
 
                         return data ?
-                        generateTable({
-                            headings: ["Path"],
-                            rows: data.all.map(path => [path.map(node => node.id).join(" → ")]),
-                            rowsClick: (i) => paintPath(data.all[i])
-                        })
-                        : <span className={scss.error}>No valid path found, try changing the starting point</span>
+                            generateTable({
+                                headings: ["Path"],
+                                rows: data.all.map(path => [path.map(node => node.id).join(" → ")]),
+                                rowsClick: (i) => paintPath(data.all[i])
+                            })
+                            : <span className={scss.error}>No valid path found, try changing the starting point</span>
                     }
                 })
             }
@@ -263,10 +264,6 @@ export default function AlgorithmsSubMenu() {
                     label: "Starting node",
                     options: nodes,
                     onChange: (selectedNode) => {
-                        const paintPath = (path) => {
-                            const edges = generateEdgesByNodesPath(path)
-                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                        }
                         // Algorithm
                         const adjList = generateAdjacencyList()
                         const startNode = window.graph.findNodeById(selectedNode)
@@ -277,12 +274,12 @@ export default function AlgorithmsSubMenu() {
                         if (data) paintPath(data.path)
                         else window.graph.edges.forEach(edge => edge.hidden = true)
 
-                        return data ? 
-                        generateTable({
-                            headings: ["Path"],
-                            rows: [[data.path.map(node => node.id).join(" → ")]]
-                        })
-                        : <span className={scss.error}>No valid path found, try changing the starting point</span>
+                        return data ?
+                            generateTable({
+                                headings: ["Path"],
+                                rows: [[data.path.map(node => node.id).join(" → ")]]
+                            })
+                            : <span className={scss.error}>No valid path found, try changing the starting point</span>
                     }
                 })
             }
@@ -298,10 +295,6 @@ export default function AlgorithmsSubMenu() {
                     label: "Starting node",
                     options: getNodeIDs(),
                     onChange: (selectedNode) => {
-                        const paintPath = (path) => {
-                            const edges = generateEdgesByNodesPath(path)
-                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                        }
                         // Algorithm
                         const adjList = generateAdjacencyList()
                         const data = hamiltonianCycle(adjList, selectedNode, true, true)
@@ -311,13 +304,13 @@ export default function AlgorithmsSubMenu() {
                         if (data) paintPath(data.path)
                         else window.graph.edges.forEach(edge => edge.hidden = true)
 
-                        return data ? 
-                        generateTable({
-                            headings: ["Path"],
-                            rows: data.all.map(path => [path.map(node => node.id).join(" → ")]),
-                            rowsClick: (i) => paintPath(data.all[i])
-                        })
-                        : <span className={scss.error}>No valid cycle found, try changing the starting point</span>
+                        return data ?
+                            generateTable({
+                                headings: ["Path"],
+                                rows: data.all.map(path => [path.map(node => node.id).join(" → ")]),
+                                rowsClick: (i) => paintPath(data.all[i])
+                            })
+                            : <span className={scss.error}>No valid cycle found, try changing the starting point</span>
                     }
                 })
             }
@@ -333,10 +326,6 @@ export default function AlgorithmsSubMenu() {
                     label: "Starting node",
                     options: getNodeIDs(),
                     onChange: (selectedNode) => {
-                        const paintPath = (path) => {
-                            const edges = generateEdgesByNodesPath(path)
-                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                        }
                         // Algorithm
                         const adjList = generateAdjacencyList()
                         const data = hamiltonianCycle(adjList, selectedNode, false, true)
@@ -346,12 +335,12 @@ export default function AlgorithmsSubMenu() {
                         if (data) paintPath(data.path)
                         else window.graph.edges.forEach(edge => edge.hidden = true)
 
-                        return data ? 
-                        generateTable({
-                            headings: ["Path"],
-                            rows: [[data.path.map(node => node.id).join(" → ")]],
-                        })
-                        : <span className={scss.error}>No valid cycle found, try changing the starting point</span>
+                        return data ?
+                            generateTable({
+                                headings: ["Path"],
+                                rows: [[data.path.map(node => node.id).join(" → ")]],
+                            })
+                            : <span className={scss.error}>No valid cycle found, try changing the starting point</span>
                     }
                 })
             }
@@ -364,27 +353,46 @@ export default function AlgorithmsSubMenu() {
             title: "Min. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
-                // Algorithm
-                const data = kruskal(generateAdjacencyList())
-                toast(`Min. weight: ${data.totalWeight}`, {duration: 5000, icon: "👁️"})
-                // Save result
-                window.ui.call("setLastResult", data)
-                // Paint result
-                window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
-
-            }
+                window.ui.call("setView", {
+                    type: "info",
+                    title: "Minimum Spanning Tree (Kruskal)",
+                    info: "Minimum Spanning Tree (MST) calculated using Kruskal's algorithm",
+                    setup: () => {
+                        // Algorithm
+                        const data = kruskal(generateAdjacencyList())
+                        // Save result
+                        window.ui.call("setLastResult", data)
+                        // Paint result
+                        window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
+                        return generateTable({
+                            headings: ["Min. weight"],
+                            rows: [[data.totalWeight]],
+                        })
+                    }
+                })
+            },
         },
         {
             title: "Max. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
-                // Algorithm
-                const data = kruskal(generateAdjacencyList(), true)
-                toast("Max. weight: " + data.totalWeight, {duration: 5000, icon: "👁️"})
-                // Save result
-                window.ui.call("setLastResult", data)
-                // Paint result
-                window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
+                window.ui.call("setView", {
+                    type: "info",
+                    title: "Maximum Spanning Tree (Kruskal)",
+                    info: "Maximum Spanning Tree (MST) calculated using Kruskal's algorithm",
+                    setup: () => {
+                        // Algorithm
+                        const data = kruskal(generateAdjacencyList(), true)
+                        // Save result
+                        window.ui.call("setLastResult", data)
+                        // Paint result
+                        window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
+                        return generateTable({
+                            headings: ["Max. weight"],
+                            rows: [[data.totalWeight]],
+                        })
+                    }
+                })
             }
         },
         {
@@ -396,8 +404,12 @@ export default function AlgorithmsSubMenu() {
             icon: () => <ColorsIcon />,
             callback: () => {
                 window.ui.call("setView", {
+                    type: "1-select",
                     title: "Choose the initial node",
-                    callback: (selectedNode) => {
+                    tip: "Here the nodes are just grouped using numbers, for a visual representation, use the view 'Chromatic neighbors' view",
+                    label: "Starting node",
+                    options: getNodeIDs(),
+                    onChange: (selectedNode) => {
                         // Algorithm
                         const g = generateAdjacencyList()
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
@@ -406,14 +418,12 @@ export default function AlgorithmsSubMenu() {
                         // Paint result
                         window.graph.nodes.forEach(node => node.bubble = data[node.id])
 
-                        const copyAsJSON = () => {
-                            const str = JSON.stringify(data, null, 2)
-                            navigator.clipboard.writeText(str)
-                        }
-
                         return <>
-                            <p className={scss.info}>Number of groups: {Math.max(...Object.values(data))+1}</p>
-                            <button onClick={copyAsJSON}>Copy as JSON</button>
+                        <div data-widget-type="quote">Total colors: <kbd>{Math.max(...Object.values(data))+1}</kbd></div>
+                        {generateTable({
+                            headings: ["Node", "Group"],
+                            rows: Object.entries(data).map(([node, color]) => [node, color])
+                        })}
                         </>
                     }
                 })
@@ -423,13 +433,24 @@ export default function AlgorithmsSubMenu() {
             title: "Nodes degree",
             icon: () => <DegIcon />,
             callback: () => {
-                // Algorithm
-                const data = nodes_deg(window.graph)
-                toast("Nodes degrees displayed", {duration: 5000, icon: "👁️"})
-                // Save result
-                window.ui.call("setLastResult", data)
-                // Paint result
-                window.graph.nodes.forEach(node => node.bubble = data[node.id])
+                window.ui.call("setView", {
+                    title: "Nodes degree",
+                    message: "The nodes are colored by their degree",
+                    type: "info",
+                    info: "Nodes degree is the number of incident edges to a node",
+                    setup: () => {
+                        // Algorithm
+                        const data = nodes_deg(window.graph)
+                        // Save result
+                        window.ui.call("setLastResult", data)
+                        // Paint result
+                        window.graph.nodes.forEach(node => node.bubble = data[node.id])
+                        return generateTable({
+                            headings: ["Node", "Degree"],
+                            rows: Object.entries(data).map(([node, degree]) => [node, degree])
+                        })
+                    }
+                })
             }
         }
     ]
@@ -574,10 +595,10 @@ export default function AlgorithmsSubMenu() {
                 const min = Math.min(...Object.values(data))                
                 window.ui.call("setView", {
                     title: "Degree heatmap",
-                    message: `Min: ${min}, Max: ${max}`,
+                    message: `Min: ${ min }, Max: ${ max }`,
                     type: "info"
                 })
-                toast(`Degree heatmap: min[${min}] max[${max}]`, {duration: 5000, icon: "👁️"})
+                toast(`Degree heatmap: min[${ min }] max[${ max }]`, {duration: 5000, icon: "👁️"})
                 // Save result
                 window.ui.call("setLastResult", data)
                 // Paint result
@@ -594,7 +615,7 @@ export default function AlgorithmsSubMenu() {
             callback: () => {
                 // Algorithm
                 const nodes = criticalNodes(generateAdjacencyList())
-                toast(`Critical nodes: ${nodes.length}`, {duration: 5000, icon: "👁️"})
+                toast(`Critical nodes: ${ nodes.length } `, {duration: 5000, icon: "👁️"})
                 // Save result
                 window.ui.call("setLastResult", nodes)
                 // Paint result
@@ -613,7 +634,7 @@ export default function AlgorithmsSubMenu() {
                 const result = conexComps(g)
                 const n = result.length
                 const colors = colorGenerator(n).reverse()
-                toast(`Conex components: ${n}`, {duration: 5000, icon: "👁️"})
+                toast(`Conex components: ${ n } `, {duration: 5000, icon: "👁️"})
                 // Save result
                 window.ui.call("setLastResult", result)
                 // Paint result
