@@ -43,12 +43,26 @@ export default function ViewManager(props) {
 
     const [allowDrag, setAllowDrag] = useState(false)
     const [pos, setPos] = useState({ x: null, y: null })
-    const [show, setShow] = useState(true)
     const [minimized, setMinimized] = useState(false)
     const $container = useRef(null)
+    const fixPos = () => {
+        const pos = $container.current?.getBoundingClientRect()?.top
+        if (pos < 0) addPos(0, -pos + 80)
+    }
     const [data, setData] = useState(DEFAULT_VIEW) // DEBUG
     const [output, setOutput] = useState(null)
     const [lastResult, setLastResult] = useState(null)
+    const [show, setShow2] = useState(true)
+    const setShow = (value) => {
+        if (!value) {
+            setData(null)
+        }
+        setAllowDrag(false)
+        setPos({ x: 0, y: 0 })
+        setMinimized(false)
+        setOutput(null)
+        setShow2(value)
+    }
 
     useEffect(() => {
         window.ui.set("setView", options => {
@@ -67,8 +81,13 @@ export default function ViewManager(props) {
         window.ui.set("setLastResult", result => setLastResult(result))
     }, [])
 
+    useLayoutEffect(() => {
+        fixPos()
+    }, [minimized, show, output])
+
     const addPos = (x, y) => {
         setPos(old => {
+            if (!$container.current) return old
             const newX = old.x + x
             const newY = old.y + y
             $container.current.style.left = newX + "px"
@@ -91,7 +110,7 @@ export default function ViewManager(props) {
             return
         }
 
-        navigator.clipboard.writeText(JSON.stringify(lastResult))
+        navigator.clipboard.writeText(JSON.stringify(lastResult, null, 2))
         toast.success("Copied to clipboard")
     }
 
@@ -132,20 +151,20 @@ export default function ViewManager(props) {
                             {
                                 // Show the correct view based on the type
                                 data.type === "info" ? <Info data={data} setOutput={setOutput} />
-                                : data.type === "1-select" ? <SelectNode1 data={data} setOutput={setOutput} />
-                                : data.type === "2-select" ? <SelectNode2 data={data} setOutput={setOutput} />
-                                : null
+                                    : data.type === "1-select" ? <SelectNode1 data={data} setOutput={setOutput} />
+                                        : data.type === "2-select" ? <SelectNode2 data={data} setOutput={setOutput} />
+                                            : null
                             }
                         </div>
                         {
                             // Show output if it exists
                             output && <>
-                            <div className={scss.output}>
-                                {output}
-                            </div>
-                            <div className={scss.copy_wrap}>
-                                <button onClick={handleCopy}>Copy to clipboard</button>
-                            </div>
+                                <div className={scss.output}>
+                                    {output}
+                                </div>
+                                <div className={scss.copy_wrap}>
+                                    <button onClick={handleCopy}>Copy to clipboard</button>
+                                </div>
                             </>
                         }
                     </div>
@@ -195,6 +214,8 @@ function SelectNode1({ data, setOutput }) {
 
 function SelectNode2({ data, setOutput }) {
 
+    const [selectedA, setSelectedA] = useState(data.defaultA || "-")
+    const [selectedB, setSelectedB] = useState(data.defaultB || "-")
 
     useEffect(() => {
         // Run the setup function if it exists
@@ -207,8 +228,18 @@ function SelectNode2({ data, setOutput }) {
     const handleChange = e => {
         const selected = e.target.value
         const selectId = e.target.name === "selectA" ? "A" : "B"
+        const values = [selectedA, selectedB]
+        if (selectId === "A") {
+            setSelectedA(selected)
+            values[0] = selected
+        }
+        if (selectId === "B") {
+            setSelectedB(selected)
+            values[1] = selected
+        }
+
         if (data.onChange) {
-            const result = data.onChange(selected, selectId)
+            const result = data.onChange(selected, selectId, values)
             setOutput(result)
         }
     }
@@ -217,15 +248,15 @@ function SelectNode2({ data, setOutput }) {
         <div className={scss.select2}>
             <div className={scss.select_group}>
                 {data.labelA && <label htmlFor="view-selectA">{data.labelB}</label>}
-                <select name="selectA" id="view-selectA" onChange={handleChange} defaultValue="-">
+                <select name="selectA" id="view-selectA" onChange={handleChange} value={selectedA}>
                     <option value="-" disabled>-</option>
                     {data.optionsA.map((option, index) => <option key={index} value={option}>{option}</option>)}
                 </select>
             </div>
-            { data.labelAB && <div className={scss.labelAB}>{data.labelAB}</div> }
+            {data.labelAB && <div className={scss.labelAB}>{data.labelAB}</div>}
             <div className={scss.select_group}>
                 {data.labelB && <label htmlFor="view-selectB">{data.labelB}</label>}
-                <select name="selectB" id="view-selectB" onChange={handleChange} defaultValue="-">
+                <select name="selectB" id="view-selectB" onChange={handleChange} value={selectedB}>
                     <option value="-" disabled>-</option>
                     {data.optionsB.map((option, index) => <option key={index} value={option}>{option}</option>)}
                 </select>

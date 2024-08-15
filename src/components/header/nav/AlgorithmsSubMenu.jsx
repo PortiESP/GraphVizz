@@ -104,8 +104,8 @@ export default function AlgorithmsSubMenu() {
                         // Save result
                         const parsedData = {}
                         nodes.map(node => {
-                            const step = steps[node]
-                            const prev = data.prevNode[node]?.id || "-"
+                            const step = steps[node] ?? "-"
+                            const prev = data.prevNode[node]?.id ?? "-"
                             const visited = data.visited[node]
                             parsedData[node] = {step, prev, visited}
                         })
@@ -128,19 +128,43 @@ export default function AlgorithmsSubMenu() {
             title: "Depth First Search (DFS)",
             icon: () => <DFSIcon />,
             callback: () => {
+                const nodes = getNodeIDs()
                 window.ui.call("setView", {
+                    type: "1-select",
                     title: "Depth First Search (DFS)",
-                    callback: (selectedNode) => {
+                    tip: "Select the starting node",
+                    label: "Starting node",
+                    options: nodes,
+                    onChange: (selectedNode) => {
                         // Algorithm
                         const data = dfs(generateAdjacencyList(), selectedNode)
-                        // Save result
-                        window.ui.call("setLastResult", data)
                         // Paint the result
                         const edges = generateEdgesByPredecessors(data.prevNode)
-                        data.result.forEach((node, i) => node.bubble = i)
+                        const steps = {}
+                        data.result.forEach((node, i) => {
+                            steps[node] = i
+                            node.bubble = i
+                        })
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                        // Save result
+                        const parsedData = {}
+                        nodes.map(node => {
+                            const step = steps[node] ?? "-"
+                            const prev = data.prevNode[node]?.id ?? "-"
+                            const visited = data.visited[node]
+                            parsedData[node] = {step, prev, visited}
+                        })
+                        // Store the result that can be copied to clipboard
+                        window.ui.call("setLastResult", parsedData)
                         // Display additional JSX alongside the result
-                        return <button onClick={() => copyToClipboard(data)}>Copy data</button>
+                        return generateTable({
+                            headings: ["Node", "Step", "Prev. node"],
+                            rows: nodes.map(node => {
+                                const step = parsedData[node].step
+                                const prev = parsedData[node].prev
+                                return [node, step, prev]
+                            })
+                        })
                     }
                 })
             }
@@ -149,13 +173,24 @@ export default function AlgorithmsSubMenu() {
             title: "Dijkstra",
             icon: () => <MapIcon />,
             callback: () => {
+                const nodes = getNodeIDs()
                 window.ui.call("setView", {
                     title: "Dijkstra's algorithm",
-                    allNodes: true,
-                    callback: (node1, node2) => {
+                    type: "2-select",
+                    tip: "Select the initial and destination nodes",
+                    labelA: "Initial node",
+                    optionsA: [...nodes],
+                    labelB: "Destination node",
+                    optionsB: ["all", ...nodes],
+                    defaultB: "all",
+                    labelAB: "to",
+                    onChange: (v, sID, values) => {
                         // Algorithm
+                        const node1 = values[0]
+                        const node2 = values[1]
                         const g = generateAdjacencyList()
                         const result = dijkstra(g, node1)
+                        if (window.cvs.debug) console.log("Dijkstra result", result)
                         // Save result
                         window.ui.call("setLastResult", result)
                         // Paint the result
@@ -173,31 +208,15 @@ export default function AlgorithmsSubMenu() {
                             target.bubble = result[node2].distance === Infinity ? "∞" : result[node2].distance
                         }
 
-                        const copyTable = () => {
-                            const data = Object.entries(result).map(([node, data]) => ({node, ...data}))
-                            navigator.clipboard.writeText(JSON.stringify(data, null, 2))
-                        }
                         // Display additional JSX alongside the result
-                        return result && <><table>
-                            <thead>
-                                <tr>
-                                    <th>Node</th>
-                                    <th>Distance</th>
-                                    <th>Prev. node</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {Object.entries(result).map(([node, data], index) => (
-                                    <tr key={index} className={node1===node ? scss.initial : node2===node ? scss.dst: undefined}>
-                                        <td>{node}</td>
-                                        <td>{data.distance}</td>
-                                        <td>{data.prevNode || "-"}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        <button onClick={copyTable}>Copy table as JSON</button>
-                        </>
+                        return generateTable({
+                            headings: ["Node", "Distance", "Prev. node"],
+                            rows: nodes.map(node => {
+                                const distance = result[node].distance === Infinity ? "∞" : result[node].distance
+                                const prev = result[node].prevNode ?? "-"
+                                return [node, distance, prev]
+                            })
+                        })
                     },
                 })
             }
