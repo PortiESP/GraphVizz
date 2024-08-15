@@ -9,70 +9,35 @@ import DotsIcon from "@assets/6-dots.svg?react"
 import toast from "react-hot-toast"
 import { useLayoutEffect } from "react"
 
-// DEBUG
-const DEFAULT_VIEW = {
-    title: "Example view",
-    tip: "This is an example view",
-
-    // type: "info",
-    // info: "This is an example info view"
-
-    // type: "1-select",
-    // label: "Select a node",
-    // options: ["A", "B", "C", "D"],
-    // // Run when an option is selected
-    // setup: () => <table><thead><tr><th>Data</th></tr></thead><tr><td>Setup</td></tr><tr><td>Setup</td></tr><tr><td>Setup</td></tr><tr><td>Setup</td></tr></table>,
-    // // Run when an option is selected
-    // onChange: selected => console.log("selected", selected) || <p data-widget-type="code">{selected}</p>,  // Run when an option is selected
-
-    // type: "2-select",
-    // labelA: "Select node A",
-    // labelB: "Select node B",
-    // labelAB: "to",
-    // optionsA: ["A1", "A2", "A3", "A4"],
-    // optionsB: ["B1", "B2", "B3", "B4"],
-    // // Run when an option is selected
-    // setup: () => <table><thead><tr><th>Data</th></tr></thead><tbody>
-    //     <tr><td>Setup</td></tr><tr><td>Setup</td></tr><tr><td>Setup</td></tr><tr><td>Setup</td></tr>
-    // </tbody></table>,
-    // // Run when an option is selected in any of the selects
-    // onChange: (selected, select) => console.log("selected", selected, select) || <p data-widget-type="code">{selected}</p>,  // Run when an option is selected
-}
 
 export default function ViewManager(props) {
-    const resetView = () => {
-        if (!window.graph) return  // If the graph is not loaded, return
 
-        window.graph.nodes.forEach(node => {node.hidden = false; node.bubble = null; node.resetStyle()})
-        window.graph.edges.forEach(edge => edge.hidden = false)
-    }
-
-    const [allowDrag, setAllowDrag] = useState(false)
-    const [pos, setPos] = useState({ x: null, y: null })
-    const [minimized, setMinimized] = useState(false)
-    const $container = useRef(null)
-    const fixPos = () => {
+    // States
+    const [allowDrag, setAllowDrag] = useState(false)  // Set to true when the user clicks on the header
+    const [pos, setPos] = useState({ x: null, y: null })  // Position of the view (relative to the center of the screen)
+    const [minimized, setMinimized] = useState(false)  // Set to true when the view is minimized
+    const $container = useRef(null)  // Reference to the view container
+    const fixPos = () => {  // When the header is out of the screen, bring it back
         const pos = $container.current?.getBoundingClientRect()?.top
         if (pos < 0) addPos(0, -pos + 80)
     }
-    const [data, setData] = useState(DEFAULT_VIEW) // DEBUG
-    const [output, setOutput] = useState(null)
-    const [lastResult, setLastResult] = useState(null)
-    const [show, setShow2] = useState(true)
-    const setShow = (value) => {
-        // Close
+    const [data, setData] = useState(null) // Parameters of the view. E.g. {title: "Title", type: "1-select", options: ["A", "B"], ...}
+    const [output, setOutput] = useState(null)  // Result of the callback executed by the view. Return a JSX element that is stored here
+    const [lastResult, setLastResult] = useState(null)  // Last result to copy to clipboard (object)
+    const [show, setShow2] = useState(false)  // Show the view
+    const setShow = (value) => {  // Every time the view is shown/hidden, reset the position, the parameters, and the output
+        // If the value is false, remove the view parameters
         if (!value) {
             setData(null)
-            resetView()
         }
-        setAllowDrag(false)
-        setPos({ x: 0, y: 0 })
-        setMinimized(false)
-        setOutput(null)
-        setShow2(value)
+        // Both cases
+        setOutput(null)  // Remove the output from the previous view
+        setShow2(value)  // Show/hide the view
     }
 
+    // Initial setup: set the global functions
     useEffect(() => {
+        // View config function (allows the user to set a view from anywhere in the code)
         window.ui.set("setView", options => {
             // If data is null/false/undefined, hide the view
             if (!options) {
@@ -84,29 +49,36 @@ export default function ViewManager(props) {
             setData(options)  // Set the parameters of the view
             setShow(true)  // Show the view
             setPos({ x: 0, y: 0 })  // Reset the position
-
         })
+        // View output function (allows the user to set the output of the view from anywhere in the code)
         window.ui.set("setLastResult", result => setLastResult(result))
     }, [])
 
+    // When the view parameters change, reset the view
     useEffect(() => {
-        resetView()
+        resetView()  // Reset the style of the nodes and edges
+        setAllowDrag(false)  // Reset the drag state
+        setMinimized(false)  // Reset the minimized state
     }, [data])
 
+    // Ensure the view is always visible
     useLayoutEffect(() => {
         fixPos()
     }, [minimized, show, output])
 
+    // Update the position of the view when the position state changes
+    useEffect(() => {   
+        if (!$container.current) return
+        $container.current.style.left = pos.x + "px"
+        $container.current.style.top = pos.y + "px"
+    }, [pos])
+
+    // --- Functions ---
+    // Add the movement to the position
     const addPos = (x, y) => {
-        setPos(old => {
-            if (!$container.current) return old
-            const newX = old.x + x
-            const newY = old.y + y
-            $container.current.style.left = newX + "px"
-            $container.current.style.top = newY + "px"
-            return { x: newX, y: newY }
-        })
+        setPos(old => ({ x: old.x + x, y: old.y + y }))
     }
+    // Handle the mouse events
     const handleMouseMove = (e) => {
         if (allowDrag) addPos(e.movementX, e.movementY)
     }
@@ -116,6 +88,7 @@ export default function ViewManager(props) {
     const handleMouseUp = (e) => {
         setAllowDrag(false)
     }
+    // Copy the last result to the clipboard
     const handleCopy = () => {
         if (!lastResult) {
             toast.error("No result to copy")
@@ -126,6 +99,7 @@ export default function ViewManager(props) {
         toast.success("Copied to clipboard")
     }
 
+    // Setup the event listeners
     useLayoutEffect(() => {
         window.addEventListener("mousemove", handleMouseMove)
         window.addEventListener("mouseup", handleMouseUp)
@@ -133,7 +107,7 @@ export default function ViewManager(props) {
             window.removeEventListener("mousemove", handleMouseMove)
             window.removeEventListener("mouseup", handleMouseUp)
         }
-    }, [allowDrag])
+    }, [allowDrag])  // Need this dependency since the handlers use the state in its code
 
     return (show ?
         <div className={scss.wrap} >
@@ -163,17 +137,19 @@ export default function ViewManager(props) {
                             {
                                 // Show the correct view based on the type
                                 data.type === "info" ? <Info data={data} setOutput={setOutput} />
-                                    : data.type === "1-select" ? <SelectNode1 data={data} setOutput={setOutput} />
-                                        : data.type === "2-select" ? <SelectNode2 data={data} setOutput={setOutput} />
-                                            : null
+                                : data.type === "1-select" ? <SelectNode1 data={data} setOutput={setOutput} />
+                                : data.type === "2-select" ? <SelectNode2 data={data} setOutput={setOutput} />
+                                : null
                             }
                         </div>
                         {
                             // Show output if it exists
                             output && <>
+                                {/* Show the output of the algorithm */}
                                 <div className={scss.output}>
                                     {output}
                                 </div>
+                                {/* Show the copy button */}
                                 <div className={scss.copy_wrap}>
                                     <button onClick={handleCopy}>Copy to clipboard</button>
                                 </div>
@@ -187,10 +163,18 @@ export default function ViewManager(props) {
     )
 }
 
+// =================================================[ Views ]=================================================>>>
 
-
+/*
+    View options `window.ui.set("setView", options)`:
+    - type: "info" 
+    - title: string
+    - tip: string
+    - info: string|JSX
+    - setup: function
+*/
 function Info({ data, setOutput }) {
-    // Run the setup function if it exists
+    // Update the output when the data changes (e.g. first load and when another view is opened)
     useEffect(() => {
         // Run the setup function if it exists
         if (data.setup) {
@@ -199,25 +183,41 @@ function Info({ data, setOutput }) {
         }
     }, [data])
 
-    return <p className={scss.info}>{data.info}</p>
+    return data.info instanceof String 
+            ? <p className={scss.info}>{data.info}</p>
+            : data.info
 }
 
+/*
+    View options `window.ui.set("setView", options)`:
+    - type: "1-select" 
+    - title: string
+    - tip: string
+    - label: string
+    - options: string[]
+    - default: string
+    - setup: function
+    - onChange: function
+*/
 function SelectNode1({ data, setOutput }) {
     const [selected, setSelected] = useState("-")
     // Reset the selected value when the data changes (e.g. when another view is opened)
     useEffect(() => setSelected(data.default || "-"), [data])
 
+    // Update the output when the data changes (e.g. first load and when another view is opened)
     useEffect(() => {
         // Run the setup function if it exists
         if (data.setup) {
             const result = data.setup()
             setOutput(result)
         }
-    }, [])
+    }, [data])
 
+    // Handle the change event
     const handleChange = e => {
         const selected = e.target.value
-        setSelected(selected)
+        setSelected(selected)  // Update the state
+        // Run the onChange function if it exists
         if (data.onChange) {
             const result = data.onChange(selected)
             setOutput(result)
@@ -236,28 +236,44 @@ function SelectNode1({ data, setOutput }) {
 }
 
 
+/*
+    View options `window.ui.set("setView", options)`:
+    - type: "2-select"
+    - title: string
+    - tip: string
+    - labelA: string
+    - labelB: string
+    - labelAB: string
+    - optionsA: string[]
+    - optionsB: string[]
+    - defaultA: string
+    - defaultB: string
+    - setup: function
+    - onChange: function(newValue, changedSelectID, [selectedA, selectedB])
+*/
 function SelectNode2({ data, setOutput }) {
 
     const [selectedA, setSelectedA] = useState(data.defaultA || "-")
     const [selectedB, setSelectedB] = useState(data.defaultB || "-")
-    // Reset the selected value when the data changes (e.g. when another view is opened)
+    // Reset the selected values when the data changes (e.g. first load and when another view is opened)
     useEffect(() => {
         setSelectedA(data.defaultA || "-")
         setSelectedB(data.defaultB || "-")
-    }, [data])
 
-    useEffect(() => {
         // Run the setup function if it exists
         if (data.setup) {
             const result = data.setup()
             setOutput(result)
         }
-    }, [])
+    }, [data])
 
+    // Handle the change event
     const handleChange = e => {
         const selected = e.target.value
         const selectId = e.target.name === "selectA" ? "A" : "B"
         const values = [selectedA, selectedB]
+
+        // Update the corresponding state
         if (selectId === "A") {
             setSelectedA(selected)
             values[0] = selected
@@ -267,6 +283,7 @@ function SelectNode2({ data, setOutput }) {
             values[1] = selected
         }
 
+        // Run the onChange function if it exists
         if (data.onChange) {
             const result = data.onChange(selected, selectId, values)
             setOutput(result)
@@ -295,17 +312,28 @@ function SelectNode2({ data, setOutput }) {
 }
 
 
+// =================================================[ Utils ]=================================================>>>
 
-
-
+// Copy the data to the clipboard (for the Nodes and Edges, it will copy just the ID)
 function copyToClipboard(data) {
+    // Custom parser to handle the Nodes and Edges
     const parser = (key, value) => {
         const eType = value?.constructor?.name
         if (eType === "Node") return value.id
         if (eType === "Edge") return {src: value.src.id, dst: value.dst.id, weight: value.weight, directed: value.directed}
         return value
     }
+    // Copy the data to the clipboard
     navigator.clipboard.writeText(JSON.stringify(data, parser, 2))
     .then(() => window.cvs.debug && console.log("Data copied to clipboard", data))
     .catch((e) => console.error("Failed to copy data to clipboard", data, e))
+}
+
+
+// Reset the style of the nodes and edges
+function resetView(){
+    if (!window.graph) return  // If the graph is not loaded, return
+
+    window.graph.nodes.forEach(node => {node.hidden = false; node.bubble = null; node.resetStyle()})
+    window.graph.edges.forEach(edge => {edge.hidden = false; edge.resetStyle()})
 }
