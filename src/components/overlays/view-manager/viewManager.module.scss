@@ -102,7 +102,7 @@
 .view_content{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     margin-top: 10px;
     padding-top: 10px;
     border-top: 2px solid #ddd;
@@ -142,12 +142,7 @@
     }
 
     // ============ 1-Select view ============
-    .select1{
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-        padding: 10px 0;
+    .select1, .select2{
 
         label{
             font-size: 0.9rem;
@@ -167,6 +162,33 @@
                 border-color: #333;
                 cursor: pointer;
             }
+        }
+    }
+
+    .select1{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .select2 {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+
+        .labelAB{
+            color: #0006;
+            font-style: italic;
+            font-size: .9em;
+        }
+
+        .select_group{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
     }
 
@@ -229,6 +251,8 @@
         align-items: center;
         justify-content: center;
         padding: 10px;
+        padding-bottom:0px;
+        border-top: 1px solid #ddd;
 
         button{
             padding: 10px;
