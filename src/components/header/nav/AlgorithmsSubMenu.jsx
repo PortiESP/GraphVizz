@@ -38,33 +38,11 @@ import ColorsIcon from "@assets/colors.svg?react"
 import DegIcon from "@assets/deg.svg?react"
 import WifiOffIcon from "@assets/wifi-off.svg?react"
 import RevertIcon from "@assets/revert.svg?react"
-import toast from "react-hot-toast"
 
 
 export default function AlgorithmsSubMenu() {
 
     const navigate = useNavigate()
-
-    const getNodeIDs = () => window.graph.nodes.map(node => node.id)
-    const generateTable = (data) => {
-        return <table>
-            <thead>
-                {data.headings && <tr>
-                    {data.headings.map((heading, index) => <th key={index}>{heading}</th>)}
-                </tr>}
-            </thead>
-            <tbody>
-                {data.rows.map((row, index) => <tr key={index} onClick={() => data.rowsClick && data.rowsClick(index)}>
-                    {row.map((cell, index) => <td key={index}>{cell}</td>)}
-                </tr>)}
-            </tbody>
-        </table>
-    }
-    const paintPath = (path) => {
-        const edges = generateEdgesByNodesPath(path)
-        window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-    }
-
 
     const algorithms = [
         {
@@ -76,6 +54,7 @@ export default function AlgorithmsSubMenu() {
             icon: () => <BFSIcon />,
             callback: () => {
                 const nodes = getNodeIDs()
+                // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Breadth First Search (BFS)",
@@ -121,6 +100,7 @@ export default function AlgorithmsSubMenu() {
             icon: () => <DFSIcon />,
             callback: () => {
                 const nodes = getNodeIDs()
+                // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Depth First Search (DFS)",
@@ -166,6 +146,7 @@ export default function AlgorithmsSubMenu() {
             icon: () => <MapIcon />,
             callback: () => {
                 const nodes = getNodeIDs()
+                // --- View ---
                 window.ui.call("setView", {
                     title: "Dijkstra's algorithm",
                     type: "2-select",
@@ -222,6 +203,7 @@ export default function AlgorithmsSubMenu() {
             icon: () => <PathIcon />,
             callback: () => {
                 const nodes = getNodeIDs()
+                // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Choose the initial node",
@@ -256,6 +238,7 @@ export default function AlgorithmsSubMenu() {
             icon: () => <PathIcon />,
             callback: () => {
                 const nodes = getNodeIDs()
+                // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Choose the initial node",
@@ -287,6 +270,7 @@ export default function AlgorithmsSubMenu() {
             title: "Hamiltonian Cycle (all)",
             icon: () => <CycleIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Choose the initial node",
@@ -318,6 +302,7 @@ export default function AlgorithmsSubMenu() {
             title: "Hamiltonian Cycle (one)",
             icon: () => <CycleIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Choose the initial node",
@@ -352,6 +337,7 @@ export default function AlgorithmsSubMenu() {
             title: "Min. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "info",
                     title: "Minimum Spanning Tree (Kruskal)",
@@ -375,6 +361,7 @@ export default function AlgorithmsSubMenu() {
             title: "Max. Spanning Tree (Kruskal)",
             icon: () => <FilterIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "info",
                     title: "Maximum Spanning Tree (Kruskal)",
@@ -402,6 +389,7 @@ export default function AlgorithmsSubMenu() {
             title: "Chromatic number",
             icon: () => <ColorsIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Choose the initial node",
@@ -432,6 +420,7 @@ export default function AlgorithmsSubMenu() {
             title: "Nodes degree",
             icon: () => <DegIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     title: "Nodes degree",
                     message: "The nodes are colored by their degree",
@@ -483,6 +472,7 @@ export default function AlgorithmsSubMenu() {
             title: "Tree (bfs)",
             icon: () => <BFSIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Tree arrange (bfs)",
@@ -503,6 +493,7 @@ export default function AlgorithmsSubMenu() {
             title: "Tree (dfs)",
             icon: () => <DFSIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Tree arrange (dfs)",
@@ -523,6 +514,7 @@ export default function AlgorithmsSubMenu() {
             title: "Toposort",
             icon: () => <BrokenLinkIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "info",
                     title: "Topological sort",
@@ -577,6 +569,7 @@ export default function AlgorithmsSubMenu() {
             title: "Chromatic neighbors",
             icon: () => <ColorsIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Chromatic neighbors",
@@ -608,6 +601,7 @@ export default function AlgorithmsSubMenu() {
             title: "Degree",
             icon: () => <DegIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "info",
                     title: "Degree heatmap",
@@ -643,6 +637,7 @@ export default function AlgorithmsSubMenu() {
             title: "Critical nodes",
             icon: () => <WifiOffIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "info",
                     title: "Critical nodes",
@@ -669,6 +664,7 @@ export default function AlgorithmsSubMenu() {
             title: "Conex components",
             icon: () => <AtomIcon />,
             callback: () => {
+                // --- View ---
                 window.ui.call("setView", {
                     type: "info",
                     title: "Conex components",
@@ -763,4 +759,33 @@ export default function AlgorithmsSubMenu() {
             }
         </SubMenu>
     )
+}
+
+
+
+// ==========================================[ UTILS ]==========================================>>>
+function getNodeIDs() {
+    return window.graph.nodes.map(node => node.id)
+}
+
+
+function generateTable(data) {
+    return <table>
+        <thead>
+            {data.headings && <tr>
+                {data.headings.map((heading, index) => <th key={index}>{heading}</th>)}
+            </tr>}
+        </thead>
+        <tbody>
+            {data.rows.map((row, index) => <tr key={index} onClick={() => data.rowsClick && data.rowsClick(index)}>
+                {row.map((cell, index) => <td key={index}>{cell}</td>)}
+            </tr>)}
+        </tbody>
+    </table>
+}
+
+
+function paintPath(path) {
+    const edges = generateEdgesByNodesPath(path)
+    window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
 }
