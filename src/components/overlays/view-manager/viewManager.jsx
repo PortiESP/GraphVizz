@@ -51,15 +51,15 @@ export default function ViewManager(props) {
     const [lastResult, setLastResult] = useState(null)
 
     useEffect(() => {
-        window.ui.set("setView", data => {
+        window.ui.set("setView", options => {
             // If data is null/false/undefined, hide the view
-            if (!!data) {
+            if (!options) {
                 setShow(false)
                 return
             }
 
             // Otherwise, show the view and set the data
-            setData(data)  // Set the parameters of the view
+            setData(options)  // Set the parameters of the view
             setShow(true)  // Show the view
             setPos({ x: 0, y: 0 })  // Reset the position
 
@@ -91,7 +91,7 @@ export default function ViewManager(props) {
             return
         }
 
-        navigator.clipboard.writeText(lastResult)
+        navigator.clipboard.writeText(JSON.stringify(lastResult))
         toast.success("Copied to clipboard")
     }
 
@@ -184,8 +184,8 @@ function SelectNode1({ data, setOutput }) {
     return (
         <div className={scss.select1}>
             {data.label && <label htmlFor="view-select">{data.label}</label>}
-            <select name="select" id="view-select" onChange={handleChange}>
-                <option value="" disabled selected>-</option>
+            <select name="select" id="view-select" onChange={handleChange} defaultValue="-">
+                <option value="-" disabled>-</option>
                 {data.options.map((option, index) => <option key={index} value={option}>{option}</option>)}
             </select>
         </div>
