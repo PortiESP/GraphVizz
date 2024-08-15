@@ -25,19 +25,18 @@ const DEFAULT_VIEW = {
     // // Run when an option is selected
     // onChange: selected => console.log("selected", selected) || <p data-widget-type="code">{selected}</p>,  // Run when an option is selected
 
-    type: "2-select",
-    labelA: "Select node A",
-    labelB: "Select node B",
-    labelAB: "to",
-    optionsA: ["A1", "A2", "A3", "A4"],
-    optionsB: ["B1", "B2", "B3", "B4"],
-    // Run when an option is selected
-    setup: () => <table><thead><tr><th>Data</th></tr></thead><tbody>
-        <tr><td>Setup</td></tr><tr><td>Setup</td></tr><tr><td>Setup</td></tr><tr><td>Setup</td></tr>
-    </tbody></table>,
-    // Run when an option is selected in any of the selects
-    onChange: (selected, select) => console.log("selected", selected, select) || <p data-widget-type="code">{selected}</p>,  // Run when an option is selected
-
+    // type: "2-select",
+    // labelA: "Select node A",
+    // labelB: "Select node B",
+    // labelAB: "to",
+    // optionsA: ["A1", "A2", "A3", "A4"],
+    // optionsB: ["B1", "B2", "B3", "B4"],
+    // // Run when an option is selected
+    // setup: () => <table><thead><tr><th>Data</th></tr></thead><tbody>
+    //     <tr><td>Setup</td></tr><tr><td>Setup</td></tr><tr><td>Setup</td></tr><tr><td>Setup</td></tr>
+    // </tbody></table>,
+    // // Run when an option is selected in any of the selects
+    // onChange: (selected, select) => console.log("selected", selected, select) || <p data-widget-type="code">{selected}</p>,  // Run when an option is selected
 }
 
 export default function ViewManager(props) {
@@ -60,8 +59,9 @@ export default function ViewManager(props) {
             }
 
             // Otherwise, show the view and set the data
-            setData(data)
-            setShow(true)
+            setData(data)  // Set the parameters of the view
+            setShow(true)  // Show the view
+            setPos({ x: 0, y: 0 })  // Reset the position
 
         })
         window.ui.set("setLastResult", result => setLastResult(result))
@@ -77,19 +77,13 @@ export default function ViewManager(props) {
         })
     }
     const handleMouseMove = (e) => {
-        console.log("moving ", allowDrag)
-        if (allowDrag) {
-            console.log("moving")
-            addPos(e.movementX, e.movementY)
-        }
+        if (allowDrag) addPos(e.movementX, e.movementY)
     }
     const handleMouseDown = (e) => {
         setAllowDrag(true)
-        console.log("!!! allowed")
     }
     const handleMouseUp = (e) => {
         setAllowDrag(false)
-        console.log("!!! disabled")
     }
     const handleCopy = () => {
         if (!lastResult) {
