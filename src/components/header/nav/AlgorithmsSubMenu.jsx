@@ -58,7 +58,6 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Breadth First Search (BFS)",
-                    tip: "Select the starting node",
                     label: "Starting node",
                     options: nodes,
                     onChange: (selectedNode) => {
@@ -104,7 +103,6 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Depth First Search (DFS)",
-                    tip: "Select the starting node",
                     label: "Starting node",
                     options: nodes,
                     onChange: (selectedNode) => {
@@ -150,7 +148,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     title: "Dijkstra's algorithm",
                     type: "2-select",
-                    tip: "Select the initial and destination nodes",
+                    tip: "You can select the destination node or show the distances to every node",
                     labelA: "Initial node",
                     optionsA: [...nodes],
                     labelB: "Destination node",
@@ -206,8 +204,8 @@ export default function AlgorithmsSubMenu() {
                 // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
-                    title: "Choose the initial node",
-                    tip: "Select the starting node",
+                    title: "Hamiltonian Path (all)",
+                    tip: "This algorithm may take a while to compute for large graphs",
                     label: "Starting node",
                     options: nodes,
                     onChange: (selectedNode) => {
@@ -241,8 +239,7 @@ export default function AlgorithmsSubMenu() {
                 // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
-                    title: "Choose the initial node",
-                    tip: "Select the starting node",
+                    title: "Hamiltonian Path (one)",
                     label: "Starting node",
                     options: nodes,
                     onChange: (selectedNode) => {
@@ -273,8 +270,8 @@ export default function AlgorithmsSubMenu() {
                 // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
-                    title: "Choose the initial node",
-                    tip: "Select the starting node",
+                    title: "Hamiltonian Cycle (all)",
+                    tip: "This algorithm may take a while to compute for large graphs",
                     label: "Starting node",
                     options: getNodeIDs(),
                     onChange: (selectedNode) => {
@@ -305,8 +302,7 @@ export default function AlgorithmsSubMenu() {
                 // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
-                    title: "Choose the initial node",
-                    tip: "Select the starting node",
+                    title: "Hamiltonian Cycle (one)",
                     label: "Starting node",
                     options: getNodeIDs(),
                     onChange: (selectedNode) => {
@@ -392,7 +388,7 @@ export default function AlgorithmsSubMenu() {
                 // --- View ---
                 window.ui.call("setView", {
                     type: "1-select",
-                    title: "Choose the initial node",
+                    title: "Chromatic number",
                     tip: "Here the nodes are just grouped using numbers, for a visual representation, use the view 'Chromatic neighbors' view",
                     label: "Starting node",
                     options: getNodeIDs(),
@@ -423,7 +419,6 @@ export default function AlgorithmsSubMenu() {
                 // --- View ---
                 window.ui.call("setView", {
                     title: "Nodes degree",
-                    message: "The nodes are colored by their degree",
                     type: "info",
                     info: "Nodes degree is the number of incident edges to a node",
                     setup: () => {
@@ -573,7 +568,6 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Chromatic neighbors",
-                    tip: "The nodes are colored by their group",
                     label: "Starting node",
                     options: getNodeIDs(),
                     onChange: (selectedNode) => {
