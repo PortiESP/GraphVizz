@@ -41,18 +41,6 @@ import RevertIcon from "@assets/revert.svg?react"
 import toast from "react-hot-toast"
 
 
-export function copyToClipboard(data) {
-    const parser = (key, value) => {
-        const eType = value?.constructor?.name
-        if (eType === "Node") return value.id
-        if (eType === "Edge") return {src: value.src.id, dst: value.dst.id, weight: value.weight, directed: value.directed}
-        return value
-    }
-    navigator.clipboard.writeText(JSON.stringify(data, parser, 2))
-    .then(() => window.cvs.debug && console.log("Data copied to clipboard", data))
-    .catch((e) => console.error("Failed to copy data to clipboard", data, e))
-}
-
 export default function AlgorithmsSubMenu() {
 
     const navigate = useNavigate()
@@ -66,7 +54,7 @@ export default function AlgorithmsSubMenu() {
                 </tr>}
             </thead>
             <tbody>
-                {data.rows.map((row, index) => <tr key={index}>
+                {data.rows.map((row, index) => <tr key={index} onClick={() => data.rowsClick && data.rowsClick(index)}>
                     {row.map((cell, index) => <td key={index}>{cell}</td>)}
                 </tr>)}
             </tbody>
@@ -229,9 +217,14 @@ export default function AlgorithmsSubMenu() {
             title: "Hamiltonian Path (all)",
             icon: () => <PathIcon />,
             callback: () => {
+                const nodes = getNodeIDs()
                 window.ui.call("setView", {
+                    type: "1-select",
                     title: "Choose the initial node",
-                    callback: (selectedNode) => {
+                    tip: "Select the starting node",
+                    label: "Starting node",
+                    options: nodes,
+                    onChange: (selectedNode) => {
                         const paintPath = (path) => {
                             const edges = generateEdgesByNodesPath(path)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
@@ -243,35 +236,17 @@ export default function AlgorithmsSubMenu() {
                         // Save result
                         window.ui.call("setLastResult", data)
                         // Paint result
-                        const copyAsJSON = () => {
-                            const paths = data.all.map(path => path.map(node => node.id))
-                            const str = JSON.stringify(paths, null, 2)
-                            navigator.clipboard.writeText(str)
-                        }
 
                         if (data) paintPath(data.path)
                         else window.graph.edges.forEach(edge => edge.hidden = true)
 
-                        return data ? <>
-                        <span className={scss.info}>Paths found: {data.all.length}</span>
-                        <button onClick={copyAsJSON}>Copy as JSON</button>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Path(s)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    data.all.map((path, index) => (
-                                        <tr key={index} onClick={() => paintPath(path)} className={scss.clickable}>
-                                            <td>{path.map(node => node.id).join(" → ")}</td>
-                                        </tr>
-                                    )) 
-                                }
-                            </tbody>
-                        </table>
-                        </>: <span className={scss.error}>No valid path found, try changing the starting point</span>
+                        return data ?
+                        generateTable({
+                            headings: ["Path"],
+                            rows: data.all.map(path => [path.map(node => node.id).join(" → ")]),
+                            rowsClick: (i) => paintPath(data.all[i])
+                        })
+                        : <span className={scss.error}>No valid path found, try changing the starting point</span>
                     }
                 })
             }
@@ -280,10 +255,14 @@ export default function AlgorithmsSubMenu() {
             title: "Hamiltonian Path (one)",
             icon: () => <PathIcon />,
             callback: () => {
-
+                const nodes = getNodeIDs()
                 window.ui.call("setView", {
+                    type: "1-select",
                     title: "Choose the initial node",
-                    callback: (selectedNode) => {
+                    tip: "Select the starting node",
+                    label: "Starting node",
+                    options: nodes,
+                    onChange: (selectedNode) => {
                         const paintPath = (path) => {
                             const edges = generateEdgesByNodesPath(path)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
@@ -295,19 +274,15 @@ export default function AlgorithmsSubMenu() {
                         // Save result
                         window.ui.call("setLastResult", data)
                         // Paint result
-                        const copyAsJSON = () => {
-                            const nodePath = data.path.map(node => node.id)
-                            const str = JSON.stringify(nodePath, null, 2)
-                            navigator.clipboard.writeText(str)
-                        }
-
                         if (data) paintPath(data.path)
                         else window.graph.edges.forEach(edge => edge.hidden = true)
 
-                        return data ? <>
-                        <p className={scss.info}>{data.path.map(node => node.id).join(" → ")}</p>
-                        <button onClick={copyAsJSON}>Copy as JSON</button>
-                        </>: <span className={scss.error}>No valid path found, try changing the starting point</span>
+                        return data ? 
+                        generateTable({
+                            headings: ["Path"],
+                            rows: [[data.path.map(node => node.id).join(" → ")]]
+                        })
+                        : <span className={scss.error}>No valid path found, try changing the starting point</span>
                     }
                 })
             }
@@ -317,8 +292,12 @@ export default function AlgorithmsSubMenu() {
             icon: () => <CycleIcon />,
             callback: () => {
                 window.ui.call("setView", {
+                    type: "1-select",
                     title: "Choose the initial node",
-                    callback: (selectedNode) => {
+                    tip: "Select the starting node",
+                    label: "Starting node",
+                    options: getNodeIDs(),
+                    onChange: (selectedNode) => {
                         const paintPath = (path) => {
                             const edges = generateEdgesByNodesPath(path)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
@@ -329,35 +308,16 @@ export default function AlgorithmsSubMenu() {
                         // Save result
                         window.ui.call("setLastResult", data)
                         // Paint result
-                        const copyAsJSON = () => {
-                            const paths = data.all.map(path => path.map(node => node.id))
-                            const str = JSON.stringify(paths, null, 2)
-                            navigator.clipboard.writeText(str)
-                        }
-
                         if (data) paintPath(data.path)
                         else window.graph.edges.forEach(edge => edge.hidden = true)
 
-                        return data ? <>
-                        <span className={scss.info}>Cycles found: {data.all.length}</span>
-                        <button onClick={copyAsJSON}>Copy as JSON</button>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Path(s)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    data.all.map((path, index) => (
-                                        <tr key={index} onClick={() => paintPath(path)} className={scss.clickable}>
-                                            <td>{path.map(node => node.id).join(" → ")}</td>
-                                        </tr>
-                                    )) 
-                                }
-                            </tbody>
-                        </table>
-                        </>: <span className={scss.error}>No valid cycle found, try changing the starting point</span>
+                        return data ? 
+                        generateTable({
+                            headings: ["Path"],
+                            rows: data.all.map(path => [path.map(node => node.id).join(" → ")]),
+                            rowsClick: (i) => paintPath(data.all[i])
+                        })
+                        : <span className={scss.error}>No valid cycle found, try changing the starting point</span>
                     }
                 })
             }
@@ -367,8 +327,12 @@ export default function AlgorithmsSubMenu() {
             icon: () => <CycleIcon />,
             callback: () => {
                 window.ui.call("setView", {
+                    type: "1-select",
                     title: "Choose the initial node",
-                    callback: (selectedNode) => {
+                    tip: "Select the starting node",
+                    label: "Starting node",
+                    options: getNodeIDs(),
+                    onChange: (selectedNode) => {
                         const paintPath = (path) => {
                             const edges = generateEdgesByNodesPath(path)
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
@@ -379,19 +343,15 @@ export default function AlgorithmsSubMenu() {
                         // Save result
                         window.ui.call("setLastResult", data)
                         // Paint result
-                        const copyAsJSON = () => {
-                            const nodePath = data.path.map(node => node.id)
-                            const str = JSON.stringify(nodePath, null, 2)
-                            navigator.clipboard.writeText(str)
-                        }
-
                         if (data) paintPath(data.path)
                         else window.graph.edges.forEach(edge => edge.hidden = true)
 
-                        return data ? <>
-                        <p className={scss.info}>{data.path.map(node => node.id).join(" → ")}</p>
-                        <button onClick={copyAsJSON}>Copy as JSON</button>
-                        </>: <span className={scss.error}>No valid cycle found, try changing the starting point</span>
+                        return data ? 
+                        generateTable({
+                            headings: ["Path"],
+                            rows: [[data.path.map(node => node.id).join(" → ")]],
+                        })
+                        : <span className={scss.error}>No valid cycle found, try changing the starting point</span>
                     }
                 })
             }

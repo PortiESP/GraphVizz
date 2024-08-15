@@ -40,6 +40,12 @@ const DEFAULT_VIEW = {
 }
 
 export default function ViewManager(props) {
+    const resetView = () => {
+        if (!window.graph) return  // If the graph is not loaded, return
+
+        window.graph.nodes.forEach(node => {node.hidden = false; node.bubble = null; node.resetStyle()})
+        window.graph.edges.forEach(edge => edge.hidden = false)
+    }
 
     const [allowDrag, setAllowDrag] = useState(false)
     const [pos, setPos] = useState({ x: null, y: null })
@@ -54,8 +60,10 @@ export default function ViewManager(props) {
     const [lastResult, setLastResult] = useState(null)
     const [show, setShow2] = useState(true)
     const setShow = (value) => {
+        // Close
         if (!value) {
             setData(null)
+            resetView()
         }
         setAllowDrag(false)
         setPos({ x: 0, y: 0 })
@@ -110,7 +118,7 @@ export default function ViewManager(props) {
             return
         }
 
-        navigator.clipboard.writeText(JSON.stringify(lastResult, null, 2))
+        copyToClipboard(lastResult)
         toast.success("Copied to clipboard")
     }
 
@@ -263,4 +271,20 @@ function SelectNode2({ data, setOutput }) {
             </div>
         </div>
     )
+}
+
+
+
+
+
+function copyToClipboard(data) {
+    const parser = (key, value) => {
+        const eType = value?.constructor?.name
+        if (eType === "Node") return value.id
+        if (eType === "Edge") return {src: value.src.id, dst: value.dst.id, weight: value.weight, directed: value.directed}
+        return value
+    }
+    navigator.clipboard.writeText(JSON.stringify(data, parser, 2))
+    .then(() => window.cvs.debug && console.log("Data copied to clipboard", data))
+    .catch((e) => console.error("Failed to copy data to clipboard", data, e))
 }
