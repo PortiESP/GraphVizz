@@ -8,10 +8,10 @@ import HelpIcon from "@assets/help-question.svg?react"
 import BranchIcon from "@assets/git-branch.svg?react"
 import Logo from "@assets/logo.svg?react"
 import { useLayoutEffect } from "react"
+import toast from "react-hot-toast"
 
 
 export default function Help() {
-
 
     useLayoutEffect(() => {
         if(location.hash) {
@@ -19,6 +19,12 @@ export default function Help() {
             if(element) element.scrollIntoView()
         }
     })
+
+    const copyEmail = () => {
+        navigator.clipboard.writeText("support@graphvizz.com")
+        .then(() => toast.success("Email copied to clipboard"))
+        .catch(() => toast.error("Error copying email to clipboard"))
+    }
 
     return (
         <div className={scss.wrapper}>
@@ -197,7 +203,7 @@ export default function Help() {
                         <span className={scss.contact_icon}>
                             <HelpIcon />
                         </span>
-                        <p>If you have any <strong>questions, suggestions or problems</strong>, please contact us at <br/><a href="mailto:support@graphvizz.com">support@graphvizz.com</a></p>
+                        <p>If you have any <strong>questions, suggestions or problems</strong>, please contact us at <br/><a href="mailto:support@graphvizz.com" className={scss.link} onClick={copyEmail}>support@graphvizz.com</a></p>
                     </div>
                     <div className={scss.contact_section}>
                         <span className={scss.contact_icon}>

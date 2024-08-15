@@ -177,6 +177,11 @@
     &.closed_left{left: 10px;}
     &.closed_right{right: 10px;}
 
+    &:hover {
+        background: #ddd;
+        cursor: pointer;
+    }
+
     svg{
         width: 100%;
         height: 100%;

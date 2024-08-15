@@ -5,6 +5,7 @@ import Overlay from './components/overlays/Overlay'
 import Help from './components/help/help'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Examples from './components/examples/Examples'
+import { Toaster } from 'react-hot-toast'
 
 // Define the routes for the app. 
 // - The key is the path. E.g. "/help" will render a component when the path is "/help"
@@ -28,6 +29,7 @@ function App() {
                         ))
                     }
                 </Routes>
+                <Toaster position="bottom-right" />
             </div>
         </Router>
     )

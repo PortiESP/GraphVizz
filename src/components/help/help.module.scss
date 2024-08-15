@@ -212,7 +212,7 @@
                     color: #555;
                 }
 
-                a{
+                .link{
                     font-size: 1.1rem;
                     color: #3334;
                     text-decoration: none;
@@ -337,6 +337,11 @@
     }
 }
 
+
+
+body{
+    background: #eee;
+}
 
 // Responsive   
 @media screen and (max-width: 1024px){

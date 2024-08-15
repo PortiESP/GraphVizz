@@ -62,11 +62,10 @@
     gap: 5px;
     border-radius: 2px;
     padding-bottom: 20px;
-    transition: all 0.1s ease-in-out;
     text-decoration: none;
 
-    &:hover{
-        transform: translateY(-10px);
+    &:hover .thumbnail{
+        outline: 2px solid #ddd;
     }
 
     .thumbnail{
@@ -96,6 +95,9 @@
     }
 }
 
+body{
+    background: #eee;
+}
 
 // Responsive
 @media screen and (max-width: 768px){
