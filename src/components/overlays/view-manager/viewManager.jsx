@@ -89,6 +89,10 @@ export default function ViewManager(props) {
         window.ui.set("setLastResult", result => setLastResult(result))
     }, [])
 
+    useEffect(() => {
+        resetView()
+    }, [data])
+
     useLayoutEffect(() => {
         fixPos()
     }, [minimized, show, output])
@@ -186,14 +190,14 @@ export default function ViewManager(props) {
 
 
 function Info({ data, setOutput }) {
-
+    // Run the setup function if it exists
     useEffect(() => {
         // Run the setup function if it exists
         if (data.setup) {
             const result = data.setup()
             setOutput(result)
         }
-    }, [])
+    }, [data])
 
     return <p className={scss.info}>{data.info}</p>
 }

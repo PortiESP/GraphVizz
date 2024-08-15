@@ -18,7 +18,7 @@
     background-color: #eee;
     border-radius: 6px;
     border: 1px solid #ccc;
-    width: clamp(300px, 50%, 600px);
+    width: clamp(300px, 50%, 500px);
     display: flex;
     flex-direction: column;
     max-height: 80vh;
@@ -214,6 +214,14 @@
         // green color
         background-color: #8881;
         border-left: 4px solid #0f86ee;
+        padding: 10px;
+        font-weight: 300;
+    }
+
+    [data-widget-type="error"]{
+        font-size: 0.8rem;
+        background-color: #ff00001a;
+        border-left: 4px solid #ff0000;
         padding: 10px;
         font-weight: 300;
     }

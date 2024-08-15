@@ -39,7 +39,6 @@ import DegIcon from "@assets/deg.svg?react"
 import WifiOffIcon from "@assets/wifi-off.svg?react"
 import RevertIcon from "@assets/revert.svg?react"
 import toast from "react-hot-toast"
-import { info } from "sass"
 
 
 export default function AlgorithmsSubMenu() {
@@ -485,8 +484,12 @@ export default function AlgorithmsSubMenu() {
             icon: () => <BFSIcon />,
             callback: () => {
                 window.ui.call("setView", {
-                    title: "Select the root node",
-                    callback: (value) => {
+                    type: "1-select",
+                    title: "Tree arrange (bfs)",
+                    tip: "This will arrange the graph as a tree using Breadth First Search from the selected node",
+                    label: "Root node",
+                    options: getNodeIDs(),
+                    onChange: (value) => {
                         // Arrange
                         const start = window.graph.findNodeById(value)
                         const data = treeArrange(start, "bfs")
@@ -501,8 +504,12 @@ export default function AlgorithmsSubMenu() {
             icon: () => <DFSIcon />,
             callback: () => {
                 window.ui.call("setView", {
-                    title: "Select the root node",
-                    callback: (value) => {
+                    type: "1-select",
+                    title: "Tree arrange (dfs)",
+                    tip: "This will arrange the graph as a tree using Depth First Search from the selected node",
+                    label: "Root node",
+                    options: getNodeIDs(),
+                    onChange: (value) => {
                         // Arrange
                         const start = window.graph.findNodeById(value)
                         const data = treeArrange(start, "dfs")
@@ -516,19 +523,27 @@ export default function AlgorithmsSubMenu() {
             title: "Toposort",
             icon: () => <BrokenLinkIcon />,
             callback: () => {
-                // Arrange
-                const g = generateAdjacencyList()
-                const result = toposortArrange(g)
-
-                if (result.hasCycle) {
-                    toast.error("The graph has a cycle")
-                } else {
-                    const edges = generateEdgesByPredecessors(result.prevNode)
-                    toast.success("Success")
-                    
-                    window.graph.nodes.forEach(node => node.bubble = result.levels[node.id])
-                    window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
-                }
+                window.ui.call("setView", {
+                    type: "info",
+                    title: "Topological sort",
+                    info: "The nodes are arranged in a topological order",
+                    setup: () => {
+                        // Arrange
+                        const g = generateAdjacencyList()
+                        const result = toposortArrange(g)
+                        if (result.hasCycle) {
+                            return <div data-widget-type="error">Unable to arrange. The graph <strong>has a cycle</strong></div>
+                        } else {
+                            const edges = generateEdgesByPredecessors(result.prevNode)
+                            window.graph.nodes.forEach(node => node.bubble = result.levels[node.id])
+                            window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                            return generateTable({
+                                headings: ["Node", "Level"],
+                                rows: Object.entries(result.levels).map(([node, level]) => [node, level])
+                            })
+                        }
+                    }
+                })
             }
         },
         {
@@ -563,8 +578,12 @@ export default function AlgorithmsSubMenu() {
             icon: () => <ColorsIcon />,
             callback: () => {
                 window.ui.call("setView", {
-                    title: "Choose the initial node",
-                    callback: (selectedNode) => {
+                    type: "1-select",
+                    title: "Chromatic neighbors",
+                    tip: "The nodes are colored by their group",
+                    label: "Starting node",
+                    options: getNodeIDs(),
+                    onChange: (selectedNode) => {
                         // Algorithm
                         const g = generateAdjacencyList()
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
@@ -589,23 +608,34 @@ export default function AlgorithmsSubMenu() {
             title: "Degree",
             icon: () => <DegIcon />,
             callback: () => {
-                // Algorithm
-                const data = nodes_deg(window.graph)
-                const max = Math.max(...Object.values(data))
-                const min = Math.min(...Object.values(data))                
                 window.ui.call("setView", {
+                    type: "info",
                     title: "Degree heatmap",
-                    message: `Min: ${ min }, Max: ${ max }`,
-                    type: "info"
-                })
-                toast(`Degree heatmap: min[${ min }] max[${ max }]`, {duration: 5000, icon: "👁️"})
-                // Save result
-                window.ui.call("setLastResult", data)
-                // Paint result
-                const COLORS = heatmapColorGenerator(max-min+1)
-                Object.entries(data).forEach(([node, color]) => {
-                    const nodeElement = window.graph.findNodeById(node)
-                    nodeElement.style.backgroundColor = COLORS[color-min]
+                    info: "The nodes are colored by their degree",
+                    setup: () => {
+                        // Algorithm
+                        const data = nodes_deg(window.graph)
+                        const max = Math.max(...Object.values(data))
+                        const min = Math.min(...Object.values(data))
+                        // Save result
+                        window.ui.call("setLastResult", data)
+                        // Paint result
+                        const COLORS = heatmapColorGenerator(max-min+1)
+                        Object.entries(data).forEach(([node, color]) => {
+                            const nodeElement = window.graph.findNodeById(node)
+                            nodeElement.style.backgroundColor = COLORS[color-min]
+                        })
+                        return <>
+                            {generateTable({
+                                headings: ["Min", "Max"],
+                                rows: [[min, max]]
+                            })}
+                            {generateTable({
+                                headings: ["Node", "Degree"],
+                                rows: Object.entries(data).map(([node, degree]) => [node, degree])
+                            })}
+                        </>
+                    }
                 })
             }
         },
@@ -613,15 +643,25 @@ export default function AlgorithmsSubMenu() {
             title: "Critical nodes",
             icon: () => <WifiOffIcon />,
             callback: () => {
-                // Algorithm
-                const nodes = criticalNodes(generateAdjacencyList())
-                toast(`Critical nodes: ${ nodes.length } `, {duration: 5000, icon: "👁️"})
-                // Save result
-                window.ui.call("setLastResult", nodes)
-                // Paint result
-                window.graph.nodes.forEach(node => {
-                    const critical = nodes.includes(node)
-                    node.style.backgroundColor = critical ? "red" : "hsl(120, 100%, 45%)"
+                window.ui.call("setView", {
+                    type: "info",
+                    title: "Critical nodes",
+                    info: "The nodes are colored by their degree",
+                    setup: () => {
+                        // Algorithm
+                        const data = criticalNodes(generateAdjacencyList())
+                        // Save result
+                        window.ui.call("setLastResult", data)
+                        // Paint result
+                        data.forEach(node => {
+                            const nodeElement = window.graph.findNodeById(node.id)
+                            nodeElement.style.backgroundColor = "red"
+                        })
+                        return data.length ? generateTable({
+                            headings: ["Node"],
+                            rows: data.map(node => [node.id])
+                        }): <div data-widget-type="quote">No critical nodes found</div>
+                    }
                 })
             }
         },
@@ -629,22 +669,31 @@ export default function AlgorithmsSubMenu() {
             title: "Conex components",
             icon: () => <AtomIcon />,
             callback: () => {
-                // Algorithm
-                const g = generateAdjacencyList()
-                const result = conexComps(g)
-                const n = result.length
-                const colors = colorGenerator(n).reverse()
-                toast(`Conex components: ${ n } `, {duration: 5000, icon: "👁️"})
-                // Save result
-                window.ui.call("setLastResult", result)
-                // Paint result
-                result.forEach((comp, index) => {
-                    comp.forEach(node => {
-                        const nodeElement = window.graph.findNodeById(node.id)
-                        nodeElement.style.backgroundColor = colors[index]
-                    })
+                window.ui.call("setView", {
+                    type: "info",
+                    title: "Conex components",
+                    info: "The nodes are colored by their conex component",
+                    setup: () => {
+                        // Algorithm
+                        const g = generateAdjacencyList()
+                        const result = conexComps(g)
+                        const n = result.length
+                        const colors = colorGenerator(n).reverse()
+                        // Save result
+                        window.ui.call("setLastResult", result)
+                        // Paint result
+                        result.forEach((comp, index) => {
+                            comp.forEach(node => {
+                                const nodeElement = window.graph.findNodeById(node.id)
+                                nodeElement.style.backgroundColor = colors[index]
+                            })
+                        })
+                        return generateTable({
+                            headings: ["Node", "Conex. Component (group ID)"],
+                            rows: result.map((comp, index) => comp.map(node => [node.id, index])).flat()
+                        })
+                    }
                 })
-
             }
         },
         {
@@ -664,6 +713,7 @@ export default function AlgorithmsSubMenu() {
     const algorithmCallbackDecorator = cbk => () => {
         // PRE -->
         if (window.graph.isGraphEmpty()) return
+        window.ui.call("setLastResult", null)
         // <-- PRE
         cbk()
         // POST -->
@@ -673,6 +723,7 @@ export default function AlgorithmsSubMenu() {
     const arrangementCallbackDecorator = cbk => () => {
         // PRE -->
         if (window.graph.isGraphEmpty()) return
+        window.ui.call("setLastResult", null)
         // <-- PRE
         cbk()
         // POST -->
@@ -683,6 +734,7 @@ export default function AlgorithmsSubMenu() {
     const viewCallbackDecorator = cbk => () => {
         // PRE -->
         if (window.graph.isGraphEmpty()) return
+        window.ui.call("setLastResult", null)
         // <-- PRE
         cbk()
         // POST -->
