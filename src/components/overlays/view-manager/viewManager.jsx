@@ -64,10 +64,12 @@ export default function ViewManager(props) {
 
     // Initial setup callback
     useEffect(() => {
-        if (data?.setup) {
-            const result = data.setup()
-            setOutput(result)
-        }
+        setTimeout(() => {
+            if (data?.setup) {
+                const result = data.setup()
+                setOutput(result)
+            }
+        }, 0)
     }, [data])
 
     // When the view parameters change, reset the view
@@ -318,6 +320,12 @@ function copyToClipboard(data) {
         return value ?? null
     }
     // Copy the data to the clipboard
+    if (!data){
+        console.error("No data to copy to clipboard")
+        toast.error("No data to copy to clipboard")
+        return
+    }
+
     navigator.clipboard.writeText(JSON.stringify(data, parser, 2))
     .then(() => {
         window.cvs.debug && console.log("Data copied to clipboard", data)

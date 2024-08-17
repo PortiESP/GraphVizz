@@ -59,6 +59,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Breadth First Search (BFS)",
+                    info: "Adds a bubble to each node with the number of steps to reach it from the starting node while following the BFS algorithm. Only the edges that are part of the path are shown.",
                     label: "Starting node",
                     options: nodes,
                     onChange: (selectedNode) => {
@@ -104,6 +105,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Depth First Search (DFS)",
+                    info: "Adds a bubble to each node with the number of steps to reach it from the starting node while following the DFS algorithm. Only the edges that are part of the path are shown.",
                     label: "Starting node",
                     options: nodes,
                     onChange: (selectedNode) => {
@@ -149,7 +151,8 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     title: "Dijkstra's algorithm",
                     type: "2-select",
-                    tip: "You can select the destination node or show the distances to every node",
+                    info: "Adds a bubble to each node with the distance to reach it from the starting node using Dijkstra's algorithm. Only the edges that are part of the path are shown.",
+                    tip: "Select 'all' to see the paths to all nodes at the same time",
                     labelA: "Initial node",
                     optionsA: [...nodes],
                     labelB: "Destination node",
@@ -206,6 +209,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Hamiltonian Path (all)",
+                    info: "This algorithm will find all the Hamiltonian paths starting from the selected node. Only the edges that are part of the path are shown. You can click on a path from the table below to show it.",
                     tip: "This algorithm may take a while to compute for large graphs",
                     label: "Starting node",
                     options: nodes,
@@ -241,6 +245,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Hamiltonian Path (one)",
+                    info: "This algorithm will find the first Hamiltonian path starting from the selected node. Only the edges that are part of the path are shown.",
                     label: "Starting node",
                     options: nodes,
                     onChange: (selectedNode) => {
@@ -272,6 +277,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Hamiltonian Cycle (all)",
+                    info: "This algorithm will find all the Hamiltonian cycles starting from the selected node. Only the edges that are part of the path are shown. You can click on a cycle from the table below to show it.",
                     tip: "This algorithm may take a while to compute for large graphs",
                     label: "Starting node",
                     options: getNodeIDs(),
@@ -304,6 +310,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Hamiltonian Cycle (one)",
+                    info: "This algorithm will find the first Hamiltonian cycle starting from the selected node. Only the edges that are part of the path are shown.",
                     label: "Starting node",
                     options: getNodeIDs(),
                     onChange: (selectedNode) => {
@@ -338,7 +345,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "info",
                     title: "Minimum Spanning Tree (Kruskal)",
-                    info: "Minimum Spanning Tree (MST) calculated using Kruskal's algorithm",
+                    info: "Calculates the Minimum Spanning Tree using Kruskal's algorithm and shows only the edges that are part of the tree. The list of edges and their weights are shown below.",
                     setup: () => {
                         // Algorithm
                         const data = kruskal(generateAdjacencyList())
@@ -348,7 +355,7 @@ export default function AlgorithmsSubMenu() {
                         window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
                         return <>
                             {generateTable({
-                                headings: ["Min. weight"],
+                                headings: ["Total weight"],
                                 rows: [[data.totalWeight]],
                             })}
                             {generateTable({
@@ -368,7 +375,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "info",
                     title: "Maximum Spanning Tree (Kruskal)",
-                    info: "Maximum Spanning Tree (MST) calculated using Kruskal's algorithm",
+                    info: "Calculates the Maximum Spanning Tree using Kruskal's algorithm and shows only the edges that are part of the tree. The list of edges and their weights are shown below.",
                     setup: () => {
                         // Algorithm
                         const data = kruskal(generateAdjacencyList(), true)
@@ -378,7 +385,7 @@ export default function AlgorithmsSubMenu() {
                         window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
                         return <>
                             {generateTable({
-                                headings: ["Max. weight"],
+                                headings: ["Total weight"],
                                 rows: [[data.totalWeight]],
                             })}
                             {generateTable({
@@ -402,6 +409,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Chromatic number",
+                    info: "Adds a bubble to each node with the ID of the group it belongs to. The groups are calculated using the chromatic number algorithm: the minimum number of colors needed to color the graph so that no two adjacent nodes have the same color.",
                     tip: "Here the nodes are just grouped using numbers, for a visual representation, use the view 'Chromatic neighbors' view",
                     label: "Starting node",
                     options: getNodeIDs(),
@@ -433,7 +441,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     title: "Nodes degree",
                     type: "info",
-                    info: "Nodes degree is the number of incident edges to a node",
+                    info: "Adds a bubble to each node with the degree of the node. The degree of a node is the number of in-edges connected to it.",
                     setup: () => {
                         // Algorithm
                         const data = nodes_deg(window.graph)
@@ -441,6 +449,7 @@ export default function AlgorithmsSubMenu() {
                         window.ui.call("setLastResult", data)
                         // Paint result
                         window.graph.nodes.forEach(node => node.bubble = data[node.id])
+
                         return generateTable({
                             headings: ["Node", "Degree"],
                             rows: Object.entries(data).map(([node, degree]) => [node, degree])
@@ -484,7 +493,8 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Tree arrange (bfs)",
-                    tip: "This will arrange the graph as a tree using Breadth First Search from the selected node",
+                    info: "This will arrange the graph as a tree using Breadth First Search from the selected node",
+                    tip: "If the graph is not connected, some nodes may not be arranged",
                     label: "Root node",
                     options: getNodeIDs(),
                     onChange: (value) => {
@@ -498,6 +508,8 @@ export default function AlgorithmsSubMenu() {
                         if (!data.isConex) {
                             toast("Some nodes were not arranged since the graph is not connected", { icon: "⚠️" })
                         }
+
+                        focusOnAllNodes()
                     }
                 })
             }
@@ -510,7 +522,8 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Tree arrange (dfs)",
-                    tip: "This will arrange the graph as a tree using Depth First Search from the selected node",
+                    info: "This will arrange the graph as a tree using Depth First Search from the selected node",
+                    tip: "If the graph is not connected, some nodes may not be arranged",
                     label: "Root node",
                     options: getNodeIDs(),
                     onChange: (value) => {
@@ -524,6 +537,8 @@ export default function AlgorithmsSubMenu() {
                         if (!data.isConex) {
                             toast("Some nodes were not arranged since the graph is not connected", { icon: "⚠️" })
                         }
+
+                        focusOnAllNodes()
                     }
                 })
             }
@@ -593,6 +608,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "1-select",
                     title: "Chromatic neighbors",
+                    info: "The nodes are colored by the group they belong to. The groups are calculated using the chromatic number algorithm: the minimum number of colors needed to color the graph so that no two adjacent nodes have the same color.",
                     label: "Starting node",
                     options: getNodeIDs(),
                     onChange: (selectedNode) => {
@@ -630,7 +646,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "info",
                     title: "Degree heatmap",
-                    info: "The nodes are colored by their degree",
+                    info: "The nodes are colored by their degree. The color is relative to the minimum and maximum degree in the graph: the nodes with degree are colored with with a gradient of green to red, from the minimum to the maximum degree.",
                     setup: () => {
                         // Algorithm
                         const data = nodes_deg(window.graph)
@@ -667,7 +683,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "info",
                     title: "Critical nodes",
-                    info: "The following nodes are critical nodes",
+                    info: "The nodes are colored red if they are critical nodes. A critical node is a node that, if removed, increases the number of connected components in the graph.",
                     setup: () => {
                         // Algorithm
                         const data = criticalNodes(generateAdjacencyList())
@@ -695,7 +711,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "info",
                     title: "Conex components",
-                    info: "The nodes are colored by their conex component",
+                    info: "The nodes are colored by the connected component they belong to. A connected component is a group of nodes that are connected to each other, but not to the rest of the graph.",
                     setup: () => {
                         // Algorithm
                         const g = generateAdjacencyList()
