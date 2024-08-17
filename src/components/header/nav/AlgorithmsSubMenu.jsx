@@ -879,21 +879,26 @@ function paintPath(path) {
 function paintCTM(data) {
     const { nodesData } = data
     // Paint result
-    const maxDiff = Math.max(...window.graph.edges.map(edge => nodesData[edge.dst].earlyStart - nodesData[edge.src].earlyFinish))
+    const maxDiff = Math.max(...window.graph.edges.map(edge => nodesData[edge.dst].earlyStart - nodesData[edge.src].earlyStart))
     const COLORS = heatmapColorGenerator(maxDiff+1, false)
 
     window.graph.edges.forEach(edge => {
         const src = edge.src
         const dst = edge.dst
 
+        // Paint gray the edges that go from a critical node to a non-critical node
+        if (nodesData[src].critical && !nodesData[dst].critical) {
+            edge.style.color = "#888"
+            edge.style.weightBackgroundColor = "#888"
+        }
         // Paint the critical path
-        if (nodesData[src].critical && nodesData[dst].critical && nodesData[src].earlyFinish === nodesData[dst].earlyStart) {
+        else if (nodesData[src].critical && nodesData[dst].critical && nodesData[src].earlyFinish === nodesData[dst].earlyStart) {
             edge.style.color = "red"
             edge.style.weightBackgroundColor = "red"
         } 
         // Non-critical path
         else {
-            const color = COLORS[nodesData[dst].earlyStart - nodesData[src].earlyFinish]
+            const color = COLORS[nodesData[src].float]
             edge.style.color = color
             edge.style.weightBackgroundColor = color
             src.style.borderColor = color
