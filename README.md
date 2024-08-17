@@ -5,7 +5,7 @@ This is an online graph visualization tool that allows you to **create**, **edit
 > 🔗 **Try it now online at**: [GraphVizz.com](https://www.graphvizz.com)
 
 !["GraphVizz online tool screenshot"](docs/screenshot-1.png "GraphVizz online tool screenshot")
-!["GraphVizz toposort algorithm screenshot"](docs/screenshot-2.png "GraphVizz toposort algorithm screenshot")
+!["GraphVizz PERT/CTM algorithm screenshot"](docs/screenshot-2.png "GraphVizz PERT/CTM algorithm screenshot")
 
 ------------------------------------------------------------------------------------
 
