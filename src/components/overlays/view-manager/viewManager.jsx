@@ -62,6 +62,14 @@ export default function ViewManager(props) {
         return () => window.removeEventListener("keydown", closeOnEscape)
     }, [])
 
+    // Initial setup callback
+    useEffect(() => {
+        if (data?.setup) {
+            const result = data.setup()
+            setOutput(result)
+        }
+    }, [data])
+
     // When the view parameters change, reset the view
     useEffect(() => {
         resetView()  // Reset the style of the nodes and edges
@@ -129,6 +137,11 @@ export default function ViewManager(props) {
                     !minimized &&
                     <div className={scss.view_content}>
                         {
+                            data.info?.constructor.name === "String"  // Check if the info is a string or JSX 
+                                ? <p className={scss.info}>{data.info}</p>
+                                : data.info
+                        }
+                        {
                             // Show tip if it exists
                             data.tip &&
                             <div className={scss.tip}>
@@ -138,8 +151,7 @@ export default function ViewManager(props) {
                         <div className={scss.view_specific_content}>
                             {
                                 // Show the correct view based on the type
-                                data.type === "info" ? <Info data={data} setOutput={setOutput} />
-                                : data.type === "1-select" ? <SelectNode1 data={data} setOutput={setOutput} />
+                                data.type === "1-select" ? <SelectNode1 data={data} setOutput={setOutput} />
                                 : data.type === "2-select" ? <SelectNode2 data={data} setOutput={setOutput} />
                                 : null
                             }
@@ -169,36 +181,14 @@ export default function ViewManager(props) {
 
 /*
     View options `window.ui.set("setView", options)`:
-    - type: "info" 
-    - title: string
-    - tip: string
-    - info: string|JSX
-    - setup: function
-*/
-function Info({ data, setOutput }) {
-    // Update the output when the data changes (e.g. first load and when another view is opened)
-    useEffect(() => {
-        // Run the setup function if it exists
-        if (data.setup) {
-            const result = data.setup()
-            setOutput(result)
-        }
-    }, [data])
-
-    return data.info.constructor.name === "String"  // Check if the info is a string or JSX 
-            ? <p className={scss.info}>{data.info}</p>
-            : data.info
-}
-
-/*
-    View options `window.ui.set("setView", options)`:
     - type: "1-select" 
     - title: string
+    - info: string|JSX (optional)
     - tip: string
     - label: string
     - options: string[]
-    - default: string
-    - setup: function
+    - default: string (optional)
+    - setup: function (optional)
     - onChange: function
 */
 function SelectNode1({ data, setOutput }) {
@@ -242,15 +232,16 @@ function SelectNode1({ data, setOutput }) {
     View options `window.ui.set("setView", options)`:
     - type: "2-select"
     - title: string
-    - tip: string
+    - info: string|JSX (optional)
+    - tip: string (optional)
     - labelA: string
     - labelB: string
     - labelAB: string
     - optionsA: string[]
     - optionsB: string[]
-    - defaultA: string
-    - defaultB: string
-    - setup: function
+    - defaultA: string (optional)
+    - defaultB: string (optional)
+    - setup: function (optional)
     - onChange: function(newValue, changedSelectID, [selectedA, selectedB])
 */
 function SelectNode2({ data, setOutput }) {
