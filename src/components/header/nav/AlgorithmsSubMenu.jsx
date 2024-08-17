@@ -226,7 +226,7 @@ export default function AlgorithmsSubMenu() {
                                 rows: data.all.map(path => [path.map(node => node.id).join(" → ")]),
                                 rowsClick: (i) => paintPath(data.all[i])
                             })
-                            : <span className={scss.error}>No valid path found, try changing the starting point</span>
+                            : <span data-widget-type="error">No valid path found, try changing the starting point</span>
                     }
                 })
             }
@@ -258,7 +258,7 @@ export default function AlgorithmsSubMenu() {
                                 headings: ["Path"],
                                 rows: [[data.path.map(node => node.id).join(" → ")]]
                             })
-                            : <span className={scss.error}>No valid path found, try changing the starting point</span>
+                            : <span data-widget-type="error">No valid path found, try changing the starting point</span>
                     }
                 })
             }
@@ -290,7 +290,7 @@ export default function AlgorithmsSubMenu() {
                                 rows: data.all.map(path => [path.map(node => node.id).join(" → ")]),
                                 rowsClick: (i) => paintPath(data.all[i])
                             })
-                            : <span className={scss.error}>No valid cycle found, try changing the starting point</span>
+                            : <span data-widget-type="error">No valid cycle found, try changing the starting point</span>
                     }
                 })
             }
@@ -320,7 +320,7 @@ export default function AlgorithmsSubMenu() {
                                 headings: ["Path"],
                                 rows: [[data.path.map(node => node.id).join(" → ")]],
                             })
-                            : <span className={scss.error}>No valid cycle found, try changing the starting point</span>
+                            : <span data-widget-type="error">No valid cycle found, try changing the starting point</span>
                     }
                 })
             }

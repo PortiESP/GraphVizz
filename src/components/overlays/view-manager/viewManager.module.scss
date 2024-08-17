@@ -9,6 +9,8 @@
     justify-content: center;
     align-items: center;
     pointer-events: none;
+    z-index: 1000;
+    border: 3px solid rgb(255, 202, 29);
 }
 
 
@@ -29,6 +31,11 @@
         justify-content: space-between;
         align-items: center;
         position: relative;
+        cursor: grab;
+
+        &:active{
+            cursor: grabbing;
+        }
 
         .view_title{
             display: flex;
@@ -250,6 +257,10 @@
             font-weight: 600;
             color: #333;
             // border-bottom: 1px solid #aaa;
+        }
+
+        tbody tr:hover{
+            background-color: #0000000a;
         }
 
         tr:nth-child(even){
