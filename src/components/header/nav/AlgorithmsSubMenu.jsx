@@ -1,9 +1,9 @@
-import scss from "./views.module.scss"
 
 // Components & functions
 import SubMenu, { SubMenuItem } from "./nav-sub-menu/SubMenu"
 import { useNavigate } from "react-router-dom"
 import { focusOnAllNodes } from "@components/graph-manager/utils/view"
+import toast from "react-hot-toast"
 
 // Algorithms & arrangements
 import { generateEdgesByNodesPath, generateEdgesByPredecessors, generateEdgesPathByPredecessors } from "@components/graph-manager/utils/algorithms/algorithm_utils/convertions"
@@ -38,7 +38,8 @@ import ColorsIcon from "@assets/colors.svg?react"
 import DegIcon from "@assets/deg.svg?react"
 import WifiOffIcon from "@assets/wifi-off.svg?react"
 import RevertIcon from "@assets/revert.svg?react"
-import toast from "react-hot-toast"
+import CalendarIcon from "@assets/calendar.svg?react"
+import { pertCtm } from "@components/graph-manager/utils/algorithms/pert-ctm"
 
 
 export default function AlgorithmsSubMenu() {
@@ -329,6 +330,41 @@ export default function AlgorithmsSubMenu() {
                                 rows: [[data.path.map(node => node.id).join(" → ")]],
                             })
                             : <span data-widget-type="error">No valid cycle found, try changing the starting point</span>
+                    }
+                })
+            }
+        },
+        {
+            title: "Critical Path Method (CPM)",
+            icon: () => <CalendarIcon />,
+            callback: () => {
+                // --- View ---
+                window.ui.call("setView", {
+                    type: "info",
+                    title: "Critical Path Method (CPM)",
+                    info: "This algorithm will calculate the critical path of the graph using the Critical Path Method (CPM). The critical path is the longest path through the graph that determines the shortest time to complete the project.",
+                    setup: () => {
+                        // Algorithm
+                        const data = pertCtm(generateAdjacencyList())
+                        if (data.error) return <span data-widget-type="error">Could not calculate: {data.message}</span>
+
+                        // Save result
+                        window.ui.call("setLastResult", data)
+                        // Paint result
+                        paintCTM(data)
+                        return generateTable({
+                            headings: ["Node", "ES", "EF", "LS", "LF", "Float", "Free Float", "Critical"],
+                            rows: Object.entries(data.nodesData).map(([node, data]) => [
+                                node,
+                                data.earlyStart,
+                                data.earlyFinish,
+                                data.lateStart,
+                                data.lateFinish,
+                                data.float,
+                                data.freeFloat,
+                                data.critical ? "Yes" : "No"
+                            ]),
+                        })
                     }
                 })
             }
@@ -837,4 +873,48 @@ function generateTable(data) {
 function paintPath(path) {
     const edges = generateEdgesByNodesPath(path)
     window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+}
+
+
+function paintCTM(data) {
+    const { nodesData } = data
+    // Paint result
+    const maxDiff = Math.max(...window.graph.edges.map(edge => nodesData[edge.dst].earlyStart - nodesData[edge.src].earlyFinish))
+    const COLORS = heatmapColorGenerator(maxDiff+1, false)
+
+    window.graph.edges.forEach(edge => {
+        const src = edge.src
+        const dst = edge.dst
+
+        // Paint the critical path
+        if (nodesData[src].critical && nodesData[dst].critical && nodesData[src].earlyFinish === nodesData[dst].earlyStart) {
+            edge.style.color = "red"
+            edge.style.weightBackgroundColor = "red"
+        } 
+        // Non-critical path
+        else {
+            const color = COLORS[nodesData[dst].earlyStart - nodesData[src].earlyFinish]
+            edge.style.color = color
+            edge.style.weightBackgroundColor = color
+            src.style.borderColor = color
+        }
+    })
+
+    // End node
+    data.endNodes.forEach(node => {
+        const nodeE = window.graph.findNodeById(node)
+        nodeE.style.borderColor = "#8888"
+    })
+
+    // Bubbles and border of the critical nodes
+    window.graph.nodes.forEach(node => {
+        const nData = nodesData[node.id]
+        node.bubble = `${nData.earlyStart}/${nData.earlyFinish} - ${nData.lateStart}/${nData.lateFinish}`
+        node.style.bubbleRadius = node.bubble.length *1.5
+        node.style.bubbleTextSize = 6
+
+        if (nData.critical) {
+            node.style.borderColor = "red"
+        }
+    })
 }

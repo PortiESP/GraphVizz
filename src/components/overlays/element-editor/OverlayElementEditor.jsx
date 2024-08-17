@@ -12,6 +12,7 @@ import Number from "./widgets/Number"
 import Color from "./widgets/Color"
 import Range from "./widgets/Range"
 import Checkbox from "./widgets/Checkbox"
+import { useRef } from "react"
 
 
 export default function ElementEditor() {
@@ -19,6 +20,7 @@ export default function ElementEditor() {
     const [selectedElements, setSelectedElements] = useState([])  // Selected elements of the graph, to show the corresponding options
     const [forceUpdate, setForceUpdate] = useState(0) // Force update when the selected elements change (increase the value to force a rerender) (bad practice fix for the issue: when a node is displaced, the editor does not update the position since the selected elements are the same, its the attributes that change)
     const [menu, setMenu] = useState(null)  // Array of sections with the corresponding fields. See `generateEditorOptions.js` for more info
+    const $editor = useRef(null)
     
     const updateMenu = () => {setMenu(generateOptions(selectedElements))}
 
@@ -32,12 +34,14 @@ export default function ElementEditor() {
 
     // Update the menu when the selected elements change or the forceUpdate value changes (usually when the user moves a node)
     useEffect(() => {
+        if ($editor.current.contains(document.activeElement)) return  // If the user is typing in an input, do not update the menu 
+
         setMenu(null)
         setTimeout(() => updateMenu(), 0)  // Timeout to let all the inputs to be destroyed in order to avoid a bug that makes the inputs to show the values of the previous selected element instead of the new one
     }, [selectedElements, forceUpdate])
 
     return (
-        <div className={scss.wrap}>
+        <div className={scss.wrap} ref={$editor}>
                 <div className={scss.selected_label}>
                     Selected elements: {selectedElements.length}
                 </div>

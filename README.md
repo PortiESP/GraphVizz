@@ -31,6 +31,7 @@ This is an online graph visualization tool that allows you to **create**, **edit
     - Dijkstra's Algorithm
     - Hamiltonian Cycle
     - Hamiltonian Path
+    - Critical Path Method (CPM)
     - Minimum Spanning Tree (MST) (*using Kruskal's Algorithm*)
     - Maximum Spanning Tree (MST) (*using Kruskal's Algorithm*)
     - Chromatic neighbors
