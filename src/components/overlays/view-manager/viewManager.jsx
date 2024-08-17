@@ -52,6 +52,14 @@ export default function ViewManager(props) {
         })
         // View output function (allows the user to set the output of the view from anywhere in the code)
         window.ui.set("setLastResult", result => setLastResult(result))
+
+        // Close the view when the user presses the escape key
+        const closeOnEscape = e => {
+            if (e.key === "Escape") setShow(false)
+        }
+        window.addEventListener("keydown", closeOnEscape)
+
+        return () => window.removeEventListener("keydown", closeOnEscape)
     }, [])
 
     // When the view parameters change, reset the view
@@ -104,8 +112,8 @@ export default function ViewManager(props) {
     }, [allowDrag])  // Need this dependency since the handlers use the state in its code
 
     return (show ?
-        <div className={scss.wrap} >
-            <div className={scss.view_wrap} ref={$container} >
+        <div className={scss.wrap}>
+            <div className={scss.view_wrap} ref={$container}>
                 <div className={scss.header} onMouseDown={handleMouseDown}>
                     <div className={scss.view_title}>
                         <DotsIcon />
