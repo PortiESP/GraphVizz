@@ -90,13 +90,7 @@ export default function ViewManager(props) {
     }
     // Copy the last result to the clipboard
     const handleCopy = () => {
-        if (!lastResult) {
-            toast.error("No result to copy")
-            return
-        }
-
         copyToClipboard(lastResult)
-        toast.success("Copied to clipboard")
     }
 
     // Setup the event listeners
@@ -321,12 +315,18 @@ function copyToClipboard(data) {
         const eType = value?.constructor?.name
         if (eType === "Node") return value.id
         if (eType === "Edge") return {src: value.src.id, dst: value.dst.id, weight: value.weight, directed: value.directed}
-        return value
+        return value ?? null
     }
     // Copy the data to the clipboard
     navigator.clipboard.writeText(JSON.stringify(data, parser, 2))
-    .then(() => window.cvs.debug && console.log("Data copied to clipboard", data))
-    .catch((e) => console.error("Failed to copy data to clipboard", data, e))
+    .then(() => {
+        window.cvs.debug && console.log("Data copied to clipboard", data)
+        toast.success("Data copied to clipboard")
+    })
+    .catch((e) => {
+        console.error("Failed to copy data to clipboard", data, e)
+        toast.error("Failed to copy data to clipboard")
+    })
 }
 
 
