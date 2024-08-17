@@ -67,7 +67,12 @@ export default function LiveEditor() {
     useEffect(() => {
         // Update the textarea when the graph changes (node/edge added or removed)
         window.graph.graphListeners.push(() => setForceUpdate(old => old + 1))
+        $tArea.current.parentElement.parentElement.addEventListener("click", focusOnTextarea)
     }, [])
+
+    const focusOnTextarea = () => {
+        $tArea.current.focus()
+    }
 
     return (
         <div className={scss.wrap}>
