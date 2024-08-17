@@ -690,9 +690,8 @@ export default function AlgorithmsSubMenu() {
                         // Save result
                         window.ui.call("setLastResult", data)
                         // Paint result
-                        data.forEach(node => {
-                            const nodeElement = window.graph.findNodeById(node.id)
-                            nodeElement.style.backgroundColor = "red"
+                        window.graph.nodes.forEach(node => {
+                            node.style.backgroundColor = data.includes(node) ? "red" : "#38ff4f"
                         })
                         focusOnAllNodes()
                         return data.length ? generateTable({
@@ -702,6 +701,10 @@ export default function AlgorithmsSubMenu() {
                     }
                 })
             }
+        },
+        {
+            title: "Clusters",
+            heading: true
         },
         {
             title: "Conex components",
