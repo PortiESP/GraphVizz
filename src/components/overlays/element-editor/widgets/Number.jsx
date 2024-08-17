@@ -10,10 +10,15 @@ import { recordMemento } from "@components/graph-manager/utils/memento"
 
 // Icons
 import RevertIcon from "@assets/revert.svg?react"
+import toast from "react-hot-toast"
 
 export default function Number(props) {
-    const [value, setValue2] = useState(props.initial ?? "")
-    const setValue = (v) => setValue2(String(v).split(".")[1]?.length > 2 ? parseFloat(v).toFixed(2): parseFloat(v) || "")
+    const [value, setValue2] = useState(props?.initial || 0)
+    const setValue = (v) => {
+        const n = String(v).split(".")[1]
+        const r = n?.length > 2 ? parseFloat(v).toFixed(2): (parseFloat(v) ?? "")
+        setValue2(r || 0)
+    }
     const [errorMsg, setErrorMsg] = useState("")
 
     // Update the value using the callback function and the checkError function
@@ -31,7 +36,10 @@ export default function Number(props) {
                 setErrorMsg("")
             } 
             // If there are errors, set the error message
-            else setErrorMsg(error ?? "")
+            else {
+                setErrorMsg(error)
+                toast.error(error)
+            }
 
             setValue(data)
         } 
