@@ -33,7 +33,7 @@ export default function LiveEditor() {
             else invalidLines.push(i)  // Add the line number to the invalid lines
         })
 
-        const nodesBefore = Object.fromEntries(window.graph.nodes.map(node => [node.label, node]))  // Take the nodes that are already in the graph
+        const nodesBefore = Object.fromEntries(window.graph.nodes.map(node => [node.id, node]))  // Take the nodes that are already in the graph
         // Load the graph from the valid lines (we provide the nodes list so those nodes are not instantiated again)
         loadFromEdgePlainTextList(validLines.join("\n"), nodesBefore)
 
@@ -66,6 +66,9 @@ export default function LiveEditor() {
     // Add the force update listener (to update the textarea when the graph changes)
     useEffect(() => {
         // Update the textarea when the graph changes (node/edge added or removed)
+        window.ui.set("live-editor-updated-id", (oldId, newId) => {
+            setTextarea(old => old.replaceAll(oldId, newId))
+        })
         window.graph.graphListeners.push(() => setForceUpdate(old => old + 1))
         $tArea.current.parentElement.parentElement.addEventListener("click", focusOnTextarea)
     }, [])
