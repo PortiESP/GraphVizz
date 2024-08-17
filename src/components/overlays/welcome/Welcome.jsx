@@ -3,6 +3,7 @@ import scss from "./welcome.module.scss"
 
 // Icons
 import LogoIcon from "@assets/logo.svg?react"
+import { Link } from "react-router-dom"
 
 export default function Welcome(props) {
 
@@ -22,7 +23,7 @@ export default function Welcome(props) {
                 <p>Use the <kbd>n</kbd> key to activate the node creation tool</p>
                 <p>Use the <kbd>e</kbd> key to activate the edge creation tool</p>
                 <p>Delete the selected nodes with <kbd>supr</kbd> or activate the deletion tool with <kbd>d</kbd></p>
-                <span className={scss.hint}>Visit the <em>help</em> section for more info</span>
+                <span className={scss.hint}>Visit the <Link to="/help">help</Link> section for more info</span>
                 <hr />
                 <button onClick={hide}>Start now!</button>
             </div>

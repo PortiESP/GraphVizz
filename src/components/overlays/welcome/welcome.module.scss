@@ -79,4 +79,14 @@
         color: #0004;
         text-decoration: underline;
     }
+
+    a{
+        color: rgba(230, 0, 58, 0.473);
+        font-style: italic;
+        text-decoration: none;
+
+        &:hover{
+            color: #f00;
+        }
+    }
 }
