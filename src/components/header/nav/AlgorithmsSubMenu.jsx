@@ -38,6 +38,7 @@ import ColorsIcon from "@assets/colors.svg?react"
 import DegIcon from "@assets/deg.svg?react"
 import WifiOffIcon from "@assets/wifi-off.svg?react"
 import RevertIcon from "@assets/revert.svg?react"
+import toast from "react-hot-toast"
 
 
 export default function AlgorithmsSubMenu() {
@@ -345,10 +346,16 @@ export default function AlgorithmsSubMenu() {
                         window.ui.call("setLastResult", data)
                         // Paint result
                         window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
-                        return generateTable({
-                            headings: ["Min. weight"],
-                            rows: [[data.totalWeight]],
-                        })
+                        return <>
+                            {generateTable({
+                                headings: ["Min. weight"],
+                                rows: [[data.totalWeight]],
+                            })}
+                            {generateTable({
+                                headings: ["Edge", "Weight"],
+                                rows: data.result.map(edge => [`${edge.src}${edge.directed?">":" "}${edge.dst}`, edge.weight])
+                            })}
+                        </>
                     }
                 })
             },
@@ -369,10 +376,16 @@ export default function AlgorithmsSubMenu() {
                         window.ui.call("setLastResult", data)
                         // Paint result
                         window.graph.edges.forEach(edge => edge.hidden = !data.result.some(e => e.id === edge.id))
-                        return generateTable({
-                            headings: ["Max. weight"],
-                            rows: [[data.totalWeight]],
-                        })
+                        return <>
+                            {generateTable({
+                                headings: ["Max. weight"],
+                                rows: [[data.totalWeight]],
+                            })}
+                            {generateTable({
+                                headings: ["Edge", "Weight"],
+                                rows: data.result.map(edge => [`${edge.src}${edge.directed?">":" "}${edge.dst}`, edge.weight])
+                            })}
+                        </>
                     }
                 })
             }
@@ -480,6 +493,11 @@ export default function AlgorithmsSubMenu() {
                         const data = treeArrange(start, "bfs")
                         const edges = generateEdgesByPredecessors(data.prevNode)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+
+                        // Check if the graph is connected
+                        if (!data.isConex) {
+                            toast("Some nodes were not arranged since the graph is not connected", { icon: "⚠️" })
+                        }
                     }
                 })
             }
@@ -501,6 +519,11 @@ export default function AlgorithmsSubMenu() {
                         const data = treeArrange(start, "dfs")
                         const edges = generateEdgesByPredecessors(data.prevNode)
                         window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+
+                        // Check if the graph is connected
+                        if (!data.isConex) {
+                            toast("Some nodes were not arranged since the graph is not connected", { icon: "⚠️" })
+                        }
                     }
                 })
             }
@@ -519,11 +542,13 @@ export default function AlgorithmsSubMenu() {
                         const g = generateAdjacencyList()
                         const result = toposortArrange(g)
                         if (result.hasCycle) {
+                            window.ui.call("setLastResult", null)
                             return <div data-widget-type="error">Unable to arrange. The graph <strong>has a cycle</strong></div>
                         } else {
                             const edges = generateEdgesByPredecessors(result.prevNode)
                             window.graph.nodes.forEach(node => node.bubble = result.levels[node.id])
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
+                            window.ui.call("setLastResult", result)
                             return generateTable({
                                 headings: ["Node", "Level"],
                                 rows: Object.entries(result.levels).map(([node, level]) => [node, level])
@@ -574,14 +599,20 @@ export default function AlgorithmsSubMenu() {
                         // Algorithm
                         const g = generateAdjacencyList()
                         const data = selectedNode === "all" ? colorBorders(g) : colorBorders(g, selectedNode)
-                        // Save result
-                        window.ui.call("setLastResult", data)
                         // Paint result
                         const COLORS = colorGenerator(Math.max(...Object.values(data))+1)
+                        const parsedData = Object.fromEntries(Object.entries(data).map(([node, color]) => [node, COLORS[color]]))
+                        // Save result
+                        window.ui.call("setLastResult", parsedData)
 
-                        Object.entries(data).forEach(([node, color]) => {
+                        Object.entries(parsedData).forEach(([node, color]) => {
                             const nodeElement = window.graph.nodes.find(n => n.id === node)
-                            nodeElement.style.backgroundColor = COLORS[color]
+                            nodeElement.style.backgroundColor = color
+                        })
+
+                        return generateTable({
+                            headings: ["Node", "Group"],
+                            rows: Object.entries(parsedData).map(([node, color]) => [node, color])
                         })
                     }
                 })
@@ -605,22 +636,23 @@ export default function AlgorithmsSubMenu() {
                         const data = nodes_deg(window.graph)
                         const max = Math.max(...Object.values(data))
                         const min = Math.min(...Object.values(data))
-                        // Save result
-                        window.ui.call("setLastResult", data)
-                        // Paint result
                         const COLORS = heatmapColorGenerator(max-min+1)
-                        Object.entries(data).forEach(([node, color]) => {
+                        const parsedData = Object.fromEntries(Object.entries(data).map(([node, degree]) => [node, COLORS[degree-min]]))
+                        // Save result
+                        window.ui.call("setLastResult", parsedData)
+                        // Paint result
+                        Object.entries(parsedData).forEach(([node, color]) => {
                             const nodeElement = window.graph.findNodeById(node)
-                            nodeElement.style.backgroundColor = COLORS[color-min]
+                            nodeElement.style.backgroundColor = color
                         })
                         return <>
                             {generateTable({
                                 headings: ["Min", "Max"],
-                                rows: [[min, max]]
+                                rows: [[COLORS[0], COLORS[COLORS.length-1]]]
                             })}
                             {generateTable({
                                 headings: ["Node", "Degree"],
-                                rows: Object.entries(data).map(([node, degree]) => [node, degree])
+                                rows: Object.entries(parsedData).map(([node, color]) => [node, color])
                             })}
                         </>
                     }
@@ -635,7 +667,7 @@ export default function AlgorithmsSubMenu() {
                 window.ui.call("setView", {
                     type: "info",
                     title: "Critical nodes",
-                    info: "The nodes are colored by their degree",
+                    info: "The following nodes are critical nodes",
                     setup: () => {
                         // Algorithm
                         const data = criticalNodes(generateAdjacencyList())
@@ -646,6 +678,7 @@ export default function AlgorithmsSubMenu() {
                             const nodeElement = window.graph.findNodeById(node.id)
                             nodeElement.style.backgroundColor = "red"
                         })
+                        focusOnAllNodes()
                         return data.length ? generateTable({
                             headings: ["Node"],
                             rows: data.map(node => [node.id])
@@ -669,8 +702,10 @@ export default function AlgorithmsSubMenu() {
                         const result = conexComps(g)
                         const n = result.length
                         const colors = colorGenerator(n).reverse()
+                        const compsById = {}
+                        result.forEach((comp, index) => comp.map(node => compsById[node.id] = index))
                         // Save result
-                        window.ui.call("setLastResult", result)
+                        window.ui.call("setLastResult", {groupedInComponents: result, flatWithComponentId: compsById})
                         // Paint result
                         result.forEach((comp, index) => {
                             comp.forEach(node => {
