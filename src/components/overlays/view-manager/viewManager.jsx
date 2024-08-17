@@ -177,7 +177,7 @@ function Info({ data, setOutput }) {
         }
     }, [data])
 
-    return data.info instanceof String 
+    return data.info.constructor.name === "String"  // Check if the info is a string or JSX 
             ? <p className={scss.info}>{data.info}</p>
             : data.info
 }
@@ -315,6 +315,7 @@ function copyToClipboard(data) {
         const eType = value?.constructor?.name
         if (eType === "Node") return value.id
         if (eType === "Edge") return {src: value.src.id, dst: value.dst.id, weight: value.weight, directed: value.directed}
+        if (value === Infinity) return "inf"
         return value ?? null
     }
     // Copy the data to the clipboard

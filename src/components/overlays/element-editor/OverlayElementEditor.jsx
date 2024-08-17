@@ -6,10 +6,6 @@ import { useState, useEffect } from "react"
 // Utils
 import generateOptions from "./generateEditorOptions"
 
-// Icons
-import CloseIcon from "@assets/close.svg?react"
-import RevertIcon from "@assets/revert.svg?react"
-
 // Editor widgets
 import Text from "./widgets/Text"
 import Number from "./widgets/Number"
@@ -24,6 +20,8 @@ export default function ElementEditor() {
     const [forceUpdate, setForceUpdate] = useState(0) // Force update when the selected elements change (increase the value to force a rerender) (bad practice fix for the issue: when a node is displaced, the editor does not update the position since the selected elements are the same, its the attributes that change)
     const [menu, setMenu] = useState(null)  // Array of sections with the corresponding fields. See `generateEditorOptions.js` for more info
     
+    const updateMenu = () => {setMenu(generateOptions(selectedElements))}
+
     // Add a listener to update the selected elements and forceUpdate values
     useEffect(() => {
         window.graph.allListeners.push(() => {
@@ -34,8 +32,8 @@ export default function ElementEditor() {
 
     // Update the menu when the selected elements change or the forceUpdate value changes (usually when the user moves a node)
     useEffect(() => {
-        const sections = generateOptions(selectedElements)
-        setMenu(sections)
+        setMenu(null)
+        setTimeout(() => updateMenu(), 0)  // Timeout to let all the inputs to be destroyed in order to avoid a bug that makes the inputs to show the values of the previous selected element instead of the new one
     }, [selectedElements, forceUpdate])
 
     return (
