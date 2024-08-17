@@ -15,7 +15,11 @@ export default function ViewManager(props) {
     // States
     const [allowDrag, setAllowDrag] = useState(false)  // Set to true when the user clicks on the header
     const [pos, setPos] = useState({ x: null, y: null })  // Position of the view (relative to the center of the screen)
-    const [minimized, setMinimized] = useState(false)  // Set to true when the view is minimized
+    const [minimized, setMinimized2] = useState(false)  // Set to true when the view is minimized
+    const setMinimized = (value) => {  // Set the minimized
+        setMinimized2(value)
+        if (value) setPos({ x: 0, y: -window.innerHeight / 2 + 80 })  // Reset the position when the view is maximized
+    }
     const $container = useRef(null)  // Reference to the view container
     const fixPos = () => {  // When the header is out of the screen, bring it back
         const pos = $container.current?.getBoundingClientRect()?.top

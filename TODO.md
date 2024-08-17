@@ -1,10 +1,12 @@
 
 --- TASK QUEUE ---
 
-DOC
-- Improve algorithms
-  - New algorithms
-  - Ensure quality
+- review documentation
+- png exports background color checkbox
+- load examples without reloading the page
+- Add a checkbox in the save as JSON dialog to include the styles
+- Dynamic imports to reduce the initial load time
+- og meta tags
 
 ------------------
 

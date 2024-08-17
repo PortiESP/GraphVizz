@@ -564,6 +564,7 @@ export default function AlgorithmsSubMenu() {
                             window.graph.nodes.forEach(node => node.bubble = result.levels[node.id])
                             window.graph.edges.forEach(edge => edge.hidden = !edges.includes(edge))
                             window.ui.call("setLastResult", result)
+                            focusOnAllNodes()
                             return generateTable({
                                 headings: ["Node", "Level"],
                                 rows: Object.entries(result.levels).map(([node, level]) => [node, level])
