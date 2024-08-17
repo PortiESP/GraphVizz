@@ -117,16 +117,16 @@
         &.color{
             .inputs{
                 position: relative;
-
-                input{
-                    opacity: 0;
-                }
-
                 width: 25px;
                 height: 25px;
                 border-radius: 50%;
                 cursor: pointer;
                 border: 2px solid #ddd;
+
+                input{
+                    opacity: 0;
+                }
+
             }
         }
 

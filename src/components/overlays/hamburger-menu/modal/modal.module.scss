@@ -25,13 +25,13 @@
         gap: 10px;
         max-height: clamp(100px, 80vh, 900px);
         overflow-y: scroll;
-
+        
+        // Disable scroll bar
+        -ms-overflow-style: none;
         // Disable scroll bar
         &::-webkit-scrollbar{
             display: none;
         }
-        // Disable scroll bar
-        -ms-overflow-style: none;
 
         .close{
             position: absolute;
