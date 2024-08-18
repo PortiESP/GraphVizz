@@ -20,7 +20,7 @@ function App() {
 
     return (
         <Router>
-            <div className='wrapper'>
+            <main className='wrapper'>
                 <Header />
                 <Routes>
                     {
@@ -30,7 +30,7 @@ function App() {
                     }
                 </Routes>
                 <Toaster position="bottom-right" />
-            </div>
+            </main>
         </Router>
     )
 }

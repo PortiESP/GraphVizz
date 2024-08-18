@@ -26,9 +26,9 @@ export default function ZoomBar(props) {
     return (
         <div className={scss.zoom_wrap}>
             <div className={scss.zoom_tool}>
-                <button className={scss.zoom_out} onClick={() => zoomCenterBy(.9)}><ZoomOutIcon /></button>
-                <input className={scss.zoom_value} value={zoom} onChange={handleZoom} />
-                <button className={scss.zoom_in} onClick={() => zoomCenterBy(1.1)}><ZoomInIcon /></button>
+                <button className={scss.zoom_out} onClick={() => zoomCenterBy(.9)} aria-label="zoom out"><ZoomOutIcon /></button>
+                <input className={scss.zoom_value} value={zoom} onChange={handleZoom} aria-label="zoom level"/>
+                <button className={scss.zoom_in} onClick={() => zoomCenterBy(1.1)} aria-label="zoom in"><ZoomInIcon /></button>
             </div>
         </div>
     )

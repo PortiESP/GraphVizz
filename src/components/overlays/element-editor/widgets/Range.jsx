@@ -96,7 +96,6 @@ export default function Range(props) {
                         disabled={props.disabled}
                         type="number"
                         {...props.options}
-                        tabIndex={null}
                         onFocus={()=>recordMemento()}
                         onBlur={()=>saveToCache()}
                     />
