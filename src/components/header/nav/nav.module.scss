@@ -11,13 +11,13 @@
     border-radius: 0 0 6px 6px;
     width: fit-content;
 
-    a {
+    a{
         text-decoration: none;
         color: var(--text-gray);
         height: 100%;
     }
-
-    li {
+    
+    li, h1 {
         color: var(--text-gray);
         text-decoration: none;
         font-size: 1rem;
@@ -27,25 +27,17 @@
         padding: 5px 10px;
         border-radius: 6px;
         position: relative;
-
-
-        h1 {
-            font-size: 1rem;
-            font-weight: 500;
-            padding: 0;
-            margin: 0;
-        }
-
+        
         &:hover {
             background: #0001;
             color: #333;
-
-            &>* {
+            
+            & > *{
                 display: block;
             }
         }
 
-        &.current {
+        &.current{
             pointer-events: none;
 
             a {
@@ -55,12 +47,12 @@
 
     }
 
-    hr {
+    hr{
         border: 1px solid #0001;
         margin: 4px 0;
     }
 
-    li.view_item {
+    li.view_item{
         color: rgb(219, 161, 0);
     }
 }
