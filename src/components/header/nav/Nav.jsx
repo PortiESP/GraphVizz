@@ -18,7 +18,7 @@ export default function Nav() {
     return (
         <nav>
             <ul className={scss.wrapper}>
-                <li className={location.pathname === "/" ? scss.current : undefined}><Link to="/">Graph Editor</Link></li>
+                <h1 className={location.pathname === "/" ? scss.current : undefined}><Link to="/">Graph Editor</Link></h1>
                 <li>
                     Algorithms
                     <AlgorithmsSubMenu />
